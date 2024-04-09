@@ -1,36 +1,34 @@
-package fitVenture;
+package fitVenture.ui.LoginRegistration;
 
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class UIMainStage {
+public class LoginRegistrationController {
     private Parent root;
     private Stage stage;
     private Scene scene;
 
     public void register(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("RegistrationPage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("RegistrationScene.fxml"));
         root = loader.load();
 
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
 
     public void login(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginPage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginScene.fxml"));
         root = loader.load();
 
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

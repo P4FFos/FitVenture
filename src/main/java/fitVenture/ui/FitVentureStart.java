@@ -8,9 +8,12 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class FitVentureStart extends Application {
+
+    public static FitVenture fitVenture;
+
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(FitVentureStart.class.getResource("UIMainStage.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(FitVentureStart.class.getResource("LoginRegistrationScene.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1920, 1080);
         stage.setScene(scene);
         stage.show();

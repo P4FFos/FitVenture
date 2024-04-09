@@ -1,0 +1,16 @@
+{
+  "users": {
+    "john_doe": {
+      "username": "user1",
+      "password": "password123",
+      "weight": "70 kg",
+      "height": "180 cm"
+    },
+    "jane_smith": {
+      "username": "user2",
+      "password": "password456",
+      "weight": "65 kg",
+      "height": "165 cm"
+    }
+  }
+}
