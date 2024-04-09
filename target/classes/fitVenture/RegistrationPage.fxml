@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fitVenture.RegistrationController">
+   <children>
+      <TextField fx:id="FirstName" layoutX="857.0" layoutY="306.0" promptText=" First Name" />
+      <TextField fx:id="LastName" layoutX="857.0" layoutY="336.0" promptText="Last Name" />
+      <TextField fx:id="LastName1" layoutX="857.0" layoutY="366.0" promptText="Username" />
+      <TextField fx:id="LastName2" layoutX="857.0" layoutY="396.0" promptText="Weight" />
+      <TextField fx:id="LastName21" layoutX="857.0" layoutY="426.0" promptText="Height" />
+      <Button layoutX="869.0" layoutY="477.0" mnemonicParsing="false" onAction="#register" prefHeight="42.0" prefWidth="134.0" text="Register" />
+   </children>
+</AnchorPane>
