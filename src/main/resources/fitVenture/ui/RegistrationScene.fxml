@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fitVenture.ui.LoginRegistration.RegistrationController">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fitVenture.ui.RegistrationController">
    <children>
       <TextField fx:id="username" layoutX="857.0" layoutY="306.0" promptText="username" />
       <TextField fx:id="password" layoutX="857.0" layoutY="336.0" promptText="password" />

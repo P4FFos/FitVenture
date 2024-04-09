@@ -1,4 +1,4 @@
-package fitVenture.ui.Dashboard;
+package fitVenture.ui;
 
 public class MainDashboardController {
 }

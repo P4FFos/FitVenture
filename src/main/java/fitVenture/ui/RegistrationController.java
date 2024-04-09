@@ -1,7 +1,6 @@
-package fitVenture.ui.LoginRegistration;
+package fitVenture.ui;
 
 import fitVenture.backend.FitVenture;
-import fitVenture.ui.FitVentureStart;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
