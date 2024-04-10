@@ -7,10 +7,8 @@ public class User {
     private String weight;
     private String height;
 
-    // Bare constructor used by Jackson-Databind for Json deserializing
-    public User(){
-
-    }
+    // Empty constructor used by Jackson for Json deserializing
+    public User(){}
 
     // user class constructor
     public User(String username, String password, String weight, String height) {
@@ -20,7 +18,7 @@ public class User {
         this.height = height;
     }
 
-    // user class getter methods
+    // user class get methods
     public String getUsername() {
         return username;
     }

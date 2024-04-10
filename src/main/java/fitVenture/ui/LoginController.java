@@ -15,6 +15,7 @@ public class LoginController {
     private Scene scene;
 
     public void login(ActionEvent event) throws IOException {
+        //loads MainDashboardScene one user pressed login button
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MainDashboardScene.fxml"));
         root = loader.load();
 
