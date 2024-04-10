@@ -34,6 +34,8 @@ public class RegistrationController {
     @FXML
     public TextField weight;
     @FXML
+    public TextField name;
+    @FXML
     public Label errorLabel;
 
     public void register(ActionEvent event) throws IOException {
@@ -42,27 +44,44 @@ public class RegistrationController {
         String passwordText;
         String weightText;
         String heightText;
+        String nameText; 
+
         try {
             usernameText = username.getText();
             passwordText = password.getText();
+            nameText = name.getText();
             FitVenture fitVenture = FitVentureStart.fitVenture;
+            //Checks if the pane with the optional inputs(weight, height) is visible.
             if(optionalPane.isVisible()) {
                 weightText = weight.getText();
                 heightText = height.getText();
-                if (fitVenture.register(usernameText, passwordText, weightText, heightText)) {
-                    FileHandler.jsonSerializer(FitVentureStart.jsonPath, fitVenture);
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginScene.fxml"));
-                    root = loader.load();
-    
-                    stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                    scene = new Scene(root);
-                    stage.setScene(scene);
-                    stage.show();
-                    System.out.println("Registration Successful");
+                boolean optionalIsInteger = false;
+                try {
+                    Integer.parseInt(weightText);
+                    Integer.parseInt(heightText);
+                    optionalIsInteger = true;
+
+                } catch (NumberFormatException e) {
+                    optionalIsInteger = false;
+                    System.out.println("Incorrect input, should be a number.");
+                    optionalErrorLabel
+                }
+                if (optionalIsInteger) {
+                    if (fitVenture.register(usernameText, passwordText, weightText, heightText, nameText)) {
+                        FileHandler.jsonSerializer(FitVentureStart.jsonPath, fitVenture);
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginScene.fxml"));
+                        root = loader.load();
+        
+                        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                        scene = new Scene(root);
+                        stage.setScene(scene);
+                        stage.show();
+                        System.out.println("Registration Successful");
+                    }
                 }
             } else {
                 // with this if method we check if username entered by user exists in the database
-                if (fitVenture.register(usernameText, passwordText, "0", "0")) {
+                if (fitVenture.register(usernameText, passwordText, "0", "0", "N/A")) {
                     FileHandler.jsonSerializer(FitVentureStart.jsonPath, fitVenture);
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginScene.fxml"));
                     root = loader.load();
