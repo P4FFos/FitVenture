@@ -37,9 +37,12 @@ public class FitVenture {
         if (username.equals("") && password.equals("")) {
             throw new RegistrationException("Input the username or password");
         }
+        if (!(username instanceof String) || !(password instanceof String)){
+            throw new RegistrationException("Wrong username or password format");
+        }
         if (users.containsKey(username)) {
             throw new RegistrationException("Username already exists. Try again");
-        } else if (!username.equals(null) && !password.equals(null)) {
+        } else if (!username.equals("") && !password.equals("") && username instanceof String && password instanceof String){
             User user = new User(username, password, weight, height);
             addUser(user);
             isRegistered = true;
