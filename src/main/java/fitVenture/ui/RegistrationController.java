@@ -32,6 +32,8 @@ public class RegistrationController {
     @FXML
     public Label optionalErrorLabel;
     @FXML
+    public Label nameErrorLabel;
+    @FXML
     public TextField height;
     @FXML
     public TextField weight;
@@ -58,6 +60,15 @@ public class RegistrationController {
                 weightText = weight.getText();
                 heightText = height.getText();
                 boolean optionalIsInteger = false;
+                boolean nameContainsInt = false;
+                try {
+                    Integer.parseInt(nameText);
+                    nameContainsInt = true;
+                    nameErrorLabel.setVisible(true);
+                    System.out.println("Name should not contain any numbers.");
+                } catch (Exception e) {
+                    nameContainsInt = false;
+                }
                 try {
                     Integer.parseInt(weightText);
                     Integer.parseInt(heightText);
@@ -69,7 +80,10 @@ public class RegistrationController {
                     optionalErrorLabel.setVisible(true);
                 }
 
-                if (optionalIsInteger) {
+                if (optionalIsInteger && !nameContainsInt) {
+                    optionalErrorLabel.setVisible(false);
+                    nameErrorLabel.setVisible(false);
+                    
                     if (fitVenture.register(usernameText, passwordText, weightText, heightText, nameText)) {
                         FileHandler.jsonSerializer(FitVentureStart.jsonPath, fitVenture);
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginScene.fxml"));

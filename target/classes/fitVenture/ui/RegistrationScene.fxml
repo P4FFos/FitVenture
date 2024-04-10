@@ -28,5 +28,6 @@
          </children>
       </Pane>
       <Label fx:id="optionalErrorLabel" layoutX="1034.0" layoutY="425.0" prefHeight="17.0" prefWidth="306.0" text="Incorrect input, height and weight should be a number." visible="false" />
+      <Label fx:id="nameErrorLabel" layoutX="1080.0" layoutY="425.0" prefHeight="17.0" prefWidth="215.0" text="Name should not contain any numbers." visible="false" />
    </children>
 </AnchorPane>
