@@ -30,6 +30,8 @@ public class RegistrationController {
     @FXML
     public Pane optionalPane;
     @FXML
+    public Label optionalErrorLabel;
+    @FXML
     public TextField height;
     @FXML
     public TextField weight;
@@ -64,8 +66,9 @@ public class RegistrationController {
                 } catch (NumberFormatException e) {
                     optionalIsInteger = false;
                     System.out.println("Incorrect input, should be a number.");
-                    optionalErrorLabel
+                    optionalErrorLabel.setVisible(true);
                 }
+
                 if (optionalIsInteger) {
                     if (fitVenture.register(usernameText, passwordText, weightText, heightText, nameText)) {
                         FileHandler.jsonSerializer(FitVentureStart.jsonPath, fitVenture);

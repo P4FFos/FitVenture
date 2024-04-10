@@ -17,7 +17,7 @@
       <Label fx:id="errorLabel" layoutX="802.0" layoutY="447.0" prefHeight="17.0" prefWidth="198.0" text="" visible="false" />
       <Button fx:id="backButton" layoutX="932.0" layoutY="257.0" mnemonicParsing="false" onAction="#backToRegLoginPage" prefHeight="26.0" prefWidth="86.0" text="Return back" />
       <Button layoutX="1091.0" layoutY="258.0" mnemonicParsing="false" onMouseClicked="#optionalInput" text="Additional Information" />
-      <Pane fx:id="optionalPane" layoutX="1059.0" layoutY="275.0" prefHeight="140.0" prefWidth="200.0">
+      <Pane fx:id="optionalPane" layoutX="1060.0" layoutY="272.0" prefHeight="140.0" prefWidth="200.0">
          <children>
             <Label layoutX="14.0" layoutY="64.0" prefHeight="17.0" prefWidth="54.0" text="Weight:" />
             <TextField fx:id="weight" layoutX="68.0" layoutY="60.0" prefHeight="25.0" prefWidth="86.0" promptText="Weight" />
@@ -27,5 +27,6 @@
             <Label layoutX="14.0" layoutY="97.0" prefHeight="17.0" prefWidth="61.0" text="Full Name:" />
          </children>
       </Pane>
+      <Label fx:id="optionalErrorLabel" layoutX="1034.0" layoutY="425.0" prefHeight="17.0" prefWidth="306.0" text="Incorrect input, height and weight should be a number." visible="false" />
    </children>
 </AnchorPane>
