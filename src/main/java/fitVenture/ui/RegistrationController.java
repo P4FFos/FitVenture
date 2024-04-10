@@ -40,23 +40,39 @@ public class RegistrationController {
         // attributes used to store data from the fields that user entered
         String usernameText;
         String passwordText;
-
+        String weightText;
+        String heightText;
         try {
             usernameText = username.getText();
             passwordText = password.getText();
             FitVenture fitVenture = FitVentureStart.fitVenture;
-
-            // with this if method we check if username entered by user exists in the database
-            if (fitVenture.register(usernameText, passwordText, "0", "0")) {
-                FileHandler.jsonSerializer(FitVentureStart.jsonPath, fitVenture);
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginScene.fxml"));
-                root = loader.load();
-
-                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                scene = new Scene(root);
-                stage.setScene(scene);
-                stage.show();
-                System.out.println("Registration Successful");
+            if(optionalPane.isVisible()) {
+                weightText = weight.getText();
+                heightText = height.getText();
+                if (fitVenture.register(usernameText, passwordText, weightText, heightText)) {
+                    FileHandler.jsonSerializer(FitVentureStart.jsonPath, fitVenture);
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginScene.fxml"));
+                    root = loader.load();
+    
+                    stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    scene = new Scene(root);
+                    stage.setScene(scene);
+                    stage.show();
+                    System.out.println("Registration Successful");
+                }
+            } else {
+                // with this if method we check if username entered by user exists in the database
+                if (fitVenture.register(usernameText, passwordText, "0", "0")) {
+                    FileHandler.jsonSerializer(FitVentureStart.jsonPath, fitVenture);
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginScene.fxml"));
+                    root = loader.load();
+    
+                    stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    scene = new Scene(root);
+                    stage.setScene(scene);
+                    stage.show();
+                    System.out.println("Registration Successful");
+                }
             }
         } catch (RegistrationException e){
             // shows an error based on the condition of the input(ex. empty fields, existing username)

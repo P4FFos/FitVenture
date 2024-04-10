@@ -11,6 +11,18 @@
       "password" : "password2",
       "weight" : "65",
       "height" : "165"
+    },
+    "Agent47" : {
+      "username" : "Agent47",
+      "password" : "secretPassword",
+      "weight" : "75",
+      "height" : "195"
+    },
+    "Bob" : {
+      "username" : "Bob",
+      "password" : "thebuilder",
+      "weight" : "0",
+      "height" : "0"
     }
   }
 }
