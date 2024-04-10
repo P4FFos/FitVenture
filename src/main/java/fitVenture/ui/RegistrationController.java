@@ -14,7 +14,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
+import javafx.scene.layout.Pane;
+import javafx.scene.input.MouseEvent;
 import java.io.IOException;
 
 public class RegistrationController {
@@ -26,6 +27,12 @@ public class RegistrationController {
     public TextField username;
     @FXML
     public PasswordField password;
+    @FXML
+    public Pane optionalPane;
+    @FXML
+    public TextField height;
+    @FXML
+    public TextField weight;
     @FXML
     public Label errorLabel;
 
@@ -72,5 +79,13 @@ public class RegistrationController {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void optionalInput(MouseEvent event) throws IOException {
+        if (optionalPane.isVisible()) {
+            optionalPane.setVisible(false);
+        } else {
+            optionalPane.setVisible(true);
+        }
     }
 }
