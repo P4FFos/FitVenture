@@ -34,6 +34,8 @@ public class RegistrationController {
     @FXML
     public Label nameErrorLabel;
     @FXML
+    public Label nameOptionalErrorLabel;
+    @FXML
     public TextField height;
     @FXML
     public TextField weight;
@@ -61,29 +63,34 @@ public class RegistrationController {
                 heightText = height.getText();
                 boolean optionalIsInteger = false;
                 boolean nameContainsInt = false;
+                //Checks if the name containts an integer.
                 try {
                     Integer.parseInt(nameText);
                     nameContainsInt = true;
                     nameErrorLabel.setVisible(true);
+                    nameOptionalErrorLabel.setVisible(false);
                     System.out.println("Name should not contain any numbers.");
                 } catch (Exception e) {
                     nameContainsInt = false;
+                    nameErrorLabel.setVisible(false);
                 }
+                //Checks if the optional values are integers.
                 try {
                     Integer.parseInt(weightText);
                     Integer.parseInt(heightText);
                     optionalIsInteger = true;
+                    optionalErrorLabel.setVisible(false);
 
                 } catch (NumberFormatException e) {
                     optionalIsInteger = false;
                     System.out.println("Incorrect input, should be a number.");
                     optionalErrorLabel.setVisible(true);
+                    nameOptionalErrorLabel.setVisible(false);
                 }
 
                 if (optionalIsInteger && !nameContainsInt) {
-                    optionalErrorLabel.setVisible(false);
-                    nameErrorLabel.setVisible(false);
                     
+
                     if (fitVenture.register(usernameText, passwordText, weightText, heightText, nameText)) {
                         FileHandler.jsonSerializer(FitVentureStart.jsonPath, fitVenture);
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginScene.fxml"));
@@ -95,6 +102,10 @@ public class RegistrationController {
                         stage.show();
                         System.out.println("Registration Successful");
                     }
+                } else if (!optionalIsInteger && nameContainsInt) {
+                    optionalErrorLabel.setVisible(false);
+                    nameErrorLabel.setVisible(false);
+                    nameOptionalErrorLabel.setVisible(true);
                 }
             } else {
                 // with this if method we check if username entered by user exists in the database
