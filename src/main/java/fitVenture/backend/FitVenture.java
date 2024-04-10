@@ -32,7 +32,7 @@ public class FitVenture {
     // to check if a user is in the HashMap
     // if no - register the user
     // if yes - return an error message based on the condition of the input
-    public boolean register(String username, String password, String weight, String height) throws RegistrationException {
+    public boolean register(String username, String password, String weight, String height, String name) throws RegistrationException {
         boolean isRegistered = false;
         if (username.equals("") && password.equals("")) {
             throw new RegistrationException("Input the username or password");
@@ -43,7 +43,7 @@ public class FitVenture {
         if (users.containsKey(username)) {
             throw new RegistrationException("Username already exists. Try again");
         } else if (!username.equals("") && !password.equals("") && username instanceof String && password instanceof String){
-            User user = new User(username, password, weight, height);
+            User user = new User(username, password, weight, height, name);
             addUser(user);
             isRegistered = true;
         }

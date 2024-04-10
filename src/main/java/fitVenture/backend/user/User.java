@@ -6,16 +6,18 @@ public class User {
     private String password;
     private String weight;
     private String height;
+    private String name;
 
     // Empty constructor used by Jackson for Json deserializing
     public User(){}
 
     // user class constructor
-    public User(String username, String password, String weight, String height) {
+    public User(String username, String password, String weight, String height, String name) {
         this.username = username;
         this.password = password;
         this.weight = weight;
         this.height = height;
+        this.name = name;
     }
 
     // user class get methods
@@ -33,5 +35,9 @@ public class User {
 
     public String getHeight() {
         return height;
+    }
+
+    public String getName() {
+        return name;
     }
 }
