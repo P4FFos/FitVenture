@@ -1,5 +1,5 @@
 package fitVenture.backend.exceptions;
 
-public class RegistrationException extends Exception{
-        public RegistrationException(String message) { super(message); }
+public class LoginException extends Exception{
+        public LoginException(String message) { super(message); }
 }
