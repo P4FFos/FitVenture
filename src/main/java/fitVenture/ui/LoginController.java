@@ -1,7 +1,7 @@
 package fitVenture.ui;
 
 import fitVenture.backend.FitVenture;
-import fitVenture.backend.exceptions.RegistrationException;
+import fitVenture.backend.exceptions.LoginException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -49,7 +49,7 @@ public class LoginController {
                 stage.setScene(scene);
                 stage.show();
             }
-        } catch (RegistrationException e) {
+        } catch (LoginException e) {
             // shows an error based on the condition of the input(ex. empty fields, existing username)
             errorLabel.setText(e.getMessage());
             errorLabel.setVisible(true);

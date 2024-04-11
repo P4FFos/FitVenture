@@ -1,5 +1,6 @@
 package fitVenture.backend;
 
+import fitVenture.backend.exceptions.LoginException;
 import fitVenture.backend.exceptions.RegistrationException;
 import fitVenture.backend.user.User;
 
@@ -53,25 +54,25 @@ public class FitVenture {
     // to verify the user
     // if user is verified - return true
     // if user is not verified - return an error message based on the condition of the input
-    public boolean verifyUser(String username, String password) throws RegistrationException {
+    public boolean verifyUser(String username, String password) throws LoginException {
         boolean correctUsername = false;
         boolean correctPassword = false;
         if (password.equals("") && username.equals("")) {
-            throw new RegistrationException("Input the username or password");
+            throw new LoginException("Input the username or password");
         }
         if (password.equals("")) {
-            throw new RegistrationException("Failed. Input the password");
+            throw new LoginException("Failed. Input the password");
         }
         if (username.equals("")) {
-            throw new RegistrationException("Failed. Input the username");
+            throw new LoginException("Failed. Input the username");
         }
         if (!users.containsKey(username) && !username.equals("")) {
-            throw new RegistrationException("Failed. Invalid username ");
+            throw new LoginException("Failed. Invalid username ");
         } else {
             correctUsername = true;
             User user = users.get(username);
             if (!user.getPassword().equals(password) && !password.equals("")) {
-                throw new RegistrationException("Failed. Invalid password");
+                throw new LoginException("Failed. Invalid password");
             } else {
                 correctPassword = true;
             }
