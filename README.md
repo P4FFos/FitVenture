@@ -18,7 +18,7 @@
 
 # Run the latest version 
 > $ git clone https://git.chalmers.se/courses/dit113/2024/group-7/fitventure
-$ cd FitVenture/
+> $ cd FitVenture/
 
 
 
