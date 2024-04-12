@@ -20,9 +20,9 @@ public class UserProfileController {
     private Stage stage;
     private Scene scene;
     @FXML
-    public TextField heightField;
+    public Label heightIndexValue;
     @FXML
-    public TextField weightField;
+    public Label weightIndexValue;
     @FXML
     public Label bodyIndexValue;
     @FXML
@@ -30,6 +30,10 @@ public class UserProfileController {
 
     public void showData() {
         loggedUsername.setText(currentUser.getUsername());
+        weightIndexValue.setText(String.valueOf(currentUser.getWeight()));
+        heightIndexValue.setText(String.valueOf(currentUser.getHeight()));
+        double bmiValue = currentUser.getWeight() / Math.pow(currentUser.getHeight() / 100, 2);
+        bodyIndexValue.setText(String.format("%.2f", bmiValue));
     }
 }
 
