@@ -40,6 +40,9 @@ public class LoginController {
             passwordText = password.getText();
 
             if (fitVenture.verifyUser(usernameText, passwordText)) {
+                // to store user object data, once user is logged in
+                FitVentureStart.currentUser = fitVenture.getUser(usernameText);
+
                 //loads MainDashboardScene one user pressed login button
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("MainDashboardScene.fxml"));
                 root = loader.load();

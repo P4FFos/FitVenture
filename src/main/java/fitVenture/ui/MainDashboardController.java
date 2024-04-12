@@ -19,6 +19,10 @@ public class MainDashboardController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("UserProfileScene.fxml"));
         root = loader.load();
 
+        //calls method showData in the userProfile, once user is logged in
+        UserProfileController userProfileController = loader.getController();
+        userProfileController.showData();
+
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

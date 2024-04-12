@@ -1,32 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fitVenture.ui.UserProfileController">
-   <children>
-      <Label layoutX="724.0" layoutY="365.0" text="WELCOME TO THE PROFILE,">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="635.0" layoutY="458.0" text="Height:" AnchorPane.rightAnchor="1246.0" />
-      <Label layoutX="650.0" layoutY="525.0" text="Age:" AnchorPane.rightAnchor="1246.0" />
-      <Label layoutX="633.0" layoutY="490.0" text="Weight:" AnchorPane.rightAnchor="1246.0" />
-      <Label layoutX="650.0" layoutY="561.0" text="BMI:" AnchorPane.rightAnchor="1246.0" />
-      <TextField fx:id="height" layoutX="679.0" layoutY="453.0" prefHeight="18.0" prefWidth="90.0" promptText="cm" />
-      <TextField fx:id="weight" layoutX="679.0" layoutY="485.0" prefHeight="18.0" prefWidth="90.0" promptText="kg" />
-      <TextField fx:id="age" layoutX="679.0" layoutY="520.0" prefHeight="18.0" prefWidth="90.0" promptText="y.o." />
-      <Label fx:id="bmi" layoutX="685.0" layoutY="558.0" text="index" />
-      <Button fx:id="saveButton" layoutX="674.0" layoutY="591.0" mnemonicParsing="false" onAction="#saveData" text="SAVE" />
-      <Label fx:id="loggeduser" layoutX="972.0" layoutY="365.0" text="*NAME*">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label fx:id="optionalErrorLabel" layoutX="1034.0" layoutY="425.0" prefHeight="17.0" prefWidth="306.0" text="Incorrect input, height and weight should be a number." visible="false" />
-      <Label fx:id="nameErrorLabel" layoutX="1080.0" layoutY="425.0" prefHeight="17.0" prefWidth="215.0" text="Name should not contain any numbers." visible="false" />
-      <Label fx:id="nameOptionalErrorLabel" layoutX="1025.0" layoutY="420.0" prefHeight="26.0" prefWidth="540.0" text="Incorrect, Full name should not have numbers. Weight and height should not have letters or symbols" visible="false" />
-   </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0"
+            prefWidth="1920.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="fitVenture.ui.UserProfileController">
+    <children>
+        <Label layoutX="724.0" layoutY="365.0" text="WELCOME TO THE PROFILE "/>
+        <Label layoutX="635.0" layoutY="458.0" text="Height:" AnchorPane.rightAnchor="1246.0"/>
+        <Label layoutX="633.0" layoutY="490.0" text="Weight:" AnchorPane.rightAnchor="1246.0"/>
+        <Label layoutX="650.0" layoutY="561.0" text="BMI:" AnchorPane.rightAnchor="1246.0"/>
+        <TextField fx:id="heightField" layoutX="679.0" layoutY="453.0" prefHeight="18.0" prefWidth="90.0"
+                   promptText="cm"/>
+        <TextField fx:id="weightField" layoutX="679.0" layoutY="485.0" prefHeight="18.0" prefWidth="90.0"
+                   promptText="kg"/>
+        <Label fx:id="bodyIndexValue" layoutX="679.0" layoutY="561.0"/>
+        <Label fx:id="loggedUsername" layoutX="972.0" layoutY="365.0" text=""/>
+    </children>
 </AnchorPane>

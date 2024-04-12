@@ -1,4 +1,5 @@
 package fitVenture.ui;
+
 import fitVenture.backend.FitVenture;
 import fitVenture.backend.utils.FileHandler;
 import javafx.event.ActionEvent;
@@ -8,7 +9,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
 import java.io.IOException;
+
+import static fitVenture.ui.FitVentureStart.currentUser;
 
 
 public class UserProfileController {
@@ -16,44 +20,18 @@ public class UserProfileController {
     private Stage stage;
     private Scene scene;
     @FXML
-    public Label nameErrorLabel;
+    public TextField heightField;
     @FXML
-    public Label optionalErrorLabel;
+    public TextField weightField;
     @FXML
-    public Label nameOptionalErrorLabel;
+    public Label bodyIndexValue;
     @FXML
-    public TextField height;
-    @FXML
-    public TextField weight;
-    @FXML
-    public TextField age;
-    @FXML
-    public Label BMI;
+    public Label loggedUsername;
 
-    private final String jsonFilePath = "database.json";
-
-        public void showdata() {
-            try {
-                FitVenture fitVenture = FileHandler.jsonDeserializer(jsonFilePath);
-                if (fitVenture != null) {
-                    double heightValue = fitVenture.getHeight();
-                    double weightValue = fitVenture.getWeight();
-                    int ageValue = fitVenture.getAge();
-
-                    // Set the values to the TextFields
-                    height.setText(String.valueOf(heightValue));
-                    weight.setText(String.valueOf(weightValue));
-                    age.setText(String.valueOf(ageValue));
-
-                    double bmiValue = weightValue / Math.pow(heightValue / 100, 2); // height is divided by 100 to convert cm to m
-
-                    BMI.setText(String.format("%.2f", bmiValue));
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+    public void showData() {
+        loggedUsername.setText(currentUser.getUsername());
     }
+}
 
 
 
