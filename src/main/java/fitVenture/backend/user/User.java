@@ -1,5 +1,7 @@
 package fitVenture.backend.user;
 
+import java.util.Map;
+
 public class User {
     // user class attributes
     private String username;
@@ -19,6 +21,7 @@ public class User {
         this.height = height;
         this.name = name;
     }
+
 
     // user class get methods
     public String getUsername() {
