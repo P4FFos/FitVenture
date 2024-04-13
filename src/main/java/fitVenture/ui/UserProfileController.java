@@ -12,8 +12,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import static fitVenture.ui.FitVentureStart.currentUser;
-
 
 public class UserProfileController {
     private Parent root;
@@ -27,13 +25,14 @@ public class UserProfileController {
     public Label bodyIndexValue;
     @FXML
     public Label loggedUsername;
-// method to show information of a logged user in the user profile
+
+    // method to show information of a logged user in the user profile
     public void showData() {
-        loggedUsername.setText(currentUser.getUsername());
-        weightIndexValue.setText(String.valueOf(currentUser.getWeight()));
-        heightIndexValue.setText(String.valueOf(currentUser.getHeight()));
+        loggedUsername.setText(FitVentureStart.currentUser.getUsername());
+        weightIndexValue.setText(String.valueOf(FitVentureStart.currentUser.getWeight()));
+        heightIndexValue.setText(String.valueOf(FitVentureStart.currentUser.getHeight()));
         //calculates BMI
-        double bmiValue = currentUser.getWeight() / Math.pow(currentUser.getHeight() / 100, 2);
+        double bmiValue = FitVentureStart.currentUser.getWeight() / Math.pow(FitVentureStart.currentUser.getHeight() / 100, 2);
         //rounds bmi value up to 2 digits after coma
         bodyIndexValue.setText(String.format("%.2f", bmiValue));
     }

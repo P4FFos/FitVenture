@@ -15,12 +15,12 @@ public class FitVenture {
         users = new HashMap<>();
     }
 
-    // get method to get hashMap of users
+    // get the HashMap of users
     public HashMap<String, User> getUsers() {
         return users;
     }
 
-    // set method to get hashMap of users
+    // set new HashMap of users (used by Jackson for Json deserializing)
     public void setUsers(HashMap<String, User> users) {
         this.users = users;
     }

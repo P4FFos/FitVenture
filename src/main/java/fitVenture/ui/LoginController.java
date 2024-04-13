@@ -58,9 +58,6 @@ public class LoginController {
             errorLabel.setVisible(true);
             username.clear();
             password.clear();
-            System.out.println("Registration failed");
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
