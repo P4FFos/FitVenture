@@ -27,12 +27,14 @@ public class UserProfileController {
     public Label bodyIndexValue;
     @FXML
     public Label loggedUsername;
-
+// method to show information of a logged user in the user profile
     public void showData() {
         loggedUsername.setText(currentUser.getUsername());
         weightIndexValue.setText(String.valueOf(currentUser.getWeight()));
         heightIndexValue.setText(String.valueOf(currentUser.getHeight()));
+        //calculates BMI
         double bmiValue = currentUser.getWeight() / Math.pow(currentUser.getHeight() / 100, 2);
+        //rounds bmi value up to 2 digits after coma
         bodyIndexValue.setText(String.format("%.2f", bmiValue));
     }
 }
