@@ -1,7 +1,5 @@
 package fitVenture.ui;
 
-import fitVenture.backend.FitVenture;
-import fitVenture.backend.exceptions.EditException;
 import fitVenture.backend.utils.FileHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,7 +13,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-
 
 public class UserProfileController {
     private Parent root;
@@ -40,20 +37,27 @@ public class UserProfileController {
     @FXML
     public Label errorLabel;
 
+    private String userUsername = FitVentureStart.currentUser.getUsername();
+    private double userWeight = FitVentureStart.currentUser.getWeight();
+    private double userHeight = FitVentureStart.currentUser.getHeight();
 
     // method to show information of a logged user in the user profile
     public void showData() {
-        loggedUsername.setText(FitVentureStart.currentUser.getUsername());
-        weightIndexValue.setText(String.valueOf(FitVentureStart.currentUser.getWeight()));
-        heightIndexValue.setText(String.valueOf(FitVentureStart.currentUser.getHeight()));
+        // set user information from the database into labels
+        loggedUsername.setText(userUsername);
+        weightIndexValue.setText(String.valueOf(userWeight));
+        heightIndexValue.setText(String.valueOf(userHeight));
+
+        // checks if the user height and weight fields are not empty
         if (!heightIndexValue.getText().isEmpty() && !weightIndexValue.getText().isEmpty()) {
-            //calculates BMI
-            double bmiValue = FitVentureStart.currentUser.getWeight() / Math.pow(FitVentureStart.currentUser.getHeight() / 100, 2);
-            //rounds bmi value up to 2 digits after coma
+            // calculates BMI
+            double bmiValue = userWeight / Math.pow(userHeight / 100, 2);
+            // rounds bmi value up to 2 digits after coma
             bodyIndexValue.setText(String.format("%.2f", bmiValue));
         } else {
+            // shows an error if the user weight and height fields are empty
             errorLabel.setVisible(true);
-            errorLabel.setText("Empty fields");
+            errorLabel.setText("Failed. Input your weight and height");
         }
     }
 
@@ -66,7 +70,6 @@ public class UserProfileController {
         heightBox.setVisible(true);
         weightBox.setVisible(true);
 
-
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -77,60 +80,56 @@ public class UserProfileController {
         String newHeight;
         String newWeight;
 
+        // Get new height and weight from text fields
+        newHeight = heightBox.getText();
+        newWeight = weightBox.getText();
 
-            // Get new height and weight from text fields
-            newHeight = heightBox.getText();
-            newWeight = weightBox.getText();
-            if (!newHeight.isEmpty() && !newWeight.isEmpty()) {
-                weightIndexValue.setText(newWeight);
-                heightIndexValue.setText(newHeight);
-                try {
-                    double height = Double.parseDouble(newHeight);
-                    double weight = Double.parseDouble(newWeight);
+        // checks if the new height or weight fields are empty
+        if (!newHeight.isEmpty() || !newWeight.isEmpty()) {
+            weightIndexValue.setText(newWeight);
+            heightIndexValue.setText(newHeight);
+            try {
+                // parse new string values into double values to calculate new BMI
+                double height = Double.parseDouble(newHeight);
+                double weight = Double.parseDouble(newWeight);
 
-                    // Directly modify the height and weight fields
-                    FitVentureStart.currentUser.height = height;
-                    FitVentureStart.currentUser.weight = weight;
-                    //calculates BMI
-                    double bmiValue = FitVentureStart.currentUser.getWeight() / Math.pow(FitVentureStart.currentUser.getHeight() / 100, 2);
-                    //rounds bmi value up to 2 digits after coma
-                    bodyIndexValue.setText(String.format("%.2f", bmiValue));
+                // calculates BMI based on the new values
+                double bmiValue = userWeight / Math.pow(userHeight / 100, 2);
+                // rounds bmi value up to 2 digits after coma
+                bodyIndexValue.setText(String.format("%.2f", bmiValue));
 
-                    // Save the updated user data back to the JSON file
-
-                    FileHandler.jsonSerializer(FitVentureStart.jsonPath, FitVentureStart.fitVenture);
-                    errorLabel.setVisible(false);
-                } catch (Exception e) {
-                    errorLabel.setVisible(true);
-                    errorLabel.setText("wrong data entered");
-                    heightIndexValue.setText(null);
-                    weightIndexValue.setText(null);
-                    bodyIndexValue.setText(null);
-                    e.printStackTrace();
-                }
-
-
-            } else {
-                errorLabel.setText("empty fields");
+                // Saves the updated user data back to the JSON file
+                FileHandler.jsonSerializer(FitVentureStart.jsonPath, FitVentureStart.fitVenture);
+                errorLabel.setVisible(false);
+            } catch (Exception e) {
+                // shows error label if user input wrong height and weight
                 errorLabel.setVisible(true);
+                errorLabel.setText("Failed. You entered wrong data type");
                 heightIndexValue.setText(null);
                 weightIndexValue.setText(null);
                 bodyIndexValue.setText(null);
+                e.printStackTrace();
             }
+        } else {
+            // shows error label if user didn't input weight or height
+            errorLabel.setText("Failed. Input your weight and height");
+            errorLabel.setVisible(true);
+            heightIndexValue.setText(null);
+            weightIndexValue.setText(null);
+            bodyIndexValue.setText(null);
+        }
     }
 
-
+    // method to save new entered data and turn back to the user profile
     public void saveData(ActionEvent event) throws IOException {
-
-        //method to retrieve new entered data from the textfields and save in into labels, then calculate new BMI
-        changeData();
-        //methods to change visibility of buttons when save data button is pressed
         weightIndexValue.setVisible(true);
         heightIndexValue.setVisible(true);
         bodyIndexValue.setVisible(true);
         saveButton.setVisible(false);
         heightBox.setVisible(false);
         weightBox.setVisible(false);
+
+        changeData();
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -138,6 +137,7 @@ public class UserProfileController {
     }
 
 
+    // button to return back to the MainDashboard
     public void backToMainDashboard(ActionEvent event) throws IOException {
         // loads LoginRegistrationScene once user pressed the "return back" button
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MainDashboardScene.fxml"));
