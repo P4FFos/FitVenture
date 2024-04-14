@@ -6,8 +6,8 @@ public class User {
     // user class attributes
     private String username;
     private String password;
-    private double weight;
-    private double height;
+    public double weight;
+    public double height;
     private String name;
 
     // Empty constructor used by Jackson for Json deserializing

@@ -13,5 +13,6 @@
         <Label fx:id="loggedUsername" layoutX="884.0" layoutY="365.0" prefHeight="17.0" prefWidth="70.0" text="" />
       <Label fx:id="heightIndexValue" layoutX="679.0" layoutY="458.0" prefHeight="17.0" prefWidth="39.0" />
       <Label fx:id="weightIndexValue" layoutX="679.0" layoutY="490.0" prefHeight="17.0" prefWidth="39.0" />
+      <Button fx:id="editButton" layoutX="653.0" layoutY="550.0" mnemonicParsing="false" onAction="#editData" text="EDIT DATA" />
     </children>
 </AnchorPane>

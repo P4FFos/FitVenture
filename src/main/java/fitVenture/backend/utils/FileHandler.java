@@ -3,6 +3,7 @@ package fitVenture.backend.utils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import fitVenture.backend.FitVenture;
+import fitVenture.backend.user.User;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,5 +26,9 @@ public class FileHandler  {
         // Writes the JSON file
         File jsonFile = new File(filePath);
         objectWriter.writeValue(jsonFile, fitVenture);
+    }
+    public static void writeUserToFile(User currentUser) {
+        // TODO Auto-generated method stub
+    
     }
 }
