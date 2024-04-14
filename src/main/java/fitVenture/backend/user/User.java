@@ -1,5 +1,10 @@
 package fitVenture.backend.user;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 public class User {
     // user class attributes
     private String username;
@@ -7,6 +12,7 @@ public class User {
     private String weight;
     private String height;
     private String name;
+    private Map<String, Integer> hashMap;
 
     // Empty constructor used by Jackson for Json deserializing
     public User(){}
@@ -18,6 +24,7 @@ public class User {
         this.weight = weight;
         this.height = height;
         this.name = name;
+        this.hashMap = new HashMap<>();
     }
 
     // user class get methods
@@ -39,5 +46,9 @@ public class User {
 
     public String getName() {
         return name;
+    }
+
+    public int getSteps(String date) {
+        return hashMap.get(date);
     }
 }
