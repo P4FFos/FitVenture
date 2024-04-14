@@ -14,5 +14,10 @@
       <Label fx:id="heightIndexValue" layoutX="679.0" layoutY="458.0" prefHeight="17.0" prefWidth="39.0" />
       <Label fx:id="weightIndexValue" layoutX="679.0" layoutY="490.0" prefHeight="17.0" prefWidth="39.0" />
       <Button fx:id="editButton" layoutX="653.0" layoutY="550.0" mnemonicParsing="false" onAction="#editData" text="EDIT DATA" />
+      <Button fx:id="saveButton" layoutX="740.0" layoutY="550.0" mnemonicParsing="false" onAction="#saveData" prefHeight="25.0" prefWidth="74.0" text="SAVE DATA" visible="false" />
+      <TextField fx:id="heightBox" layoutX="679.0" layoutY="454.0" prefHeight="25.0" prefWidth="50.0" visible="false" />
+        <Button fx:id="backButton" layoutX="647.0" layoutY="594.0" mnemonicParsing="false" onAction="#backToMainDashboard" prefHeight="26.0" prefWidth="86.0" text="Return back" />
+      <TextField fx:id="weightBox" layoutX="679.0" layoutY="486.0" prefHeight="25.0" prefWidth="50.0" visible="false" />
+      <Label fx:id="errorLabel" layoutX="831.0" layoutY="458.0" text="" visible="false" />
     </children>
 </AnchorPane>
