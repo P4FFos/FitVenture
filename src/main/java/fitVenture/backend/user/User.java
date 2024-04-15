@@ -41,4 +41,25 @@ public class User {
     public String getName() {
         return name;
     }
+
+    // user class set methods
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
