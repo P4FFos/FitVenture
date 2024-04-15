@@ -19,5 +19,8 @@
         <Button fx:id="backButton" layoutX="647.0" layoutY="594.0" mnemonicParsing="false" onAction="#backToMainDashboard" prefHeight="26.0" prefWidth="86.0" text="Return back" />
       <TextField fx:id="weightBox" layoutX="679.0" layoutY="486.0" prefHeight="25.0" prefWidth="50.0" visible="false" />
       <Label fx:id="errorLabel" layoutX="831.0" layoutY="458.0" text="" visible="false" />
+      <Label layoutX="620.0" layoutY="431.0" text="Full name:" />
+      <TextField fx:id="nameBox" layoutX="679.0" layoutY="427.0" prefHeight="25.0" prefWidth="50.0" promptText=" Name Surname" visible="false" />
+      <Label fx:id="fullNamevalue" layoutX="685.0" layoutY="431.0" prefHeight="17.0" prefWidth="109.0" text="Label" />
     </children>
 </AnchorPane>
