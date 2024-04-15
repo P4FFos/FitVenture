@@ -1,8 +1,7 @@
 package fitVenture.backend.stats;
 
-
-public class Steps {
-    public Steps(){
+public class Distance {
+    public Distance(){
         
     }
 }
