@@ -7,13 +7,6 @@
       "height" : "2.0",
       "name" : null
     },
-    "u5" : {
-      "username" : "u5",
-      "password" : "p5",
-      "weight" : "50",
-      "height" : "160",
-      "name" : "1"
-    },
     "user2" : {
       "username" : "user2",
       "password" : "password2",
@@ -48,20 +41,6 @@
       "weight" : "78.0",
       "height" : "167.0",
       "name" : "Bob Ross"
-    },
-    "u1" : {
-      "username" : "u1",
-      "password" : "p1",
-      "weight" : "150",
-      "height" : "150",
-      "name" : "1a12"
-    },
-    "u2" : {
-      "username" : "u2",
-      "password" : "p2",
-      "weight" : "40",
-      "height" : "150",
-      "name" : "12asdasdasd"
     }
   }
 }

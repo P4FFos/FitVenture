@@ -11,7 +11,8 @@ public class User {
     private String name;
 
     // Empty constructor used by Jackson for Json deserializing
-    public User(){}
+    public User() {
+    }
 
     // user class constructor
     public User(String username, String password, String weight, String height, String name) {
@@ -32,7 +33,9 @@ public class User {
         return password;
     }
 
-    public String getWeight() {return weight;}
+    public String getWeight() {
+        return weight;
+    }
 
     public String getHeight() {
         return height;
@@ -51,7 +54,9 @@ public class User {
         this.password = password;
     }
 
-    public void setWeight(String weight) {this.weight = weight;}
+    public void setWeight(String weight) {
+        this.weight = weight;
+    }
 
     public void setHeight(String height) {
         this.height = height;

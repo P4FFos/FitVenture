@@ -23,11 +23,11 @@ public class UserProfileController {
     @FXML
     public Label weightIndexValue;
     @FXML
-    public Label fullNamevalue;
+    public Label fullNameValue;
     @FXML
     public Label bodyIndexValue;
     @FXML
-    public Label loggedUsername;
+    public Label welcomeUsername;
     @FXML
     public Button saveButton;
     @FXML
@@ -41,31 +41,30 @@ public class UserProfileController {
     @FXML
     public Label errorLabel;
 
-
-    private String userUsername =  FitVentureStart.currentUser.getUsername();
-    public String userWeight =  FitVentureStart.currentUser.getWeight();
-    public String userHeight = FitVentureStart.currentUser.getHeight();
-    private String userName =  FitVentureStart.currentUser.getName();
-
     // method to show information of a logged user in the user profile
     public void showData() {
-        // set user information from the database into labels
+        // get information of the logged user from the database
+        String userUsername = FitVentureStart.currentUser.getUsername();
+        String userWeight = FitVentureStart.currentUser.getWeight();
+        String userHeight = FitVentureStart.currentUser.getHeight();
+        String userName = FitVentureStart.currentUser.getName();
 
-        loggedUsername.setText(userUsername);
+        // set user information from the database into labels
+        welcomeUsername.setText(userUsername);
         weightIndexValue.setText(userWeight);
         heightIndexValue.setText(userHeight);
+        fullNameValue.setText(userName);
 
         // checks if the user height and weight fields are not empty
         if (!heightIndexValue.getText().isEmpty() && !weightIndexValue.getText().isEmpty()) {
-            //displays welcome message with the logged-in username
-            fullNamevalue.setText(userName);
-            // calculates BMI
+            // parse height and weight values from string to double
             double height = Double.parseDouble(userHeight);
             double weight = Double.parseDouble(userWeight);
 
             // calculates BMI based on the new values
             double bmiValue = weight / Math.pow(height / 100, 2);
-            // rounds bmi value up to 2 digits after coma
+
+            // rounds BMI value up to 2 digits after coma
             bodyIndexValue.setText(String.format("%.2f", bmiValue));
         } else {
             // shows an error if the user weight and height fields are empty
@@ -74,12 +73,13 @@ public class UserProfileController {
         }
     }
 
-    public void editData(ActionEvent event) throws IOException {
-        //changes visibility of buttons when user pressed edit button
+    // method which changes the visibility of the buttons and text fields when user pressed edit button
+    public void editData(ActionEvent event) {
+        // changes visibility of user profile into edit mode
         weightIndexValue.setVisible(false);
         heightIndexValue.setVisible(false);
         bodyIndexValue.setVisible(false);
-        fullNamevalue.setVisible(false);
+        fullNameValue.setVisible(false);
         saveButton.setVisible(true);
         heightBox.setVisible(true);
         weightBox.setVisible(true);
@@ -91,21 +91,17 @@ public class UserProfileController {
         stage.show();
     }
 
-    public void changeData() throws IOException {
-        String newHeight;
-        String newWeight;
-        String newName;
-
-        // Get new height and weight from text fields
-        newHeight = heightBox.getText();
-        newWeight = weightBox.getText();
-        newName = nameBox.getText();
+    public void changeData() {
+        // get new height, weight and name values from text fields
+        String newHeight = heightBox.getText();
+        String newWeight = weightBox.getText();
+        String newName = nameBox.getText();
 
         // checks if the new height or weight fields are empty
         if (!newHeight.isEmpty() && !newWeight.isEmpty()) {
             weightIndexValue.setText(newWeight);
             heightIndexValue.setText(newHeight);
-            fullNamevalue.setText(newName);
+            fullNameValue.setText(newName);
             try {
                 // parse new string values into double values to calculate new BMI
                 double height = Double.parseDouble(newHeight);
@@ -113,45 +109,44 @@ public class UserProfileController {
 
                 // calculates BMI based on the new values
                 double bmiValue = weight / Math.pow(height / 100, 2);
+
                 // rounds bmi value up to 2 digits after coma
                 bodyIndexValue.setText(String.format("%.2f", bmiValue));
 
-                // Update currentUser object with new data
+                // updates currentUser object with new data from text fields
                 FitVentureStart.currentUser.setHeight(newHeight);
                 FitVentureStart.currentUser.setWeight(newWeight);
                 FitVentureStart.currentUser.setName(newName);
 
-                // Saves the updated user data back to the JSON file
+                // saves the updated user data back to the JSON file
                 FileHandler.jsonSerializer(FitVentureStart.jsonPath, FitVentureStart.fitVenture);
                 errorLabel.setVisible(false);
             } catch (Exception e) {
-
                 // shows error label if user input wrong height and weight
                 errorLabel.setVisible(true);
                 errorLabel.setText("Failed. You entered wrong data type");
                 heightIndexValue.setText(null);
                 weightIndexValue.setText(null);
                 bodyIndexValue.setText(null);
-                fullNamevalue.setText(null);
-                e.printStackTrace();
+                fullNameValue.setText(null);
             }
         } else {
-            // shows error label if user didn't input weight or height
-            errorLabel.setText("Failed. Input your weight and height");
+            // shows error label if user didn't input weight and height
+            errorLabel.setText("Failed. Input your personal data");
             errorLabel.setVisible(true);
             heightIndexValue.setText(null);
             weightIndexValue.setText(null);
             bodyIndexValue.setText(null);
-            fullNamevalue.setText(null);
+            fullNameValue.setText(null);
         }
     }
 
     // method to save new entered data and turn back to the user profile
-    public void saveData(ActionEvent event) throws IOException {
+    public void saveData(ActionEvent event) {
         weightIndexValue.setVisible(true);
         heightIndexValue.setVisible(true);
         bodyIndexValue.setVisible(true);
-        fullNamevalue.setVisible(true);
+        fullNameValue.setVisible(true);
         saveButton.setVisible(false);
         heightBox.setVisible(false);
         weightBox.setVisible(false);
@@ -163,7 +158,6 @@ public class UserProfileController {
         stage.setScene(scene);
         stage.show();
     }
-
 
     // button to return back to the MainDashboard
     public void backToMainDashboard(ActionEvent event) throws IOException {
