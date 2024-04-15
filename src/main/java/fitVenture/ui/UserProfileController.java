@@ -43,8 +43,8 @@ public class UserProfileController {
 
 
     private String userUsername =  FitVentureStart.currentUser.getUsername();
-    private double userWeight =  FitVentureStart.currentUser.getWeight();
-    private double userHeight = FitVentureStart.currentUser.getHeight();
+    public String userWeight =  FitVentureStart.currentUser.getWeight();
+    public String userHeight = FitVentureStart.currentUser.getHeight();
     private String userName =  FitVentureStart.currentUser.getName();
 
     // method to show information of a logged user in the user profile
@@ -52,14 +52,19 @@ public class UserProfileController {
         // set user information from the database into labels
 
         loggedUsername.setText(userUsername);
-        weightIndexValue.setText(String.valueOf(userWeight));
-        heightIndexValue.setText(String.valueOf(userHeight));
+        weightIndexValue.setText(userWeight);
+        heightIndexValue.setText(userHeight);
 
         // checks if the user height and weight fields are not empty
         if (!heightIndexValue.getText().isEmpty() && !weightIndexValue.getText().isEmpty()) {
-            // calculates BMI
+            //displays welcome message with the logged-in username
             fullNamevalue.setText(userName);
-            double bmiValue = userWeight / Math.pow(userHeight, 2);
+            // calculates BMI
+            double height = Double.parseDouble(userHeight);
+            double weight = Double.parseDouble(userWeight);
+
+            // calculates BMI based on the new values
+            double bmiValue = weight / Math.pow(height / 100, 2);
             // rounds bmi value up to 2 digits after coma
             bodyIndexValue.setText(String.format("%.2f", bmiValue));
         } else {

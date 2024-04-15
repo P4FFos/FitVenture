@@ -3,44 +3,58 @@
     "user1" : {
       "username" : "user1",
       "password" : "password1",
-      "weight" : 2.0,
-      "height" : 2.0,
+      "weight" : "2.0",
+      "height" : "2.0",
       "name" : null
     },
     "user2" : {
       "username" : "user2",
       "password" : "password2",
-      "weight" : 66.0,
-      "height" : 166.0,
+      "weight" : "66.0",
+      "height" : "166.0",
       "name" : null
     },
     "Agent47" : {
       "username" : "Agent47",
       "password" : "secretPassword",
-      "weight" : 75.0,
-      "height" : 195.0,
+      "weight" : "75.0",
+      "height" : "195.0",
       "name" : null
     },
     "Bob" : {
       "username" : "Bob",
       "password" : "thebuilder",
-      "weight" : 0.0,
-      "height" : 0.0,
+      "weight" : "0.0",
+      "height" : "0.0",
       "name" : null
     },
     "Rango" : {
       "username" : "Rango",
       "password" : "mango",
-      "weight" : 76.0,
-      "height" : 187.0,
+      "weight" : "76.0",
+      "height" : "187.0",
       "name" : "Ranbo"
     },
     "JohnDoe" : {
       "username" : "JohnDoe",
       "password" : "rando",
-      "weight" : 78.0,
-      "height" : 167.0,
+      "weight" : "78.0",
+      "height" : "167.0",
       "name" : "Bob Ross"
+    },
+    "u1" : {
+      "username" : "u1",
+      "password" : "p1",
+      "weight" : "80.0",
+      "height" : "180.0",
+      "name" : "aas"
+    },
+    "u2" : {
+      "username" : "u2",
+      "password" : "p2",
+      "weight" : "75",
+      "height" : "190",
+      "name" : ""
     }
   }
 }
