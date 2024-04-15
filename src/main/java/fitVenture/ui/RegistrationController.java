@@ -55,14 +55,15 @@ public class RegistrationController {
         try {
             usernameText = username.getText();
             passwordText = password.getText();
-            nameText = name.getText();
+
             FitVenture fitVenture = FitVentureStart.fitVenture;
             //Checks if the pane with the optional inputs(weight, height) is visible.
             if(optionalPane.isVisible()) {
                 weightText = weight.getText();
                 heightText = height.getText();
-                boolean optionalIsInteger = false;
-                boolean nameContainsInt = false;
+                nameText = name.getText();
+                boolean optionalIsInteger;
+                boolean nameContainsInt;
                 //Checks if the name containts an integer.
                 try {
                     Integer.parseInt(nameText);

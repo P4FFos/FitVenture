@@ -51,11 +51,9 @@ public class User {
         this.password = password;
     }
 
-    public void setWeight(double weight) {
-        this.weight = weight;
-    }
+    public void setWeight(String weight) {this.weight = weight;}
 
-    public void setHeight(double height) {
+    public void setHeight(String height) {
         this.height = height;
     }
 

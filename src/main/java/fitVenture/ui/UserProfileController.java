@@ -117,8 +117,8 @@ public class UserProfileController {
                 bodyIndexValue.setText(String.format("%.2f", bmiValue));
 
                 // Update currentUser object with new data
-                FitVentureStart.currentUser.setHeight(height);
-                FitVentureStart.currentUser.setWeight(weight);
+                FitVentureStart.currentUser.setHeight(newHeight);
+                FitVentureStart.currentUser.setWeight(newWeight);
                 FitVentureStart.currentUser.setName(newName);
 
                 // Saves the updated user data back to the JSON file
