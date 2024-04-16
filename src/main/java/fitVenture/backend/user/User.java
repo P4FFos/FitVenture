@@ -1,15 +1,18 @@
 package fitVenture.backend.user;
 
+import java.util.Map;
+
 public class User {
     // user class attributes
     private String username;
     private String password;
-    private String weight;
-    private String height;
+    public String weight;
+    public String height;
     private String name;
 
     // Empty constructor used by Jackson for Json deserializing
-    public User(){}
+    public User() {
+    }
 
     // user class constructor
     public User(String username, String password, String weight, String height, String name) {
@@ -19,6 +22,7 @@ public class User {
         this.height = height;
         this.name = name;
     }
+
 
     // user class get methods
     public String getUsername() {
@@ -39,5 +43,26 @@ public class User {
 
     public String getName() {
         return name;
+    }
+
+    // user class set methods
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setWeight(String weight) {
+        this.weight = weight;
+    }
+
+    public void setHeight(String height) {
+        this.height = height;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
