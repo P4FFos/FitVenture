@@ -1,14 +1,16 @@
 package fitVenture.backend.user;
 
 import fitVenture.backend.stats.Stats;
+
+import java.util.Date;
 import java.util.HashMap;
 
 public class User {
     // user class attributes
     private String username;
     private String password;
-    public String weight;
-    public String height;
+    private String weight;
+    private String height;
     private String name;
     private HashMap<String, Stats> stats;
 
@@ -76,7 +78,7 @@ public class User {
         this.stats = stats;
     }
 
-    public void addStats(String username, Stats stats) {
-        this.stats.put(username, stats);
+    public void addStats(String newDate, Stats stats) {
+        this.stats.put(newDate, stats);
     }
 }

@@ -6,7 +6,10 @@ import fitVenture.backend.exceptions.SaveDataException;
 import fitVenture.backend.stats.Stats;
 import fitVenture.backend.user.User;
 
+import java.util.Date;
 import java.util.HashMap;
+
+import static fitVenture.backend.utils.Current_Date.getDateToday;
 
 public class FitVenture {
     // A HashMap to store all the users
@@ -88,13 +91,13 @@ public class FitVenture {
     }
 
     public void saveStatsData(String distance, String steps, String calories, String userUsername) throws SaveDataException {
-        if (distance.equals("") || steps.equals("") || calories.equals("")) {
+        if (distance.isEmpty() || steps.isEmpty() || calories.isEmpty()) {
             throw new SaveDataException("Input the distance, steps or calories");
         } else {
             User currentUser = getUser(userUsername);
             String currentUserUsername = currentUser.getUsername();
-            Stats stats = new Stats(steps, distance, calories, userUsername);
-            currentUser.addStats(currentUserUsername, stats);
+            Stats stats = new Stats(steps, distance, calories);
+            currentUser.addStats( getDateToday(new Date()), stats);
         }
     }
 }

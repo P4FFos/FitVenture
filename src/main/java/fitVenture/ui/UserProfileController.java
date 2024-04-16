@@ -165,6 +165,9 @@ public class UserProfileController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MainDashboardScene.fxml"));
         root = loader.load();
 
+        MainDashboardController mainDashboardController = loader.getController();
+        mainDashboardController.showChart();
+
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
