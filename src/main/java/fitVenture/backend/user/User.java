@@ -1,24 +1,18 @@
 package fitVenture.backend.user;
 
-import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
-
-import fitVenture.backend.stats.Stats;
-import fitVenture.backend.stats.Steps;
-import fitVenture.backend.utils.Current_Date; 
 
 public class User {
     // user class attributes
     private String username;
     private String password;
-    private String weight;
-    private String height;
+    public String weight;
+    public String height;
     private String name;
-    private Map<String, Stats> savedStats;
 
     // Empty constructor used by Jackson for Json deserializing
-    public User(){}
+    public User() {
+    }
 
     // user class constructor
     public User(String username, String password, String weight, String height, String name) {
@@ -27,8 +21,8 @@ public class User {
         this.weight = weight;
         this.height = height;
         this.name = name;
-        this.savedStats = new HashMap<>();
     }
+
 
     // user class get methods
     public String getUsername() {
@@ -51,19 +45,24 @@ public class User {
         return name;
     }
 
-    public double getSteps(String date) {
-        return savedStats.get(date).getSteps();
+    // user class set methods
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public double getDistance(String date) {
-        return savedStats.get(date).getDistance();
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public double getCalories(String date) {
-        return savedStats.get(date).getCalories();
+    public void setWeight(String weight) {
+        this.weight = weight;
     }
 
-    public void saveSteps(Stats stats) {
-        savedStats.put(Current_Date.getDateToday(new Date()), stats);
+    public void setHeight(String height) {
+        this.height = height;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

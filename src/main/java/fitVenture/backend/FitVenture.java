@@ -15,12 +15,12 @@ public class FitVenture {
         users = new HashMap<>();
     }
 
-    // get method to get hashMap of users
+    // get the HashMap of users
     public HashMap<String, User> getUsers() {
         return users;
     }
 
-    // set method to get hashMap of users
+    // set new HashMap of users (used by Jackson for Json deserializing)
     public void setUsers(HashMap<String, User> users) {
         this.users = users;
     }
@@ -28,6 +28,11 @@ public class FitVenture {
     // to add a user to the HashMap
     public void addUser(User user) {
         users.put(user.getUsername(), user);
+    }
+
+    // method to get user
+    public User getUser(String username) {
+        return users.get(username);
     }
 
     // to check if a user is in the HashMap
@@ -38,12 +43,12 @@ public class FitVenture {
         if (username.equals("") && password.equals("")) {
             throw new RegistrationException("Input the username or password");
         }
-        if (!(username instanceof String) || !(password instanceof String)){
+        if (!(username instanceof String) || !(password instanceof String)) {
             throw new RegistrationException("Wrong username or password format");
         }
         if (users.containsKey(username)) {
             throw new RegistrationException("Username already exists. Try again");
-        } else if (!username.equals("") && !password.equals("") && username instanceof String && password instanceof String){
+        } else if (!username.equals("") && !password.equals("") && username instanceof String && password instanceof String) {
             User user = new User(username, password, weight, height, name);
             addUser(user);
             isRegistered = true;

@@ -1,6 +1,7 @@
 package fitVenture.ui;
 
 import fitVenture.backend.FitVenture;
+import fitVenture.backend.user.User;
 import fitVenture.backend.utils.FileHandler;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +14,7 @@ public class FitVentureStart extends Application {
 
     //static FitVenture attribute, used for registration and login
     public static FitVenture fitVenture;
+    public static User currentUser;
     public static String jsonPath = "src/main/java/fitVenture/backend/database/database.json";
 
     @Override
