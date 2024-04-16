@@ -38,8 +38,8 @@ public class StepsChartContoller {
 
 
     public void showChart () throws IOException {
-       // dayChart(); // this chart is based on actual time stamp of when the data was saved
-        monthChart();
+       dayChart(); // this chart is based on actual time stamp of when the data was saved
+
 
 
     }
@@ -134,6 +134,8 @@ public class StepsChartContoller {
 
         // this method will be adding dates and steps to the chart.
         XYChart.Series<String, Number> series = new XYChart.Series<>();
+        series.setName("Steps/Time");
+
         Random random = new Random();
         int sizeOfList =list.size();
         int avoidNullPointer=0;
@@ -173,6 +175,12 @@ public class StepsChartContoller {
     public void dayChoice(){
         dayChart();
     }
+    public void weekChoice(){
+        weekChart();
+    }
+    public void monthChoice(){
+        monthChart();
+    }
 
 
 
@@ -201,7 +209,7 @@ public class StepsChartContoller {
 // the same thing for the week
 // the same thing for the month.
 
-
+// I will also figure out how to add other stats in the graph.
 
 
 
