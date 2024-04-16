@@ -59,6 +59,8 @@ public class MainDashboardController {
         stage.show();
     }
 
+
+
     public void showChart() throws IOException {
         dayChart(); // this chart is based on actual time stamp of when the data was saved
     }
@@ -100,7 +102,9 @@ public class MainDashboardController {
         yAxis = new NumberAxis();
         yAxis.setLabel("Steps");
 
-        List numbersList = List.of("1", "2", "3", "4"
+        List numbersList = List.of("1", "2", "3", "4", "5", "6", "7", "8", "9",
+                "10", "11", "12", "13", "14", "15", "16", "17", "18", "19",
+                "20", "21", "22", "23","24","25","26","27","28","29","30","31"
         );
 
         immutableList = new ArrayList<>(List.copyOf(numbersList));
@@ -108,7 +112,7 @@ public class MainDashboardController {
         observableList = FXCollections.observableList(immutableList);
         xAxis.setCategories(observableList);
 
-        list = getData(4);
+        list = getData(30);
         linechart = new BarChart(xAxis, yAxis);
         addData(list, 1);
 
