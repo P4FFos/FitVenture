@@ -47,6 +47,9 @@ public class LoginController {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("MainDashboardScene.fxml"));
                 root = loader.load();
 
+                MainDashboardController mainDashboardController = loader.getController();
+                mainDashboardController.dayChart();
+
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 scene = new Scene(root);
                 stage.setScene(scene);

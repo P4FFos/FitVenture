@@ -35,18 +35,4 @@ public class LoginRegistrationController {
         stage.setScene(scene);
         stage.show();
     }
-
-    public void chart(ActionEvent event) throws IOException {
-        //loads LoginScene one user pressed login button
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("StepsChart.fxml"));
-        root = loader.load();
-
-        StepsChartContoller stepsChartContoller = loader.getController();
-        stepsChartContoller.showChart();
-
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
 }

@@ -7,6 +7,5 @@
    <children>
       <Button fx:id="register" layoutX="715.0" layoutY="176.0" onAction="#register" prefHeight="121.0" prefWidth="478.0" text="Register" />
       <Button fx:id="login" layoutX="715.0" layoutY="371.0" onAction="#login" prefHeight="121.0" prefWidth="478.0" text="Login" />
-      <Button fx:id="chart" layoutX="715.0" layoutY="560" onAction="#chart" prefHeight="121.0" prefWidth="478.0" text="chart"/>
    </children>
 </AnchorPane>
