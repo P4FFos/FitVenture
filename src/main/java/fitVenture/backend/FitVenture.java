@@ -2,6 +2,8 @@ package fitVenture.backend;
 
 import fitVenture.backend.exceptions.LoginException;
 import fitVenture.backend.exceptions.RegistrationException;
+import fitVenture.backend.exceptions.SaveDataException;
+import fitVenture.backend.stats.Stats;
 import fitVenture.backend.user.User;
 
 import java.util.HashMap;
@@ -82,6 +84,17 @@ public class FitVenture {
                 correctPassword = true;
             }
             return correctUsername && correctPassword;
+        }
+    }
+
+    public void saveStatsData(String distance, String steps, String calories, String userUsername) throws SaveDataException {
+        if (distance.equals("") || steps.equals("") || calories.equals("")) {
+            throw new SaveDataException("Input the distance, steps or calories");
+        } else {
+            User currentUser = getUser(userUsername);
+            String currentUserUsername = currentUser.getUsername();
+            Stats stats = new Stats(steps, distance, calories, userUsername);
+            currentUser.addStats(currentUserUsername, stats);
         }
     }
 }

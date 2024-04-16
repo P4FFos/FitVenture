@@ -1,6 +1,7 @@
 package fitVenture.backend.user;
 
-import java.util.Map;
+import fitVenture.backend.stats.Stats;
+import java.util.HashMap;
 
 public class User {
     // user class attributes
@@ -9,6 +10,7 @@ public class User {
     public String weight;
     public String height;
     private String name;
+    private HashMap<String, Stats> stats;
 
     // Empty constructor used by Jackson for Json deserializing
     public User() {
@@ -21,8 +23,8 @@ public class User {
         this.weight = weight;
         this.height = height;
         this.name = name;
+        this.stats = new HashMap<>();
     }
-
 
     // user class get methods
     public String getUsername() {
@@ -45,6 +47,10 @@ public class User {
         return name;
     }
 
+    public HashMap<String, Stats> getStats() {
+        return stats;
+    }
+
     // user class set methods
     public void setUsername(String username) {
         this.username = username;
@@ -64,5 +70,13 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setStats(HashMap<String, Stats> stats) {
+        this.stats = stats;
+    }
+
+    public void addStats(String username, Stats stats) {
+        this.stats.put(username, stats);
     }
 }
