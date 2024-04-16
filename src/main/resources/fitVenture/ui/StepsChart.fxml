@@ -12,7 +12,7 @@
     <children>
         <HBox alignment="TOP_CENTER" maxHeight="60" maxWidth="1220"  AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="30" AnchorPane.topAnchor="7">
             <children>
-                <Label contentDisplay="CENTER" prefHeight="44" prefWidth="75" text="Day" underline="true">
+                <Label contentDisplay="CENTER" prefHeight="44" prefWidth="75" text="DayUserChoice" underline="true" onMouseClicked="#dayChoice" >
                     <font>
                         <Font size="24" />
                     </font>
@@ -26,7 +26,7 @@
                         <Insets />
                     </HBox.margin>
                 </Label>
-                <Label contentDisplay="CENTER" prefHeight="44" prefWidth="75" text="Week" underline="true">
+                <Label contentDisplay="CENTER" prefHeight="44" prefWidth="75" text="WeekUserChoice" underline="true">
                     <cursor>
                         <Cursor fx:constant="HAND" />
                     </cursor>
@@ -34,7 +34,7 @@
                         <Font size="24" />
                     </font>
                 </Label>
-                <Label prefHeight="44" text="Month" underline="true">
+                <Label prefHeight="44" text="MonthUserChoice" underline="true" >
                     <font>
                         <Font size="24" />
                     </font>

@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.*;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 
 
@@ -21,11 +22,11 @@ public class StepsChartContoller {
    private NumberAxis yAxis;
    private BarChart linechart;
    @FXML
-   private Label day;
+   private Label dayUserChoice;
    @FXML
-   private Label week;
+   private Label weekUserChoice;
    @FXML
-   Label month;
+   Label monthUserChoice;
    @FXML
    private BorderPane chartPane;
 
@@ -37,9 +38,18 @@ public class StepsChartContoller {
 
 
     public void showChart () throws IOException {
+       // dayChart(); // this chart is based on actual time stamp of when the data was saved
+        monthChart();
+
+
+    }
+
+
+    public void dayChart (){
+
 
         xAxis = new CategoryAxis();
-        xAxis.setLabel("Days");
+        xAxis.setLabel("Hours");
 
         yAxis = new NumberAxis();
         yAxis.setLabel("Steps");
@@ -55,76 +65,88 @@ public class StepsChartContoller {
         observableList= FXCollections.observableList(immutableList);
         xAxis.setCategories(observableList);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-       list = getData(24); // this methos is for retrival of steps and time stamp from database.
-
-
-
-        // Create an ArrayList from the immutable list
-
-
-
-
-
+        list = getData(24);
         linechart = new BarChart(xAxis,yAxis);
-        addData(list);
-       // addChartToLayout();
-
-
-
-
+        addData(list,0);
 
         linechart.setMaxHeight(800);
         linechart.setMaxWidth(1200);
-
-
         chartPane.setCenter(linechart);
 
+    }
 
+    public void monthChart(){
+
+        xAxis = new CategoryAxis();
+        xAxis.setLabel("Weeks");
+
+        yAxis = new NumberAxis();
+        yAxis.setLabel("Steps");
+
+        List  numbersList = List.of("1", "2", "3", "4"
+        );
+
+        immutableList = new ArrayList<>(List.copyOf(numbersList));
+
+        observableList= FXCollections.observableList(immutableList);
+        xAxis.setCategories(observableList);
+
+        list = getData(4);
+        linechart = new BarChart(xAxis,yAxis);
+        addData(list, 1);
+
+        linechart.setMaxHeight(800);
+        linechart.setMaxWidth(1200);
+        chartPane.setCenter(linechart);
 
     }
 
-    private void setXaisValues(int start, int end, int range, String label){
+    public void weekChart(){
 
+        xAxis = new CategoryAxis();
+        xAxis.setLabel("Days");
 
-        // the range, start and end are choose depending on user's choise
-        // the label is also choosen dependinng on the choice of the user
-        // (their would be a collection containing on of users choice)
+        yAxis = new NumberAxis();
+        yAxis.setLabel("Steps");
+
+        List  numbersList = List.of(
+                "1", "2", "3", "4", "5", "6", "7"
+        );
+
+        immutableList = new ArrayList<>(List.copyOf(numbersList));
+
+        observableList= FXCollections.observableList(immutableList);
+        xAxis.setCategories(observableList);
+
+        list = getData(7);
+        linechart = new BarChart(xAxis,yAxis);
+        addData(list, 1);
+
+        linechart.setMaxHeight(800);
+        linechart.setMaxWidth(1200);
+        chartPane.setCenter(linechart);
+
     }
 
-    private void setYaxisValues(int start, int end, int range, String label){
 
-
-
-        // here we retrieve data from the user in a collection
-        // check to see the range as it was to the xaxis
-        // the label is always the same
-
-    }
-
-    public void addData(ArrayList<Integer> list) {
+    public void addData(ArrayList<Integer> list, int start) {
 
 
         // this method will be adding dates and steps to the chart.
         XYChart.Series<String, Number> series = new XYChart.Series<>();
+        Random random = new Random();
+        int sizeOfList =list.size();
+        int avoidNullPointer=0;
 
-        for (int i = 0; i < list.size(); i++) {
+        if(start > 0 ){
+            sizeOfList = start+sizeOfList;
+            avoidNullPointer=start;
+        }
+
+        for (int i = start; i < sizeOfList ; i++) {
 
            series.getData().add(
-                   new XYChart.Data<>(String.valueOf(i), list.get(i)));
+                   new XYChart.Data<>(String.valueOf(i), list.get(i-avoidNullPointer)));
         }
 
         linechart.getData().add(series);
@@ -135,36 +157,33 @@ public class StepsChartContoller {
 
     }
 
-    public ArrayList getData(int size){
+    public ArrayList getData(int size){ // this method will add up all steps to one hour/ day or a month depending on a string that determines the choice for day/ week ....
         // this method will retrive an arrayList containing information
         // about users steps and time stump.
         ArrayList mylist = new ArrayList<>();
         Random random = new Random();
         for(int i =0; i<size; i++){
             mylist.add(random.nextInt(0,100));
-            System.out.println(mylist.get(i));
+            System.out.println( mylist.get(i));
         }
         return mylist;
 
     }
 
-    public void userChoiceWeek(){
-
-
-
-    }
-    public void userChiceMonth(){
-
+    public void dayChoice(){
+        dayChart();
     }
 
 
-    public void addXYToChart(){
 
-    }
 
-    private void addChartToLayout(){
 
-    }
+
+
+
+
+
+
 
 
 
