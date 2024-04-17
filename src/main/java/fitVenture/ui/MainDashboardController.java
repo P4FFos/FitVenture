@@ -1,5 +1,9 @@
 package fitVenture.ui;
 
+import fitVenture.backend.FitVenture;
+import fitVenture.backend.stats.Stats;
+import fitVenture.backend.user.User;
+import fitVenture.backend.utils.Current_Date;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,9 +21,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class MainDashboardController {
     private Parent root;
@@ -188,6 +190,42 @@ public class MainDashboardController {
             System.out.println(mylist.get(i));
         }
         return mylist;
+    }
+    public void getThedata(int size){
+        ArrayList list = new ArrayList();
+        User currentUser = FitVentureStart.currentUser;
+        HashMap < String,Stats> mapOfStats = currentUser.getStats();
+
+        if(size == 24 ){
+            int currentHour = Integer.parseInt(Current_Date.getDateToday(new Date()).substring(11,13));
+            try {
+                mapOfStats.forEach((k,v) -> {
+                    Stats stat = v;
+                    double steps= Integer.parseInt(stat.getSteps());
+
+                    if(list.get(currentHour)!= null){
+                        double stepsInCurrentHour = (Double) list.get(currentHour)+ steps;
+
+                    } else{
+                        list.add(currentHour,steps);
+                    }
+
+
+                });
+            } catch (Exception e){
+                System.out.println(e.getMessage()+"some thing is wrong in creating data for charts");
+            }
+
+        }
+
+
+
+
+
+
+
+
+
     }
 
     public void dayChoice() {

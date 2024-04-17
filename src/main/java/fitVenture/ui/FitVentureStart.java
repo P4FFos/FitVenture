@@ -2,6 +2,7 @@ package fitVenture.ui;
 
 import fitVenture.backend.FitVenture;
 import fitVenture.backend.user.User;
+import fitVenture.backend.utils.Current_Date;
 import fitVenture.backend.utils.FileHandler;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Date;
 
 public class FitVentureStart extends Application {
 
@@ -22,6 +24,7 @@ public class FitVentureStart extends Application {
         // initialise json path to save user data
         fitVenture = FileHandler.jsonDeserializer(jsonPath);
 
+
         // loads LoginRegistrationScene
         FXMLLoader fxmlLoader = new FXMLLoader(FitVentureStart.class.getResource("LoginRegistrationScene.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1920, 1080);
@@ -33,3 +36,4 @@ public class FitVentureStart extends Application {
         launch();
     }
 }
+

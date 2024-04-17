@@ -81,4 +81,5 @@ public class User {
     public void addStats(String newDate, Stats stats) {
         this.stats.put(newDate, stats);
     }
+
 }

@@ -5,7 +5,6 @@ import fitVenture.backend.exceptions.RegistrationException;
 import fitVenture.backend.exceptions.SaveDataException;
 import fitVenture.backend.stats.Stats;
 import fitVenture.backend.user.User;
-
 import java.util.Date;
 import java.util.HashMap;
 
@@ -14,10 +13,12 @@ import static fitVenture.backend.utils.Current_Date.getDateToday;
 public class FitVenture {
     // A HashMap to store all the users
     private HashMap<String, User> users;
+    private static User user;
 
     // Constructor
     public FitVenture() {
         users = new HashMap<>();
+
     }
 
     // get the HashMap of users

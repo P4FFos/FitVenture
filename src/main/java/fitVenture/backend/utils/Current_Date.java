@@ -9,4 +9,7 @@ public class Current_Date {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy MM dd HH:00");
         return dateFormat.format(date);
     }
+    public static void getchoiceDate(Date date){
+
+    }
 }

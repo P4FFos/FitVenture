@@ -10,8 +10,8 @@ public class Stats {
     private String calories;
 
     // Empty constructor used by Jackson for Json deserializing
-    public Stats() {
-    }
+    //public Stats() { I don't think that I need this
+   // }
 
     public Stats(String steps, String distance, String calories){
         this.distance = distance;
