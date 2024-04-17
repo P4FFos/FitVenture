@@ -6,47 +6,132 @@
       "weight" : "1",
       "height" : "12",
       "name" : "as",
-      "stats" : null
-    },
-    "user2" : {
-      "username" : "user2",
-      "password" : "password2",
-      "weight" : "66.0",
-      "height" : "166.0",
-      "name" : null,
-      "stats" : null
-    },
-    "Agent47" : {
-      "username" : "Agent47",
-      "password" : "secretPassword",
-      "weight" : "75.0",
-      "height" : "195.0",
-      "name" : null,
-      "stats" : null
-    },
-    "Bob" : {
-      "username" : "Bob",
-      "password" : "thebuilder",
-      "weight" : "0.0",
-      "height" : "0.0",
-      "name" : null,
-      "stats" : null
-    },
-    "Rango" : {
-      "username" : "Rango",
-      "password" : "mango",
-      "weight" : "76.0",
-      "height" : "187.0",
-      "name" : "Ranbo",
-      "stats" : null
-    },
-    "JohnDoe" : {
-      "username" : "JohnDoe",
-      "password" : "rando",
-      "weight" : "78.0",
-      "height" : "167.0",
-      "name" : "Bob Ross",
-      "stats" : null
+      "stats" : {
+        " 2024-02-26-00:20:10" : {
+          "distance" : "20",
+          "steps" : "100",
+          "calories" : "20"
+        }, "2024-04-17-01:00:00": {
+          "distance": "20",
+          "steps": "100",
+          "calories": "20"
+        },
+        "2024-04-17-02:22:01": {
+          "distance": "15",
+          "steps": "80",
+          "calories": "15"
+        },
+        "2024-04-17-03:00:10": {
+          "distance": "25",
+          "steps": "120",
+          "calories": "25"
+        },
+        "2024-04-17-04:04:11": {
+          "distance": "30",
+          "steps": "150",
+          "calories": "30"
+        },
+        "2024-04-17-05:10:12": {
+          "distance": "18",
+          "steps": "90",
+          "calories": "18"
+        },
+        "2024-04-17-06:11:00": {
+          "distance": "22",
+          "steps": "110",
+          "calories": "22"
+        },
+        "2024-04-17-07:00:12": {
+          "distance": "28",
+          "steps": "140",
+          "calories": "28"
+        },
+        "2024-04-17-08:00:11": {
+          "distance": "35",
+          "steps": "180",
+          "calories": "35"
+        },
+        "2024-04-17-09:00:22": {
+          "distance": "19",
+          "steps": "95",
+          "calories": "19"
+        },
+        "2024-04-17-10:11:33": {
+          "distance": "21",
+          "steps": "105",
+          "calories": "21"
+        },
+        "2024-04-17-11:10:12": {
+          "distance": "21",
+          "steps": "105",
+          "calories": "21"
+        },
+        "2024-04-17-12:10:00": {
+          "distance": "21",
+          "steps": "105",
+          "calories": "21"
+        },
+        "2024-04-17-13:11:33": {
+          "distance": "21",
+          "steps": "105",
+          "calories": "21"
+        },
+        "2024-04-17-14:10:12": {
+          "distance": "21",
+          "steps": "105",
+          "calories": "21"
+        },
+        "2024-04-17-15:10:00": {
+          "distance": "21",
+          "steps": "105",
+          "calories": "21"
+        },
+          "2024-04-17-16:11:33": {
+          "distance": "21",
+          "steps": "105",
+          "calories": "21"
+        },
+         "2024-04-17-17:10:12": {
+          "distance": "21",
+          "steps": "105",
+          "calories": "21"
+        },
+        "2024-04-17-18:10:00": {
+          "distance": "21",
+          "steps": "105",
+          "calories": "21"
+        }, "2024-04-17-19:11:33": {
+          "distance": "21",
+          "steps": "105",
+          "calories": "21"
+        },
+        "2024-04-17-20:10:12": {
+          "distance": "21",
+          "steps": "105",
+          "calories": "21"
+        }, "2024-04-17-23:10:01": {
+          "distance": "21",
+          "steps": "0",
+          "calories": "21"
+        },
+        "2024-04-17-10:10:12": {
+          "distance": "21",
+          "steps": "105",
+          "calories": "21"
+        },
+        "2024-04-17-23:10:00": {
+          "distance": "21",
+          "steps": "100",
+          "calories": "21"
+        },
+        "2024-04-17-23:10:60": {
+          "distance": "21",
+          "steps": "100",
+          "calories": "21"
+        }
+
+      }
+
     }
   }
 }

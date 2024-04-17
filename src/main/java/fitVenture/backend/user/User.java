@@ -2,6 +2,7 @@ package fitVenture.backend.user;
 
 import fitVenture.backend.stats.Stats;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 

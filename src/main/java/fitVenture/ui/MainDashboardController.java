@@ -40,8 +40,6 @@ public class MainDashboardController {
     @FXML
     private BorderPane chartPane;
 
-    ArrayList list;
-
     ArrayList immutableList;
 
     ObservableList observableList;
@@ -86,7 +84,7 @@ public class MainDashboardController {
         observableList = FXCollections.observableList(immutableList);
         xAxis.setCategories(observableList);
 
-        list = getData(24);
+        ArrayList list = getData(24);
         linechart = new BarChart(xAxis, yAxis);
         addData(list, 0);
 
@@ -114,7 +112,7 @@ public class MainDashboardController {
         observableList = FXCollections.observableList(immutableList);
         xAxis.setCategories(observableList);
 
-        list = getData(30);
+        ArrayList list = getData(30);
         linechart = new BarChart(xAxis, yAxis);
         addData(list, 1);
 
@@ -141,7 +139,7 @@ public class MainDashboardController {
         observableList = FXCollections.observableList(immutableList);
         xAxis.setCategories(observableList);
 
-        list = getData(7);
+        ArrayList list = getData(7);
         linechart = new BarChart(xAxis, yAxis);
         addData(list, 1);
 
@@ -153,7 +151,6 @@ public class MainDashboardController {
 
 
     public void addData(ArrayList<Integer> list, int start) {
-        // this method will be adding dates and steps to the chart.
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         series.setName("Steps/Time");
 
@@ -165,7 +162,6 @@ public class MainDashboardController {
             sizeOfList = start + sizeOfList;
             avoidNullPointer = start;
         }
-
         for (int i = start; i < sizeOfList; i++) {
 
             series.getData().add(
@@ -173,60 +169,62 @@ public class MainDashboardController {
         }
 
         linechart.getData().add(series);
-
     }
 
-    public void addChartToChartPane() {
 
-    }
-
-    public ArrayList getData(int size) { // this method will add up all steps to one hour/ day or a month depending on a string that determines the choice for day/ week ....
-        // this method will retrive an arrayList containing information
-        // about users steps and time stump.
-        ArrayList mylist = new ArrayList<>();
-        Random random = new Random();
-        for (int i = 0; i < size; i++) {
-            mylist.add(random.nextInt(0, 100));
-            System.out.println(mylist.get(i));
+    public ArrayList getData(int size) {
+        if(size == 24){ // choice for day data.
+            return getThedata();
         }
-        return mylist;
+        if(size == 31){
+            // add a method to get data for a month
+        }
+        if(size == 7){
+            // add a method for a week data
+        }
+        return null;
+
+
     }
-    public void getThedata(int size){
-        ArrayList list = new ArrayList();
+
+
+
+    public ArrayList getThedata(){
+
         User currentUser = FitVentureStart.currentUser;
         HashMap < String,Stats> mapOfStats = currentUser.getStats();
 
-        if(size == 24 ){
-            int currentHour = Integer.parseInt(Current_Date.getDateToday(new Date()).substring(11,13));
-            try {
-                mapOfStats.forEach((k,v) -> {
-                    Stats stat = v;
-                    double steps= Integer.parseInt(stat.getSteps());
+        Integer [] myList = new Integer[24];
 
-                    if(list.get(currentHour)!= null){
-                        double stepsInCurrentHour = (Double) list.get(currentHour)+ steps;
+        mapOfStats.forEach((k,v) -> {
+            int currentHour = Integer.parseInt(k.substring(11,13));
+            Stats stat = v;
+            Integer steps= Integer.parseInt(stat.getSteps());
 
-                    } else{
-                        list.add(currentHour,steps);
-                    }
+            if(myList[currentHour] != null){
+                Integer uppdatedSteps =  myList[currentHour] + steps;
+                myList[currentHour] = uppdatedSteps;
 
 
-                });
-            } catch (Exception e){
-                System.out.println(e.getMessage()+"some thing is wrong in creating data for charts");
+            } else{
+                myList[currentHour] = steps ;
+
             }
+        });
 
+        ArrayList list1 = new ArrayList<>(); // this is to remove a null value from the list. Null values are causing issues in the chart.
+
+        for (int i =0; i < 24; i++){
+            if(myList[i] != null){
+                list1.add(myList[i]);
+            } else {
+                list1.add(0);
+            }
         }
-
-
-
-
-
-
-
-
+         return list1;
 
     }
+
 
     public void dayChoice() {
         dayChart();

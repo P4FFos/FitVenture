@@ -2,6 +2,7 @@ package fitVenture.backend.stats;
 
 import fitVenture.ui.FitVentureStart;
 
+import java.io.Serializable;
 import java.util.Date;
 
 public class Stats {
@@ -10,8 +11,8 @@ public class Stats {
     private String calories;
 
     // Empty constructor used by Jackson for Json deserializing
-    //public Stats() { I don't think that I need this
-   // }
+    public Stats() {
+    }
 
     public Stats(String steps, String distance, String calories){
         this.distance = distance;
@@ -43,5 +44,9 @@ public class Stats {
 
     public void setCalories(String calories){
         this.calories = calories;
+    }
+    public String toString(){
+
+        return " Calories: " + this.calories+ " Steps: " + this.steps + " distance: "+ this.distance;
     }
 }
