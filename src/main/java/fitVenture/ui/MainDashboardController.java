@@ -25,48 +25,38 @@ import java.io.IOException;
 import java.util.*;
 
 public class MainDashboardController {
-    private Parent root;
-    private Stage stage;
-    private Scene scene;
 
     private CategoryAxis xAxis;
     private NumberAxis yAxis;
-    private BarChart linechart;
-    @FXML
-    private Label dayUserChoice;
-    @FXML
-    private Label weekUserChoice;
-    @FXML
-    Label monthUserChoice;
+    private BarChart lineChart;
+
     @FXML
     private BorderPane chartPane;
 
-    ArrayList immutableList;
-
-    ObservableList observableList;
+    private ArrayList immutableList;
+    private ObservableList observableList;
 
     public void openUserProfile(ActionEvent event) throws IOException {
         //loads MainDashboardScene one user pressed login button
         FXMLLoader loader = new FXMLLoader(getClass().getResource("UserProfileScene.fxml"));
-        root = loader.load();
+        Parent root = loader.load();
         this.showChart(24);
 
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
 
 
-
     public void showChart(int size) throws IOException {
-        if(size== 24){
+        if (size == 24) {
             dayChart(); // this chart is based on actual time stamp of when the data was saved
         }
-        if(size==7){
+        if (size == 7) {
             weekChart();
         }
-        if(size == 31){
+        if (size == 31) {
             monthChart();
         }
     }
@@ -90,17 +80,16 @@ public class MainDashboardController {
         xAxis.setCategories(observableList);
 
         ArrayList list = getData(24);
-        linechart = new BarChart(xAxis, yAxis);
+        lineChart = new BarChart(xAxis, yAxis);
         addData(list, 0);
 
-        linechart.setMaxHeight(800);
-        linechart.setMaxWidth(1200);
-        chartPane.setCenter(linechart);
+        lineChart.setMaxHeight(800);
+        lineChart.setMaxWidth(1200);
+        chartPane.setCenter(lineChart);
 
     }
 
     public void monthChart() {
-
         xAxis = new CategoryAxis();
         xAxis.setLabel("Weeks");
 
@@ -109,7 +98,7 @@ public class MainDashboardController {
 
         List numbersList = List.of("1", "2", "3", "4", "5", "6", "7", "8", "9",
                 "10", "11", "12", "13", "14", "15", "16", "17", "18", "19",
-                "20", "21", "22", "23","24","25","26","27","28","29","30","31"
+                "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"
         );
 
         immutableList = new ArrayList<>(List.copyOf(numbersList));
@@ -118,17 +107,15 @@ public class MainDashboardController {
         xAxis.setCategories(observableList);
 
         ArrayList list = getData(31);
-        linechart = new BarChart(xAxis, yAxis);
+        lineChart = new BarChart(xAxis, yAxis);
         addData(list, 1);
 
-        linechart.setMaxHeight(800);
-        linechart.setMaxWidth(1200);
-        chartPane.setCenter(linechart);
-
+        lineChart.setMaxHeight(800);
+        lineChart.setMaxWidth(1200);
+        chartPane.setCenter(lineChart);
     }
 
     public void weekChart() {
-
         xAxis = new CategoryAxis();
         xAxis.setLabel("Days");
 
@@ -145,15 +132,13 @@ public class MainDashboardController {
         xAxis.setCategories(observableList);
 
         ArrayList list = getData(7);
-        linechart = new BarChart(xAxis, yAxis);
+        lineChart = new BarChart(xAxis, yAxis);
         addData(list, 1);
 
-        linechart.setMaxHeight(800);
-        linechart.setMaxWidth(1200);
-        chartPane.setCenter(linechart);
-
+        lineChart.setMaxHeight(800);
+        lineChart.setMaxWidth(1200);
+        chartPane.setCenter(lineChart);
     }
-
 
     public void addData(ArrayList<Integer> list, int start) {
         XYChart.Series<String, Number> series = new XYChart.Series<>();
@@ -167,137 +152,119 @@ public class MainDashboardController {
             avoidNullPointer = start;
         }
         for (int i = start; i < sizeOfList; i++) {
-
-            series.getData().add(
-                    new XYChart.Data<>(String.valueOf(i), list.get(i - avoidNullPointer)));
+            series.getData().add(new XYChart.Data<>(String.valueOf(i), list.get(i - avoidNullPointer)));
         }
 
-        linechart.getData().add(series);
+        lineChart.getData().add(series);
     }
 
-
     public ArrayList getData(int size) {
-        if(size == 24){ // choice for day data.
-            return getDaydata();
+        if (size == 24) { // choice for day data.
+            return getDayData();
         }
-        if(size == 31){
+        if (size == 31) {
             // add a method to get data for a month
-            return getMonthDada();
+            return getMonthData();
 
         }
-        if(size == 7){
+        if (size == 7) {
             // add a method for a week data
             return getWeekData();
         }
         return null;
-
-
     }
 
-
-    public ArrayList getDaydata(){
-
+    public ArrayList getDayData() {
         User currentUser = FitVentureStart.currentUser;
-        HashMap < String,Stats> mapOfStats = currentUser.getStats();
+        HashMap<String, Stats> mapOfStats = currentUser.getStats();
 
-        Integer [] myList = new Integer[24];
+        Integer[] myList = new Integer[24];
 
-        mapOfStats.forEach((k,v) -> {
-
-            if (k.substring(0,10).toLowerCase().equals(Current_Date.getDateToday(new Date()).substring(0,10))){
-
-
-                int currentHour = Integer.parseInt(k.substring(11,13));
+        mapOfStats.forEach((k, v) -> {
+            if (k.substring(0, 10).toLowerCase().equals(Current_Date.getDateToday(new Date()).substring(0, 10))) {
+                int currentHour = Integer.parseInt(k.substring(11, 13));
                 Stats stat = v;
-                Integer steps= Integer.parseInt(stat.getSteps());
+                Integer steps = Integer.parseInt(stat.getSteps());
+                if (myList[currentHour] != null) {
+                    Integer updatedSteps = myList[currentHour] + steps;
+                    myList[currentHour] = updatedSteps;
+                } else {
+                    myList[currentHour] = steps;
+                }
+            }
+        });
 
-                if(myList[currentHour] != null){
-                    Integer uppdatedSteps =  myList[currentHour] + steps;
-                    myList[currentHour] = uppdatedSteps;
+        ArrayList emptyList = new ArrayList<>(); // this is to remove a null value from the list. Null values are causing issues in the chart.
+
+        for (int i = 0; i < 24; i++) {
+            if (myList[i] != null) {
+                emptyList.add(myList[i]);
+            } else {
+                emptyList.add(0);
+            }
+        }
+        return emptyList;
+    }
+
+    public ArrayList getWeekData() {
+        HashMap<String, Stats> mapOfStats = FitVentureStart.currentUser.getStats();
+        Integer[] myList = new Integer[7];
+        int week = 7;
+        int currentDate = Current_Date.getDateTodayAsInteger();
+
+        mapOfStats.forEach((k, v) -> {
+
+            int anotherDate = Current_Date.getIntegerOfSpecificDate(k);
+
+            int difference = currentDate - anotherDate;
+            Stats stat = v;
+            Integer steps = Integer.parseInt(stat.getSteps());
+
+            if (difference < week && difference > 0) {
+
+                if (myList[difference] != null) {
+                    Integer updatedSteps = myList[difference] + steps;
+                    myList[difference] = updatedSteps;
 
 
-                } else{
-                    myList[currentHour] = steps ;
+                } else {
+                    myList[difference] = steps;
 
                 }
             }
         });
 
-        ArrayList list1 = new ArrayList<>(); // this is to remove a null value from the list. Null values are causing issues in the chart.
+        ArrayList emptyList = new ArrayList<>(); // this is to remove a null value from the list. Null values are causing issues in the chart.
 
-        for (int i =0; i < 24; i++){
-            if(myList[i] != null){
-                list1.add(myList[i]);
+        for (int i = 0; i < week; i++) {
+            if (myList[i] != null) {
+                emptyList.add(myList[i]);
             } else {
-                list1.add(0);
+                emptyList.add(0);
             }
 
         }
-         return list1;
+        return emptyList;
 
     }
 
-    public ArrayList getWeekData(){
-
-        HashMap < String,Stats> mapOfStats = FitVentureStart.currentUser.getStats();
-        Integer [] myList = new Integer[7];
-        int week = 7;
-        int curentDate= Current_Date.getDateTodayAsInteger();
-
-
-           mapOfStats.forEach((k,v) -> {
-
-              int anotherdate= Current_Date.getIntegerOfSpecificDate(k);
-
-              int difference = curentDate - anotherdate;
-              Stats stat = v;
-              Integer steps = Integer.parseInt(stat.getSteps());
-
-              if(difference < week && difference > 0) {
-
-                  if (myList[difference] != null) {
-                      Integer uppdatedSteps = myList[difference] + steps;
-                      myList[difference] = uppdatedSteps;
-
-
-                  } else {
-                      myList[difference] = steps;
-
-                  }
-              }
-           });
-
-        ArrayList list1 = new ArrayList<>(); // this is to remove a null value from the list. Null values are causing issues in the chart.
-
-        for (int i =0; i < week; i++){
-            if(myList[i] != null){
-                list1.add(myList[i]);
-            } else {
-                list1.add(0);
-            }
-
-        }
-        return list1;
-
-    }
-
-    public ArrayList getMonthDada(){
-        HashMap < String,Stats> mapOfStats = FitVentureStart.currentUser.getStats();
-        Integer [] myList = new Integer[31];
+    public ArrayList getMonthData() {
+        HashMap<String, Stats> mapOfStats = FitVentureStart.currentUser.getStats();
+        Integer[] myList = new Integer[31];
         int month = 31;
-        int curentDate= Current_Date.getDateTodayAsInteger();
+        int currentDate = Current_Date.getDateTodayAsInteger();
 
-        mapOfStats.forEach((k,v) -> {
-            int anotherdate = Current_Date.getIntegerOfSpecificDate(k);
-            System.out.println(anotherdate);
-            int difference= curentDate-anotherdate;
+        mapOfStats.forEach((k, v) -> {
+            int anotherDate = Current_Date.getIntegerOfSpecificDate(k);
+            System.out.println(anotherDate);
+            int difference = currentDate - anotherDate;
 
-            if( difference <= 100 ){
-                int index =0;
-                if(difference > month){
-                    int indexdiff = ( difference-7)  % month;
-                    index = Math.abs(indexdiff);
-                }else if(difference >=0) {
+            if (difference <= 100) {
+                int index = 0;
+                if (difference > month) {
+                    int indexDiff = (difference - 7) % month;
+                    index = Math.abs(indexDiff);
+                } else if (difference >= 0) {
                     index = difference % month;
                 }
                 System.out.println(index);
@@ -305,40 +272,36 @@ public class MainDashboardController {
                 Integer steps = Integer.parseInt(stat.getSteps());
 
                 if (myList[index] != null) {
-                    Integer uppdatedSteps = myList[index] + steps;
-                    myList[index] = uppdatedSteps;
-
-
+                    Integer updatedSteps = myList[index] + steps;
+                    myList[index] = updatedSteps;
                 } else {
                     myList[index] = steps;
-
                 }
             }
         });
 
-        ArrayList list1 = new ArrayList<>(); // this is to remove a null value from the list. Null values are causing issues in the chart.
+        ArrayList emptyList = new ArrayList<>(); // this is to remove a null value from the list. Null values are causing issues in the chart.
 
-        for (int i =0; i < month; i++){
-            if(myList[i] != null){
-                list1.add(myList[i]);
+        for (int i = 0; i < month; i++) {
+            if (myList[i] != null) {
+                emptyList.add(myList[i]);
             } else {
-                list1.add(0);
+                emptyList.add(0);
             }
-
         }
-        return list1;
+        return emptyList;
     }
 
 
-    public void dayChoice()  throws Exception {
+    public void dayChoice() throws Exception {
         showChart(24);
     }
 
-    public void weekChoice() throws Exception{
+    public void weekChoice() throws Exception {
         showChart(7);
     }
 
-    public void monthChoice() throws Exception{
+    public void monthChoice() throws Exception {
         showChart(31);
     }
 }
