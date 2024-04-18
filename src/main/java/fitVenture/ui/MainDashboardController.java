@@ -49,10 +49,6 @@ public class MainDashboardController {
         //loads MainDashboardScene one user pressed login button
         FXMLLoader loader = new FXMLLoader(getClass().getResource("UserProfileScene.fxml"));
         root = loader.load();
-
-        //calls method showData in the userProfile, once user is logged in
-       // UserProfileController userProfileController = loader.getController();
-        //userProfileController.showData();
         this.showChart(24);
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -70,10 +66,10 @@ public class MainDashboardController {
         if(size==7){
             weekChart();
         }
-
-
+        if(size == 31){
+            monthChart();
+        }
     }
-
 
     public void dayChart() {
         xAxis = new CategoryAxis();
@@ -121,7 +117,7 @@ public class MainDashboardController {
         observableList = FXCollections.observableList(immutableList);
         xAxis.setCategories(observableList);
 
-        ArrayList list = getData(30);
+        ArrayList list = getData(31);
         linechart = new BarChart(xAxis, yAxis);
         addData(list, 1);
 
@@ -163,7 +159,6 @@ public class MainDashboardController {
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         series.setName("Steps/Time");
 
-        Random random = new Random();
         int sizeOfList = list.size();
         int avoidNullPointer = 0;
 
@@ -187,6 +182,7 @@ public class MainDashboardController {
         }
         if(size == 31){
             // add a method to get data for a month
+            return getMonthDada();
 
         }
         if(size == 7){
@@ -199,7 +195,6 @@ public class MainDashboardController {
     }
 
 
-
     public ArrayList getDaydata(){
 
         User currentUser = FitVentureStart.currentUser;
@@ -209,7 +204,8 @@ public class MainDashboardController {
 
         mapOfStats.forEach((k,v) -> {
 
-           // if (k.substring(0,10).equals(Current_Date.getDateToday(new Date()).substring(0,10))){
+            if (k.substring(0,10).toLowerCase().equals(Current_Date.getDateToday(new Date()).substring(0,10))){
+
 
                 int currentHour = Integer.parseInt(k.substring(11,13));
                 Stats stat = v;
@@ -223,7 +219,7 @@ public class MainDashboardController {
                 } else{
                     myList[currentHour] = steps ;
 
-               // }
+                }
             }
         });
 
@@ -235,7 +231,7 @@ public class MainDashboardController {
             } else {
                 list1.add(0);
             }
-            System.out.println("day :" + list1.get(i));
+
         }
          return list1;
 
@@ -257,7 +253,7 @@ public class MainDashboardController {
               Stats stat = v;
               Integer steps = Integer.parseInt(stat.getSteps());
 
-              if(difference < week) {
+              if(difference < week && difference > 0) {
 
                   if (myList[difference] != null) {
                       Integer uppdatedSteps = myList[difference] + steps;
@@ -285,6 +281,54 @@ public class MainDashboardController {
 
     }
 
+    public ArrayList getMonthDada(){
+        HashMap < String,Stats> mapOfStats = FitVentureStart.currentUser.getStats();
+        Integer [] myList = new Integer[31];
+        int month = 31;
+        int curentDate= Current_Date.getDateTodayAsInteger();
+
+        mapOfStats.forEach((k,v) -> {
+            int anotherdate = Current_Date.getIntegerOfSpecificDate(k);
+            System.out.println(anotherdate);
+            int difference= curentDate-anotherdate;
+
+            if( difference <= 100 ){
+                int index =0;
+                if(difference > month){
+                    int indexdiff = ( difference-7)  % month;
+                    index = Math.abs(indexdiff);
+                }else if(difference >=0) {
+                    index = difference % month;
+                }
+                System.out.println(index);
+                Stats stat = v;
+                Integer steps = Integer.parseInt(stat.getSteps());
+
+                if (myList[index] != null) {
+                    Integer uppdatedSteps = myList[index] + steps;
+                    myList[index] = uppdatedSteps;
+
+
+                } else {
+                    myList[index] = steps;
+
+                }
+            }
+        });
+
+        ArrayList list1 = new ArrayList<>(); // this is to remove a null value from the list. Null values are causing issues in the chart.
+
+        for (int i =0; i < month; i++){
+            if(myList[i] != null){
+                list1.add(myList[i]);
+            } else {
+                list1.add(0);
+            }
+
+        }
+        return list1;
+    }
+
 
     public void dayChoice()  throws Exception {
         showChart(24);
@@ -294,7 +338,7 @@ public class MainDashboardController {
         showChart(7);
     }
 
-    public void monthChoice() {
-        monthChart();
+    public void monthChoice() throws Exception{
+        showChart(31);
     }
 }
