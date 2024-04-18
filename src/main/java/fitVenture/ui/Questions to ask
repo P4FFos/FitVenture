@@ -1,0 +1,9 @@
+I have changed the
+
+
+        //calls method showData in the userProfile, once user is logged in
+        //UserProfileController userProfileController = loader.getController();
+        //userProfileController.showData();
+        this.dayChart();
+
+        line 51-55

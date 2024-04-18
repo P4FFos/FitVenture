@@ -48,7 +48,7 @@ public class LoginController {
                 root = loader.load();
 
                 MainDashboardController mainDashboardController = loader.getController();
-                mainDashboardController.showChart();
+                mainDashboardController.showChart(24);
 
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 scene = new Scene(root);

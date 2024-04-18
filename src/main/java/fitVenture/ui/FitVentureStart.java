@@ -2,15 +2,12 @@ package fitVenture.ui;
 
 import fitVenture.backend.FitVenture;
 import fitVenture.backend.user.User;
-import fitVenture.backend.utils.Current_Date;
 import fitVenture.backend.utils.FileHandler;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.io.IOException;
-import java.util.Date;
 
 public class FitVentureStart extends Application {
 
