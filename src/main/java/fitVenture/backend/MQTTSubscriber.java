@@ -36,8 +36,8 @@ public class MQTTSubscriber {
                     if ("".equals(topic)) {
                         ObjectMapper mapper = new ObjectMapper();
                         Stats statsData = mapper.readValue(message.toString(), Stats.class);
-                        // TODO: implement calories counter (could be as a class in the utils folder)
-                        FitVentureStart.fitVenture.saveStatsData(statsData.getDistance(), statsData.getSteps(), "0", FitVentureStart.currentUser.getUsername());
+                        String calories = statsData.calculateCalories(statsData.getDistance());
+                        FitVentureStart.fitVenture.saveStatsData(statsData.getDistance(), statsData.getSteps(), calories, FitVentureStart.currentUser.getUsername());
                         FileHandler.jsonSerializer(FitVentureStart.jsonPath, FitVentureStart.fitVenture);
                     }
                 }
