@@ -3,6 +3,7 @@ module com.example.demo {
     requires javafx.fxml;
     requires com.fasterxml.jackson.databind;
     requires java.desktop;
+    requires org.eclipse.paho.client.mqttv3;
 
     exports fitVenture.backend;
     opens fitVenture.backend to javafx.fxml;
