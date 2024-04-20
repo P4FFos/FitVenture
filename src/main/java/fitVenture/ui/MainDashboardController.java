@@ -42,7 +42,9 @@ public class MainDashboardController {
         //loads MainDashboardScene one user pressed login button
         FXMLLoader loader = new FXMLLoader(getClass().getResource("UserProfileScene.fxml"));
         Parent root = loader.load();
-        this.showChart(24);
+
+        UserProfileController userProfileController = loader.getController();
+        userProfileController.showData();
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
