@@ -64,7 +64,7 @@ public class RegistrationController {
                 nameText = name.getText();
                 boolean optionalIsInteger;
                 boolean nameContainsInt;
-                //Checks if the name containts an integer.
+                //Checks if the name contains an integer.
                 try {
                     Integer.parseInt(nameText);
                     nameContainsInt = true;

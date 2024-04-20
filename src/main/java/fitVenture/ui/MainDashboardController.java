@@ -1,6 +1,5 @@
 package fitVenture.ui;
 
-import fitVenture.backend.FitVenture;
 import fitVenture.backend.stats.Stats;
 import fitVenture.backend.user.User;
 import fitVenture.backend.utils.Current_Date;
@@ -16,11 +15,9 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-import javax.swing.plaf.ColorUIResource;
 import java.io.IOException;
 import java.util.*;
 
@@ -36,7 +33,7 @@ public class MainDashboardController {
     private ObservableList observableList;
 
     private ArrayList<Integer> caloriesList;
-    private ArrayList <Integer> distenceList;
+    private ArrayList <Integer> distanceList;
 
     public void openUserProfile(ActionEvent event) throws IOException {
         //loads MainDashboardScene one user pressed login button
@@ -163,7 +160,7 @@ public class MainDashboardController {
         for (int i = start; i < sizeOfList; i++) {
             steps.getData().add(new XYChart.Data<>(String.valueOf(i), list.get(i - avoidNullPointer)));
             calories.getData().add(new XYChart.Data<>(String.valueOf(i),caloriesList.get(i-avoidNullPointer)));
-            distance.getData().add(new XYChart.Data<>(String.valueOf(i),distenceList.get(i-avoidNullPointer)));
+            distance.getData().add(new XYChart.Data<>(String.valueOf(i),distanceList.get(i-avoidNullPointer)));
         }
 
         lineChart.getData().addAll(steps,calories,distance);
@@ -189,7 +186,7 @@ public class MainDashboardController {
         User currentUser = FitVentureStart.currentUser;
         HashMap<String, Stats> mapOfStats = currentUser.getStats();
         Integer[] caloriesArray = new Integer[24];
-        Integer[] distenceArray = new Integer[24];
+        Integer[] distanceArray = new Integer[24];
 
         Integer[] myList = new Integer[24];
 
@@ -205,29 +202,29 @@ public class MainDashboardController {
                     myList[currentHour] = updatedSteps;
                     Integer updatedCalories = caloriesArray[currentHour] +  calories;
                     caloriesArray[currentHour] = updatedCalories;
-                    Integer updateddistance= distenceArray[currentHour] + distance;
-                    distenceArray[currentHour] = updateddistance;
+                    Integer updatedDistance= distanceArray[currentHour] + distance;
+                    distanceArray[currentHour] = updatedDistance;
                 } else {
                     myList[currentHour] = steps;
                     caloriesArray[currentHour] = calories;
-                    distenceArray[currentHour] = distance;
+                    distanceArray[currentHour] = distance;
                 }
             }
         });
 
         ArrayList <Integer> emptyList = new ArrayList<>(); // this is to remove a null value from the list. Null values are causing issues in the chart.
         caloriesList = new ArrayList<>();
-        distenceList = new ArrayList<>();
+        distanceList = new ArrayList<>();
 
         for (int i = 0; i < 24; i++) {
             if (myList[i] != null) {
                 emptyList.add(myList[i]);
                 caloriesList.add(caloriesArray[i]);
-                distenceList.add(distenceArray[i]);
+                distanceList.add(distanceArray[i]);
             } else {
                 emptyList.add(0);
                 caloriesList.add(0);
-                distenceList.add(0);
+                distanceList.add(0);
             }
         }
         return emptyList;
@@ -275,17 +272,17 @@ public class MainDashboardController {
 
         ArrayList<Integer> emptyList = new ArrayList<>(); // this is to remove a null value from the list. Null values are causing issues in the chart.
         caloriesList = new ArrayList<>();
-        distenceList = new ArrayList<>();
+        distanceList = new ArrayList<>();
 
         for (int i = 0; i < week; i++) {
             if (myList[i] != null) {
                 emptyList.add(myList[i]);
                 caloriesList.add(caloriesArray[i]);
-                distenceList.add(distanceArray[i]);
+                distanceList.add(distanceArray[i]);
             } else {
                 emptyList.add(0);
                 caloriesList.add(0);
-                distenceList.add(0);
+                distanceList.add(0);
             }
 
         }
@@ -325,8 +322,8 @@ public class MainDashboardController {
                 if (myList[index] != null) {
                     Integer updatedSteps = myList[index] + steps;
                     myList[index] = updatedSteps;
-                    Integer updatedcalories = caloriesArray[index] + calories;
-                    caloriesArray[index] = updatedcalories;
+                    Integer updatedCalories = caloriesArray[index] + calories;
+                    caloriesArray[index] = updatedCalories;
                     Integer updatedDistance = distanceArray[index] + distance;
                     distanceArray[index] = updatedDistance;
                 } else {
@@ -339,18 +336,18 @@ public class MainDashboardController {
 
         ArrayList <Integer> nonNullArrayOfSteps = new ArrayList<>(); // this is to remove a null value from the list. Null values are causing issues in the chart.
        caloriesList = new ArrayList<>();
-       distenceList = new ArrayList<>();
+       distanceList = new ArrayList<>();
 
 
         for (int i = 0; i < month; i++) {
             if (myList[i] != null) {
                 nonNullArrayOfSteps.add(myList[i]);
                 caloriesList.add(caloriesArray[i]);
-                distenceList.add(distanceArray[i]);
+                distanceList.add(distanceArray[i]);
             } else {
                 nonNullArrayOfSteps.add(0);
                 caloriesList.add(0);
-                distenceList.add(0);
+                distanceList.add(0);
             }
         }
         return nonNullArrayOfSteps;

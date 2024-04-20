@@ -45,16 +45,8 @@ public class Stats {
     public void setCalories(String calories){
         this.calories = calories;
     }
+
     public String toString(){
-
         return " Calories: " + this.calories+ " Steps: " + this.steps + " distance: "+ this.distance;
-    }
-
-    public String calculateCalories(String distance){
-        double pounds = Double.parseDouble(FitVentureStart.currentUser.getWeight()) * 2.20462;
-        double miles = Double.parseDouble(distance)/1609.34;
-        double calories = pounds * 0.57 * miles;
-    
-        return String.valueOf(calories);
     }
 }

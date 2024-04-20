@@ -36,8 +36,7 @@ public class MQTTSubscriber {
                     if ("".equals(topic)) {
                         ObjectMapper mapper = new ObjectMapper();
                         Stats statsData = mapper.readValue(message.toString(), Stats.class);
-                        String calories = statsData.calculateCalories(statsData.getDistance());
-                        FitVentureStart.fitVenture.saveStatsData(statsData.getDistance(), statsData.getSteps(), calories, FitVentureStart.currentUser.getUsername());
+                        FitVentureStart.fitVenture.saveStatsData(statsData.getDistance(), statsData.getSteps(), statsData.getCalories(), FitVentureStart.currentUser.getUsername());
                         FileHandler.jsonSerializer(FitVentureStart.jsonPath, FitVentureStart.fitVenture);
                     }
                 }

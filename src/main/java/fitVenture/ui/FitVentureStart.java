@@ -7,6 +7,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 
 public class FitVentureStart extends Application {
@@ -20,7 +21,6 @@ public class FitVentureStart extends Application {
     public void start(Stage stage) throws IOException {
         // initialise json path to save user data
         fitVenture = FileHandler.jsonDeserializer(jsonPath);
-
 
         // loads LoginRegistrationScene
         FXMLLoader fxmlLoader = new FXMLLoader(FitVentureStart.class.getResource("LoginRegistrationScene.fxml"));
