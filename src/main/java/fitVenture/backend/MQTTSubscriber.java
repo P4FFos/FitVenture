@@ -8,32 +8,32 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class MQTTSubscriber {
-    // attributes to initialise MQTT broker, client id and topic
+    // Attributes to initialise MQTT broker, client id and topic
     private static final String broker = "tcp://broker.hivemq.com:1883";
     private static final String clientId = "ClientID1";
     private static final String topic = "fitVenture/sensor/accelerometer/data";
 
-    // variable to store the last received message
+    // Variable to store the last received message
     private Stats lastReceivedMessage;
 
-    // method to subscribe to a topic
+    // Method to subscribe to a topic
     public MQTTSubscriber() {
         try {
-            // initialise MQTT client and connect to broker using broker and client id
+            // Initialise MQTT client and connect to broker using broker and client id
             MqttClient client = new MqttClient(broker, clientId, new MemoryPersistence());
             MqttConnectOptions connection = new MqttConnectOptions();
             client.connect(connection);
             System.out.println("Connected");
 
-            // defines what will happen when the connection is lost, message is arrived and delivery is completed
-            // this syntax is required by the library which we are using for the MQTT broker
+            // Defines what will happen when the connection is lost, message is arrived and delivery is completed
+            // This syntax is required by the library which we are using for the MQTT broker
             client.setCallback(new MqttCallback() {
-                // method to show in case connection is lost
+                // Method to show in case connection is lost
                 public void connectionLost(Throwable cause) {
                     System.out.println("Connection is lost");
                 }
 
-                // method to save message from the MQTT broker into the JSON file
+                // Method to save message from the MQTT broker into the JSON file
                 public void messageArrived(String topic, MqttMessage message) throws Exception {
                     System.out.println("Message is arrived");
                     if ("fitVenture/sensor/accelerometer/data".equals(topic)) {
@@ -45,7 +45,7 @@ public class MQTTSubscriber {
                     }
                 }
 
-                // method to see that delivery is completed
+                // Method to see that delivery is completed
                 public void deliveryComplete(IMqttDeliveryToken token) {
                     System.out.println("Complete");
                 }

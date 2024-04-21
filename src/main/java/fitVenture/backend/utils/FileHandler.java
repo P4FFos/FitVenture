@@ -7,7 +7,7 @@ import fitVenture.backend.FitVenture;
 import java.io.File;
 import java.io.IOException;
 
-public class FileHandler  {
+public class FileHandler {
     public static FitVenture jsonDeserializer(String filePath) throws IOException {
         // Deserializes the JSON file to a FitVenture object
         ObjectMapper objectMapper = new ObjectMapper();
@@ -16,6 +16,7 @@ public class FileHandler  {
         File jsonfile = new File(filePath);
         return objectMapper.readValue(jsonfile, FitVenture.class);
     }
+
     public static void jsonSerializer(String filePath, FitVenture fitVenture) throws IOException {
         // Serializes the FitVenture object to a JSON file
         ObjectMapper objectMapper = new ObjectMapper();

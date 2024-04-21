@@ -1,13 +1,10 @@
 package fitVenture.backend.user;
 
 import fitVenture.backend.stats.Stats;
-
-import java.io.Serializable;
-import java.util.Date;
 import java.util.HashMap;
 
 public class User {
-    // user class attributes
+    // User class attributes and HashMap of stats to store Distance, Calories and Steps
     private String username;
     private String password;
     private String weight;
@@ -19,7 +16,7 @@ public class User {
     public User() {
     }
 
-    // user class constructor
+    // User class constructor
     public User(String username, String password, String weight, String height, String name) {
         this.username = username;
         this.password = password;
@@ -29,7 +26,7 @@ public class User {
         this.stats = new HashMap<>();
     }
 
-    // user class get methods
+    // User class get methods
     public String getUsername() {
         return username;
     }
@@ -54,7 +51,7 @@ public class User {
         return stats;
     }
 
-    // user class set methods
+    // User class set methods
     public void setUsername(String username) {
         this.username = username;
     }

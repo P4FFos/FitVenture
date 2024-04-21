@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class FitVentureStart extends Application {
 
-    //static FitVenture attribute, used for registration and login
+    // static FitVenture attribute, used for registration and login
     public static FitVenture fitVenture;
     public static User currentUser;
     public static String jsonPath = "src/main/java/fitVenture/backend/database/database.json";

@@ -2,7 +2,6 @@ package fitVenture.ui;
 
 import fitVenture.backend.FitVenture;
 import fitVenture.backend.exceptions.RegistrationException;
-import fitVenture.backend.user.User;
 import fitVenture.backend.utils.FileHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -57,14 +56,14 @@ public class RegistrationController {
             passwordText = password.getText();
 
             FitVenture fitVenture = FitVentureStart.fitVenture;
-            //Checks if the pane with the optional inputs(weight, height) is visible.
+            // Checks if the pane with the optional inputs(weight, height) is visible.
             if(optionalPane.isVisible()) {
                 weightText = weight.getText();
                 heightText = height.getText();
                 nameText = name.getText();
                 boolean optionalIsInteger;
                 boolean nameContainsInt;
-                //Checks if the name contains an integer.
+                // Checks if the name contains an integer.
                 try {
                     Integer.parseInt(nameText);
                     nameContainsInt = true;
@@ -75,7 +74,7 @@ public class RegistrationController {
                     nameContainsInt = false;
                     nameErrorLabel.setVisible(false);
                 }
-                //Checks if the optional values are integers.
+                // Checks if the optional values are integers.
                 try {
                     Integer.parseInt(weightText);
                     Integer.parseInt(heightText);
@@ -90,8 +89,6 @@ public class RegistrationController {
                 }
 
                 if (optionalIsInteger && !nameContainsInt) {
-                    
-
                     if (fitVenture.register(usernameText, passwordText, weightText, heightText, nameText)) {
                         FileHandler.jsonSerializer(FitVentureStart.jsonPath, fitVenture);
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginScene.fxml"));

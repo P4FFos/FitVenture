@@ -31,7 +31,7 @@ public class LoginController {
     public Label errorLabel;
 
     public void login(ActionEvent event) throws IOException {
-        // attributes used to store data from the fields that user entered
+        // Attributes used to store data from the fields that user entered
         String passwordText;
         String usernameText;
 
@@ -41,13 +41,13 @@ public class LoginController {
             passwordText = password.getText();
 
             if (fitVenture.verifyUser(usernameText, passwordText)) {
-                // to store user object data, once user is logged in
+                // Store user object data, once user is logged in
                 FitVentureStart.currentUser = fitVenture.getUser(usernameText);
 
-                // to subscribe to the MQTT broker
+                // Subscribe to the MQTT broker
                 new MQTTSubscriber();
 
-                //loads MainDashboardScene one user pressed login button
+                // Loads MainDashboardScene one user pressed login button
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("MainDashboardScene.fxml"));
                 root = loader.load();
 
@@ -60,7 +60,7 @@ public class LoginController {
                 stage.show();
             }
         } catch (LoginException e) {
-            // shows an error based on the condition of the input(ex. empty fields, existing username)
+            // Shows an error based on the condition of the input(ex. empty fields, existing username)
             errorLabel.setText(e.getMessage());
             errorLabel.setVisible(true);
             username.clear();
@@ -69,7 +69,7 @@ public class LoginController {
     }
 
     public void backToRegLoginPage(ActionEvent event) throws IOException {
-        // loads LoginRegistrationScene once user pressed the "return back" button
+        // Loads LoginRegistrationScene once user pressed the "return back" button
         FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginRegistrationScene.fxml"));
         root = loader.load();
 
