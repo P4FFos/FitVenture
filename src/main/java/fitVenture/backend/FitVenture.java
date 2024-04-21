@@ -2,11 +2,16 @@ package fitVenture.backend;
 
 import fitVenture.backend.exceptions.LoginException;
 import fitVenture.backend.exceptions.RegistrationException;
+import fitVenture.backend.exceptions.SaveDataException;
+import fitVenture.backend.stats.Stats;
 import fitVenture.backend.user.User;
 
+import java.util.Date;
 import java.util.HashMap;
 
-public class FitVenture {
+import static fitVenture.backend.utils.Current_Date.getDateToday;
+
+public class FitVenture  {
     // A HashMap to store all the users
     private HashMap<String, User> users;
 
@@ -40,15 +45,18 @@ public class FitVenture {
     // if yes - return an error message based on the condition of the input
     public boolean register(String username, String password, String weight, String height, String name) throws RegistrationException {
         boolean isRegistered = false;
-        if (username.equals("") && password.equals("")) {
-            throw new RegistrationException("Input the username or password");
+        if (username.isEmpty() && password.isEmpty()) {
+            throw new RegistrationException("Input the username and password");
         }
-        if (!(username instanceof String) || !(password instanceof String)) {
-            throw new RegistrationException("Wrong username or password format");
+        if (username.isEmpty()) {
+            throw new RegistrationException("Input the username");
+        }
+        if (password.isEmpty()) {
+            throw new RegistrationException("Input the password");
         }
         if (users.containsKey(username)) {
-            throw new RegistrationException("Username already exists. Try again");
-        } else if (!username.equals("") && !password.equals("") && username instanceof String && password instanceof String) {
+            throw new RegistrationException("Such user already exists. Try again");
+        } else {
             User user = new User(username, password, weight, height, name);
             addUser(user);
             isRegistered = true;
@@ -62,26 +70,38 @@ public class FitVenture {
     public boolean verifyUser(String username, String password) throws LoginException {
         boolean correctUsername = false;
         boolean correctPassword = false;
-        if (password.equals("") && username.equals("")) {
-            throw new LoginException("Input the username or password");
+        if (password.isEmpty() && username.isEmpty()) {
+            throw new LoginException("Input the username and password");
         }
-        if (password.equals("")) {
+        if (password.isEmpty()) {
             throw new LoginException("Failed. Input the password");
         }
-        if (username.equals("")) {
+        if (username.isEmpty()) {
             throw new LoginException("Failed. Input the username");
         }
-        if (!users.containsKey(username) && !username.equals("")) {
+        if (!users.containsKey(username)) {
             throw new LoginException("Failed. Invalid username ");
         } else {
             correctUsername = true;
             User user = users.get(username);
-            if (!user.getPassword().equals(password) && !password.equals("")) {
+            if (!user.getPassword().equals(password)) {
                 throw new LoginException("Failed. Invalid password");
             } else {
                 correctPassword = true;
             }
             return correctUsername && correctPassword;
+        }
+    }
+
+    // saves stats data of the user to the HashMap
+    public void saveStatsData(String distance, String steps, String calories, String userUsername) throws SaveDataException {
+        if (distance.isEmpty() || steps.isEmpty() || calories.isEmpty()) {
+            throw new SaveDataException("Input the distance, steps or calories");
+        } else {
+            User currentUser = getUser(userUsername);
+            String currentUserUsername = currentUser.getUsername();
+            Stats stats = new Stats(steps, distance, calories);
+            currentUser.addStats(getDateToday(new Date()), stats);
         }
     }
 }

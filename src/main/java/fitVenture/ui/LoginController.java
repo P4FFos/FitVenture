@@ -1,6 +1,7 @@
 package fitVenture.ui;
 
 import fitVenture.backend.FitVenture;
+import fitVenture.backend.MQTTSubscriber;
 import fitVenture.backend.exceptions.LoginException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -43,9 +44,15 @@ public class LoginController {
                 // to store user object data, once user is logged in
                 FitVentureStart.currentUser = fitVenture.getUser(usernameText);
 
+                // to subscribe to the MQTT broker
+                new MQTTSubscriber();
+
                 //loads MainDashboardScene one user pressed login button
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("MainDashboardScene.fxml"));
                 root = loader.load();
+
+                MainDashboardController mainDashboardController = loader.getController();
+                mainDashboardController.showChart(24);
 
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 scene = new Scene(root);

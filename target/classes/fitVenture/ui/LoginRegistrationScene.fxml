@@ -5,7 +5,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fitVenture.ui.LoginRegistrationController" >
    <children>
-      <Button fx:id="register" layoutX="722.0" layoutY="176.0" onAction="#register" prefHeight="121.0" prefWidth="478.0" text="Register" />
+      <Button fx:id="register" layoutX="715.0" layoutY="176.0" onAction="#register" prefHeight="121.0" prefWidth="478.0" text="Register" />
       <Button fx:id="login" layoutX="715.0" layoutY="371.0" onAction="#login" prefHeight="121.0" prefWidth="478.0" text="Login" />
    </children>
 </AnchorPane>
