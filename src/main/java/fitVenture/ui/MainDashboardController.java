@@ -1,6 +1,7 @@
 package fitVenture.ui;
 
 import fitVenture.backend.stats.Stats;
+import fitVenture.backend.user.User;
 import fitVenture.backend.utils.Current_Date;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -32,7 +33,7 @@ public class MainDashboardController {
     private ObservableList observableList;
 
     private ArrayList<Integer> caloriesList;
-    private ArrayList<Integer> distanceList;
+    private ArrayList <Integer> distanceList;
 
     public void openUserProfile(ActionEvent event) throws IOException {
         //loads MainDashboardScene one user pressed login button
@@ -91,7 +92,7 @@ public class MainDashboardController {
 
     public void monthChart() {
         xAxis = new CategoryAxis();
-        xAxis.setLabel("Days");
+        xAxis.setLabel("Weeks");
 
         yAxis = new NumberAxis();
         yAxis.setLabel("Steps");
@@ -140,15 +141,16 @@ public class MainDashboardController {
         chartPane.setCenter(lineChart);
     }
 
-    public void addData(ArrayList<Integer> stepsList, int start) {
+    public void addData(ArrayList<Integer> list, int start) {
         XYChart.Series<String, Number> steps = new XYChart.Series<>();
         steps.setName("Steps/Time");
+
         XYChart.Series<String, Number> calories = new XYChart.Series<>();
         calories.setName("Calories/Time");
         XYChart.Series<String, Number> distance = new XYChart.Series<>();
         distance.setName("Distance/Time");
 
-        int sizeOfList = stepsList.size();
+        int sizeOfList = list.size();
         int avoidNullPointer = 0;
 
         if (start > 0) {
@@ -156,12 +158,12 @@ public class MainDashboardController {
             avoidNullPointer = start;
         }
         for (int i = start; i < sizeOfList; i++) {
-            steps.getData().add(new XYChart.Data<>(String.valueOf(i), stepsList.get(i - avoidNullPointer)));
-            calories.getData().add(new XYChart.Data<>(String.valueOf(i), caloriesList.get(i - avoidNullPointer)));
-            distance.getData().add(new XYChart.Data<>(String.valueOf(i), distanceList.get(i - avoidNullPointer)));
+            steps.getData().add(new XYChart.Data<>(String.valueOf(i), list.get(i - avoidNullPointer)));
+            calories.getData().add(new XYChart.Data<>(String.valueOf(i),caloriesList.get(i-avoidNullPointer)));
+            distance.getData().add(new XYChart.Data<>(String.valueOf(i),distanceList.get(i-avoidNullPointer)));
         }
 
-        lineChart.getData().addAll(steps, calories, distance);
+        lineChart.getData().addAll(steps,calories,distance);
     }
 
     public ArrayList getData(int size) {
@@ -171,6 +173,7 @@ public class MainDashboardController {
         if (size == 31) {
             // add a method to get data for a month
             return getMonthData();
+
         }
         if (size == 7) {
             // add a method for a week data
@@ -180,10 +183,12 @@ public class MainDashboardController {
     }
 
     public ArrayList getDayData() {
-        HashMap<String, Stats> mapOfStats = FitVentureStart.currentUser.getStats();
+        User currentUser = FitVentureStart.currentUser;
+        HashMap<String, Stats> mapOfStats = currentUser.getStats();
         Integer[] caloriesArray = new Integer[24];
         Integer[] distanceArray = new Integer[24];
-        Integer[] stepsArray = new Integer[24];
+
+        Integer[] myList = new Integer[24];
 
         mapOfStats.forEach((k, v) -> {
             if (k.substring(0, 10).toLowerCase().equals(Current_Date.getDateToday(new Date()).substring(0, 10))) {
@@ -192,28 +197,28 @@ public class MainDashboardController {
                 Integer steps = Integer.parseInt(stat.getSteps());
                 Integer calories = Integer.parseInt(stat.getCalories());
                 Integer distance = Integer.parseInt(stat.getDistance());
-                if (stepsArray[currentHour] != null) {
-                    Integer updatedSteps = stepsArray[currentHour] + steps;
-                    stepsArray[currentHour] = updatedSteps;
-                    Integer updatedCalories = caloriesArray[currentHour] + calories;
+                if (myList[currentHour] != null) {
+                    Integer updatedSteps = myList[currentHour] + steps;
+                    myList[currentHour] = updatedSteps;
+                    Integer updatedCalories = caloriesArray[currentHour] +  calories;
                     caloriesArray[currentHour] = updatedCalories;
-                    Integer updatedDistance = distanceArray[currentHour] + distance;
+                    Integer updatedDistance= distanceArray[currentHour] + distance;
                     distanceArray[currentHour] = updatedDistance;
                 } else {
-                    stepsArray[currentHour] = steps;
+                    myList[currentHour] = steps;
                     caloriesArray[currentHour] = calories;
                     distanceArray[currentHour] = distance;
                 }
             }
         });
 
-        ArrayList<Integer> emptyList = new ArrayList<>(); // this is to remove a null value from the list. Null values are causing issues in the chart.
+        ArrayList <Integer> emptyList = new ArrayList<>(); // this is to remove a null value from the list. Null values are causing issues in the chart.
         caloriesList = new ArrayList<>();
         distanceList = new ArrayList<>();
 
         for (int i = 0; i < 24; i++) {
-            if (stepsArray[i] != null) {
-                emptyList.add(stepsArray[i]);
+            if (myList[i] != null) {
+                emptyList.add(myList[i]);
                 caloriesList.add(caloriesArray[i]);
                 distanceList.add(distanceArray[i]);
             } else {
@@ -227,7 +232,7 @@ public class MainDashboardController {
 
     public ArrayList getWeekData() {
         HashMap<String, Stats> mapOfStats = FitVentureStart.currentUser.getStats();
-        Integer[] stepsArray = new Integer[7];
+        Integer[] myList = new Integer[7];
         Integer[] caloriesArray = new Integer[7];
         Integer[] distanceArray = new Integer[7];
 
@@ -235,7 +240,9 @@ public class MainDashboardController {
         int currentDate = Current_Date.getDateTodayAsInteger();
 
         mapOfStats.forEach((k, v) -> {
+
             int anotherDate = Current_Date.getIntegerOfSpecificDate(k);
+
             int difference = currentDate - anotherDate;
             Stats stat = v;
             Integer steps = Integer.parseInt(stat.getSteps());
@@ -243,17 +250,22 @@ public class MainDashboardController {
             Integer distance = Integer.parseInt(stat.getDistance());
 
             if (difference < week && difference >= 0) {
-                if (stepsArray[difference] != null) {
-                    Integer updatedSteps = stepsArray[difference] + steps;
-                    stepsArray[difference] = updatedSteps;
+
+                if (myList[difference] != null) {
+
+                    Integer updatedSteps = myList[difference] + steps;
+                    myList[difference] = updatedSteps;
                     Integer updatedCalories = caloriesArray[difference] + calories;
-                    caloriesArray[difference] = updatedCalories;
+                    caloriesArray[difference]= updatedCalories;
                     Integer updatedDistance = distanceArray[difference] + distance;
-                    distanceArray[difference] = updatedDistance;
+                    distanceArray[difference]= updatedDistance;
+
+
                 } else {
-                    stepsArray[difference] = steps;
+                    myList[difference] = steps;
                     caloriesArray[difference] = steps;
                     distanceArray[difference] = distance;
+
                 }
             }
         });
@@ -263,8 +275,8 @@ public class MainDashboardController {
         distanceList = new ArrayList<>();
 
         for (int i = 0; i < week; i++) {
-            if (stepsArray[i] != null) {
-                emptyList.add(stepsArray[i]);
+            if (myList[i] != null) {
+                emptyList.add(myList[i]);
                 caloriesList.add(caloriesArray[i]);
                 distanceList.add(distanceArray[i]);
             } else {
@@ -272,15 +284,18 @@ public class MainDashboardController {
                 caloriesList.add(0);
                 distanceList.add(0);
             }
+
         }
         return emptyList;
+
     }
 
     public ArrayList getMonthData() {
         HashMap<String, Stats> mapOfStats = FitVentureStart.currentUser.getStats();
-        Integer[] stepsArray = new Integer[31];
-        Integer[] caloriesArray = new Integer[31];
+        Integer[] myList = new Integer[31];
+        Integer [] caloriesArray = new Integer[31];
         Integer[] distanceArray = new Integer[31];
+
 
         int totalDays = 31;
         int dateToday = Current_Date.getDateTodayAsInteger();
@@ -288,39 +303,42 @@ public class MainDashboardController {
         mapOfStats.forEach((k, v) -> {
             int anotherDate = Current_Date.getIntegerOfSpecificDate(k);
             System.out.println(anotherDate);
-            int currentDay = Current_Date.getDay(anotherDate);
-            if (currentDay <= totalDays) {
-                int index = 0;
-                index = currentDay - 1;
+            int currentday = Current_Date.getDay(anotherDate);
+            
 
+            if (Math.abs(dateToday - anotherDate) < 30) {
+                int index = 0;
+                index = currentday-1;
+                
                 System.out.println(index);
                 Stats stat = v;
                 Integer steps = Integer.parseInt(stat.getSteps());
                 Integer calories = Integer.parseInt(stat.getCalories());
                 Integer distance = Integer.parseInt(stat.getDistance());
 
-                if (stepsArray[index] != null) {
-                    Integer updatedSteps = stepsArray[index] + steps;
-                    stepsArray[index] = updatedSteps;
+                if (myList[index] != null) {
+                    Integer updatedSteps = myList[index] + steps;
+                    myList[index] = updatedSteps;
                     Integer updatedCalories = caloriesArray[index] + calories;
                     caloriesArray[index] = updatedCalories;
                     Integer updatedDistance = distanceArray[index] + distance;
                     distanceArray[index] = updatedDistance;
                 } else {
-                    stepsArray[index] = steps;
+                    myList[index] = steps;
                     caloriesArray[index] = calories;
                     distanceArray[index] = distance;
                 }
             }
         });
 
-        ArrayList<Integer> nonNullArrayOfSteps = new ArrayList<>(); // this is to remove a null value from the list. Null values are causing issues in the chart.
-        caloriesList = new ArrayList<>();
-        distanceList = new ArrayList<>();
+        ArrayList <Integer> nonNullArrayOfSteps = new ArrayList<>(); // this is to remove a null value from the list. Null values are causing issues in the chart.
+       caloriesList = new ArrayList<>();
+       distanceList = new ArrayList<>();
+
 
         for (int i = 0; i < totalDays; i++) {
-            if (stepsArray[i] != null) {
-                nonNullArrayOfSteps.add(stepsArray[i]);
+            if (myList[i] != null) {
+                nonNullArrayOfSteps.add(myList[i]);
                 caloriesList.add(caloriesArray[i]);
                 distanceList.add(distanceArray[i]);
             } else {
@@ -331,6 +349,7 @@ public class MainDashboardController {
         }
         return nonNullArrayOfSteps;
     }
+
 
 
     public void dayChoice() throws Exception {
