@@ -11,7 +11,7 @@ import java.util.HashMap;
 
 import static fitVenture.backend.utils.Current_Date.getDateToday;
 
-public class FitVenture  {
+public class FitVenture {
     // A HashMap to store all the users
     private HashMap<String, User> users;
 
@@ -20,27 +20,27 @@ public class FitVenture  {
         users = new HashMap<>();
     }
 
-    // get the HashMap of users
+    // Get the HashMap of users
     public HashMap<String, User> getUsers() {
         return users;
     }
 
-    // set new HashMap of users (used by Jackson for Json deserializing)
+    // Set new HashMap of users (used by Jackson for Json deserializing)
     public void setUsers(HashMap<String, User> users) {
         this.users = users;
     }
 
-    // to add a user to the HashMap
+    // Add a user to the HashMap
     public void addUser(User user) {
         users.put(user.getUsername(), user);
     }
 
-    // method to get user
+    // Method to get user
     public User getUser(String username) {
         return users.get(username);
     }
 
-    // to check if a user is in the HashMap
+    // Checks if a user is in the HashMap
     // if no - register the user
     // if yes - return an error message based on the condition of the input
     public boolean register(String username, String password, String weight, String height, String name) throws RegistrationException {
@@ -64,7 +64,7 @@ public class FitVenture  {
         return isRegistered;
     }
 
-    // to verify the user
+    // Verifies the user
     // if user is verified - return true
     // if user is not verified - return an error message based on the condition of the input
     public boolean verifyUser(String username, String password) throws LoginException {
@@ -93,7 +93,7 @@ public class FitVenture  {
         }
     }
 
-    // saves stats data of the user to the HashMap
+    // Saves stats data of the user to the HashMap
     public void saveStatsData(String distance, String steps, String calories, String userUsername) throws SaveDataException {
         if (distance.isEmpty() || steps.isEmpty() || calories.isEmpty()) {
             throw new SaveDataException("Input the distance, steps or calories");

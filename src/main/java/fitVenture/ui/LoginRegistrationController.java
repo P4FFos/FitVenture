@@ -6,7 +6,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 public class LoginRegistrationController {
@@ -15,7 +14,7 @@ public class LoginRegistrationController {
     private Scene scene;
 
     public void register(ActionEvent event) throws IOException {
-        //loads RegistrationScene one user pressed register button
+        // Loads RegistrationScene one user pressed register button
         FXMLLoader loader = new FXMLLoader(getClass().getResource("RegistrationScene.fxml"));
         root = loader.load();
 
@@ -26,7 +25,7 @@ public class LoginRegistrationController {
     }
 
     public void login(ActionEvent event) throws IOException {
-        //loads LoginScene one user pressed login button
+        // Loads LoginScene one user pressed login button
         FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginScene.fxml"));
         root = loader.load();
 
