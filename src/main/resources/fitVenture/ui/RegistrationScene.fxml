@@ -6,29 +6,29 @@
 
 <AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fitVenture.ui.RegistrationController">
    <stylesheets>
-      <URL value="@Registrationstyles.css" />
+      <URL value="@Registrationstyles.css"/>
    </stylesheets>
    <children>
       <TextField fx:id="username" layoutX="857.0" layoutY="306.0" promptText="username" />
       <PasswordField fx:id="password" layoutX="857.0" layoutY="336.0" promptText="password" />
-      <Button layoutX="779.0" layoutY="545.0" mnemonicParsing="false" onAction="#register" prefHeight="45.0" prefWidth="233.0" text="Register" />
+      <Button layoutX="785.0" layoutY="573.0" mnemonicParsing="false" onAction="#register" prefHeight="45.0" prefWidth="233.0" text="Register" />
       <Label layoutX="785.0" layoutY="311.0" prefHeight="17.0" prefWidth="69.0" text="Username:" />
       <Label layoutX="785.0" layoutY="342.0" prefHeight="17.0" prefWidth="69.0" text="Password:" />
       <Label fx:id="errorLabel" layoutX="1062.0" layoutY="311.0" prefHeight="17.0" prefWidth="198.0" text="" visible="false" />
-      <Button fx:id="backButton" layoutX="914.0" layoutY="258.0" mnemonicParsing="false" onAction="#backToRegLoginPage" prefHeight="26.0" prefWidth="92.0" text="Return back" />
-      <Button layoutX="784.0" layoutY="372.0" mnemonicParsing="false" onMouseClicked="#optionalInput" prefHeight="25.0" prefWidth="222.0" text="Additional Information" />
+      <Button fx:id="backButton" layoutX="929.0" layoutY="256.0" mnemonicParsing="false" onAction="#backToRegLoginPage" prefHeight="26.0" prefWidth="92.0" text="Return back" />
+      <Button layoutX="785.0" layoutY="371.0" mnemonicParsing="false" onMouseClicked="#optionalInput" text="Additional Information" />
       <Pane fx:id="optionalPane" layoutX="775.0" layoutY="405.0" prefHeight="140.0" prefWidth="200.0" visible="false">
          <children>
             <Label layoutX="12.0" layoutY="10.0" prefHeight="17.0" prefWidth="54.0" text="Height:" />
-            <TextField fx:id="height" layoutX="82.0" layoutY="6.0" prefHeight="25.0" prefWidth="150.0" promptText="Height" />
-            <Label layoutX="12.0" layoutY="45.0" prefHeight="17.0" prefWidth="54.0" text="Weight:"/>
-            <TextField fx:id="weight" layoutX="82.0" layoutY="41.0" prefHeight="25.0" prefWidth="150.0" promptText="Weight" />
+            <TextField fx:id="height" layoutX="80.0" layoutY="6.0" prefHeight="25.0" prefWidth="86.0" promptText="Height" />
+            <Label layoutX="12.0" layoutY="45.0" prefHeight="17.0" prefWidth="54.0" text="Weight:" />
+            <TextField fx:id="weight" layoutX="80.0" layoutY="41.0" prefHeight="25.0" prefWidth="86.0" promptText="Weight" />
             <Label layoutX="12.0" layoutY="80.0" prefHeight="17.0" prefWidth="61.0" text="Full Name:" />
-            <TextField fx:id="name" layoutX="82.0" layoutY="76.0" prefHeight="25.0" prefWidth="150.0" promptText="Full Name" />
+            <TextField fx:id="name" layoutX="80.0" layoutY="76.0" prefHeight="25.0" prefWidth="86.0" promptText="Full Name" />
          </children>
       </Pane>
-      <Label fx:id="optionalErrorLabel" layoutX="1064.0" layoutY="415.0" prefHeight="26.0" prefWidth="242.0" text="Incorrect input, height and weight should be a number." visible="false" />
-      <Label fx:id="nameErrorLabel" layoutX="1076.0" layoutY="471.0" prefHeight="25.0" prefWidth="233.0" text="Name should not contain any numbers." visible="false" />
-      <Label fx:id="nameOptionalErrorLabel" layoutX="1083.0" layoutY="502.0" prefHeight="26.0" prefWidth="242.0" text="Incorrect, Full name should not have numbers. Weight and height should not have letters or symbols" visible="false" />
+      <Label fx:id="optionalErrorLabel" layoutX="1000.0" layoutY="415.0" prefHeight="17.0" prefWidth="306.0" text="Incorrect input, height and weight should be a number." visible="false" />
+      <Label fx:id="nameErrorLabel" layoutX="1000.0" layoutY="488.0" prefHeight="17.0" prefWidth="215.0" text="Name should not contain any numbers." visible="false" />
+      <Label fx:id="nameOptionalErrorLabel" layoutX="785.0" layoutY="502.0" prefHeight="26.0" prefWidth="540.0" text="Incorrect, Full name should not have numbers. Weight and height should not have letters or symbols" visible="false" />
    </children>
 </AnchorPane>
