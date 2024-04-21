@@ -32,8 +32,8 @@ public class MainDashboardController {
     private ArrayList immutableList; // list of values for Xaxis of the graph
     private ObservableList observableList; // Obsevable referlance for observable object
 
-    private ArrayList<Integer> caloriesList; // a list to hold calorie values
-    private ArrayList <Integer> distanceList; // a list to hold distance values
+    private ArrayList<Double> caloriesList; // a list to hold calorie values
+    private ArrayList <Double> distanceList; // a list to hold distance values
 
     public void openUserProfile(ActionEvent event) throws IOException { // method to be called if the user clicks on the userProfile button
         //loads MainDashboardScene one user pressed login button
@@ -180,8 +180,8 @@ public class MainDashboardController {
         // getting the object user who signed in
         User currentUser = FitVentureStart.currentUser;
         HashMap<String, Stats> mapOfStats = currentUser.getStats(); // retrieving their stats
-        Integer[] caloriesArray = new Integer[24];
-        Integer[] distanceArray = new Integer[24];
+        Double[] caloriesArray = new Double[24];
+        Double[] distanceArray = new Double[24];
 
         Integer[] myList = new Integer[24];
 
@@ -190,17 +190,17 @@ public class MainDashboardController {
                 int currentHour = Integer.parseInt(k.substring(11, 13)); // take the hour of that day as integer
                 Stats stat = v; // assign stat to the current stat Object
                 Integer steps = Integer.parseInt(stat.getSteps());
-                Integer calories = Integer.parseInt(stat.getCalories());
-                Integer distance = Integer.parseInt(stat.getDistance());
+                double calories = Double.parseDouble(stat.getCalories());
+                double distance = Double.parseDouble(stat.getDistance());
 
                 // checking if there were other values that were set to the current our
                 // then updates the value
                 if (myList[currentHour] != null) {
                     Integer updatedSteps = myList[currentHour] + steps;
                     myList[currentHour] = updatedSteps;
-                    Integer updatedCalories = caloriesArray[currentHour] +  calories;
+                    double updatedCalories = caloriesArray[currentHour] +  calories;
                     caloriesArray[currentHour] = updatedCalories;
-                    Integer updatedDistance= distanceArray[currentHour] + distance;
+                    double updatedDistance= distanceArray[currentHour] + distance;
                     distanceArray[currentHour] = updatedDistance;
                 } else {
                     // if nothing were regestered for the particular hour, save the values in the hour.
@@ -223,8 +223,8 @@ public class MainDashboardController {
             } else {
                 // adding o to the index that holds null values
                 emptyList.add(0);
-                caloriesList.add(0);
-                distanceList.add(0);
+                caloriesList.add(0.0);
+                distanceList.add(0.0);
             }
         }
         return emptyList;
@@ -234,8 +234,8 @@ public class MainDashboardController {
         // getting stats of the current user
         HashMap<String, Stats> mapOfStats = FitVentureStart.currentUser.getStats();
         Integer[] myList = new Integer[7];
-        Integer[] caloriesArray = new Integer[7];
-        Integer[] distanceArray = new Integer[7];
+        double[] caloriesArray = new double[7];
+        double[] distanceArray = new double[7];
 
         int totalDays = 7;
         int currentDate = Current_Date.getDateTodayAsInteger(); // getting todays date as an integer
@@ -250,8 +250,8 @@ public class MainDashboardController {
             // referencing values of current stat in the loop
             Stats stat = v;
             Integer steps = Integer.parseInt(stat.getSteps());
-            Integer calories = Integer.parseInt(stat.getCalories());
-            Integer distance = Integer.parseInt(stat.getDistance());
+            double calories = Double.parseDouble(stat.getCalories());
+            double distance = Double.parseDouble(stat.getDistance());
 
             // checking if there has been less than a week since the stat object was created
             if (difference < totalDays) {
@@ -260,9 +260,9 @@ public class MainDashboardController {
                    // updating data if they exist
                     Integer updatedSteps = myList[index] + steps;
                     myList[index] = updatedSteps;
-                    Integer updatedCalories = caloriesArray[index] + calories;
+                    double updatedCalories = caloriesArray[index] + calories;
                     caloriesArray[index]= updatedCalories;
-                    Integer updatedDistance = distanceArray[index] + distance;
+                    double updatedDistance = distanceArray[index] + distance;
                     distanceArray[index]= updatedDistance;
 
 
@@ -289,8 +289,8 @@ public class MainDashboardController {
             } else {
                 // adding o to the index that holds null values
                 emptyList.add(0);
-                caloriesList.add(0);
-                distanceList.add(0);
+                caloriesList.add(0.0);
+                distanceList.add(0.0);
             }
 
         }
@@ -302,8 +302,8 @@ public class MainDashboardController {
         // getting the map of stats for the current user
         HashMap<String, Stats> mapOfStats = FitVentureStart.currentUser.getStats();
         Integer[] myList = new Integer[31];
-        Integer [] caloriesArray = new Integer[31];
-        Integer[] distanceArray = new Integer[31];
+        double [] caloriesArray = new double[31];
+        double[] distanceArray = new double[31];
 
         int totalDays = 31; // days of a month
         int todaysDate = Current_Date.getDateTodayAsInteger();
@@ -325,9 +325,9 @@ public class MainDashboardController {
                     if (myList[index] != null) {
                         Integer updatedSteps = myList[index] + steps;
                         myList[index] = updatedSteps;
-                        Integer updatedCalories = caloriesArray[index] + calories;
+                        double updatedCalories = caloriesArray[index] + calories;
                         caloriesArray[index] = updatedCalories;
-                        Integer updatedDistance = distanceArray[index] + distance;
+                        double updatedDistance = distanceArray[index] + distance;
                         distanceArray[index] = updatedDistance;
                     } else {
                         // saving values if nothing was saved before
@@ -356,8 +356,8 @@ public class MainDashboardController {
             } else {
                 // adding 0 to the indexes that holds null values
                 nonNullArrayOfSteps.add(0);
-                caloriesList.add(0);
-                distanceList.add(0);
+                caloriesList.add(0.0);
+                distanceList.add(0.0);
             }
         }
         return nonNullArrayOfSteps;
