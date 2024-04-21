@@ -297,22 +297,19 @@ public class MainDashboardController {
         Integer[] distanceArray = new Integer[31];
 
 
-        int month = 31;
-        int currentDate = Current_Date.getDateTodayAsInteger();
+        int totalDays = 31;
+        int dateToday = Current_Date.getDateTodayAsInteger();
 
         mapOfStats.forEach((k, v) -> {
             int anotherDate = Current_Date.getIntegerOfSpecificDate(k);
             System.out.println(anotherDate);
-            int difference = currentDate - anotherDate;
+            int currentday = Current_Date.getDay(anotherDate);
+            
 
-            if (difference <= 100) {
+            if (currentday <= totalDays) {
                 int index = 0;
-                if (difference > month) {
-                    int indexDiff = (difference - 8) % month;
-                    index = Math.abs(indexDiff);
-                } else if (difference >= 0) {
-                    index = difference % month;
-                }
+                index = currentday-1;
+                
                 System.out.println(index);
                 Stats stat = v;
                 Integer steps = Integer.parseInt(stat.getSteps());
@@ -339,7 +336,7 @@ public class MainDashboardController {
        distanceList = new ArrayList<>();
 
 
-        for (int i = 0; i < month; i++) {
+        for (int i = 0; i < totalDays; i++) {
             if (myList[i] != null) {
                 nonNullArrayOfSteps.add(myList[i]);
                 caloriesList.add(caloriesArray[i]);

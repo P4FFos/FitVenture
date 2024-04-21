@@ -50,5 +50,18 @@ public class Current_Date {
         return number;
     }
 
+    public static int getDay(int date){
+        String stringDate = String.valueOf(date);
+        char firstDigit = stringDate.charAt(stringDate.length()-1);
+        char secondDigit = stringDate.charAt(stringDate.length()-2);
+        String sDay = String.valueOf(secondDigit) + String.valueOf(firstDigit);
+        int day = Integer.parseInt(sDay);
+        System.out.println(stringDate);
+        System.out.println(firstDigit);
+        System.out.println(secondDigit);
+        System.out.println(day);
+        return day;
+    }   
+
 
 }
