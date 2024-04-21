@@ -1,10 +1,5 @@
 package fitVenture.backend.stats;
 
-import fitVenture.ui.FitVentureStart;
-
-import java.io.Serializable;
-import java.util.Date;
-
 public class Stats {
     private String distance;
     private String steps;
@@ -14,13 +9,14 @@ public class Stats {
     public Stats() {
     }
 
+    // Stats class constructor
     public Stats(String steps, String distance, String calories){
         this.distance = distance;
         this.steps = steps;
         this.calories = calories;
     }
 
-    // get methods for stats attributes
+    // Get methods for stats attributes
     public String getSteps(){
         return this.steps;
     }
@@ -33,7 +29,7 @@ public class Stats {
         return this.calories;
     }
 
-    // set methods for stats attributes
+    // Set methods for stats attributes
     public void setSteps(String steps){
         this.steps = steps;
     }
@@ -46,7 +42,4 @@ public class Stats {
         this.calories = calories;
     }
 
-    public String toString(){
-        return " Calories: " + this.calories+ " Steps: " + this.steps + " distance: "+ this.distance;
-    }
 }
