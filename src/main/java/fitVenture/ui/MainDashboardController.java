@@ -237,14 +237,16 @@ public class MainDashboardController {
         Integer[] caloriesArray = new Integer[7];
         Integer[] distanceArray = new Integer[7];
 
-        int week = 7;
+        int totalDays = 7;
         int currentDate = Current_Date.getDateTodayAsInteger(); // getting todays date as an integer
 
         mapOfStats.forEach((k, v) -> { // looping though evert stat in the map
 
             int anotherDate = Current_Date.getIntegerOfSpecificDate(k); // getting the dateKey for the map as an integer
 
-            int difference = currentDate - anotherDate; // the difference between today and when the date was created
+            int difference = currentDate - anotherDate; // the difference between today and when the date was created'
+            System.out.println(currentDate);
+            System.out.println(anotherDate);
             // referencing values of current stat in the loop
             Stats stat = v;
             Integer steps = Integer.parseInt(stat.getSteps());
@@ -252,23 +254,23 @@ public class MainDashboardController {
             Integer distance = Integer.parseInt(stat.getDistance());
 
             // checking if there has been less than a week since the stat object was created
-            if (difference < week && difference >= 0) {
-
-                if (myList[difference] != null) { // chicking if there were saved data on that day to update
+            if (difference < totalDays) {
+                int index = Math.abs(difference - 6);
+                if (myList[index] != null) { // chicking if there were saved data on that day to update
                    // updating data if they exist
-                    Integer updatedSteps = myList[difference] + steps;
-                    myList[difference] = updatedSteps;
-                    Integer updatedCalories = caloriesArray[difference] + calories;
-                    caloriesArray[difference]= updatedCalories;
-                    Integer updatedDistance = distanceArray[difference] + distance;
-                    distanceArray[difference]= updatedDistance;
+                    Integer updatedSteps = myList[index] + steps;
+                    myList[index] = updatedSteps;
+                    Integer updatedCalories = caloriesArray[index] + calories;
+                    caloriesArray[index]= updatedCalories;
+                    Integer updatedDistance = distanceArray[index] + distance;
+                    distanceArray[index]= updatedDistance;
 
 
                 } else {
                     // adding data if there is nothing to update
-                    myList[difference] = steps;
-                    caloriesArray[difference] = steps;
-                    distanceArray[difference] = distance;
+                    myList[index] = steps;
+                    caloriesArray[index] = steps;
+                    distanceArray[index] = distance;
 
                 }
             }
@@ -279,7 +281,7 @@ public class MainDashboardController {
         caloriesList = new ArrayList<>();
         distanceList = new ArrayList<>();
 
-        for (int i = 0; i < week; i++) {
+        for (int i = 0; i < totalDays; i++) {
             if (myList[i] != null) {
                 emptyList.add(myList[i]);
                 caloriesList.add(caloriesArray[i]);

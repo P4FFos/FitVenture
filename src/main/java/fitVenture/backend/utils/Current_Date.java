@@ -9,6 +9,7 @@ public class Current_Date {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss");
         return dateFormat.format(date);
     }
+
     public static int getDateTodayAsInteger(){
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss");
         String todayDate= dateFormat.format(new Date());
