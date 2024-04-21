@@ -9,9 +9,9 @@ public class Current_Date {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss");
         return dateFormat.format(date);
     }
+
     public static int getDateTodayAsInteger(){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss");
-        String todayDate= dateFormat.format(new Date());
+        String todayDate= getDateToday(new Date());
         String newDate="";
 
         Set <Integer> setOfLine= new HashSet<Integer>();
@@ -51,15 +51,11 @@ public class Current_Date {
     }
 
     public static int getDay(int date){
-        String stringDate = String.valueOf(date);
+        String stringDate = String.valueOf(date); // Turn the date to String
         char firstDigit = stringDate.charAt(stringDate.length()-1);
         char secondDigit = stringDate.charAt(stringDate.length()-2);
-        String sDay = String.valueOf(secondDigit) + String.valueOf(firstDigit);
-        int day = Integer.parseInt(sDay);
-        System.out.println(stringDate);
-        System.out.println(firstDigit);
-        System.out.println(secondDigit);
-        System.out.println(day);
+        String sDay = String.valueOf(secondDigit) + String.valueOf(firstDigit); // Combining the digits to a two-digit number
+        int day = Integer.parseInt(sDay); // Parse it to int
         return day;
     }   
 
