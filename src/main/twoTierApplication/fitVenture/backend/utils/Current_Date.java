@@ -6,13 +6,13 @@ import java.text.SimpleDateFormat;
 public class Current_Date {
     public static String getDateToday(Date date) {
         // Returns the current date in the format "1999 01 11 12:00"
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH");
         return dateFormat.format(date);
     }
 
     // Returns today's date as an integer
     public static int getDateTodayAsInteger() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH");
         String todayDate = dateFormat.format(new Date());
         String newDate = "";
 
