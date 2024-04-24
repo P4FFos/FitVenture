@@ -295,37 +295,38 @@ public class MainDashboardController {
         double[] caloriesArray = new double[31];
         double[] distanceArray = new double[31];
 
-        int totalDays = 31; // days of a month
-        int todayDate = Current_Date.getDateTodayAsInteger();
+        int totalDays = 31; // total days of a month
+        int dateToday = Current_Date.getDateTodayAsInteger();
 
         mapOfStats.forEach((key, value) -> { // looping though the map of stats
             int anotherDate = Current_Date.getIntegerOfSpecificDate(key);
-            int currentCay = Current_Date.getDay(anotherDate);
+            int currentDay = Current_Date.getDay(anotherDate);
 
-            if ((todayDate - anotherDate) < 102) { // checking if we are in the same year
-                if (currentCay <= totalDays) { // checking if the day is less than 31
-                    int index = 0;
-                    index = currentCay - 1; // making indexes correspond to the way arrays are indexed. from 0. not 1
 
-                    // referencing all values of a stats
-                    Integer steps = Integer.parseInt(value.getSteps());
-                    Integer calories = Integer.parseInt(value.getCalories());
-                    Integer distance = Integer.parseInt(value.getDistance());
+            if ((dateToday - anotherDate) < (totalDays -1)) { // checking if the day is less than 31
+                int index = 0;
+                index = currentDay - 1; // making indexes correspond to the way arrays are indexed. from 0. not 1
 
-                    // checking if the date is had values saved and updating these values
-                    if (stepsArray[index] != null) {
-                        Integer updatedSteps = stepsArray[index] + steps;
-                        stepsArray[index] = updatedSteps;
-                        double updatedCalories = caloriesArray[index] + calories;
-                        caloriesArray[index] = updatedCalories;
-                        double updatedDistance = distanceArray[index] + distance;
-                        distanceArray[index] = updatedDistance;
-                    } else {
-                        // saving values if nothing was saved before
-                        stepsArray[index] = steps;
-                        caloriesArray[index] = calories;
-                        distanceArray[index] = distance;
-                    }
+                // referencing all values of a stats
+                Integer steps = Integer.parseInt(value.getSteps());
+                Integer calories = Integer.parseInt(value.getCalories());
+                Integer distance = Integer.parseInt(value.getDistance());
+
+                // checking if the date has values saved and updating these values
+                if (stepsArray[index] != null) {
+                    Integer updatedSteps = stepsArray[index] + steps;
+                    stepsArray[index] = updatedSteps;
+                    
+                    double updatedCalories = caloriesArray[index] + calories;
+                    caloriesArray[index] = updatedCalories;
+
+                    double updatedDistance = distanceArray[index] + distance;
+                    distanceArray[index] = updatedDistance;
+                } else {
+                    // saving values if nothing was saved before
+                    stepsArray[index] = steps;
+                    caloriesArray[index] = calories;
+                    distanceArray[index] = distance;
                 }
             }
         });
