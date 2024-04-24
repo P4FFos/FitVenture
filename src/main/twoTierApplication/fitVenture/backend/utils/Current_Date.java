@@ -37,8 +37,8 @@ public class Current_Date {
     // Returns day from a specific integer date
     public static int getDay(int date) {
         String stringDate = String.valueOf(date); // Turn the date to String
-        stringDate = stringDate.substring(6); // Gets the days (only works with the format "yyyy-MM-dd HH")
-        int day = Integer.parseInt(stringDate);
+        String days = stringDate.substring(6,8); // Gets the days (only works with the format that starts with "yyyy-MM-dd" in Integer format)
+        int day = Integer.parseInt(days);
         return day;
     }
 }

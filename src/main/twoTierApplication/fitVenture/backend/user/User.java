@@ -10,7 +10,7 @@ public class User {
     private String weight;
     private String height;
     private String name;
-    private HashMap<String, Stats> stats;
+    private HashMap<String, Stats> statsMap;
 
     // Empty constructor used by Jackson for Json deserializing
     public User() {
@@ -23,7 +23,7 @@ public class User {
         this.weight = weight;
         this.height = height;
         this.name = name;
-        this.stats = new HashMap<>();
+        this.statsMap = new HashMap<>();
     }
 
     // User class get methods
@@ -48,7 +48,7 @@ public class User {
     }
 
     public HashMap<String, Stats> getStats() {
-        return stats;
+        return statsMap;
     }
 
     // User class set methods
@@ -73,10 +73,32 @@ public class User {
     }
 
     public void setStats(HashMap<String, Stats> stats) {
-        this.stats = stats;
+        this.statsMap = stats;
     }
 
     public void addStats(String newDate, Stats stats) {
-        this.stats.put(newDate, stats);
+        this.statsMap.put(newDate, stats);
+    }
+
+    public boolean containsDateInStats(String date){
+        if (this.statsMap.containsKey(date)) return true;
+        else return false;
+    }
+
+    public void updateStats(String steps, String distance, String calories, String date){ // Updates the stats of an already existing entry
+        int newSteps = Integer.parseInt(steps);
+        int newdistance = Integer.parseInt(distance);
+        int newCalories = Integer.parseInt(calories);
+
+        int oldSteps = Integer.parseInt(statsMap.get(date).getSteps());
+        int oldDistance = Integer.parseInt(statsMap.get(date).getDistance());
+        int oldCalories = Integer.parseInt(statsMap.get(date).getCalories());
+
+        String updatedSteps = String.valueOf(oldSteps + newSteps);
+        String updatedDistance = String.valueOf(oldDistance + newdistance);
+        String updatedCalories = String.valueOf(oldCalories + newCalories);
+
+        Stats stats = new Stats(updatedSteps, updatedDistance, updatedCalories);
+        this.statsMap.put(date, stats);
     }
 }

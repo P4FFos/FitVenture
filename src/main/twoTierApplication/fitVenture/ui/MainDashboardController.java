@@ -255,8 +255,10 @@ public class MainDashboardController {
                     // updating data if they exist
                     int updatedSteps = stepsArray[index] + steps;
                     stepsArray[index] = updatedSteps;
+
                     double updatedCalories = caloriesArray[index] + calories;
                     caloriesArray[index] = updatedCalories;
+                    
                     double updatedDistance = distanceArray[index] + distance;
                     distanceArray[index] = updatedDistance;
                 } else {
@@ -316,7 +318,7 @@ public class MainDashboardController {
                 if (stepsArray[index] != null) {
                     Integer updatedSteps = stepsArray[index] + steps;
                     stepsArray[index] = updatedSteps;
-                    
+
                     double updatedCalories = caloriesArray[index] + calories;
                     caloriesArray[index] = updatedCalories;
 
