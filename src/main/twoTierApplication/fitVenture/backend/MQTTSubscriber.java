@@ -1,6 +1,7 @@
 package fitVenture.backend;
 
 import fitVenture.backend.stats.Stats;
+import fitVenture.backend.stats.RaceStats;
 import fitVenture.backend.utils.FileHandler;
 import fitVenture.ui.FitVentureStart;
 import org.eclipse.paho.client.mqttv3.*;
@@ -11,10 +12,12 @@ public class MQTTSubscriber {
     // Attributes to initialise MQTT broker, client id and topic
     private static final String broker = "tcp://broker.hivemq.com:1883";
     private static final String clientId = "ClientID1";
-    private static final String topic = "fitVenture/sensor/accelerometer/data";
+    private static final String mainTopic = "fitVenture/sensor/accelerometer/data";
+    private static final String raceTopic = "fitVenture/sensor/accelerometer/raceData";
 
     // Variable to store the last received message
     private Stats lastReceivedMessage;
+    private RaceStats lastReceivedRaceMessage;
 
     // Method to subscribe to a topic
     public MQTTSubscriber() {
@@ -36,12 +39,26 @@ public class MQTTSubscriber {
                 // Method to save message from the MQTT broker into the JSON file
                 public void messageArrived(String topic, MqttMessage message) throws Exception {
                     System.out.println("Message is arrived");
-                    if ("fitVenture/sensor/accelerometer/data".equals(topic)) {
-                        ObjectMapper mapper = new ObjectMapper();
-                        lastReceivedMessage = mapper.readValue(message.toString(), Stats.class);
-                        FitVentureStart.fitVenture.saveStatsData(lastReceivedMessage.getDistance(), lastReceivedMessage.getSteps(), lastReceivedMessage.getCalories(), FitVentureStart.currentUser.getUsername());
+                    ObjectMapper mapper = new ObjectMapper();
+                    lastReceivedMessage = mapper.readValue(message.toString(), Stats.class);
+                    if (topic.equals(mainTopic)) {
+                        FitVentureStart.fitVenture.saveStatsData(
+                                lastReceivedMessage.getDistance(), lastReceivedMessage.getSteps(),
+                                lastReceivedMessage.getCalories(),
+                                FitVentureStart.currentUser.getUsername()
+                        );
                         FileHandler.jsonSerializer(FitVentureStart.jsonPath, FitVentureStart.fitVenture);
                         System.out.println("Data saved");
+                    } else if (topic.equals(raceTopic)){
+                        FitVentureStart.fitVenture.saveRaceStatsData(
+                                lastReceivedRaceMessage.getStartTime(), lastReceivedRaceMessage.getEndTime(),
+                                lastReceivedRaceMessage.getRaceDuration(),
+                                lastReceivedMessage.getDistance(),
+                                lastReceivedRaceMessage.getSteps(), lastReceivedRaceMessage.getCalories(),
+                                FitVentureStart.currentUser.getUsername()
+                        );
+                        FileHandler.jsonSerializer(FitVentureStart.jsonPath, FitVentureStart.fitVenture);
+                        System.out.println("Race data saved");
                     }
                 }
 
@@ -50,7 +67,7 @@ public class MQTTSubscriber {
                     System.out.println("Complete");
                 }
             });
-            client.subscribe(topic);
+            // client.subscribe(mainTopic);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Failed");

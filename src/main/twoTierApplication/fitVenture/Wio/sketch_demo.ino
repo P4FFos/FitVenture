@@ -16,6 +16,13 @@ unsigned long lastStepTime = 0;
 float userHeight = 195.0;
 float strideLength;
 unsigned long lastActionTime = 0;
+
+// Variables for race
+bool isRaceStarted = false;
+unsigned long raceStartTime = 0;
+unsigned long raceEndTime = 0;
+int buttonPosition = 0;
+
 const unsigned long MQTT_RETRY_INTERVAL = 5000;
 const unsigned long WIFI_RETRY_INTERVAL = 5000;
 
@@ -23,7 +30,8 @@ const unsigned long WIFI_RETRY_INTERVAL = 5000;
  char ssid[] = "Alex";
  const char* password = "QazP1234";
  const char* server = "broker.hivemq.com";
- const char* topic = "fitVenture/sensor/accelerometer/data";
+ const char* mainTopic = "fitVenture/sensor/accelerometer/data";
+ const char* raceTopic = "fitVenture/sensor/accelerometer/raceData";
  const int port = 1883;
 
 MMA7660 accel;
@@ -57,6 +65,9 @@ void loop() {
   float x, y, z;
   bool success = accel.getAcceleration(&x, &y, &z);
 
+  // Read if button is pressed
+  buttonPosition = digitalRead(2);
+
   if (success) {
     // Calculate magnitude of acceleration vector
     float magnitude = sqrt(x * x + y * y + z * z);
@@ -69,7 +80,18 @@ void loop() {
         lastStepTime = currentTime;
         publishData();
         Serial.println("Step detected and published.");
-      }
+      } else if (buttonPosition == HIGH) {
+        // Start the race
+        isRaceStarted = true;
+        raceStartTime = millis();
+        } else {
+        // Stop the race
+        isRaceStarted = false;
+        raceEndTime = millis();
+
+        // Publish race data
+        publishRaceData();
+        }
       isMoving = true;
     } else {
       // Stop counting steps if previously moving
@@ -151,6 +173,20 @@ void publishData() {
   snprintf(payload, sizeof(payload), "{\"distance\": %.2f, \"steps\": %d, \"calories\": %.2f}", distance, stepCount, caloriesBurned);
   tft.printf("Distance: %.2f\nStep Count: %d\nCalories Burned: %.2f", distance, stepCount, caloriesBurned);
   delay(500);
-  mqttClient.publish(topic, payload);
+  mqttClient.publish(mainTopic, payload);
   Serial.println("Data published to MQTT topics.");
+}
+
+void publishRaceData() {
+  // Calculate distance traveled based on steps taken in meters
+  float distance = stepCount * strideLength / 100.0;
+
+  // Calculate calories burned based on steps taken
+  float caloriesBurned = stepCount * CALORIES_PER_STEP;
+
+  char payload[100];
+  snprintf(payload, sizeof(payload), "{\"start\": %lu, \"end\": %lu, \"distance\": %.2f, \"steps\": %d, \"calories\": %.2f}", raceStartTime, raceEndTime, distance, stepCount, caloriesBurned);
+  mqttClient.publish(raceTopic, payload);
+  tft.printf("Race finished!");
+  Serial.println("Race data published to the MQTT topic.");
 }
