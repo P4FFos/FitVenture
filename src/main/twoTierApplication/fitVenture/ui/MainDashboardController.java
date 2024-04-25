@@ -240,8 +240,6 @@ public class MainDashboardController {
         mapOfStats.forEach((key, value) -> { // looping though evert stat in the map
             int anotherDate = Current_Date.getIntegerOfSpecificDate(key); // getting the dateKey for the map as an integer
             int difference = currentDate - anotherDate; // the difference between today and when the date was created
-            System.out.println(currentDate);
-            System.out.println(anotherDate);
 
             // referencing values of current stat in the loop
             Integer steps = Integer.parseInt(value.getSteps());
@@ -255,7 +253,7 @@ public class MainDashboardController {
                     // updating data if they exist
                     int updatedSteps = stepsArray[index] + steps;
                     stepsArray[index] = updatedSteps;
-
+                   
                     double updatedCalories = caloriesArray[index] + calories;
                     caloriesArray[index] = updatedCalories;
                     
@@ -264,7 +262,7 @@ public class MainDashboardController {
                 } else {
                     // adding data if there is nothing to update
                     stepsArray[index] = steps;
-                    caloriesArray[index] = steps;
+                    caloriesArray[index] = calories;
                     distanceArray[index] = distance;
                 }
             }
