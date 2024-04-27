@@ -56,5 +56,10 @@
             <Font size="24.0" />
          </font>
       </Button>
+      <Button fx:id="updateChartButton" layoutY="1043.0" mnemonicParsing="false" onMouseClicked="#updateChartButton" prefHeight="37.0" prefWidth="22.0" text="Update">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

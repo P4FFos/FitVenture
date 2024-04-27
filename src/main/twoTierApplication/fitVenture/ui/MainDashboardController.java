@@ -16,6 +16,8 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -34,8 +36,15 @@ public class MainDashboardController {
     private BorderPane borderPane; // reference to the BorderPane in the fxml
     private ObservableList observableList; // Observable reference for observable object
 
+    @FXML
+    private Button updateCharButton;
+
     private ArrayList<Double> caloriesList; // a list to hold calorie values
     private ArrayList<Double> distanceList; // a list to hold distance values
+
+    public void updateChartButton(MouseEvent event){
+        showChart();
+    }
 
     public void openUserProfile(ActionEvent event) throws IOException { // method to be called if the user clicks on the userProfile button
         //loads MainDashboardScene one user pressed login button
