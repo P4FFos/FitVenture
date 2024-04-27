@@ -48,18 +48,6 @@ public class MainDashboardController {
         stage.show(); // showing the stage
     }
 
-    public void showChart(int size) { // show chart method
-        if (size == 24) {
-            dayChart(); // checks and if the value is 24, it calls dayChart which is responsible for 24 hours chart
-        }
-        if (size == 7) {
-            weekChart(); // checks and if the value is 7, it calls weekChart which is responsible for 7 dayChart
-        }
-        if (size == 31) {
-            monthChart(); // checks and if the value is 31, it calls monthChart which is responsible for 31 daysChart
-        }
-    }
-
     public void dayChart() { // dayChart is responsible to display 24 hours chart
         xAxis = new CategoryAxis(); // create object of CategoryAxis which is XAxis of the graph
         xAxis.setLabel("Hours"); // setting label to 24 hours
@@ -76,7 +64,7 @@ public class MainDashboardController {
         observableList = FXCollections.observableList(numbersList); // creating the observable object
         xAxis.setCategories(observableList); // setting the observable to the XAxis
 
-        ArrayList dayList = getData(24); // getting data for 24 hours
+        ArrayList dayList = getDayData(); // getting data for 24 hours
         barChart = new BarChart(xAxis, yAxis); // creation of barChart object
         addData(dayList, 0); // addition of the 24 hours data to the chart
 
@@ -100,7 +88,7 @@ public class MainDashboardController {
         observableList = FXCollections.observableList(numbersList); // creating the observable object
         xAxis.setCategories(observableList); // setting the observable to the XAxis
 
-        ArrayList monthList = getData(31); // getting data for 31 days
+        ArrayList monthList = getMonthData(); // getting data for 31 days
         barChart = new BarChart(xAxis, yAxis); // creation of chart object
         addData(monthList, 1); // adding data to the chart. 1 int value that is being parsed, is the indicator to show that the chart will count from 1 not zero.
 
@@ -123,7 +111,7 @@ public class MainDashboardController {
         observableList = FXCollections.observableList(numbersList); // creating observable object
         xAxis.setCategories(observableList); // setting the observable to the XAxis
 
-        ArrayList weekList = getData(7); // getting data for 7 days
+        ArrayList weekList = getWeekData(); // getting data for 7 days
         barChart = new BarChart(xAxis, yAxis); // creating the barChart object
         addData(weekList, 1); // adding data to the chart. 1 int value that is being parsed, is the indicator to show that the chart will count from 1 not zero.
 
@@ -157,22 +145,6 @@ public class MainDashboardController {
         }
 
         barChart.getData().addAll(steps, calories, distance); // adding the XYCharts values to the barchart
-    }
-
-    public ArrayList getData(int arraySize) { // this is the method responsible for retrieving data for charts
-        if (arraySize == 24) { // choice for day data.
-            return getDayData();
-        }
-        if (arraySize == 31) {
-            // add a method to get data for a month
-            return getMonthData();
-
-        }
-        if (arraySize == 7) {
-            // add a method for a week data
-            return getWeekData();
-        }
-        return null;
     }
 
     public ArrayList getDayData() { // getting dayData
@@ -352,14 +324,14 @@ public class MainDashboardController {
     }
 
     public void dayChoice() throws Exception { // when the user clicks on the dayChart button
-        showChart(24);
+        dayChart();
     }
 
     public void weekChoice() throws Exception { // when user clicks on the weekChart button
-        showChart(7);
+        weekChart();
     }
 
     public void monthChoice() throws Exception { // when user clicks on the monthChart button
-        showChart(31);
+        monthChart();
     }
 }
