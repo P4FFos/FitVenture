@@ -87,15 +87,15 @@ public class User {
 
     public void updateStats(String steps, String distance, String calories, String date){ // Updates the stats of an already existing entry
         int newSteps = Integer.parseInt(steps);
-        int newdistance = Integer.parseInt(distance);
-        int newCalories = Integer.parseInt(calories);
+        double newDistance = Math.round(Double.parseDouble(distance));
+        double newCalories = Math.round(Double.parseDouble(calories));
 
         int oldSteps = Integer.parseInt(statsMap.get(date).getSteps());
-        int oldDistance = Integer.parseInt(statsMap.get(date).getDistance());
-        int oldCalories = Integer.parseInt(statsMap.get(date).getCalories());
+        double oldDistance = Double.parseDouble(statsMap.get(date).getDistance());
+        double oldCalories = Double.parseDouble(statsMap.get(date).getCalories());
 
         String updatedSteps = String.valueOf(oldSteps + newSteps);
-        String updatedDistance = String.valueOf(oldDistance + newdistance);
+        String updatedDistance = String.valueOf(oldDistance + newDistance);
         String updatedCalories = String.valueOf(oldCalories + newCalories);
 
         Stats stats = new Stats(updatedSteps, updatedDistance, updatedCalories);
