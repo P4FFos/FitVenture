@@ -231,8 +231,11 @@ void publishRaceData() {
   // Calculate calories burned based on steps taken
   float caloriesBurned = stepCount * CALORIES_PER_STEP;
 
+  // Calculate race duration in seconds
+  unsigned long raceDuration = (raceEndTime - raceStartTime) / 1000;
+
   // Publish step count, distance, and calorie data to MQTT topics
-  char payload[100];
+  char payload[200];
   snprintf(payload, sizeof(payload), "{\"StartTime\": %lu, \"EndTime\": %lu, \"Distance\": %.2f, \"Steps\": %d, \"Calories\": %.2f}", raceStartTime, raceEndTime, distance, stepCount, caloriesBurned);
   mqttClient.publish(raceTopic, payload);
   tft.printf("Race finished!");

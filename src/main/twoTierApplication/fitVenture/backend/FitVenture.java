@@ -112,7 +112,7 @@ public class FitVenture {
         } else {
             User currentUser = getUser(userUsername);
             RaceStats raceStats = new RaceStats(steps, distance, calories, startTime, endTime, raceDuration);
-            currentUser.addStats(getDateToday(new Date()), raceStats);
+            currentUser.addRaceStats(getDateToday(new Date()), raceStats);
         }
     }
 }
