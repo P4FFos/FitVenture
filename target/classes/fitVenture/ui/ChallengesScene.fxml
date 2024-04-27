@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="1080" prefWidth="1920" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fitVenture.ui.ChallengesController">
+    <stylesheets>
+        <URL value="@LogRegstyles.css" />
+    </stylesheets>
+    <children>
+        <Label layoutX="766.0" layoutY="130.0" prefHeight="50.0" prefWidth="420.0" text="WELCOME TO THE CHALLENGES PAGE," AnchorPane.leftAnchor="766.0" AnchorPane.rightAnchor="734.0">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Label>
+        <Label fx:id="welcomeUsername" layoutX="1186.0" layoutY="130.0" prefHeight="50.0" prefWidth="200.0">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Label>
+        <Label fx:id="dailyStepChallenge" layoutX="666.0" layoutY="250.0" prefHeight="50.0" prefWidth="764.0">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Label>
+        <ProgressBar fx:id="stepProgressBar" layoutX="666.0" layoutY="310.0" prefHeight="40.0" prefWidth="200.0" progress="0.0" />
+        <Button fx:id="ReturnButton" layoutX="924.0" layoutY="698.0" mnemonicParsing="false" onAction="#backToMainDashboard" prefHeight="30.0" prefWidth="125.0" text="RETURN BACK" />
+      <Label fx:id="stepProgLabel" layoutX="882.0" layoutY="310.0" prefHeight="40.0" prefWidth="200.0">
+         <font>
+            <Font size="24.0" />
+         </font></Label>
+      <Label fx:id="dailyKcalChallenge" layoutX="666.0" layoutY="400.0" prefHeight="50.0" prefWidth="764.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <ProgressBar fx:id="kcalProgressBar" layoutX="666.0" layoutY="460.0" prefHeight="40.0" prefWidth="200.0" progress="0.0" />
+      <Label fx:id="dailyDistanceChallenge" layoutX="666.0" layoutY="550.0" prefHeight="50.0" prefWidth="764.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <ProgressBar fx:id="distProgressBar" layoutX="666.0" layoutY="610.0" prefHeight="40.0" prefWidth="200.0" progress="0.0" />
+      <Label fx:id="kcalProgLabel" layoutX="882.0" layoutY="460.0" prefHeight="40.0" prefWidth="200.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="distProgLabel" layoutX="882.0" layoutY="610.0" prefHeight="40.0" prefWidth="200.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+    </children>
+</AnchorPane>
