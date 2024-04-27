@@ -49,7 +49,7 @@ public class MQTTSubscriber {
                         );
                         FileHandler.jsonSerializer(FitVentureStart.jsonPath, FitVentureStart.fitVenture);
                         System.out.println("Data saved");
-                    } else if (topic.equals(raceTopic)){
+                    } else if (topic.equals(raceTopic)) {
                         FitVentureStart.fitVenture.saveRaceStatsData(
                                 lastReceivedRaceMessage.getStartTime(), lastReceivedRaceMessage.getEndTime(),
                                 lastReceivedRaceMessage.getRaceDuration(),
@@ -67,7 +67,8 @@ public class MQTTSubscriber {
                     System.out.println("Complete");
                 }
             });
-            // client.subscribe(mainTopic);
+            client.subscribe(mainTopic);
+            client.subscribe(raceTopic);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Failed");

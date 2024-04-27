@@ -3,6 +3,7 @@
 #include <PubSubClient.h>
 #include <TFT_eSPI.h>
 #include <rpcWiFi.h>
+#define button 0
 
 // Constants for step detection and calorie calculation
 const float STEP_THRESHOLD = 1.0;
@@ -22,14 +23,18 @@ bool isRaceStarted = false;
 unsigned long raceStartTime = 0;
 unsigned long raceEndTime = 0;
 int buttonPosition = 0;
-const int buttonPin = 2;
+unsigned long lastDisplayTime = 0;
+const int DEBOUNCE_DELAY = 50;
+int lastButtonState = HIGH;
+unsigned long lastDebounceTime = 0;
+int buttonState = HIGH;
 
 const unsigned long MQTT_RETRY_INTERVAL = 5000;
 const unsigned long WIFI_RETRY_INTERVAL = 5000;
 
 // WiFi and MQTT broker configuration
- char ssid[] = "Alex";
- const char* password = "QazP1234";
+ char ssid[] = "Daniel";
+ const char* password = "12345678";
  const char* server = "broker.hivemq.com";
  const char* mainTopic = "fitVenture/sensor/accelerometer/data";
  const char* raceTopic = "fitVenture/sensor/accelerometer/raceData";
@@ -59,18 +64,47 @@ void setup() {
   reconnectMQTT();
 
   // Initialize button as an input pin
-  pinMode(buttonPin, INPUT);
+  pinMode(button, INPUT_PULLUP);
 }
 
 void loop() {
+    // read the state of the button
+    int reading = digitalRead(button);
+
+    if (reading != lastButtonState) {
+      // reset the debouncing timer
+      lastDebounceTime = millis();
+    }
+
+   if ((millis() - lastDebounceTime) > DEBOUNCE_DELAY) {
+     // if the button state has changed:
+     if (reading != buttonPosition) {
+       buttonPosition = reading;
+
+       // only toggle the race if the new button state is LOW
+       if (buttonPosition == LOW) {
+         Serial.println("Button pressed");
+         isRaceStarted = !isRaceStarted;
+         if (isRaceStarted) {
+           stepCount++;
+           raceStartTime = millis();
+           displayRaceData();
+         } else {
+           raceEndTime = millis();
+           // Publish race data
+           publishRaceData();
+           Serial.println("Race finished and data published.");
+         }
+       }
+     }
+   }
+
+  lastButtonState = reading;
   unsigned long currentTime = millis();
 
   // Read accelerometer data
   float x, y, z;
   bool success = accel.getAcceleration(&x, &y, &z);
-
-  // Read if button is pressed
-  buttonPosition = digitalRead(buttonPin);
 
   if (success) {
     // Calculate magnitude of acceleration vector
@@ -80,28 +114,10 @@ void loop() {
     if (magnitude > STEP_THRESHOLD) {
       // Start counting steps only if previously not moving
       if (!isMoving && (currentTime - lastStepTime > MIN_STEP_INTERVAL)) {
-        if (buttonPosition == HIGH) {
-        // Start the race
         stepCount++;
-        isRaceStarted = true;
-        raceStartTime = millis();
-        if (millis() - lastDisplayTime > 3000) {
-          displayRaceData();
-          lastDisplayTime = millis();
-        }
-        } else if (buttonPosition == LOW) {
-        // Stop the race
-        isRaceStarted = false;
-        aceEndTime = millis();
-        // Publish race data
-        publishRaceData();
-        Serial.println("Race finished and data published.");
-        } else {
-        stepCount = 1;
         lastStepTime = currentTime;
         publishData();
         Serial.println("Step detected and published.");
-        }
       }
       isMoving = true;
     } else {
@@ -135,6 +151,13 @@ void loop() {
   }
 }
 
+void initAccelerometer() {
+  accel.init();
+  accel.setMode(MMA7660_STAND_BY);
+  accel.setSampleRate(6);
+  accel.setMode(MMA7660_ACTIVE);
+}
+
 void displayRaceData() {
   if (isRaceStarted) {
     // Calculate race duration
@@ -145,7 +168,6 @@ void displayRaceData() {
 
     // Calculate calories burned based on steps taken
     float caloriesBurned = stepCount * CALORIES_PER_STEP;
-
     tft.fillScreen(TFT_BLACK); // Clear the screen
     tft.setCursor(0, 0); // Set the cursor position
     tft.setTextColor(TFT_WHITE); // Set text color
@@ -154,13 +176,6 @@ void displayRaceData() {
     // Display the race duration, steps, calories, and distance
     tft.printf("Race Duration: %lu\nDistance: %.2f\nStep Count: %d\nCalories Burned: %.2f", raceDuration, distance, stepCount, caloriesBurned);
   }
-}
-
-void initAccelerometer() {
-  accel.init();
-  accel.setMode(MMA7660_STAND_BY);
-  accel.setSampleRate(6);
-  accel.setMode(MMA7660_ACTIVE);
 }
 
 void calculateStrideLength() {
@@ -210,6 +225,13 @@ void publishData() {
 }
 
 void publishRaceData() {
+  // Calculate distance traveled based on steps taken in meters
+  float distance = stepCount * strideLength / 100.0;
+
+  // Calculate calories burned based on steps taken
+  float caloriesBurned = stepCount * CALORIES_PER_STEP;
+
+  // Publish step count, distance, and calorie data to MQTT topics
   char payload[100];
   snprintf(payload, sizeof(payload), "{\"StartTime\": %lu, \"EndTime\": %lu, \"Distance\": %.2f, \"Steps\": %d, \"Calories\": %.2f}", raceStartTime, raceEndTime, distance, stepCount, caloriesBurned);
   mqttClient.publish(raceTopic, payload);
