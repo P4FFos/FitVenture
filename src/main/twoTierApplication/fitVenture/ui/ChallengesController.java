@@ -37,43 +37,42 @@ public class ChallengesController {
     @FXML
     private ProgressBar distProgressBar;
     @FXML
-    private Button BackButton;
-    @FXML
     private Label stepProgLabel;
     @FXML
     private Label kcalProgLabel;
     @FXML
     private Label distProgLabel;
 
-    private int lowBMISteps = 10000;
-    private int normalBMISteps = 8000;
-    private int highBMISteps = 5000;
-    private int veryHighBMISteps = 3000;
+    private final int LOW_BMI_STEPS = 3000;
+    private final int NORMAL_BMI_STEPS = 4000;
+    private final int HIGH_BMI_STEPS = 5000;
+    private final int VERY_HIGH_BMI_STEPS = 6000;
+    
 
-    private double lowBmiKcal = 4000.0;
-    private double normalBmiKcal = 3000.0;
-    private double highBmiKcal = 2500.0;
-    private double veryHighBmiKcal = 2000.0;
+    private final double LOW_BMI_KCAL = 500.0;
+    private final double NORMAL_BMI_KCAL = 800.0;
+    private final double HIGH_BMI_KCAL = 1000.0;
+    private final double VERY_HIGH_BMI_KCAL = 1200.0;
 
-    private double lowBmiDist = 10.0;
-    private double normalBmiDist = 8.0;
-    private double highBmiDist = 5.0;
-    private double veryHighBmiDist = 3.0;
+    private final double LOW_BMI_DIST = 3.0;
+    private final double NORMAL_BMI_DIST = 4.0;
+    private final double HIGH_BMI_DIST = 5.0;
+    private final double VERY_HIGH_BMI_DIST = 6.0;
 
-    private final String lowBmiStepChallenge = "Your daily challenge is: " + "Walk " + lowBMISteps + " steps today!";
-    private final String normalBmiStepChallenge = "Your daily challenge is: " + "Walk " + normalBMISteps + " steps today!";
-    private final String highBmiStepChallenge = "Your daily challenge is: " + "Walk " + highBMISteps + " steps today!";
-    private final String veryHighBmiStepChallenge = "Your daily challenge is: " + "Walk " + veryHighBMISteps + " steps today!";
+    private final String LOW_BMI_STEP_CHALLENGE = "Your daily challenge is: " + "Walk " + LOW_BMI_STEPS + " steps today!";
+    private final String NORMAL_BMI_STEP_CHALLENGE = "Your daily challenge is: " + "Walk " + NORMAL_BMI_STEPS + " steps today!";
+    private final String HIGH_BMI_STEP_CHALLENGE = "Your daily challenge is: " + "Walk " + HIGH_BMI_STEPS + " steps today!";
+    private final String VERY_HIGH_BMI_STEP_CHALLENGE = "Your daily challenge is: " + "Walk " + VERY_HIGH_BMI_STEPS + " steps today!";
 
-    private final String lowBmiKcalChallenge = "Your daily challenge is: " + "Eat " + lowBmiKcal + " kcal today!";
-    private final String normalBmiKcalChallenge = "Your daily challenge is: " + "Eat " + normalBmiKcal + " kcal today!";
-    private final String highBmiKcalChallenge = "Your daily challenge is: " + "Eat " + highBmiKcal + " kcal today!";
-    private final String veryHighBmiKcalChallenge = "Your daily challenge is: " + "Eat " + veryHighBmiKcal + " kcal today!";
+    private final String LOW_BMI_KCAL_CHALLENGE = "Your daily challenge is: " + "Burn " +LOW_BMI_KCAL + " kcal today!";
+    private final String NORMAL_BMI_KCAL_CHALLENGE = "Your daily challenge is: " + "Burn " + NORMAL_BMI_KCAL + " kcal today!";
+    private final String HIGH_BMI_KCAL_CHALLENGE = "Your daily challenge is: " + "Burn " + HIGH_BMI_KCAL + " kcal today!";
+    private final String VERY_HIGH_BMI_KCAL_CHALLENGE = "Your daily challenge is: " + "Burn " + VERY_HIGH_BMI_KCAL + " kcal today!";
 
-    private final String lowBmiDistChallenge = "Your daily challenge is: Walk " + lowBmiDist + " km today!";
-    private final String normalBmiDistChallenge = "Your daily challenge is: Walk " + normalBmiDist + " km today!";
-    private final String highBmiDistChallenge = "Your daily challenge is: Walk " + highBmiDist + " km today!";
-    private final String veryHighBmiDistChallenge = "Your daily challenge is: Walk " + veryHighBmiDist + " km today!";
+    private final String LOW_BMI_DIST_CHALLENGE = "Your daily challenge is: Walk " + LOW_BMI_DIST + " km today!";
+    private final String NORMAL_BMI_DIST_CHALLENGE = "Your daily challenge is: Walk " + NORMAL_BMI_DIST + " km today!";
+    private final String HIGH_BMI_DIST_CHALLENGE = "Your daily challenge is: Walk " + HIGH_BMI_DIST + " km today!";
+    private final String VERY_HIGH_BMI_DIST_CHALLENGE = "Your daily challenge is: Walk " + VERY_HIGH_BMI_DIST + " km today!";
 
     public void showChallenges() {
 
@@ -122,6 +121,10 @@ public class ChallengesController {
                 totalDistToday += distValue;
             }
         }
+        //Initialize progress variables
+        double progressStep;
+        double progressKcal;
+        double progressDist;
 
         // Determine the BMI category based on the BMI value
         int bmiCategory;
@@ -135,83 +138,134 @@ public class ChallengesController {
             bmiCategory = 4;
         }
 
-        // Perform different actions based on the BMI category
+
+        // Set the daily challenges based on the BMI category
         switch (bmiCategory) {
             case 1:
                 // If the BMI is less than 18.5, set the daily step challenge and update the progress bar and label
-                dailyStepChallenge.setText(lowBmiStepChallenge);
-                double progressStep = totalStepsToday / lowBMISteps;
+                dailyStepChallenge.setText(LOW_BMI_STEP_CHALLENGE);
+                progressStep = totalStepsToday / LOW_BMI_STEPS;
                 stepProgressBar.setProgress(progressStep);
-                stepProgLabel.setText(totalStepsToday + "/" + lowBMISteps);
+                if (progressStep >= 1) {
+                    stepProgLabel.setText("Completed!");
+                } else {
+                    stepProgLabel.setText(totalStepsToday + "/" + LOW_BMI_STEPS);
+                }
 
                 // Set the daily calorie challenge and update the progress bar and label
-                dailyKcalChallenge.setText(lowBmiKcalChallenge);
-                double progressKcal = totalKcalToday / lowBmiKcal;
+                dailyKcalChallenge.setText(LOW_BMI_KCAL_CHALLENGE);
+                progressKcal = totalKcalToday / LOW_BMI_KCAL;
                 kcalProgressBar.setProgress(progressKcal);
-                kcalProgLabel.setText(totalKcalToday / 1000 + "/" + lowBmiKcal);
+                if (progressKcal >= 1) {
+                    kcalProgLabel.setText("Completed!");
+                } else {
+                    kcalProgLabel.setText(totalKcalToday + "/" + LOW_BMI_KCAL);
+                }
 
                 // Set the daily distance challenge and update the progress bar and label
-                dailyDistanceChallenge.setText(lowBmiDistChallenge);
-                double progressDist = (totalDistToday / lowBmiDist) / 1000;
+                dailyDistanceChallenge.setText(LOW_BMI_DIST_CHALLENGE);
+                progressDist = (totalDistToday / LOW_BMI_DIST) / 1000;
                 distProgressBar.setProgress(progressDist);
-                distProgLabel.setText((totalDistToday / 1000) + "/" + lowBmiDist);
+                if (progressDist >= 1) {
+                    distProgLabel.setText("Completed!");
+                } else {
+                    distProgLabel.setText((totalDistToday / 1000) + "/" + LOW_BMI_DIST);
+                }
                 break;
             case 2:
                 // If the BMI is between 18.5 and 25, set the daily step challenge and update the progress bar and label
-                dailyStepChallenge.setText(normalBmiStepChallenge);
-                double progress = totalStepsToday / normalBMISteps;
-                stepProgressBar.setProgress(progress);
-                stepProgLabel.setText(totalStepsToday + "/" + normalBMISteps);
+                dailyStepChallenge.setText(NORMAL_BMI_STEP_CHALLENGE);
+                progressStep = totalStepsToday / NORMAL_BMI_STEPS;
+                stepProgressBar.setProgress(progressStep);
+                if (progressStep >= 1) {
+                    stepProgLabel.setText("Completed!");
+                } else {
+                    stepProgLabel.setText(totalStepsToday + "/" + NORMAL_BMI_STEPS);
+                }
 
                 // Set the daily calorie challenge and update the progress bar and label
-                dailyKcalChallenge.setText(normalBmiKcalChallenge);
-                progressKcal = totalKcalToday / normalBmiKcal;
+                dailyKcalChallenge.setText(NORMAL_BMI_KCAL_CHALLENGE);
+                progressKcal = totalKcalToday / NORMAL_BMI_KCAL;
                 kcalProgressBar.setProgress(progressKcal);
-                kcalProgLabel.setText(totalKcalToday + "/" + normalBmiKcal);
+                if (progressKcal >= 1) {
+                    kcalProgLabel.setText("Completed!");
+                } else {
+                    kcalProgLabel.setText(totalKcalToday + "/" + NORMAL_BMI_KCAL);
+                }
 
                 // Set the daily distance challenge and update the progress bar and label
-                dailyDistanceChallenge.setText(normalBmiDistChallenge);
-                progressDist = (totalDistToday / normalBmiDist) / 1000;
+                dailyDistanceChallenge.setText(NORMAL_BMI_DIST_CHALLENGE);
+                progressDist = (totalDistToday / NORMAL_BMI_DIST) / 1000;
                 distProgressBar.setProgress(progressDist);
-                distProgLabel.setText((totalDistToday / 1000) + "/" + normalBmiDist);
+                if (progressDist >= 1) {
+                    distProgLabel.setText("Completed!");
+                } else {
+                    distProgLabel.setText((totalDistToday / 1000) + "/" +NORMAL_BMI_DIST);
+                }
                 break;
             case 3:
                 // If the BMI is between 25 and 30, set the daily step challenge and update the progress bar and label
-                dailyStepChallenge.setText(highBmiStepChallenge);
-                progress = totalStepsToday / highBMISteps;
-                stepProgressBar.setProgress(progress);
-                stepProgLabel.setText(totalStepsToday + "/" + highBMISteps);
+                dailyStepChallenge.setText(HIGH_BMI_STEP_CHALLENGE);
+                progressStep = totalStepsToday / HIGH_BMI_STEPS;
+                stepProgressBar.setProgress(progressStep);
+                if (progressStep >= 1) {
+                    stepProgLabel.setText("Completed!");
+                } else {
+                    stepProgLabel.setText(totalStepsToday + "/" + HIGH_BMI_STEPS);
+                }
+
 
                 // Set the daily calorie challenge and update the progress bar and label
-                dailyKcalChallenge.setText(highBmiKcalChallenge);
-                progressKcal = totalKcalToday / highBmiKcal;
+                dailyKcalChallenge.setText(HIGH_BMI_KCAL_CHALLENGE);
+                progressKcal = totalKcalToday / HIGH_BMI_KCAL;
                 kcalProgressBar.setProgress(progressKcal);
-                kcalProgLabel.setText(totalKcalToday + "/" + highBmiKcal);
+                if (progressKcal >= 1) {
+                    kcalProgLabel.setText("Completed!");
+                } else {
+                    kcalProgLabel.setText(totalKcalToday + "/" + HIGH_BMI_KCAL);
+                }
+
 
                 // Set the daily distance challenge and update the progress bar and label
-                dailyDistanceChallenge.setText(highBmiDistChallenge);
-                progressDist = (totalDistToday / highBmiDist) / 1000;
+                dailyDistanceChallenge.setText(HIGH_BMI_DIST_CHALLENGE);
+                progressDist = (totalDistToday / HIGH_BMI_DIST) / 1000;
                 distProgressBar.setProgress(progressDist);
-                distProgLabel.setText((totalDistToday / 1000) + "/" + highBmiDist);
+                if (progressDist >= 1) {
+                    distProgLabel.setText("Completed!");
+                } else {
+                    distProgLabel.setText((totalDistToday / 1000) + "/" + HIGH_BMI_DIST);
+                }
                 break;
             case 4:
                 // If the BMI is 30 or higher, set the daily step challenge and update the progress bar and label
-                dailyStepChallenge.setText(veryHighBmiStepChallenge);
-                progress = totalStepsToday / veryHighBmiKcal;
-                stepProgressBar.setProgress(progress);
-                stepProgLabel.setText(totalStepsToday + "/" + veryHighBmiKcal);
+                dailyStepChallenge.setText(VERY_HIGH_BMI_STEP_CHALLENGE);
+                progressStep = totalStepsToday / VERY_HIGH_BMI_STEPS;
+                stepProgressBar.setProgress(progressStep);
+                if (progressStep >= 1) {
+                    stepProgLabel.setText("Completed!");
+                } else {
+                    stepProgLabel.setText(totalStepsToday + "/" + VERY_HIGH_BMI_STEPS);
+                }
 
                 // Set the daily calorie challenge and update the progress bar and label
-                dailyKcalChallenge.setText(veryHighBmiKcalChallenge);
-                progressKcal = totalKcalToday / veryHighBmiKcal;
+                dailyKcalChallenge.setText(VERY_HIGH_BMI_KCAL_CHALLENGE);
+                progressKcal = totalKcalToday / VERY_HIGH_BMI_KCAL;
                 kcalProgressBar.setProgress(progressKcal);
-                kcalProgLabel.setText(totalKcalToday + "/" + veryHighBmiKcal);
+                if (progressKcal >= 1) {
+                    kcalProgLabel.setText("Completed!");
+                } else {
+                    kcalProgLabel.setText(totalKcalToday + "/" + VERY_HIGH_BMI_KCAL);
+                }
 
                 // Set the daily distance challenge and update the progress bar and label
-                dailyDistanceChallenge.setText(veryHighBmiDistChallenge);
-                progressDist = (totalDistToday / veryHighBmiDist) / 1000;
+                dailyDistanceChallenge.setText(VERY_HIGH_BMI_DIST_CHALLENGE);
+                progressDist = (totalDistToday / VERY_HIGH_BMI_DIST) / 1000;
                 distProgressBar.setProgress(progressDist);
-                distProgLabel.setText((totalDistToday / 1000) + "/" + veryHighBmiDist);
+                if (progressDist >= 1) {
+                    distProgLabel.setText("Completed!");
+                } else {
+                    distProgLabel.setText((totalDistToday / 1000) + "/" + VERY_HIGH_BMI_DIST);
+                }
                 break;
         }
     }
