@@ -3,9 +3,9 @@
     "user1" : {
       "username" : "user1",
       "password" : "password1",
-      "weight" : "1",
-      "height" : "12",
-      "name" : "as",
+      "weight" : "60",
+      "height" : "170",
+      "name" : "",
       "stats" : {
         "2024-04-15-08" : {
           "distance" : "3400",

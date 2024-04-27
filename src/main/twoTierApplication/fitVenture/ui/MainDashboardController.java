@@ -6,6 +6,7 @@ import fitVenture.backend.utils.Current_Date;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -43,6 +44,19 @@ public class MainDashboardController {
 
         UserProfileController userProfileController = loader.getController(); // getting user profile controller object
         userProfileController.showData(); // calling the showData method of showData method
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); // getting the stage
+        Scene scene = new Scene(root); // adding the parent to the scene
+        stage.setScene(scene); // adding scene to the stage
+        stage.show(); // showing the stage
+    }
+    public void openChallengesPage(ActionEvent event) throws IOException{
+        //loads ChallengesScene once user pressed the "Challenges" button
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ChallengesScene.fxml"));
+        Parent root = loader.load(); // loading the ChallengesScene.fxml
+
+        ChallengesController challengesController = loader.getController(); // getting challenges controller object
+        challengesController.showChallenges(); // calling the showData method of challengesController
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); // getting the stage
         Scene scene = new Scene(root); // adding the parent to the scene
