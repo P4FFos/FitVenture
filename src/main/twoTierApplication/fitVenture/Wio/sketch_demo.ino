@@ -22,12 +22,12 @@ unsigned long lastActionTime = 0;
 bool isRaceStarted = false;
 unsigned long raceStartTime = 0;
 unsigned long raceEndTime = 0;
-int buttonPosition = 0;
+byte buttonPosition = 0;
 unsigned long lastDisplayTime = 0;
 const int DEBOUNCE_DELAY = 50;
-int lastButtonState = HIGH;
+byte lastButtonState = HIGH;
 unsigned long lastDebounceTime = 0;
-int buttonState = HIGH;
+byte buttonState = HIGH;
 
 const unsigned long MQTT_RETRY_INTERVAL = 5000;
 const unsigned long WIFI_RETRY_INTERVAL = 5000;
@@ -64,6 +64,8 @@ void setup() {
   reconnectMQTT();
 
   // Initialize button as an input pin
+  // INPUT_PULLUP used as configurator for the botton, when the button is not pressed it will be HIGH
+  // when the button is pressed it will be LOW
   pinMode(button, INPUT_PULLUP);
 }
 
