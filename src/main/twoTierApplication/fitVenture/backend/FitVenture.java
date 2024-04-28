@@ -5,6 +5,7 @@ import fitVenture.backend.exceptions.RegistrationException;
 import fitVenture.backend.exceptions.SaveDataException;
 import fitVenture.backend.stats.Stats;
 import fitVenture.backend.user.User;
+import fitVenture.ui.MainDashboardController;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -107,6 +108,7 @@ public class FitVenture {
                 Stats stats = new Stats(steps, distance, calories);
                 currentUser.addStats(currentTime, stats);
             }
+            MainDashboardController.showChart();
         }
     }
 }
