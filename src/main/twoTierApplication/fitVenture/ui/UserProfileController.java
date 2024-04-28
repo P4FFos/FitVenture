@@ -166,7 +166,7 @@ public class UserProfileController {
         root = loader.load();
 
         MainDashboardController mainDashboardController = loader.getController();
-        mainDashboardController.dayChart();
+        mainDashboardController.showChart();
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);

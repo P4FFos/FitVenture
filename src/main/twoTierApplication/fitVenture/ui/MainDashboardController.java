@@ -27,6 +27,8 @@ public class MainDashboardController {
     private NumberAxis yAxis; // Yaxis of the chart
     private BarChart barChart; //Barchart object
 
+    private String choiceOfGraph = "";
+    
     @FXML
     private BorderPane borderPane; // reference to the BorderPane in the fxml
     private ObservableList observableList; // Observable reference for observable object
@@ -73,6 +75,29 @@ public class MainDashboardController {
         borderPane.setCenter(barChart); // setting the barchart to the center of the borderPane
     }
 
+    public void weekChart() { // a method that is responsible for weekChart
+        xAxis = new CategoryAxis(); // create object of CategoryAxis which is XAxis of the graph
+        xAxis.setLabel("Days"); //setting the label
+
+        yAxis = new NumberAxis();//create object of NumberAxis which is Yaxis of the graph
+        yAxis.setLabel("Steps");//setting the label
+
+        List numbersList = List.of(
+                "1", "2", "3", "4", "5", "6", "7"
+        ); // a list of values to be used for XAxis.
+
+        observableList = FXCollections.observableList(numbersList); // creating observable object
+        xAxis.setCategories(observableList); // setting the observable to the XAxis
+
+        ArrayList weekList = getWeekData(); // getting data for 7 days
+        barChart = new BarChart(xAxis, yAxis); // creating the barChart object
+        addData(weekList, 1); // adding data to the chart. 1 int value that is being parsed, is the indicator to show that the chart will count from 1 not zero.
+
+        barChart.setMaxHeight(800); // setting the value of maxHeight of barchart
+        barChart.setMaxWidth(1200); // setting the maxWidth of the barChart
+        borderPane.setCenter(barChart); // setting the barChart in the center of the borderPane
+    }
+
     public void monthChart() {
         xAxis = new CategoryAxis();// create object of CategoryAxis which is XAxis of the graph
         xAxis.setLabel("Weeks"); //setting the label
@@ -97,27 +122,25 @@ public class MainDashboardController {
         borderPane.setCenter(barChart); // setting the barchart in the center of the borderPane
     }
 
-    public void weekChart() { // a method that is responsible for weekChart
-        xAxis = new CategoryAxis(); // create object of CategoryAxis which is XAxis of the graph
-        xAxis.setLabel("Days"); //setting the label
+    public void showChart(){
 
-        yAxis = new NumberAxis();//create object of NumberAxis which is Yaxis of the graph
-        yAxis.setLabel("Steps");//setting the label
+        switch (choiceOfGraph) {
+            case "daily":
+                dayChart();
+                break;
+        
+            case "weekly":
+                weekChart();
+                break;
+            
+            case "monthly":
+                monthChart();
+                break;
 
-        List numbersList = List.of(
-                "1", "2", "3", "4", "5", "6", "7"
-        ); // a list of values to be used for XAxis.
-
-        observableList = FXCollections.observableList(numbersList); // creating observable object
-        xAxis.setCategories(observableList); // setting the observable to the XAxis
-
-        ArrayList weekList = getWeekData(); // getting data for 7 days
-        barChart = new BarChart(xAxis, yAxis); // creating the barChart object
-        addData(weekList, 1); // adding data to the chart. 1 int value that is being parsed, is the indicator to show that the chart will count from 1 not zero.
-
-        barChart.setMaxHeight(800); // setting the value of maxHeight of barchart
-        barChart.setMaxWidth(1200); // setting the maxWidth of the barChart
-        borderPane.setCenter(barChart); // setting the barChart in the center of the borderPane
+            default:
+                dayChart();
+                break;
+        }
     }
 
     public void addData(ArrayList<Integer> list, int startDay) { // methods that is responsible for adding data
@@ -125,11 +148,11 @@ public class MainDashboardController {
         XYChart.Series<String, Number> steps = new XYChart.Series<>();  // XYChart object for steps
         steps.setName("Steps/Time");
 
-        XYChart.Series<String, Number> calories = new XYChart.Series<>(); // XYChart for calories
-        calories.setName("Calories/Time");
-
         XYChart.Series<String, Number> distance = new XYChart.Series<>(); // XYChart object for distance
         distance.setName("Distance/Time");
+
+        XYChart.Series<String, Number> calories = new XYChart.Series<>(); // XYChart for calories
+        calories.setName("Calories/Time");
 
         int sizeOfList = list.size(); // length of the list containing data. the list is parsed
         int avoidNullPointer = 0; // this value helps in avoiding a nullPointerException that can be caused by some graphs starting from 0 and others from 1
@@ -150,9 +173,9 @@ public class MainDashboardController {
     public ArrayList getDayData() { // getting dayData
         // getting the object user who signed in
         HashMap<String, Stats> mapOfStats = FitVentureStart.currentUser.getStats(); // retrieving their stats
+        Integer[] stepsArray = new Integer[24];
         Double[] caloriesArray = new Double[24];
         Double[] distanceArray = new Double[24];
-        Integer[] stepsArray = new Integer[24];
 
         mapOfStats.forEach((key, value) -> { // looping through all stats
             if (key.substring(0, 10).toLowerCase().equals(Current_Date.getDateToday(new Date()).substring(0, 10))) { // check if the dateKeyValue is equal to today's date.
@@ -281,8 +304,8 @@ public class MainDashboardController {
 
                 // referencing all values of a stats
                 Integer steps = Integer.parseInt(value.getSteps());
-                Integer calories = Integer.parseInt(value.getCalories());
-                Integer distance = Integer.parseInt(value.getDistance());
+                double calories = Double.parseDouble(value.getCalories());
+                double distance = Double.parseDouble(value.getDistance());
 
                 // checking if the date has values saved and updating these values
                 if (stepsArray[index] != null) {
@@ -324,14 +347,17 @@ public class MainDashboardController {
     }
 
     public void dayChoice() throws Exception { // when the user clicks on the dayChart button
-        dayChart();
+        choiceOfGraph = "daily";
+        showChart();
     }
 
     public void weekChoice() throws Exception { // when user clicks on the weekChart button
-        weekChart();
+        choiceOfGraph = "weekly";
+        showChart();
     }
 
     public void monthChoice() throws Exception { // when user clicks on the monthChart button
-        monthChart();
+        choiceOfGraph = "monthly";
+        showChart();
     }
 }
