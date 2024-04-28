@@ -48,18 +48,6 @@ public class MainDashboardController {
         stage.show(); // showing the stage
     }
 
-    public void showChart(int size) { // show chart method
-        if (size == 24) {
-            dayChart(); // checks and if the value is 24, it calls dayChart which is responsible for 24 hours chart
-        }
-        if (size == 7) {
-            weekChart(); // checks and if the value is 7, it calls weekChart which is responsible for 7 dayChart
-        }
-        if (size == 31) {
-            monthChart(); // checks and if the value is 31, it calls monthChart which is responsible for 31 daysChart
-        }
-    }
-
     public void dayChart() { // dayChart is responsible to display 24 hours chart
         xAxis = new CategoryAxis(); // create object of CategoryAxis which is XAxis of the graph
         xAxis.setLabel("Hours"); // setting label to 24 hours
@@ -351,14 +339,22 @@ public class MainDashboardController {
     }
 
     public void dayChoice() throws Exception { // when the user clicks on the dayChart button
-        showChart(24);
+        dayChart();
     }
 
     public void weekChoice() throws Exception { // when user clicks on the weekChart button
-        showChart(7);
+        weekChart();
     }
 
     public void monthChoice() throws Exception { // when user clicks on the monthChart button
-        showChart(31);
+      monthChart();
+    }
+    public void displayGoals(ActionEvent event) throws Exception{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Goals.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 }

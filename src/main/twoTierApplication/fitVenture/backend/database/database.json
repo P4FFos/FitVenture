@@ -222,8 +222,9 @@
           "steps": "2000",
           "calories": "2100"
         }
+      },
+      "weightGoals":{
       }
-
     }
   }
 }

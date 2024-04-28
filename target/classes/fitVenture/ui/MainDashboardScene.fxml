@@ -3,7 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.effect.Glow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -52,5 +51,10 @@
             </Button>
          </children>
       </HBox>
+      <Button layoutX="14.0" layoutY="19.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="204.0" text="Set Goals " onAction="#displayGoals">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

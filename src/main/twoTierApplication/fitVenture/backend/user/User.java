@@ -1,5 +1,6 @@
 package fitVenture.backend.user;
 
+import fitVenture.backend.goal.WeightGoal;
 import fitVenture.backend.stats.Stats;
 import java.util.HashMap;
 
@@ -11,6 +12,7 @@ public class User {
     private String height;
     private String name;
     private HashMap<String, Stats> stats;
+    private HashMap<String, WeightGoal> weightGoals;
 
     // Empty constructor used by Jackson for Json deserializing
     public User() {
@@ -24,6 +26,8 @@ public class User {
         this.height = height;
         this.name = name;
         this.stats = new HashMap<>();
+        this.weightGoals =new HashMap<>();
+
     }
 
     // User class get methods
@@ -50,7 +54,7 @@ public class User {
     public HashMap<String, Stats> getStats() {
         return stats;
     }
-
+    public HashMap<String,WeightGoal> getWeightGoals(){return this.weightGoals;}
     // User class set methods
     public void setUsername(String username) {
         this.username = username;
@@ -75,8 +79,21 @@ public class User {
     public void setStats(HashMap<String, Stats> stats) {
         this.stats = stats;
     }
+    public void setWeightGoals(HashMap<String,WeightGoal> weightGoals){
+        this.weightGoals = weightGoals;
+    }
 
     public void addStats(String newDate, Stats stats) {
         this.stats.put(newDate, stats);
+    }
+
+    public WeightGoal getWeightGoal(String key){
+        if(weightGoals.get(key)!=null){
+            return weightGoals.get(key);
+        }
+        return null;
+    }
+    public void addWeightGoal(String key, WeightGoal weightGoal){
+        this.weightGoals.putIfAbsent(key, weightGoal);
     }
 }

@@ -15,4 +15,7 @@ module com.example.demo {
     opens fitVenture.backend.exceptions to javafx.fxml;
     exports fitVenture.backend.stats;
     opens fitVenture.backend.stats to com.fasterxml.jackson.databind;
+    exports fitVenture.backend.goal;
+    opens fitVenture.backend.goal to com.fasterxml.jackson.databind;
+
 }
