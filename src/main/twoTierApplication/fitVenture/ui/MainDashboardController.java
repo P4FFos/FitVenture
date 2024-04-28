@@ -23,18 +23,18 @@ import java.util.*;
 
 public class MainDashboardController {
 
-    private static CategoryAxis xAxis; // xAxis of the chart
-    private static NumberAxis yAxis; // Yaxis of the chart
-    private static BarChart barChart; //Barchart object
+    private CategoryAxis xAxis; // xAxis of the chart
+    private NumberAxis yAxis; // Yaxis of the chart
+    private BarChart barChart; //Barchart object
 
-    private static String choiceOfGraph = "";
+    private String choiceOfGraph = "";
     
     @FXML
-    private static BorderPane borderPane; // reference to the BorderPane in the fxml
-    private static ObservableList observableList; // Observable reference for observable object
+    private BorderPane borderPane; // reference to the BorderPane in the fxml
+    private ObservableList observableList; // Observable reference for observable object
 
-    private static ArrayList<Double> caloriesList; // a list to hold calorie values
-    private static ArrayList<Double> distanceList; // a list to hold distance values
+    private ArrayList<Double> caloriesList; // a list to hold calorie values
+    private ArrayList<Double> distanceList; // a list to hold distance values
 
     public void openUserProfile(ActionEvent event) throws IOException { // method to be called if the user clicks on the userProfile button
         //loads MainDashboardScene one user pressed login button
@@ -50,7 +50,7 @@ public class MainDashboardController {
         stage.show(); // showing the stage
     }
 
-    public static void dayChart() { // dayChart is responsible to display 24 hours chart
+    public void dayChart() { // dayChart is responsible to display 24 hours chart
         xAxis = new CategoryAxis(); // create object of CategoryAxis which is XAxis of the graph
         xAxis.setLabel("Hours"); // setting label to 24 hours
 
@@ -75,7 +75,7 @@ public class MainDashboardController {
         borderPane.setCenter(barChart); // setting the barchart to the center of the borderPane
     }
 
-    public static void weekChart() { // a method that is responsible for weekChart
+    public void weekChart() { // a method that is responsible for weekChart
         xAxis = new CategoryAxis(); // create object of CategoryAxis which is XAxis of the graph
         xAxis.setLabel("Days"); //setting the label
 
@@ -98,7 +98,7 @@ public class MainDashboardController {
         borderPane.setCenter(barChart); // setting the barChart in the center of the borderPane
     }
 
-    public static void monthChart() {
+    public void monthChart() {
         xAxis = new CategoryAxis();// create object of CategoryAxis which is XAxis of the graph
         xAxis.setLabel("Weeks"); //setting the label
 
@@ -122,7 +122,7 @@ public class MainDashboardController {
         borderPane.setCenter(barChart); // setting the barchart in the center of the borderPane
     }
 
-    public static void showChart(){
+    public void showChart(){
 
         switch (choiceOfGraph) {
             case "daily":
@@ -143,7 +143,7 @@ public class MainDashboardController {
         }
     }
 
-    public static void addData(ArrayList<Integer> list, int startDay) { // methods that is responsible for adding data
+    public void addData(ArrayList<Integer> list, int startDay) { // methods that is responsible for adding data
         // creation of XYChart that is used by barChart to map x and y Axis of the graph
         XYChart.Series<String, Number> steps = new XYChart.Series<>();  // XYChart object for steps
         steps.setName("Steps/Time");
@@ -170,7 +170,7 @@ public class MainDashboardController {
         barChart.getData().addAll(steps, calories, distance); // adding the XYCharts values to the barchart
     }
 
-    public static ArrayList getDayData() { // getting dayData
+    public ArrayList getDayData() { // getting dayData
         // getting the object user who signed in
         HashMap<String, Stats> mapOfStats = FitVentureStart.currentUser.getStats(); // retrieving their stats
         Integer[] stepsArray = new Integer[24];
@@ -222,7 +222,7 @@ public class MainDashboardController {
         return emptyList;
     }
 
-    public static ArrayList getWeekData() { // this method is responsible for getting weekData
+    public ArrayList getWeekData() { // this method is responsible for getting weekData
         // getting stats of the current user
         HashMap<String, Stats> mapOfStats = FitVentureStart.currentUser.getStats();
         Integer[] stepsArray = new Integer[7];
@@ -283,7 +283,7 @@ public class MainDashboardController {
         return emptyList;
     }
 
-    public static ArrayList getMonthData() { // this method is responsible for getting monthData
+    public ArrayList getMonthData() { // this method is responsible for getting monthData
         // getting the map of stats for the current user
         HashMap<String, Stats> mapOfStats = FitVentureStart.currentUser.getStats();
         Integer[] stepsArray = new Integer[31];
