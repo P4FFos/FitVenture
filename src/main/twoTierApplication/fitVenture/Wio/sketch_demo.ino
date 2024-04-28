@@ -114,7 +114,7 @@ void loop() {
     if (magnitude > STEP_THRESHOLD) {
       // Start counting steps only if previously not moving
       if (!isMoving && (currentTime - lastStepTime > MIN_STEP_INTERVAL)) {
-        stepCount++;
+        stepCount = 1;
         lastStepTime = currentTime;
         publishData();
         Serial.println("Step detected and published.");
