@@ -44,6 +44,7 @@ public class MainDashboardController {
 
     public void updateChartButton(MouseEvent event){
         showChart();
+        System.out.println("Chart Updated");
     }
 
     public void openUserProfile(ActionEvent event) throws IOException { // method to be called if the user clicks on the userProfile button
