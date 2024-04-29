@@ -1,7 +1,6 @@
 package fitVenture.ui;
 
 import fitVenture.backend.stats.Stats;
-import fitVenture.backend.user.User;
 import fitVenture.backend.utils.Current_Date;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -352,6 +351,8 @@ public class MainDashboardController {
     public void displayGoals(ActionEvent event) throws Exception{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Goals.fxml"));
         Parent root = loader.load();
+        GoalsCotroller goalsCotroller= loader.getController();
+        goalsCotroller.viewAWeightgoalsinProgress();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);

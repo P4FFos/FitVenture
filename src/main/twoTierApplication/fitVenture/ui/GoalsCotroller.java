@@ -4,15 +4,12 @@ import fitVenture.backend.goal.WeightGoal;
 import fitVenture.backend.utils.Current_Date;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-
+import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 public class GoalsCotroller {
 
@@ -20,6 +17,12 @@ public class GoalsCotroller {
     private TextField addWeightgoal;
 
     private String key;
+    @FXML
+    private VBox vBox;
+    private ArrayList<HBox> weightGoalArrayList;
+    private ArrayList<Integer> listOfkeys;
+
+    private HashMap<String,WeightGoal> weightGoalHashMap = FitVentureStart.currentUser.getWeightGoals();
 
 
     // this method adds the created goal to the hashMap of the user
@@ -37,23 +40,67 @@ public class GoalsCotroller {
          }
 
        }
-
-       // loading the weightLossGoal.fxm
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("weightLossGoal.fxml"));
-        Parent root = loader.load();
-
-        // instantiating weightLossGoalCongtoller for the use os progressBar creation and display inside of weightLossGoal page
-        WeightLossGoalContoller weightLossGoalContoller = loader.getController();
-        weightLossGoalContoller.progressBarProgress(key);
-
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+       viewAWeightgoalsinProgress();
     }
 
+    public void viewAWeightgoalsinProgress(){
+        vBox.getChildren().clear();
+
+        weightGoalArrayList = new ArrayList<>();
+        listOfkeys= new ArrayList<>();
+
+        weightGoalHashMap.forEach((k,v)->{
+            int dateAsInt = Current_Date.getIntegerOfSpecificDateSecIncluded(k);
+            double goal = v.getGoalInCaloris();
+            double progressToGoal = v.getProgressToGoalInCalories();
+            if(goal > progressToGoal){
+
+             Label goalInCaloriestLaber = new Label();
+             Label progressInCalorieslabel = new Label();
+             HBox hBox = new HBox();
+             ProgressBar progressBar = new ProgressBar();
+             goalInCaloriestLaber.setPrefHeight(50);
+             goalInCaloriestLaber.setStyle("-fx-font-size: 20px;");
+             goalInCaloriestLaber.setPrefWidth(200);
+             progressInCalorieslabel.setPrefHeight(50);
+             progressInCalorieslabel.setStyle("-fx-font-size: 20px;");
+             hBox.setPrefSize(200,50);
+             hBox.setSpacing(10);
+             progressBar.setPrefWidth(300);
+             progressBar.setPrefHeight(50);
+
+             progressToGoal = goal/2;
+             goalInCaloriestLaber.setText("Goal is: "+ goal);
+             progressInCalorieslabel.setText("Progress to goal: " + progressToGoal);
 
 
 
+             progressBar.setProgress(progressToGoal/goal);
+             hBox.getChildren().addAll(progressBar,progressInCalorieslabel,goalInCaloriestLaber);
+             sortArray(hBox,dateAsInt);
+            }
+        });
+        vBox.getChildren().addAll(weightGoalArrayList);
 
-  }
+    }
+
+    private void sortArray(HBox hBox, int key) {
+        if (weightGoalArrayList.isEmpty()) {
+            weightGoalArrayList.add(hBox);
+            listOfkeys.add(key);
+        } else {
+            int insertIndex = 0;
+            for (int i = 0; i < listOfkeys.size(); i++) {
+                if (listOfkeys.get(i) < key) {
+                    insertIndex = i + 1;
+                }
+            }
+            weightGoalArrayList.add(insertIndex, hBox);
+            listOfkeys.add(insertIndex, key);
+        }
+    }
+
+    // use the list of keys to to get the key string
+    // use the key to uppdate the hashmap
+    // callWiewWeightGoalsProgress
+}

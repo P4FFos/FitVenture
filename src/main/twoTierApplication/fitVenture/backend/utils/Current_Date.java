@@ -59,4 +59,25 @@ public class Current_Date {
         int day = Integer.parseInt(sDay);
         return day;
     }
+
+    // Returns specific date as an integer
+    public static int getIntegerOfSpecificDateSecIncluded(String date) {
+        String newDate = "";
+        Set<Integer> setOfLine = new HashSet<Integer>();
+        setOfLine.add(4);
+        setOfLine.add(7);
+        setOfLine.add(10);
+        setOfLine.add(13);
+        setOfLine.add(16);
+
+        for (int i = 5; i < 18; i++) {
+            if (!setOfLine.contains(i)) {
+                char chr = date.charAt(i);
+                newDate = newDate + chr;
+            }
+        }
+
+        int number = Integer.parseInt(newDate);
+        return number;
+    }
 }

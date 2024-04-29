@@ -13,7 +13,7 @@ public class WeightGoal {
     public WeightGoal( int weightGoal, int progressToGoalInCalories){
         this.weightGoal = weightGoal;
         this.progressToGoalInCalories = progressToGoalInCalories;
-        this.goalInCaloris=weightGoal*7700;
+        this.goalInCaloris=weightGoal * 7700;
     }
 
     public double getGoalWeight(){
