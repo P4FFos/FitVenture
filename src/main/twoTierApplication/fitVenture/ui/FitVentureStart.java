@@ -15,7 +15,7 @@ public class FitVentureStart extends Application {
     // static FitVenture attribute, used for registration and login
     public static FitVenture fitVenture;
     public static User currentUser;
-    public static String jsonPath = "src/main/twoTierApplication/fitVenture/backend/database/database.json";
+    public static String jsonPath = "src/main/twoTierApplication/fitVenture/backend/database/userDataStorage.json";
 
     @Override
     public void start(Stage stage) throws IOException {
