@@ -59,10 +59,6 @@ void setup() {
   // Initialize the accelerometer
   initAccelerometer();
 
-
-  // Calculate stride length based on user's height
-  calculateStrideLength();
-
   // Connect to Wi-Fi
   connectWiFi();
   mqttClient.setServer(server, port);
@@ -220,6 +216,8 @@ void setUserHeightAndWeight() {
   
   Serial.println("User weight and height has been updated!")
   
+  // Calculate stride length based on user's height
+  calculateStrideLength();
 }
 
 void connectWiFi() {
