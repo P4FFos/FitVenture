@@ -6,6 +6,7 @@
       "weight" : "60",
       "height" : "170",
       "name" : "",
+      "raceStats" : null,
       "stats" : {
         "2024-04-15-08" : {
           "distance" : "3400",
@@ -21,6 +22,11 @@
           "distance" : "7.23",
           "steps" : "3192",
           "calories" : "55.89"
+        },
+        "2024-04-30 17" : {
+          "distance" : "2.23",
+          "steps" : "912",
+          "calories" : "15.89"
         },
         "2024-04-13-08" : {
           "distance" : "3200",
