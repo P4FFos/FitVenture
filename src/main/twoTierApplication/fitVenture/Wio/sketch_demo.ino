@@ -204,6 +204,23 @@ void getUserWeightAndHeight(char* topic, byte* payload, unsigned int length){
   memcpy(recieved_payload, payload, length);
 }
 
+void setUserHeightAndWeight() {
+  //Create a json document to put the deserialized payload inside of.
+  StaticJsonDocument<100> jsonDoc;
+  DeserializationError error = deserializeJson(jsonDoc, recieved_payload);
+  if (error) {
+    Serial.print("The payload could not be deserialized.");
+    Serial.println(error.f_str());
+    return;
+  }
+
+  //Assign the global variables to the value assigned to the meta-data
+  userWeight = jsonDoc["userWeight"];
+  userHeight = jsonDoc["userHeight"];
+  
+  Serial.println("User weight and height has been updated!")
+  
+}
 
 void connectWiFi() {
   Serial.println("Connecting to Wi-Fi...");
