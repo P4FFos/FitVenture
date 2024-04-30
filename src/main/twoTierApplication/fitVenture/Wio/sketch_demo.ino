@@ -198,9 +198,11 @@ void getUserWeightAndHeight(char* topic, byte* payload, unsigned int length){
   Serial.println(); // Print newline for formatting
   //Copy the payload to be able to change the global variables later
   memcpy(recieved_payload, payload, length);
+
+  setUserWeightAndHeight();
 }
 
-void setUserHeightAndWeight() {
+void setUserWeightAndHeight() {
   //Create a json document to put the deserialized payload inside of.
   StaticJsonDocument<100> jsonDoc;
   DeserializationError error = deserializeJson(jsonDoc, recieved_payload);
