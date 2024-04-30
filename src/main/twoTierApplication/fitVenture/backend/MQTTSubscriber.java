@@ -4,6 +4,7 @@ import fitVenture.backend.stats.Stats;
 import fitVenture.backend.stats.RaceStats;
 import fitVenture.backend.utils.FileHandler;
 import fitVenture.ui.FitVentureStart;
+
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import com.fasterxml.jackson.databind.ObjectMapper;

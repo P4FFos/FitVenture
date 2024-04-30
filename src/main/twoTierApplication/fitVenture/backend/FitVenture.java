@@ -99,9 +99,15 @@ public class FitVenture {
         if (distance.isEmpty() || steps.isEmpty() || calories.isEmpty()) {
             throw new SaveDataException("Input the distance, steps or calories");
         } else {
+            String currentTime = getDateToday(new Date());
             User currentUser = getUser(userUsername);
-            Stats stats = new Stats(steps, distance, calories);
-            currentUser.addStats(getDateToday(new Date()), stats);
+
+            if(currentUser.containsDateInStats(currentTime)){ // Checks if entry already exits
+                currentUser.updateStats(steps, distance, calories, currentTime);
+            }else {
+                Stats stats = new Stats(steps, distance, calories);
+                currentUser.addStats(currentTime, stats);
+            }
         }
     }
 
