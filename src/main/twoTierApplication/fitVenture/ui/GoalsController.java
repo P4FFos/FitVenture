@@ -1,104 +1,148 @@
+
 package fitVenture.ui;
 
-import fitVenture.backend.FitVenture;
 import fitVenture.backend.goal.WeightGoal;
 import fitVenture.backend.utils.Current_Date;
-import fitVenture.backend.utils.FileHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Random;
 
 public class GoalsController {
 
     @FXML
-    private TextField userWeightGoalValue;
+    private TextField addWeightgoal;
 
+    private String key;
     @FXML
-    private VBox listOfGoals;
-
+    private VBox vBox;
     private ArrayList<HBox> weightGoalArrayList;
-    private ArrayList<String> listOfKeys;
+    private ArrayList<String> listOfkeys;
 
-    // to get the weight goals of the user
-    private HashMap<String, WeightGoal> weightGoalHashMap = FitVentureStart.currentUser.getWeightGoals();
-    // to get the total amount of burned calories of the user
-    private final double burnedCalories = FitVentureStart.currentUser.getTotalBurnedCalories();
+    private HashMap<String,WeightGoal> weightGoalHashMap = FitVentureStart.currentUser.getWeightGoals();
 
-    FitVenture fitVenture = FitVentureStart.fitVenture;
+
 
     // this method adds the created goal to the hashMap of the user
     public void addGoal(ActionEvent event) throws Exception {
-        // this is where the goal object is saved to the map. key is today date including seconds and minutes .
-        String goalCreationDate = Current_Date.getDateToday(new Date());
-        if (userWeightGoalValue.getText() != null) { //checking if the weight goal exists if not, the goal is added
-            try {
-                double weightGoalInKg = Double.parseDouble(userWeightGoalValue.getText()); // get the weight goal in KG from the user
-                WeightGoal weightGoal = new WeightGoal(weightGoalInKg, burnedCalories);
-                weightGoalHashMap.put(goalCreationDate, weightGoal);
-                // saves the goal object to the json file
-                FileHandler.jsonSerializer(FitVentureStart.jsonPath, fitVenture);
-            } catch (Exception e) {
-                System.out.println("Failed, you entered a wrong value");
-            }
-        }
-        viewWeightGoalsInProgress();
-    }
+        // this is where the goal object is saved to the map. key is todays date including seconds ans minutes .
 
-    public void viewWeightGoalsInProgress() {
-        listOfGoals.getChildren().clear();
+        key =Current_Date.getDateToday(new Date());
+        if(addWeightgoal.getText()!=null){ //checking if the weight goal exists if not, the goal is added
+            try {
+                int value = Integer.parseInt(addWeightgoal.getText());
+                WeightGoal weightGoal = new WeightGoal(value,0); // the progress always starts from zero
+                //FitVentureStart.currentUser.addWeightGoal(key,weightGoal);
+                weightGoalHashMap.put(key,weightGoal);
+            } catch (Exception e){
+                System.out.println("the entered value is not a number ");
+            }
+
+        }
+        viewAWeightgoalsinProgress();
+    }
+    int i =0;
+
+    public void viewAWeightgoalsinProgress(){
+        vBox.getChildren().clear();
 
         weightGoalArrayList = new ArrayList<>();
-        listOfKeys = new ArrayList<>();
+        listOfkeys= new ArrayList<>();
 
-        weightGoalHashMap.forEach((key, value) -> {
-            double goalInCalories = value.getGoalInCalories();
-            if (goalInCalories > burnedCalories) {
-                Label goalInCaloriestLabel = new Label();
+
+        weightGoalHashMap.forEach((k,v)->{
+
+            double goal = v.getGoalInCaloris();
+            double progressToGoal = v.getProgressToGoalInCalories();
+            if(goal > progressToGoal){
+
+                Label goalInCaloriestLaber = new Label();
                 Label progressInCalorieslabel = new Label();
                 HBox hBox = new HBox();
                 ProgressBar progressBar = new ProgressBar();
-                goalInCaloriestLabel.setPrefHeight(50);
-                goalInCaloriestLabel.setStyle("-fx-font-size: 15px;");
-                goalInCaloriestLabel.setPrefWidth(200);
+                goalInCaloriestLaber.setPrefHeight(50);
+                goalInCaloriestLaber.setStyle("-fx-font-size: 20px;");
+                goalInCaloriestLaber.setPrefWidth(200);
                 progressInCalorieslabel.setPrefHeight(50);
-                progressInCalorieslabel.setStyle("-fx-font-size: 15px;");
-                hBox.setPrefSize(200, 50);
+                progressInCalorieslabel.setStyle("-fx-font-size: 20px;");
+                hBox.setPrefSize(200,50);
                 hBox.setSpacing(10);
                 progressBar.setPrefWidth(300);
                 progressBar.setPrefHeight(50);
-                goalInCaloriestLabel.setText("Goal is: " + goalInCalories + " calories");
-                progressInCalorieslabel.setText("You burned: " + burnedCalories + " calories");
-                progressBar.setProgress(burnedCalories / goalInCalories);
-                hBox.getChildren().addAll(progressBar, progressInCalorieslabel, goalInCaloriestLabel);
-                sortArray(hBox, key);
+                goalInCaloriestLaber.setText("Goal is : "+ goal);
+                progressInCalorieslabel.setText("Progress to goal: " + progressToGoal);
+                progressBar.setProgress(progressToGoal/goal);
+                hBox.getChildren().addAll(progressBar,progressInCalorieslabel,goalInCaloriestLaber);
+                sortArray(hBox,k);
+                Random random = new Random();
+                uppdateProgressToGoal(random.nextInt(0,1000));
+
+
             }
         });
-        listOfGoals.getChildren().addAll(weightGoalArrayList);
+
+        vBox.getChildren().addAll(weightGoalArrayList);
+
     }
 
     private void sortArray(HBox hBox, String key) {
         if (weightGoalArrayList.isEmpty()) {
+            // If the list is empty, simply add the HBox and its key
             weightGoalArrayList.add(hBox);
-            listOfKeys.add(key);
+            listOfkeys.add(key);
         } else {
-            int lastIndex = listOfKeys.size() - 1;
+            int lastIndex = listOfkeys.size() - 1;
+            int currentKey = Current_Date.getIntegerOfSpecificDateSecIncluded(listOfkeys.get(lastIndex));
+            int newKey = Current_Date.getIntegerOfSpecificDateSecIncluded(key);
 
-            if (Current_Date.getIntegerOfSpecificDate(listOfKeys.get(lastIndex)) < Current_Date.getIntegerOfSpecificDateSecIncluded(key)) {
+            if (newKey > currentKey) {
+                // If the new key is greater than the current last key,
+                // add the HBox and its key at the end
                 weightGoalArrayList.add(hBox);
-                listOfKeys.add(key);
+                listOfkeys.add(key);
             } else {
-                String myKey = listOfKeys.get(lastIndex);
-                HBox hBox1 = weightGoalArrayList.get(lastIndex);
-                weightGoalArrayList.add(lastIndex, hBox);
-                listOfKeys.add(lastIndex, key);
-                weightGoalArrayList.add(lastIndex + 1, hBox1);
-                listOfKeys.add(lastIndex + 1, myKey);
+                // Otherwise, find the correct position to insert the new key
+                int indexToInsert = 0;
+                while (indexToInsert <= lastIndex &&
+                        Current_Date.getIntegerOfSpecificDateSecIncluded(listOfkeys.get(indexToInsert)) < newKey) {
+                    indexToInsert++;
+                }
+
+                // Insert the HBox and its key at the correct position
+                weightGoalArrayList.add(indexToInsert, hBox);
+                listOfkeys.add(indexToInsert, key);
+            }
+        }
+
+
+
+        System.out.println("sorted dates");
+        for (int i = 0; i < listOfkeys.size(); i++){
+            System.out.println(listOfkeys.get(i));
+        }
+    }
+
+    public void uppdateProgressToGoal(double value){
+
+
+
+
+    }
+
+    // this method will be needed after a meeting with the group about how weight data should be saved to the hashmap of users
+    public void refresh(){
+        Random random = new Random();
+        for(int i =0; i<10;i++ ){
+            if(!listOfkeys.isEmpty()){
+                String key = listOfkeys.get(0);
+                weightGoalHashMap.get(key).incrementProgress(random.nextInt(0,100));
+                viewAWeightgoalsinProgress();
+
             }
         }
     }

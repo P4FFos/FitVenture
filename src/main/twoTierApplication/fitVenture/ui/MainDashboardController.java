@@ -353,7 +353,7 @@ public class MainDashboardController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("GoalsScene.fxml"));
         Parent root = loader.load();
         GoalsController goalsController = loader.getController();
-        goalsController.viewWeightGoalsInProgress();
+        goalsController.viewAWeightgoalsinProgress();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
