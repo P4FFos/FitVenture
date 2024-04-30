@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 
 <?import javafx.scene.layout.VBox?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fitVenture.ui.GoalsCotroller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fitVenture.ui.GoalsController">
    <children>
       <Button layoutX="1.0" layoutY="12.0" mnemonicParsing="false" prefHeight="79.0" prefWidth="699.0" text="Weight Goal" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <Button layoutX="700.0" mnemonicParsing="false" prefHeight="79.0" prefWidth="841.0" text="Running Goal" />
