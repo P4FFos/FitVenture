@@ -3,6 +3,7 @@
 #include <PubSubClient.h>
 #include <TFT_eSPI.h>
 #include <rpcWiFi.h>
+#include <ArduinoJson.h>
 #define button 0
 
 // Constants for step detection and calorie calculation
@@ -14,7 +15,9 @@ const float CALORIES_PER_STEP = 0.05;
 int stepCount = 0;
 bool isMoving = false;
 unsigned long lastStepTime = 0;
-float userHeight = 195.0;
+byte recieved_payload[128];
+float userHeight;
+float userWeight;
 float strideLength;
 unsigned long lastActionTime = 0;
 
@@ -38,6 +41,7 @@ const unsigned long WIFI_RETRY_INTERVAL = 5000;
  const char* server = "broker.hivemq.com";
  const char* mainTopic = "fitVenture/sensor/accelerometer/data";
  const char* raceTopic = "fitVenture/sensor/accelerometer/raceData";
+ const char* weightAndHeightTopic = "fitVenture/application/weight&height"
  const int port = 1883;
 
 MMA7660 accel;
@@ -55,6 +59,7 @@ void setup() {
   // Initialize the accelerometer
   initAccelerometer();
 
+
   // Calculate stride length based on user's height
   calculateStrideLength();
 
@@ -62,6 +67,10 @@ void setup() {
   connectWiFi();
   mqttClient.setServer(server, port);
   reconnectMQTT();
+  //Subscribe to the user weight and height topic
+  mqttClient.subscribe(weightAndHeightTopic);
+  mqttClient.setCallback(getUserWeightAndHeight);
+
 
   // Initialize button as an input pin
   // INPUT_PULLUP used as configurator for the botton, when the button is not pressed it will be HIGH
@@ -183,6 +192,18 @@ void displayRaceData() {
 void calculateStrideLength() {
   strideLength = 0.415 * userHeight;
 }
+
+void getUserWeightAndHeight(char* topic, byte* payload, unsigned int length){
+  Serial.println("Payload with user height and weight has been recieved!");
+  
+  for (unsigned int i = 0; i < length; i++) {
+    Serial.write(payload[i]);
+  }
+  Serial.println(); // Print newline for formatting
+  //Copy the payload to be able to change the global variables later
+  memcpy(recieved_payload, payload, length);
+}
+
 
 void connectWiFi() {
   Serial.println("Connecting to Wi-Fi...");
