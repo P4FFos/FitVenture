@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fitVenture.ui.GoalsController">
+   <children>
+      <Text layoutX="1326.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Runing Goals">
+         <font>
+            <Font size="60.0" />
+         </font>
+      </Text>
+      <Text layoutX="323.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Weight Goals">
+         <font>
+            <Font size="60.0" />
+         </font>
+      </Text>
+      <Line endX="977.1968383789062" endY="57.11491775512695" startX="977.1968994140625" startY="981.0323486328125" />
+      <AnchorPane layoutX="152.0" layoutY="196.0" prefHeight="601.0" prefWidth="699.0">
+         <children>
+            <TextField fx:id="userWeightGoalValue" layoutX="14.0" layoutY="14.0" prefHeight="57.0" prefWidth="389.0" promptText="Add Goal In Kg " />
+            <Button layoutX="420.0" layoutY="14.0" mnemonicParsing="false" onAction="#addGoal" prefHeight="55.0" prefWidth="227.0" text="Create Weight Goal">
+               <font>
+                  <Font size="20.0" />
+               </font></Button>
+            <VBox fx:id="listOfGoals" layoutX="-8.0" layoutY="169.0" prefHeight="504.0" prefWidth="708.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="51.0" prefWidth="696.0" text="List of Goals ">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

@@ -26,8 +26,7 @@ public class User {
         this.height = height;
         this.name = name;
         this.stats = new HashMap<>();
-        this.weightGoals =new HashMap<>();
-
+        this.weightGoals = new HashMap<>();
     }
 
     // User class get methods
@@ -54,7 +53,11 @@ public class User {
     public HashMap<String, Stats> getStats() {
         return stats;
     }
-    public HashMap<String,WeightGoal> getWeightGoals(){return this.weightGoals;}
+
+    public HashMap<String, WeightGoal> getWeightGoals() {
+        return this.weightGoals;
+    }
+
     // User class set methods
     public void setUsername(String username) {
         this.username = username;
@@ -79,7 +82,8 @@ public class User {
     public void setStats(HashMap<String, Stats> stats) {
         this.stats = stats;
     }
-    public void setWeightGoals(HashMap<String,WeightGoal> weightGoals){
+
+    public void setWeightGoals(HashMap<String, WeightGoal> weightGoals) {
         this.weightGoals = weightGoals;
     }
 
@@ -87,13 +91,25 @@ public class User {
         this.stats.put(newDate, stats);
     }
 
-    public WeightGoal getWeightGoal(String key){
-        if(weightGoals.get(key)!=null){
+    public WeightGoal getWeightGoal(String key) {
+        if (weightGoals.get(key) != null) {
             return weightGoals.get(key);
         }
         return null;
     }
-    public void addWeightGoal(String key, WeightGoal weightGoal){
+
+    public void addWeightGoal(String key, WeightGoal weightGoal) {
         this.weightGoals.putIfAbsent(key, weightGoal);
+    }
+
+    // method to count total burned calories of a specific user
+    // used for weight goals calculation of the progress bar
+    public double getTotalBurnedCalories() {
+        double totalBurnedCalories = 0;
+        for (Stats stats : this.stats.values()) {
+            double burnedCalories = Double.parseDouble(stats.getCalories());
+            totalBurnedCalories += burnedCalories;
+        }
+        return totalBurnedCalories;
     }
 }

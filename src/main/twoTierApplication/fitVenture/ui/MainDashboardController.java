@@ -346,13 +346,14 @@ public class MainDashboardController {
     }
 
     public void monthChoice() throws Exception { // when user clicks on the monthChart button
-      monthChart();
+        monthChart();
     }
-    public void displayGoals(ActionEvent event) throws Exception{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Goals.fxml"));
+
+    public void displayGoals(ActionEvent event) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("GoalsScene.fxml"));
         Parent root = loader.load();
-        GoalsCotroller goalsCotroller= loader.getController();
-        goalsCotroller.viewAWeightgoalsinProgress();
+        GoalsController goalsController = loader.getController();
+        goalsController.viewWeightGoalsInProgress();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
