@@ -20,7 +20,7 @@ public class GoalsCotroller {
     @FXML
     private VBox vBox;
     private ArrayList<HBox> weightGoalArrayList;
-    private ArrayList<Integer> listOfkeys;
+    private ArrayList<String> listOfkeys;
 
     private HashMap<String,WeightGoal> weightGoalHashMap = FitVentureStart.currentUser.getWeightGoals();
 
@@ -34,7 +34,8 @@ public class GoalsCotroller {
          try {
            int value = Integer.parseInt(addWeightgoal.getText());
            WeightGoal weightGoal = new WeightGoal(value,0); // the progress always starts from zero
-           FitVentureStart.currentUser.addWeightGoal(key,weightGoal);
+           //FitVentureStart.currentUser.addWeightGoal(key,weightGoal);
+             weightGoalHashMap.put(key,weightGoal);
          } catch (Exception e){
            System.out.println("the entered value is not a number ");
          }
@@ -50,12 +51,11 @@ public class GoalsCotroller {
         listOfkeys= new ArrayList<>();
 
         weightGoalHashMap.forEach((k,v)->{
-            int dateAsInt = Current_Date.getIntegerOfSpecificDateSecIncluded(k);
             double goal = v.getGoalInCaloris();
             double progressToGoal = v.getProgressToGoalInCalories();
             if(goal > progressToGoal){
 
-             Label goalInCaloriestLaber = new Label();
+            Label goalInCaloriestLaber = new Label();
              Label progressInCalorieslabel = new Label();
              HBox hBox = new HBox();
              ProgressBar progressBar = new ProgressBar();
@@ -68,39 +68,53 @@ public class GoalsCotroller {
              hBox.setSpacing(10);
              progressBar.setPrefWidth(300);
              progressBar.setPrefHeight(50);
-
-             progressToGoal = goal/2;
              goalInCaloriestLaber.setText("Goal is: "+ goal);
              progressInCalorieslabel.setText("Progress to goal: " + progressToGoal);
-
-
-
              progressBar.setProgress(progressToGoal/goal);
              hBox.getChildren().addAll(progressBar,progressInCalorieslabel,goalInCaloriestLaber);
-             sortArray(hBox,dateAsInt);
+             sortArray(hBox,k);
+             uppdateProgressToGoal(v.getGoalInCaloris()/4);
             }
         });
         vBox.getChildren().addAll(weightGoalArrayList);
 
     }
 
-    private void sortArray(HBox hBox, int key) {
+    private void sortArray(HBox hBox, String key) {
         if (weightGoalArrayList.isEmpty()) {
             weightGoalArrayList.add(hBox);
             listOfkeys.add(key);
         } else {
-            int insertIndex = 0;
-            for (int i = 0; i < listOfkeys.size(); i++) {
-                if (listOfkeys.get(i) < key) {
-                    insertIndex = i + 1;
-                }
+            int lastindex = listOfkeys.size()-1;
+
+            if (Current_Date.getIntegerOfSpecificDate( listOfkeys.get(lastindex)) < Current_Date.getIntegerOfSpecificDateSecIncluded(key)) {
+                    weightGoalArrayList.add(hBox);
+                    listOfkeys.add(key );
+            } else {
+                    String myKey = listOfkeys.get(lastindex);
+                    HBox hBox1 = weightGoalArrayList.get(lastindex);
+                    weightGoalArrayList.add(lastindex,hBox);
+                    listOfkeys.add(lastindex,key);
+                    weightGoalArrayList.add(lastindex+1,hBox1);
+                    listOfkeys.add(lastindex+1, myKey);
             }
-            weightGoalArrayList.add(insertIndex, hBox);
-            listOfkeys.add(insertIndex, key);
+
+
         }
+        System.out.println(listOfkeys.size());
+        System.out.println(key);
+
     }
 
-    // use the list of keys to to get the key string
+    // use the list of keys to get the key string
     // use the key to uppdate the hashmap
     // callWiewWeightGoalsProgress
+
+    public void uppdateProgressToGoal(double value){
+        if(!listOfkeys.isEmpty()){
+            String key = listOfkeys.get(0);
+            weightGoalHashMap.get(key).incrementProgress(value);
+
+        }
+    }
 }

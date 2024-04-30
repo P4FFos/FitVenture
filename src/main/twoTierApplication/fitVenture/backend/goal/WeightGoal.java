@@ -13,7 +13,7 @@ public class WeightGoal {
     public WeightGoal( int weightGoal, int progressToGoalInCalories){
         this.weightGoal = weightGoal;
         this.progressToGoalInCalories = progressToGoalInCalories;
-        this.goalInCaloris=weightGoal * 7700;
+        this.goalInCaloris=weightGoal*7700;
     }
 
     public double getGoalWeight(){
@@ -31,11 +31,11 @@ public class WeightGoal {
     public double getRatio(){
         return progressToGoalInCalories /weightGoal;
     }
-    public double caloriesInGoal(){
-        return weightGoal*7700;
-    }
     public double getGoalInCaloris(){
         return this.goalInCaloris;
+    }
+    public void incrementProgress(double progress ){
+        this.progressToGoalInCalories= progressToGoalInCalories+progress;
     }
 
 }
