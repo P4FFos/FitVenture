@@ -36,13 +36,13 @@ const unsigned long MQTT_RETRY_INTERVAL = 5000;
 const unsigned long WIFI_RETRY_INTERVAL = 5000;
 
 // WiFi and MQTT broker configuration
- char ssid[] = "Daniel";
- const char* password = "12345678";
- const char* server = "broker.hivemq.com";
- const char* mainTopic = "fitVenture/sensor/accelerometer/data";
- const char* raceTopic = "fitVenture/sensor/accelerometer/raceData";
- const char* weightAndHeightTopic = "fitVenture/application/weight&height"
- const int port = 1883;
+char ssid[] = "Daniel";
+const char* password = "12345678";
+const char* server = "broker.hivemq.com";
+const char* mainTopic = "fitVenture/sensor/accelerometer/data";
+const char* raceTopic = "fitVenture/sensor/accelerometer/raceData";
+const char* weightAndHeightTopic = "fitVenture/application/weight&height"
+const int port = 1883;
 
 MMA7660 accel;
 TFT_eSPI tft;
@@ -189,6 +189,7 @@ void calculateStrideLength() {
   strideLength = 0.415 * userHeight;
 }
 
+//When the message gets recieved from the MQTTPublisher in the Java application, the setCallback method will call this method.
 void getUserWeightAndHeight(char* topic, byte* payload, unsigned int length){
   Serial.println("Payload with user height and weight has been recieved!");
   
