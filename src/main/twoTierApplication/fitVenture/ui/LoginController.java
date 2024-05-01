@@ -2,6 +2,7 @@ package fitVenture.ui;
 
 import fitVenture.backend.FitVenture;
 import fitVenture.backend.MQTTSubscriber;
+import fitVenture.backend.MQTTPublisher;
 import fitVenture.backend.exceptions.LoginException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -44,6 +45,8 @@ public class LoginController {
                 // Store user object data, once user is logged in
                 FitVentureStart.currentUser = fitVenture.getUser(usernameText);
 
+                // Publish to the MQTT broker
+                new MQTTPublisher();
                 // Subscribe to the MQTT broker
                 new MQTTSubscriber();
 
@@ -52,7 +55,7 @@ public class LoginController {
                 root = loader.load();
 
                 MainDashboardController mainDashboardController = loader.getController();
-                mainDashboardController.dayChart();
+                mainDashboardController.showChart();
 
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 scene = new Scene(root);

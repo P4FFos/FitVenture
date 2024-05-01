@@ -1,6 +1,7 @@
 package fitVenture.backend.user;
 
 import fitVenture.backend.goal.WeightGoal;
+import fitVenture.backend.stats.RaceStats;
 import fitVenture.backend.stats.Stats;
 import java.util.HashMap;
 
@@ -13,6 +14,8 @@ public class User {
     private String name;
     private HashMap<String, Stats> stats;
     private HashMap<String, WeightGoal> weightGoals;
+    private HashMap<String, Stats> statsMap;
+    private HashMap<String, RaceStats> raceStats;
 
     // Empty constructor used by Jackson for Json deserializing
     public User() {
@@ -27,6 +30,7 @@ public class User {
         this.name = name;
         this.stats = new HashMap<>();
         this.weightGoals = new HashMap<>();
+        this.statsMap = new HashMap<>();
     }
 
     // User class get methods
@@ -51,7 +55,11 @@ public class User {
     }
 
     public HashMap<String, Stats> getStats() {
-        return stats;
+        return statsMap;
+    }
+
+    public HashMap<String, RaceStats> getRaceStats() {
+        return raceStats;
     }
 
     public HashMap<String, WeightGoal> getWeightGoals() {
@@ -80,7 +88,7 @@ public class User {
     }
 
     public void setStats(HashMap<String, Stats> stats) {
-        this.stats = stats;
+        this.statsMap = stats;
     }
 
     public void setWeightGoals(HashMap<String, WeightGoal> weightGoals) {
@@ -88,7 +96,33 @@ public class User {
     }
 
     public void addStats(String newDate, Stats stats) {
-        this.stats.put(newDate, stats);
+        this.statsMap.put(newDate, stats);
+    }
+
+    public boolean containsDateInStats(String date){
+        if (this.statsMap.containsKey(date)) return true;
+        else return false;
+    }
+
+    public void updateStats(String steps, String distance, String calories, String date){ // Updates the stats of an already existing entry
+        int newSteps = Integer.parseInt(steps);
+        double newDistance = Math.round(Double.parseDouble(distance));
+        double newCalories = Math.round(Double.parseDouble(calories));
+
+        int oldSteps = Integer.parseInt(statsMap.get(date).getSteps());
+        double oldDistance = Double.parseDouble(statsMap.get(date).getDistance());
+        double oldCalories = Double.parseDouble(statsMap.get(date).getCalories());
+
+        String updatedSteps = String.valueOf(oldSteps + newSteps);
+        String updatedDistance = String.valueOf(oldDistance + newDistance);
+        String updatedCalories = String.valueOf(oldCalories + newCalories);
+
+        Stats stats = new Stats(updatedSteps, updatedDistance, updatedCalories);
+        this.statsMap.put(date, stats);
+    }
+
+    public void setRaceStats(HashMap<String, RaceStats> raceStats) {
+        this.raceStats = raceStats;
     }
 
     public WeightGoal getWeightGoal(String key) {
@@ -112,4 +146,9 @@ public class User {
         }
         return totalBurnedCalories;
     }
+
+    public void addRaceStats(String raceDate, RaceStats raceStats) {
+        this.raceStats.put(raceDate, raceStats);
+    }
+
 }

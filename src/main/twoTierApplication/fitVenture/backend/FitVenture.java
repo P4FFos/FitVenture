@@ -4,6 +4,7 @@ import fitVenture.backend.exceptions.LoginException;
 import fitVenture.backend.exceptions.RegistrationException;
 import fitVenture.backend.exceptions.SaveDataException;
 import fitVenture.backend.stats.Stats;
+import fitVenture.backend.stats.RaceStats;
 import fitVenture.backend.user.User;
 
 import java.util.Date;
@@ -98,10 +99,26 @@ public class FitVenture {
         if (distance.isEmpty() || steps.isEmpty() || calories.isEmpty()) {
             throw new SaveDataException("Input the distance, steps or calories");
         } else {
+            String currentTime = getDateToday(new Date());
             User currentUser = getUser(userUsername);
-            String currentUserUsername = currentUser.getUsername();
-            Stats stats = new Stats(steps, distance, calories);
-            currentUser.addStats(getDateToday(new Date()), stats);
+
+            if(currentUser.containsDateInStats(currentTime)){ // Checks if entry already exits
+                currentUser.updateStats(steps, distance, calories, currentTime);
+            }else {
+                Stats stats = new Stats(steps, distance, calories);
+                currentUser.addStats(currentTime, stats);
+            }
+        }
+    }
+
+    // Saves race stats data of the user to the HashMap
+    public void saveRaceStatsData(String startTime, String endTime, String raceDuration, String distance, String steps, String calories, String userUsername) throws SaveDataException {
+        if (distance.isEmpty() || steps.isEmpty() || calories.isEmpty() || startTime.isEmpty() || endTime.isEmpty() || raceDuration.isEmpty()) {
+            throw new SaveDataException("Failed, nothing to save");
+        } else {
+            User currentUser = getUser(userUsername);
+            RaceStats raceStats = new RaceStats(steps, distance, calories, startTime, endTime, raceDuration);
+            currentUser.addRaceStats(getDateToday(new Date()), raceStats);
         }
     }
 }

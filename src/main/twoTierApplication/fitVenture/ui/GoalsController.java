@@ -46,7 +46,6 @@ public class GoalsController {
         }
         viewAWeightgoalsinProgress();
     }
-    int i =0;
 
     public void viewAWeightgoalsinProgress(){
         vBox.getChildren().clear();
