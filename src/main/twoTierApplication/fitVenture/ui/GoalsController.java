@@ -53,7 +53,7 @@ public class GoalsController {
         weightGoalArrayList = new ArrayList<>();
         listOfkeys= new ArrayList<>();
 
-
+        if(!weightGoalHashMap.isEmpty()){
         weightGoalHashMap.forEach((k,v)->{
 
             double goal = v.getGoalInCaloris();
@@ -83,7 +83,7 @@ public class GoalsController {
 
 
             }
-        });
+        });}
 
         vBox.getChildren().addAll(weightGoalArrayList);
 
