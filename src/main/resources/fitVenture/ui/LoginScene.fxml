@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fitVenture.ui.LoginController">
+   <children>
+      <Pane layoutX="721.0" layoutY="183.0" prefHeight="378.0" prefWidth="454.0" style="-fx-background-color: lightgrey; -fx-border-color: grey; -fx-border-width: 5px;">
+         <children>
+            <Label layoutX="87.0" layoutY="181.0" style="-fx-background-color: lightgrey;" text="Password:" />
+            <Label layoutX="86.0" layoutY="145.0" style="-fx-background-color: lightgrey;" text="Username:" />
+            <Button fx:id="backButton" layoutX="252.0" layoutY="218.0" mnemonicParsing="false" onAction="#backToRegLoginPage" prefHeight="35.0" prefWidth="129.0" text="Return back" />
+            <PasswordField fx:id="password" layoutX="178.0" layoutY="177.0" promptText="password" />
+            <TextField fx:id="username" layoutX="178.0" layoutY="141.0" promptText="username" />
+            <Label fx:id="errorLabel" prefHeight="17.0" prefWidth="198.0" text="" visible="false" />
+            <Button fx:id="loginButton" layoutX="80.0" layoutY="218.0" mnemonicParsing="false" onAction="#login" prefHeight="35.0" prefWidth="129.0" text="Login" />
+            <ImageView layoutX="392.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/fitVentureLogo.jpg" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
