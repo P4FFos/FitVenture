@@ -63,5 +63,11 @@ public class Current_Date {
         return number;
     }
 
+    public static String getDateTodaySecIncluded(Date date){
+        // Returns the current date in the format "1999-01-11 12" -> "Year-Month-Day Hour"
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return dateFormat.format(date);
+    }
+
 
 }
