@@ -11,7 +11,7 @@ jobBuild:
 jobTest:
   stage: test
   script:
-    - echo "Teeeest"
+    - echo "Teeeest weeeeeee"
 
 jobDeploy:
   stage: deploy
