@@ -123,7 +123,21 @@
           "calories" : "120"
         }
       },
-      "raceStats" : null
+      "raceStats" : null,
+      "weightGoalsMap": {
+        "2024-04-01-08 10:01:10": {
+          "weightGoal": 1,
+          "progressToGoalInCalories": 3000,
+          "goalInCaloris": 7000
+        },
+        "2024-04-01-08 10:11:10": {
+          "weightGoal": 1,
+          "progressToGoalInCalories": 3600,
+          "goalInCaloris": 7000
+        }
+      }
+
     }
+
   }
 }

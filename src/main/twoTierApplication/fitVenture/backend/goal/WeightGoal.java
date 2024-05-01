@@ -1,11 +1,14 @@
 
 package fitVenture.backend.goal;
-
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class WeightGoal {
-    private double weightGoal;
-    private double progressToGoalInCalories;
-    private double goalInCaloris;
+    @JsonProperty("weightGoal")
+    private Double weightGoal;
+    @JsonProperty ("progressToGoalInCalories")
+    private Double progressToGoalInCalories;
+    @JsonProperty("goalInCaloris")
+    private Double goalInCaloris;
 
     // Empty constructor used for Json deserializing
     public WeightGoal(){
@@ -24,10 +27,10 @@ public class WeightGoal {
         return this.progressToGoalInCalories;
     }
     public void setGoalWeight(int weightGoal){
-      this.weightGoal =  weightGoal;
+      this.weightGoal = (double)weightGoal;
     }
     public void setProgressToGoalInCalories(int progressToGoalInCalories){
-        this.progressToGoalInCalories = progressToGoalInCalories;
+        this.progressToGoalInCalories = (double) progressToGoalInCalories;
     }
     public double getRatio(){
         double progress = progressToGoalInCalories;
