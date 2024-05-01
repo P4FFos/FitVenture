@@ -1,8 +1,11 @@
 package fitVenture.backend.user;
 
+import fitVenture.backend.goal.WeightGoal;
 import fitVenture.backend.stats.RaceStats;
 import fitVenture.backend.stats.Stats;
+import fitVenture.backend.utils.Current_Date;
 import java.util.HashMap;
+import java.util.Map;
 
 public class User {
     // User class attributes and HashMap of stats to store Distance, Calories and Steps
@@ -13,6 +16,7 @@ public class User {
     private String name;
     private HashMap<String, Stats> statsMap;
     private HashMap<String, RaceStats> raceStats;
+    private HashMap<String, WeightGoal> weightGoal;
 
     // Empty constructor used by Jackson for Json deserializing
     public User() {
@@ -57,6 +61,10 @@ public class User {
         return raceStats;
     }
 
+    public HashMap<String, WeightGoal> getWeightGoal() {
+        return weightGoal;
+    }
+
     // User class set methods
     public void setUsername(String username) {
         this.username = username;
@@ -86,6 +94,10 @@ public class User {
         this.statsMap.put(newDate, stats);
     }
 
+    public void addWeightGoal(String date, WeightGoal weightGoal) {
+        this.weightGoal.put(date, weightGoal);
+    }
+
     public boolean containsDateInStats(String date){
         if (this.statsMap.containsKey(date)) return true;
         else return false;
@@ -112,8 +124,31 @@ public class User {
         this.raceStats = raceStats;
     }
 
+    public void setWeightGoal(HashMap<String, WeightGoal> weightGoal) {
+        this.weightGoal = weightGoal;
+    }
+
     public void addRaceStats(String raceDate, RaceStats raceStats) {
         this.raceStats.put(raceDate, raceStats);
     }
 
+    // method to count total burned calories of a specific user for a specific period
+    // used for weight goals calculation of the progress bar
+    public double getTotalBurnedCalories(String goalDate) {
+        // used to store the total burned calories for a specific period
+        double totalBurnedCalories = 0;
+
+        // for loop to iterate over each value of the stats HashMap
+        for (Map.Entry<String, Stats> valueOfTheStat : this.statsMap.entrySet()) {
+            int dateOfStat = Current_Date.getIntegerOfSpecificDate(valueOfTheStat.getKey());
+            int goalStartDate = Current_Date.getIntegerOfSpecificDate(goalDate);
+
+            // checks if date of the stat is bigger or equal to goal start date
+            if (dateOfStat >= goalStartDate) {
+                double burnedCalories = Double.parseDouble(valueOfTheStat.getValue().getCalories());
+                totalBurnedCalories += burnedCalories;
+            }
+        }
+        return totalBurnedCalories;
+    }
 }

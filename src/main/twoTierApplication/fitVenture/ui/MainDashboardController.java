@@ -1,12 +1,10 @@
 package fitVenture.ui;
 
 import fitVenture.backend.stats.Stats;
-import fitVenture.backend.user.User;
 import fitVenture.backend.utils.Current_Date;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -31,7 +29,7 @@ public class MainDashboardController {
     private BarChart barChart; //Barchart object
 
     private String choiceOfGraph = "";
-    
+
     @FXML
     private BorderPane borderPane; // reference to the BorderPane in the fxml
     private ObservableList observableList; // Observable reference for observable object
@@ -152,11 +150,11 @@ public class MainDashboardController {
             case "daily":
                 dayChart();
                 break;
-        
+
             case "weekly":
                 weekChart();
                 break;
-            
+
             case "monthly":
                 monthChart();
                 break;
@@ -272,10 +270,10 @@ public class MainDashboardController {
                     // updating data if they exist
                     int updatedSteps = stepsArray[index] + steps;
                     stepsArray[index] = updatedSteps;
-                   
+
                     double updatedCalories = caloriesArray[index] + calories;
                     caloriesArray[index] = updatedCalories;
-                    
+
                     double updatedDistance = distanceArray[index] + distance;
                     distanceArray[index] = updatedDistance;
                 } else {
@@ -383,5 +381,16 @@ public class MainDashboardController {
     public void monthChoice() throws Exception { // when user clicks on the monthChart button
         choiceOfGraph = "monthly";
         showChart();
+    }
+
+    public void displayGoals(ActionEvent event) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("GoalsScene.fxml"));
+        Parent root = loader.load();
+        GoalsController goalsController = loader.getController();
+        goalsController.viewWeightGoalsInProgress();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 }

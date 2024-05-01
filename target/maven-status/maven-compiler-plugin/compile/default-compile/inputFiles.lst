@@ -1,6 +1,8 @@
 /Users/p4ffos/IdeaProjects/fitventure/src/main/twoTierApplication/fitVenture/backend/stats/Stats.java
+/Users/p4ffos/IdeaProjects/fitventure/src/main/twoTierApplication/fitVenture/backend/MQTTPublisher.java
 /Users/p4ffos/IdeaProjects/fitventure/src/main/twoTierApplication/fitVenture/ui/MainDashboardController.java
 /Users/p4ffos/IdeaProjects/fitventure/src/main/twoTierApplication/fitVenture/backend/utils/FileHandler.java
+/Users/p4ffos/IdeaProjects/fitventure/src/main/twoTierApplication/fitVenture/ui/GoalsController.java
 /Users/p4ffos/IdeaProjects/fitventure/src/main/twoTierApplication/fitVenture/ui/ChallengesController.java
 /Users/p4ffos/IdeaProjects/fitventure/src/main/twoTierApplication/fitVenture/backend/FitVenture.java
 /Users/p4ffos/IdeaProjects/fitventure/src/main/twoTierApplication/fitVenture/ui/RegistrationController.java
@@ -10,6 +12,8 @@
 /Users/p4ffos/IdeaProjects/fitventure/src/main/twoTierApplication/fitVenture/backend/MQTTSubscriber.java
 /Users/p4ffos/IdeaProjects/fitventure/src/main/twoTierApplication/fitVenture/backend/user/User.java
 /Users/p4ffos/IdeaProjects/fitventure/src/main/twoTierApplication/fitVenture/backend/exceptions/SaveDataException.java
+/Users/p4ffos/IdeaProjects/fitventure/src/main/twoTierApplication/fitVenture/backend/goal/WeightGoal.java
+/Users/p4ffos/IdeaProjects/fitventure/src/main/twoTierApplication/fitVenture/backend/stats/RaceStats.java
 /Users/p4ffos/IdeaProjects/fitventure/src/main/twoTierApplication/fitVenture/ui/FitVentureStart.java
 /Users/p4ffos/IdeaProjects/fitventure/src/main/twoTierApplication/fitVenture/ui/LoginRegistrationController.java
 /Users/p4ffos/IdeaProjects/fitventure/src/main/twoTierApplication/fitVenture/backend/exceptions/RegistrationException.java

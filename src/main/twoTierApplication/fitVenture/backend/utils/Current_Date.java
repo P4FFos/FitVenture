@@ -41,4 +41,33 @@ public class Current_Date {
         int day = Integer.parseInt(days);
         return day;
     }
+
+    // Returns specific date as an integer
+    public static int getIntegerOfSpecificDateSecIncluded(String date) {
+        String newDate = "";
+        Set<Integer> setOfLine = new HashSet<Integer>();
+        setOfLine.add(4);
+        setOfLine.add(7);
+        setOfLine.add(10);
+        setOfLine.add(13);
+        setOfLine.add(16);
+
+        for (int i = 5; i < 18; i++) {
+            if (!setOfLine.contains(i)) {
+                char chr = date.charAt(i);
+                newDate = newDate + chr;
+            }
+        }
+
+        int number = Integer.parseInt(newDate);
+        return number;
+    }
+
+    public static String getDateTodaySecIncluded(Date date){
+        // Returns the current date in the format "1999-01-11 12" -> "Year-Month-Day Hour"
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return dateFormat.format(date);
+    }
+
+
 }

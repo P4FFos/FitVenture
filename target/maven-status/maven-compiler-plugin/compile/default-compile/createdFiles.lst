@@ -6,12 +6,16 @@ fitVenture/backend/stats/Stats.class
 fitVenture/ui/ChallengesController.class
 fitVenture/backend/FitVenture.class
 module-info.class
+fitVenture/backend/goal/WeightGoal.class
+fitVenture/ui/GoalsController.class
 fitVenture/backend/MQTTSubscriber$1.class
 fitVenture/backend/utils/Current_Date.class
 fitVenture/backend/exceptions/LoginException.class
+fitVenture/backend/MQTTPublisher.class
 fitVenture/backend/MQTTSubscriber.class
 fitVenture/ui/LoginRegistrationController.class
 fitVenture/ui/RegistrationController.class
+fitVenture/backend/stats/RaceStats.class
 fitVenture/backend/user/User.class
 fitVenture/ui/UserProfileController.class
 fitVenture/ui/MainDashboardController.class
