@@ -56,7 +56,7 @@
             </Button>
          </children>
       </HBox>
-      <Button layoutX="272.0" layoutY="22.0" mnemonicParsing="false" onAction="#displayGoals" prefHeight="50.0" prefWidth="143.0" text="Set Goals ">
+      <Button layoutX="271.0" layoutY="25.0" mnemonicParsing="false" onAction="#displayGoals" prefHeight="50.0" prefWidth="143.0" text="Set Goals ">
          <font>
             <Font size="24.0" />
          </font>

@@ -24,7 +24,7 @@ public class GoalsController {
     private ArrayList<HBox> weightGoalArrayList;
     private ArrayList<String> listOfkeys;
 
-    private HashMap<String,WeightGoal> weightGoalHashMap = FitVentureStart.currentUser.getWeightGoals();
+    private HashMap<String,WeightGoal> weightGoalHashMap = FitVentureStart.currentUser.getWeightGoalsMap();
 
 
 
@@ -33,10 +33,11 @@ public class GoalsController {
         // this is where the goal object is saved to the map. key is todays date including seconds ans minutes .
 
         key =Current_Date.getDateTodaySecIncluded(new Date());
+        System.out.println(key);
         if(addWeightgoal.getText()!=null){ //checking if the weight goal exists if not, the goal is added
             try {
-                int value = Integer.parseInt(addWeightgoal.getText());
-                WeightGoal weightGoal = new WeightGoal(value,0); // the progress always starts from zero
+                double value = Double.parseDouble(addWeightgoal.getText());
+                WeightGoal weightGoal = new WeightGoal( value,0); // the progress always starts from zero
                 //FitVentureStart.currentUser.addWeightGoal(key,weightGoal);
                 weightGoalHashMap.put(key,weightGoal);
             } catch (Exception e){

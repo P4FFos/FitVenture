@@ -12,8 +12,7 @@ public class User {
     private String weight;
     private String height;
     private String name;
-    private HashMap<String, Stats> stats;
-    private HashMap<String, WeightGoal> weightGoals;
+    private HashMap<String, WeightGoal> weightGoalsMap;
     private HashMap<String, Stats> statsMap;
     private HashMap<String, RaceStats> raceStats;
 
@@ -28,8 +27,7 @@ public class User {
         this.weight = weight;
         this.height = height;
         this.name = name;
-        this.stats = new HashMap<>();
-        this.weightGoals = new HashMap<>();
+        this.weightGoalsMap = new HashMap<>();
         this.statsMap = new HashMap<>();
     }
 
@@ -54,7 +52,7 @@ public class User {
         return name;
     }
 
-    public HashMap<String, Stats> getStats() {
+    public HashMap<String, Stats> getStatsMap() {
         return statsMap;
     }
 
@@ -62,8 +60,8 @@ public class User {
         return raceStats;
     }
 
-    public HashMap<String, WeightGoal> getWeightGoals() {
-        return this.weightGoals;
+    public HashMap<String, WeightGoal> getWeightGoalsMap() {
+        return this.weightGoalsMap;
     }
 
     // User class set methods
@@ -87,12 +85,12 @@ public class User {
         this.name = name;
     }
 
-    public void setStats(HashMap<String, Stats> stats) {
-        this.statsMap = stats;
+    public void setStatsMap(HashMap<String, Stats> statsMap) {
+        this.statsMap = statsMap;
     }
 
-    public void setWeightGoals(HashMap<String, WeightGoal> weightGoals) {
-        this.weightGoals = weightGoals;
+    public void setWeightGoalsMap(HashMap<String, WeightGoal> weightGoalsMap) {
+        this.weightGoalsMap = weightGoalsMap;
     }
 
     public void addStats(String newDate, Stats stats) {
@@ -126,21 +124,21 @@ public class User {
     }
 
     public WeightGoal getWeightGoal(String key) {
-        if (weightGoals.get(key) != null) {
-            return weightGoals.get(key);
+        if (weightGoalsMap.get(key) != null) {
+            return weightGoalsMap.get(key);
         }
         return null;
     }
 
     public void addWeightGoal(String key, WeightGoal weightGoal) {
-        this.weightGoals.putIfAbsent(key, weightGoal);
+        this.weightGoalsMap.putIfAbsent(key, weightGoal);
     }
 
     // method to count total burned calories of a specific user
     // used for weight goals calculation of the progress bar
     public double getTotalBurnedCalories() {
         double totalBurnedCalories = 0;
-        for (Stats stats : this.stats.values()) {
+        for (Stats stats : this.statsMap.values()) {
             double burnedCalories = Double.parseDouble(stats.getCalories());
             totalBurnedCalories += burnedCalories;
         }

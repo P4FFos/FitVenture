@@ -8,7 +8,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.stage.Stage;
@@ -90,7 +89,7 @@ public class ChallengesController {
         double bmiValue = weight / Math.pow(height / 100, 2);
 
         // Create a HashMap to store the user's stats
-        HashMap<String, Stats> statsHashMap = FitVentureStart.currentUser.getStats();
+        HashMap<String, Stats> statsHashMap = FitVentureStart.currentUser.getStatsMap();
 
         // Initialize variables to store the total steps, calories, and distance for today
         double totalStepsToday = 0.0;
