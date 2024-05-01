@@ -6,14 +6,25 @@ import fitVenture.backend.utils.Current_Date;
 import fitVenture.backend.utils.FileHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
 public class GoalsController {
+    private Parent root;
+    private Stage stage;
+    private Scene scene;
+
     @FXML
     private TextField userWeightGoalValue; // text field where user inputs Weight Goal in KG
 
@@ -50,7 +61,7 @@ public class GoalsController {
         viewWeightGoalsInProgress();
     }
 
-    // the method is responsible for showing progress to the user in the progresBar
+    // the method is responsible for showing progress to the user in the progressBar
     public void viewWeightGoalsInProgress() {
         vBoxContainer.getChildren().clear(); // Clear all objects from the container
         weightGoalArrayList = new ArrayList<>();
@@ -61,7 +72,7 @@ public class GoalsController {
             double progressToGoal = FitVentureStart.currentUser.getTotalBurnedCalories(goalCreationDate);
 
             if (goal > progressToGoal) { // check if the goal was completed
-                // settings for grogressBar for the user
+                // settings for progressBar for the user
                 ProgressBar progressBar = new ProgressBar();
                 progressBar.setPrefWidth(330);
                 progressBar.setPrefHeight(50);
@@ -81,14 +92,14 @@ public class GoalsController {
                 progressInCalorieslabel.setStyle("-fx-font-size: 15px;");
                 progressInCalorieslabel.setText(" The goal is: " + goal + " Cal");
 
-                // Setting foe the Hbox that holds the progressbar and both Labels
+                // Setting foe the HBox that holds the progressbar and both Labels
                 HBox hBox = new HBox();
                 hBox.setPrefWidth(700);
                 hBox.setSpacing(10);
 
                 progressBar.setProgress(progressToGoal / goal); // set the value of the progressbar
                 hBox.getChildren().addAll(progressBar, goalInCaloriestLaber, progressInCalorieslabel); // add three objects to the hBox
-                sortArray(hBox, goalCreationDate); // Making sure that the current goal in progress (bar) is always on the to of the list of other bars
+                sortArray(hBox, goalCreationDate); // Making sure that the current goal in progress (bar) is always on the top of the list of other bars
             }
         });
         vBoxContainer.getChildren().addAll(weightGoalArrayList);// add everything to the container that is reserved a space in the fxml file
@@ -124,5 +135,20 @@ public class GoalsController {
                 listOfKeys.add(indexToInsert, goalCreationDate);
             }
         }
+    }
+
+    // button to return back to the MainDashboard
+    public void returnBackToMain(ActionEvent event) throws IOException {
+        // loads LoginRegistrationScene once user pressed the "return back" button
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("MainDashboardScene.fxml"));
+        root = loader.load();
+
+        MainDashboardController mainDashboardController = loader.getController();
+        mainDashboardController.showChart();
+
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 }

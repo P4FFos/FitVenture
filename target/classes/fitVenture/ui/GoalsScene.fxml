@@ -24,7 +24,7 @@
       <Line endX="977.1968383789062" endY="57.11491775512695" startX="977.1968994140625" startY="981.0323486328125" />
       <AnchorPane layoutX="152.0" layoutY="196.0" prefHeight="663.0" prefWidth="670.0">
          <children>
-            <TextField fx:id="userWeightGoalValue" layoutX="14.0" layoutY="14.0" prefHeight="57.0" prefWidth="389.0" promptText="Enter you goal value to burn in KG">
+            <TextField fx:id="userWeightGoalValue" focusTraversable="false" layoutX="14.0" layoutY="14.0" prefHeight="57.0" prefWidth="389.0" promptText="Enter you goal value to burn in KG">
                <font>
                   <Font size="17.0" />
                </font></TextField>
@@ -43,5 +43,10 @@
             </VBox>
          </children>
       </AnchorPane>
+      <Button fx:id="returnBackButton" layoutX="47.0" layoutY="26.0" mnemonicParsing="false" onAction="#returnBackToMain" prefHeight="32.0" prefWidth="143.0" text="Return Back ">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
