@@ -79,18 +79,18 @@ public class GoalsController {
                 progressBar.setStyle("-fx-accent: green;");
 
                 //settings for the goalLabel
-                Label goalInCaloriestLaber = new Label();
-                goalInCaloriestLaber.setPrefHeight(50);
-                goalInCaloriestLaber.setStyle("-fx-font-size: 15px;");
-                goalInCaloriestLaber.setPrefWidth(220);
-                goalInCaloriestLaber.setText("You burned: " + progressToGoal + " Cal");
+                Label goalInCaloriesLabel = new Label();
+                goalInCaloriesLabel.setPrefHeight(50);
+                goalInCaloriesLabel.setStyle("-fx-font-size: 15px;");
+                goalInCaloriesLabel.setPrefWidth(220);
+                goalInCaloriesLabel.setText("You burned: " + progressToGoal + " Cal");
 
                 //settings for the progressLabel
-                Label progressInCalorieslabel = new Label();
-                progressInCalorieslabel.setPrefHeight(50);
-                progressInCalorieslabel.setPrefWidth(220);
-                progressInCalorieslabel.setStyle("-fx-font-size: 15px;");
-                progressInCalorieslabel.setText(" The goal is: " + goal + " Cal");
+                Label progressInCaloriesLabel = new Label();
+                progressInCaloriesLabel.setPrefHeight(50);
+                progressInCaloriesLabel.setPrefWidth(220);
+                progressInCaloriesLabel.setStyle("-fx-font-size: 15px;");
+                progressInCaloriesLabel.setText(" The goal is: " + goal + " Cal");
 
                 // Setting foe the HBox that holds the progressbar and both Labels
                 HBox hBox = new HBox();
@@ -98,7 +98,7 @@ public class GoalsController {
                 hBox.setSpacing(10);
 
                 progressBar.setProgress(progressToGoal / goal); // set the value of the progressbar
-                hBox.getChildren().addAll(progressBar, goalInCaloriestLaber, progressInCalorieslabel); // add three objects to the hBox
+                hBox.getChildren().addAll(progressBar, goalInCaloriesLabel, progressInCaloriesLabel); // add three objects to the hBox
                 sortArray(hBox, goalCreationDate); // Making sure that the current goal in progress (bar) is always on the top of the list of other bars
             }
         });
