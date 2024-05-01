@@ -21,7 +21,7 @@
             </Label>
             <TextField fx:id="addWeightgoal" layoutX="14.0" layoutY="14.0" prefHeight="57.0" prefWidth="389.0" promptText="Add Goal In Kg " />
             <Button layoutX="171.0" layoutY="85.0" mnemonicParsing="false" onAction="#addGoal" prefHeight="46.0" prefWidth="208.0" text="Done" />
-            <VBox fx:id="vBox" layoutX="-1.0" layoutY="228.0" prefHeight="472.0" prefWidth="699.0" />
+            <VBox fx:id="vBox" layoutX="-1.0" layoutY="228.0" prefHeight="472.0" prefWidth="700.0" />
             <Button layoutX="593.0" layoutY="166.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="105.0" text="Reflesh" onAction="#refresh">
                <font>
                   <Font size="22.0" />

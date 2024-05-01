@@ -32,7 +32,7 @@ public class GoalsController {
     public void addGoal(ActionEvent event) throws Exception {
         // this is where the goal object is saved to the map. key is todays date including seconds ans minutes .
 
-        key =Current_Date.getDateToday(new Date());
+        key =Current_Date.getDateTodaySecIncluded(new Date());
         if(addWeightgoal.getText()!=null){ //checking if the weight goal exists if not, the goal is added
             try {
                 int value = Integer.parseInt(addWeightgoal.getText());
@@ -46,44 +46,53 @@ public class GoalsController {
         }
         viewAWeightgoalsinProgress();
     }
+    int i =0;
 
     public void viewAWeightgoalsinProgress(){
         vBox.getChildren().clear();
-
         weightGoalArrayList = new ArrayList<>();
         listOfkeys= new ArrayList<>();
 
-        if(!weightGoalHashMap.isEmpty()){
+
         weightGoalHashMap.forEach((k,v)->{
 
             double goal = v.getGoalInCaloris();
             double progressToGoal = v.getProgressToGoalInCalories();
+
+
             if(goal > progressToGoal){
 
-                Label goalInCaloriestLaber = new Label();
-                Label progressInCalorieslabel = new Label();
-                HBox hBox = new HBox();
+
                 ProgressBar progressBar = new ProgressBar();
+                progressBar.setPrefWidth(330);
+                progressBar.setPrefHeight(50);
+                progressBar.setStyle("-fx-accent: green;");
+
+                Label goalInCaloriestLaber = new Label();
                 goalInCaloriestLaber.setPrefHeight(50);
                 goalInCaloriestLaber.setStyle("-fx-font-size: 20px;");
-                goalInCaloriestLaber.setPrefWidth(200);
+                goalInCaloriestLaber.setPrefWidth(220);
+                goalInCaloriestLaber.setText("Progress: "+ progressToGoal);
+
+                Label progressInCalorieslabel = new Label();
                 progressInCalorieslabel.setPrefHeight(50);
+                progressInCalorieslabel.setPrefWidth(220);
                 progressInCalorieslabel.setStyle("-fx-font-size: 20px;");
-                hBox.setPrefSize(200,50);
+                progressInCalorieslabel.setText(" / goal: " + goal);
+
+
+                HBox hBox = new HBox();
+                hBox.setPrefWidth(700);
                 hBox.setSpacing(10);
-                progressBar.setPrefWidth(300);
-                progressBar.setPrefHeight(50);
-                goalInCaloriestLaber.setText("Goal is : "+ goal);
-                progressInCalorieslabel.setText("Progress to goal: " + progressToGoal);
+
+
                 progressBar.setProgress(progressToGoal/goal);
-                hBox.getChildren().addAll(progressBar,progressInCalorieslabel,goalInCaloriestLaber);
+                hBox.getChildren().addAll(progressBar,goalInCaloriestLaber,progressInCalorieslabel);
                 sortArray(hBox,k);
-                Random random = new Random();
-                uppdateProgressToGoal(random.nextInt(0,1000));
 
 
             }
-        });}
+        });
 
         vBox.getChildren().addAll(weightGoalArrayList);
 
@@ -126,12 +135,6 @@ public class GoalsController {
         }
     }
 
-    public void uppdateProgressToGoal(double value){
-
-
-
-
-    }
 
     // this method will be needed after a meeting with the group about how weight data should be saved to the hashmap of users
     public void refresh(){
