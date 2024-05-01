@@ -194,7 +194,7 @@ public class MainDashboardController {
 
     public ArrayList getDayData() { // getting dayData
         // getting the object user who signed in
-        HashMap<String, Stats> mapOfStats = FitVentureStart.currentUser.getStatsMap(); // retrieving their stats
+        HashMap<String, Stats> mapOfStats = FitVentureStart.currentUser.getStats(); // retrieving their stats
         Integer[] stepsArray = new Integer[24];
         Double[] caloriesArray = new Double[24];
         Double[] distanceArray = new Double[24];
@@ -246,7 +246,7 @@ public class MainDashboardController {
 
     public ArrayList getWeekData() { // this method is responsible for getting weekData
         // getting stats of the current user
-        HashMap<String, Stats> mapOfStats = FitVentureStart.currentUser.getStatsMap();
+        HashMap<String, Stats> mapOfStats = FitVentureStart.currentUser.getStats();
         Integer[] stepsArray = new Integer[7];
         double[] caloriesArray = new double[7];
         double[] distanceArray = new double[7];
@@ -307,7 +307,7 @@ public class MainDashboardController {
 
     public ArrayList getMonthData() { // this method is responsible for getting monthData
         // getting the map of stats for the current user
-        HashMap<String, Stats> mapOfStats = FitVentureStart.currentUser.getStatsMap();
+        HashMap<String, Stats> mapOfStats = FitVentureStart.currentUser.getStats();
         Integer[] stepsArray = new Integer[31];
         double[] caloriesArray = new double[31];
         double[] distanceArray = new double[31];

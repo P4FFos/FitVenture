@@ -32,7 +32,7 @@
                <font>
                   <Font size="20.0" />
                </font></Button>
-            <VBox fx:id="listOfGoals" layoutX="17.0" layoutY="159.0" prefHeight="504.0" prefWidth="631.0">
+            <VBox fx:id="vBoxContainer" layoutX="17.0" layoutY="159.0" prefHeight="504.0" prefWidth="631.0">
                <children>
                   <Label alignment="CENTER" prefHeight="51.0" prefWidth="696.0" text="List of Goals ">
                      <font>

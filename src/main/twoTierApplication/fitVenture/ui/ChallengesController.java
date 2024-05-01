@@ -89,7 +89,7 @@ public class ChallengesController {
         double bmiValue = weight / Math.pow(height / 100, 2);
 
         // Create a HashMap to store the user's stats
-        HashMap<String, Stats> statsHashMap = FitVentureStart.currentUser.getStatsMap();
+        HashMap<String, Stats> statsHashMap = FitVentureStart.currentUser.getStats();
 
         // Initialize variables to store the total steps, calories, and distance for today
         double totalStepsToday = 0.0;
