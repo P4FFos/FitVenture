@@ -17,7 +17,7 @@ public class CurrentDateTest {
 
         //Expecting failure
         Throwable exception = assertThrows(IllegalArgumentException.class, ()-> Current_Date.getIntegerOfSpecificDate("This should not be allowed"), 
-        "The method should not allow any symbols or characters that are not integers(1, 2, 3, ...) and dashes (-).")
+        "The method should not allow any symbols or characters that are not integers(1, 2, 3, ...) and dashes (-).");
 
         assertEquals(-1, Current_Date.getIntegerOfSpecificDate("This should not be allowed"), 
         "The method should not allow any symbols or characters that are not integers(1, 2, 3, ...) and dashes (-).");
