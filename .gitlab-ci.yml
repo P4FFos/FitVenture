@@ -9,14 +9,14 @@ stages:
 jobBuild: 
   stage: build
   script:
-    - docker run --rm maven mvn install
+    - mvn install
     - echo "Running Maven install..."
 
 
 jobTest:
   stage: test
   script:
-    - docker run --rm maven mvn clean test
+    - mvn clean test
     - echo "Running Maven Test with jUnit..."
 
 jobDeploy:
