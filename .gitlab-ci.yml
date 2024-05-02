@@ -1,5 +1,3 @@
-default:
-  image: maven:latest
 
 
 stages:
@@ -10,8 +8,7 @@ stages:
 
 jobBuild: 
   stage: build
-  tags:
-    - docker
+  image: maven:3.9.6-eclipse-temurin-11
   script:
     - mvn install
     - echo "Running Maven install..."
@@ -19,8 +16,6 @@ jobBuild:
 
 jobTest:
   stage: test
-  tags:
-    - docker
   script:
     - mvn clean test
     - echo "Running Maven Test with jUnit..."
