@@ -18,7 +18,8 @@ public class User {
     private HashMap<String, Stats> statsMap;
     private HashMap<String, RaceStats> raceStats;
     private HashMap<String, WeightGoal> weightGoal;
-    private HashMap<String, RunningGoal> runGoal;
+    private HashMap<String, RunningGoal> runningGoal;
+
     // Empty constructor used by Jackson for Json deserializing
     public User() {
     }
@@ -67,7 +68,7 @@ public class User {
     }
 
     public HashMap<String, RunningGoal> getRunningGoal() {
-        return runGoal;
+        return runningGoal;
     }
 
     // User class set methods
@@ -101,7 +102,7 @@ public class User {
 
     public void addWeightGoal(String date, WeightGoal weightGoal) {this.weightGoal.put(date, weightGoal);}
 
-    public void addRunGoal(String date, RunningGoal runningGoal){this.runGoal.put(date, runningGoal);}
+    public void addRunGoal(String date, RunningGoal runningGoal){this.runningGoal.put(date, runningGoal);}
 
     public boolean containsDateInStats(String date){
         if (this.statsMap.containsKey(date)) return true;
@@ -133,7 +134,7 @@ public class User {
         this.weightGoal = weightGoal;
     }
     public void setRunGoal(HashMap<String, RunningGoal> runGoal){
-        this.runGoal = runGoal;
+        this.runningGoal = runGoal;
     }
 
     public void addRaceStats(String raceDate, RaceStats raceStats) {
