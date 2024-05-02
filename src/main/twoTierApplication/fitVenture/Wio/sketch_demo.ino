@@ -4,16 +4,28 @@
 #include <TFT_eSPI.h>
 #include <rpcWiFi.h>
 #include <ArduinoJson.h>
+#include <DHT.h>
+
+//Pins
 #define button 0
+#define DHTPIN 0
+#define DHTTYPE DHT11
 
 // Constants for step detection and calorie calculation
 const float STEP_THRESHOLD = 1.0;
 const int MIN_STEP_INTERVAL = 500;
 const float CALORIES_PER_STEP = 0.05;
 
+// Constants for activity suggestions
+const int NUM_SUGGESTIONS = 3;
+const char* HOT_SUGGESTIONS[NUM_SUGGESTIONS] = {"Swimming", "Workout indoors", "Yoga"};
+const char* SUNNY_SUGGESTIONS[NUM_SUGGESTIONS] = {"Basketball", "Football", "Cycling"};
+const char* COLD_SUGGESTIONS[NUM_SUGGESTIONS] = {"Walk", "Hiking", "Jogging"};
+
 // Global variables
 int stepCount = 0;
 bool isMoving = false;
+bool lastConnectionStatus = false;
 unsigned long lastStepTime = 0;
 byte recieved_payload[128];
 float userHeight;
@@ -36,18 +48,19 @@ const unsigned long MQTT_RETRY_INTERVAL = 5000;
 const unsigned long WIFI_RETRY_INTERVAL = 5000;
 
 // WiFi and MQTT broker configuration
-char ssid[] = "Daniel";
-const char* password = "12345678";
+char ssid[] = "ASUS_68";
+const char* password = "Guricusub1007";
 const char* server = "broker.hivemq.com";
 const char* mainTopic = "fitVenture/sensor/accelerometer/data";
 const char* raceTopic = "fitVenture/sensor/accelerometer/raceData";
-const char* weightAndHeightTopic = "fitVenture/application/weight&height"
+const char* weightAndHeightTopic = "fitVenture/application/weight&height";
 const int port = 1883;
 
 MMA7660 accel;
 TFT_eSPI tft;
 WiFiClient wifiClient;
 PubSubClient mqttClient(wifiClient);
+DHT dht(DHTPIN, DHTTYPE);
 
 void setup() {
 
@@ -72,39 +85,40 @@ void setup() {
   // INPUT_PULLUP used as configurator for the botton, when the button is not pressed it will be HIGH
   // when the button is pressed it will be LOW
   pinMode(button, INPUT_PULLUP);
+  dht.begin();
 }
 
 void loop() {
-    // read the state of the button
-    int reading = digitalRead(button);
+  // read the state of the button
+  int reading = digitalRead(button);
 
-    if (reading != lastButtonState) {
-      // reset the debouncing timer
-      lastDebounceTime = millis();
+  if (reading != lastButtonState) {
+    // reset the debouncing timer
+    lastDebounceTime = millis();
+  }
+
+  if ((millis() - lastDebounceTime) > DEBOUNCE_DELAY) {
+    // if the button state has changed:
+    if (reading != buttonPosition) {
+      buttonPosition = reading;
+
+      // only toggle the race if the new button state is LOW
+      if (buttonPosition == LOW) {
+        Serial.println("Button pressed");
+        isRaceStarted = !isRaceStarted;
+        if (isRaceStarted) {
+          stepCount++;
+          raceStartTime = millis();
+          displayRaceData();
+        } else {
+          raceEndTime = millis();
+          // Publish race data
+          publishRaceData();
+          Serial.println("Race finished and data published.");
+        }
+      }
     }
-
-   if ((millis() - lastDebounceTime) > DEBOUNCE_DELAY) {
-     // if the button state has changed:
-     if (reading != buttonPosition) {
-       buttonPosition = reading;
-
-       // only toggle the race if the new button state is LOW
-       if (buttonPosition == LOW) {
-         Serial.println("Button pressed");
-         isRaceStarted = !isRaceStarted;
-         if (isRaceStarted) {
-           stepCount++;
-           raceStartTime = millis();
-           displayRaceData();
-         } else {
-           raceEndTime = millis();
-           // Publish race data
-           publishRaceData();
-           Serial.println("Race finished and data published.");
-         }
-       }
-     }
-   }
+  }
 
   lastButtonState = reading;
   unsigned long currentTime = millis();
@@ -135,11 +149,17 @@ void loop() {
     Serial.println("Failed to read accelerometer data.");
   }
 
-    tft.fillScreen(TFT_BLACK); // Clear the screen
-    tft.setCursor(0, 0); // Set the cursor position
-    tft.setTextColor(TFT_WHITE); // Set text color
-    tft.setTextSize(2); // Set text size
+  /*tft.fillScreen(TFT_BLACK); // Clear the screen
+  tft.setCursor(0, 150); // Set the cursor position
+  tft.setTextColor(TFT_GREEN); // Set text color
+  tft.setTextSize(2); // Set text size */
 
+  float temperature, humidity;
+  getTemperatureAndHumidity(&temperature, &humidity);
+  displayTemperatureAndHumidity(temperature, humidity);
+
+  // Suggest activity based on weather conditions
+  displayActivitySuggestion(temperature, humidity);
 
   // Maintain MQTT connection
   if (!mqttClient.connected()) {
@@ -150,6 +170,9 @@ void loop() {
     }
   }
   mqttClient.loop();
+
+  // Send signal status to client
+  publishSignal();
 
   // Non-blocking delay
   if (currentTime - lastActionTime > 500) {
@@ -190,9 +213,9 @@ void calculateStrideLength() {
 }
 
 //When the message gets recieved from the MQTTPublisher in the Java application, the setCallback method will call this method.
-void getUserWeightAndHeight(char* topic, byte* payload, unsigned int length){
-  Serial.println("Payload with user height and weight has been recieved!");
-  
+void getUserWeightAndHeight(char* topic, byte* payload, unsigned int length) {
+  Serial.println("Payload with user height and weight has been received!");
+
   for (unsigned int i = 0; i < length; i++) {
     Serial.write(payload[i]);
   }
@@ -216,9 +239,9 @@ void setUserWeightAndHeight() {
   //Assign the global variables to the value assigned to the meta-data
   userWeight = jsonDoc["userWeight"];
   userHeight = jsonDoc["userHeight"];
-  
-  Serial.println("User weight and height has been updated!")
-  
+
+  Serial.println("User weight and height have been updated!");
+
   // Calculate stride length based on user's height
   calculateStrideLength();
 }
@@ -246,6 +269,27 @@ void reconnectMQTT() {
   } else {
     Serial.print("Failed to connect to MQTT broker, rc=");
     Serial.println(mqttClient.state());
+  }
+}
+
+/* This method will send the status of the mqtt connection to client,
+whether success or failure */
+void publishSignal() {
+  // Get current MQTT connection status
+  bool currentConnectionStatus = mqttClient.connected();
+
+  // If client is connected and connection status has changed since
+  if (currentConnectionStatus && !lastConnectionStatus) {
+    // send signal confirmation to client
+    mqttClient.publish("fitVenture/application/signal", "MQTT Connection Successful");
+    // Update last connection status
+    lastConnectionStatus = true;
+  }
+  // If client is not connected and connection status has changed since
+  else if (!currentConnectionStatus && lastConnectionStatus) {
+    mqttClient.publish("fitVenture/application/signal", "MQTT Connection Failed");
+    // Update last connection status
+    lastConnectionStatus = false;
   }
 }
 
@@ -281,4 +325,35 @@ void publishRaceData() {
   mqttClient.publish(raceTopic, payload);
   tft.printf("Race finished!");
   Serial.println("Race data published to the MQTT topic.");
+}
+
+void getTemperatureAndHumidity(float* temperature, float* humidity) {
+  *temperature = dht.readTemperature(); // read temperature in Celsius
+  *humidity = dht.readHumidity(); // read humidity
+}
+
+void displayTemperatureAndHumidity(float temperature, float humidity) {
+  tft.fillScreen(TFT_BLACK); // Clear the screen
+  tft.setCursor(0, 0); // Set the cursor position
+  tft.setTextColor(TFT_WHITE); // Set text color
+  tft.setTextSize(2); // Set text size
+  tft.printf("Temperature: %.2f C\nHumidity: %.2f%%", temperature, humidity);
+}
+
+void displayActivitySuggestion(float temperature, float humidity) {
+  String activity;
+  // Check if it's hot and humid
+  if (temperature >= 20 && humidity > 35) {
+    activity = HOT_SUGGESTIONS[random(0, NUM_SUGGESTIONS)];
+    // Check if it's sunny and not too humid
+  } else if (temperature < 20 && temperature >= 10 && humidity < 35) {
+    activity = SUNNY_SUGGESTIONS[random(0, NUM_SUGGESTIONS)];
+    //if none, it's cold
+  } else {
+    activity = COLD_SUGGESTIONS[random(0, NUM_SUGGESTIONS)];
+  }
+  tft.setCursor(0, 50);
+  tft.setTextColor(TFT_YELLOW);
+  tft.setTextSize(2);
+  tft.printf("Hey you! \nLet's go: %s", activity.c_str());
 }
