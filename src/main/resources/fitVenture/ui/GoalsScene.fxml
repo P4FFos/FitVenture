@@ -11,36 +11,33 @@
 
 <AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fitVenture.ui.GoalsController">
    <children>
-      <Text layoutX="1326.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Runing Goals">
+      <Text layoutX="415.0" layoutY="605.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Running Goals">
          <font>
-            <Font size="60.0" />
+            <Font size="40.0" />
          </font>
       </Text>
-      <Text layoutX="310.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Weight Goals">
+      <Text layoutX="425.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Weight Goals">
          <font>
-            <Font size="60.0" />
+            <Font size="40.0" />
          </font>
       </Text>
       <Line endX="977.1968383789062" endY="57.11491775512695" startX="977.1968994140625" startY="981.0323486328125" />
-      <AnchorPane layoutX="152.0" layoutY="196.0" prefHeight="663.0" prefWidth="670.0">
+      <AnchorPane layoutX="152.0" layoutY="158.0" prefHeight="311.0" prefWidth="670.0">
          <children>
-            <TextField fx:id="userWeightGoalValue" focusTraversable="false" layoutX="14.0" layoutY="14.0" prefHeight="57.0" prefWidth="389.0" promptText="Enter you goal value to burn in KG">
+            <TextField fx:id="userWeightGoalValue" focusTraversable="false" layoutX="14.0" layoutY="14.0" prefHeight="60.0" prefWidth="475.0" promptText="Enter you goal value to burn in KG">
                <font>
                   <Font size="17.0" />
                </font></TextField>
-            <Button layoutX="420.0" layoutY="14.0" mnemonicParsing="false" onAction="#addGoal" prefHeight="55.0" prefWidth="227.0" text="Create Weight Goal">
+            <Button layoutX="503.0" layoutY="14.0" mnemonicParsing="false" onAction="#addWeightGoal" prefHeight="60.0" prefWidth="265.0" text="Create Weight Goal">
                <font>
                   <Font size="20.0" />
                </font></Button>
-            <VBox fx:id="vBoxContainer" layoutX="17.0" layoutY="159.0" prefHeight="504.0" prefWidth="631.0">
-               <children>
-                  <Label alignment="CENTER" prefHeight="51.0" prefWidth="696.0" text="List of Goals ">
-                     <font>
-                        <Font size="36.0" />
-                     </font>
-                  </Label>
-               </children>
-            </VBox>
+            <VBox fx:id="weightBoxContainer" layoutY="156.0" prefHeight="205.0" prefWidth="782.0" />
+            <Label alignment="CENTER" layoutY="93.0" prefHeight="53.0" prefWidth="782.0" text="List of Goals ">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
       <Button fx:id="returnBackButton" layoutX="47.0" layoutY="26.0" mnemonicParsing="false" onAction="#returnBackToMain" prefHeight="32.0" prefWidth="143.0" text="Return Back ">
@@ -48,5 +45,25 @@
             <Font size="20.0" />
          </font>
       </Button>
+      <AnchorPane layoutX="152.0" layoutY="617.0" prefHeight="391.0" prefWidth="782.0">
+         <children>
+            <TextField fx:id="userRunGoalValue" focusTraversable="false" layoutX="14.0" layoutY="14.0" prefHeight="60.0" prefWidth="475.0" promptText="Enter you goal value to run in KM">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </TextField>
+            <Button layoutX="503.0" layoutY="14.0" mnemonicParsing="false" onAction="#addRunGoal" prefHeight="60.0" prefWidth="265.0" text="Create Running Goal">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+            <VBox fx:id="runBoxContainer" layoutY="159.0" prefHeight="214.0" prefWidth="791.0" />
+            <Label alignment="CENTER" layoutY="93.0" prefHeight="53.0" prefWidth="791.0" text="List of Goals ">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
