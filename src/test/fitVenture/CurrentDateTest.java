@@ -29,6 +29,7 @@ public class CurrentDateTest {
     @DisplayName("Tests if Current_Date.getDay method handles different inputs for the day")
     public void getDayTest() {
         Throwable exception = assertThrows(StringIndexOutOfBoundsException.class, ()-> Current_Date.getDay(2004));
+        assertEquals("A complete date format has to be provided.", exception.getMessage());
     }
     
     @Test
