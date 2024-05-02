@@ -1,11 +1,9 @@
+image: maven:latest
+
 stages:
   - build
   - test
   - deploy
-
-before_script:
-  - docker pull maven:latest
-  - docker pull openjdk:latest
 
 
 jobBuild: 
