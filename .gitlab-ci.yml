@@ -7,10 +7,6 @@ stages:
   - test
   - deploy
 
-before_script:
-  - docker pull maven:latest
-  - docker pull openjdk:latest
-
 
 jobBuild: 
   stage: build
