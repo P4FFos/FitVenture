@@ -48,6 +48,6 @@ Deploy_job:
   stage: deploy
   tags:
     - docker 
-
+    
   script: 
     - echo "Maven deploy started"
