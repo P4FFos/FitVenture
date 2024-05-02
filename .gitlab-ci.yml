@@ -3,17 +3,22 @@ stages:
   - test
   - deploy
 
+before_script:
+  - docker pull maven:latest
+  - docker pull openjdk:latest
+
+
 jobBuild: 
   stage: build
   script:
-    - mvn install
+    - docker run --rm maven mvn install
     - echo "Running Maven install..."
 
 
 jobTest:
   stage: test
   script:
-    - mvn clean test
+    - docker run --rm maven mvn clean test
     - echo "Running Maven Test with jUnit..."
 
 jobDeploy:
