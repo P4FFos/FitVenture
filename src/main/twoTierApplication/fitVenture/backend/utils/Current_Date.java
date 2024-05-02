@@ -43,7 +43,7 @@ public class Current_Date {
     }
 
     // Returns specific date as an integer
-    public static int getIntegerOfSpecificDateSecIncluded(String date) {
+    public static long getIntegerOfSpecificDateSecIncluded(String date) {
         String newDate = "";
         Set<Integer> setOfLine = new HashSet<Integer>();
         setOfLine.add(4);
@@ -59,7 +59,7 @@ public class Current_Date {
             }
         }
 
-        int number = Integer.parseInt(newDate);
+        long number = Integer.parseInt(newDate);
         return number;
     }
 
