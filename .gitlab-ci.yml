@@ -25,7 +25,7 @@ variables:
 
 java-build:
   # select the most appropriate image for your project
-  image: maven:3.8-openjdk-11
+  image: maven:latest
   stage: build
   # Cache downloaded dependencies and plugins between builds.
   # The key here separates one cache per branch/tag ($CI_COMMIT_REF_SLUG)
