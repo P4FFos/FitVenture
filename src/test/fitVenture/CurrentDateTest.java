@@ -16,14 +16,14 @@ public class CurrentDateTest {
         assertEquals(20041212, Current_Date.getIntegerOfSpecificDate("2004-12-12 16"), "The method should convert the string date into an integer format.");
 
         //Expecting failure
-        Throwable exception = assertThrows(IllegalArgumentException.class, ()-> Current_Date.getIntegerOfSpecificDate("This should not be allowed"), 
-        "The method should not allow any symbols or characters that are not integers(1, 2, 3, ...) and dashes (-).");
+        Throwable exceptionIntSpecDate = assertThrows(IllegalArgumentException.class, ()-> Current_Date.getIntegerOfSpecificDate("This should not be allowed"));
+        assertEquals("The method should not allow any symbols or characters that are not integers(1, 2, 3, ...) and dashes (-).", exceptionIntSpecDate.getMessage());
 
         assertEquals(-1, Current_Date.getIntegerOfSpecificDate("This should not be allowed"), 
         "The method should not allow any symbols or characters that are not integers(1, 2, 3, ...) and dashes (-).");
         
-        Throwable exception = assertThrows(StringIndexOutOfBoundsException.class, ()-> Current_Date.getIntegerOfSpecificDate("2004"));
-        assertEquals("A complete date format has to be provided.", exception.getMessage());
+        Throwable exceptionNonCompleteFormat = assertThrows(StringIndexOutOfBoundsException.class, ()-> Current_Date.getIntegerOfSpecificDate("2004"));
+        assertEquals("A complete date format has to be provided.", exceptionNonCompleteFormat.getMessage());
 
 
     }
