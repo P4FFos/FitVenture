@@ -10,6 +10,8 @@ before_script:
 
 jobBuild: 
   stage: build
+  tags:
+    - docker
   script:
     - mvn install
     - echo "Running Maven install..."
@@ -17,6 +19,8 @@ jobBuild:
 
 jobTest:
   stage: test
+  tags:
+    - docker
   script:
     - mvn clean test
     - echo "Running Maven Test with jUnit..."
