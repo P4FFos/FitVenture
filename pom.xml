@@ -51,10 +51,9 @@
     <build>
         <sourceDirectory>
             src/main/twoTierApplication
-            
         </sourceDirectory>
         <testSourceDirectory>
-            src/main/test
+            src/test
         </testSourceDirectory>
         <plugins>
             <plugin>

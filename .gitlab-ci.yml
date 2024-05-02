@@ -6,12 +6,15 @@ stages:
 jobBuild: 
   stage: build
   script:
-    - echo "Buuuuiilld"
+    - mvn install
+    - echo "Running Maven install..."
+
 
 jobTest:
   stage: test
   script:
-    - echo "Teeeest weeeeeee"
+    - mvn clean test
+    - echo "Running Maven Test with jUnit..."
 
 jobDeploy:
   stage: deploy
