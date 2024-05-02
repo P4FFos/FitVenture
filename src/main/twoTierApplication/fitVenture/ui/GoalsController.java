@@ -137,7 +137,7 @@ public class GoalsController {
         listOfRunKeys = new ArrayList<>();
 
         runGoalHashMap.forEach((goalCreationDate, goalValue) -> { // for each Run object do the following
-            double goal = goalValue.getGoalDistInM();
+            double goal = goalValue.getRunGoalInM();
             double progressToGoal = FitVentureStart.currentUser.getTotalRanDistance(goalCreationDate);
 
             if (goal > progressToGoal) { // check if the goal was completed

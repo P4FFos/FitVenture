@@ -35,6 +35,16 @@
         "2024-04-30 09" : {
           "goalInCalories" : 23100.0,
           "goalWeightInKg" : 3.0
+        },
+        "2024-05-02 11" : {
+          "goalInCalories" : 7700.0,
+          "goalWeightInKg" : 1.0
+        }
+      },
+      "runningGoal" : {
+        "2024-05-02 12" : {
+          "runGoalInKM" : 1.0,
+          "runGoalInM" : 1000.0
         }
       },
       "stats" : {
