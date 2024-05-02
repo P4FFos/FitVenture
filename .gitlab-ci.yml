@@ -1,5 +1,8 @@
 # Taken from https://stackoverflow.com/questions/33430487/how-to-use-gitlab-ci-to-build-a-java-maven-project as a template for Maven projects
 
+# select the most appropriate image for your project
+image: maven:latest
+
 stages:
   - build
 
@@ -24,8 +27,7 @@ variables:
     -DdeployAtEnd=true  
 
 java-build:
-  # select the most appropriate image for your project
-  image: maven:latest
+
   stage: build
   # Cache downloaded dependencies and plugins between builds.
   # The key here separates one cache per branch/tag ($CI_COMMIT_REF_SLUG)
