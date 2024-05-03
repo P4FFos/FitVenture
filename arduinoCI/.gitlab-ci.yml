@@ -16,7 +16,7 @@ build_job:
   tags:
     - docker
   script:
-     - export PATH=$PATH:/root/bin             
+    - export PATH=$PATH:/root/bin             
     - pwd                                     
     - cd arduino_src     
     - arduino-cli lib list
