@@ -5,14 +5,9 @@ trigger_applicationCI:
   stage: triggers
   trigger:
     include: applicationCI/.gitlab-ci.yml
-  rules:
-    - changes:
-        - applicationCI/*
 
 trigger_arduinoCI:
   stage: triggers
   trigger:
     include: arduinoCI/.gitlab-ci.yml
-  rules:
-    - changes:
-        - arduinoCI/*
+ 
