@@ -25,7 +25,8 @@ build_job:
 
 release:
   stage: deploy
-
+  tags:
+    - upload
   script:
     - export PATH=$PATH:/root/bin            
     - pwd                                     
