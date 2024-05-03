@@ -22,3 +22,19 @@ build_job:
     - cd ./src/main/twoTierApplication/fitVenture/Wio
     - arduino-cli lib list
     - arduino-cli board list
+
+release:
+  stage: deploy
+  tags:
+    - upload
+  script:
+    - export PATH=$PATH:/root/bin            
+    - pwd                                     
+    - cd ./src/main/twoTierApplication/fitVenture/Wio                      
+    #- echo "$SECRETS_H" > Secrets.h We have yet to implement secrets in gitlab        
+    - arduino-cli lib list                   
+    
+    - arduino-cli compile --fqbn Seeeduino:samd:seeed_wio_terminal
+
+    - arduino-cli board list      
+    - arduino-cli upload -p $COM_PORT --fqbn Seeeduino:samd:seeed_wio_terminal           
