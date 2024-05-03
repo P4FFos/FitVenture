@@ -30,9 +30,9 @@ public class GoalsController {
     @FXML
     private TextField userRunGoalValue;// text field where user inputs Run Goal in KM
     @FXML
-    private VBox runBoxContainer; // VBox with all existing running goals
+    private VBox runVBoxContainer; // VBox with all existing running goals
     @FXML
-    private VBox weightBoxContainer;//VBox with all existing weight goals
+    private VBox weightVBoxContainer;//VBox with all existing weight goals
 
     private ArrayList<HBox> weightGoalArrayList;
     private ArrayList<String> listOfWeightKeys;
@@ -88,7 +88,7 @@ public class GoalsController {
 
     // the method is responsible for showing progress to the user in the progressBar
     public void viewWeightGoalsInProgress() {
-        weightBoxContainer.getChildren().clear(); // Clear all objects from the container
+        weightVBoxContainer.getChildren().clear(); // Clear all objects from the container
         weightGoalArrayList = new ArrayList<>();
         listOfWeightKeys = new ArrayList<>();
 
@@ -118,21 +118,21 @@ public class GoalsController {
                 weightProgressInCaloriesLabel.setText(" The goal is: " + goal + " KCal");
 
                 // Setting foe the HBox that holds the progressbar and both Labels
-                HBox hBox = new HBox();
-                hBox.setPrefWidth(700);
-                hBox.setSpacing(10);
+                HBox hBoxWeight = new HBox();
+                hBoxWeight.setPrefWidth(700);
+                hBoxWeight.setSpacing(10);
 
                 weightProgressBar.setProgress(progressToGoal / goal); // set the value of the progressbar
-                hBox.getChildren().addAll(weightProgressBar, weightGoalInCaloriesLabel, weightProgressInCaloriesLabel); // add three objects to the hBox
-                sortWeightArray(hBox, goalCreationDate); // Making sure that the current goal in progress (bar) is always on the top of the list of other bars
+                hBoxWeight.getChildren().addAll(weightProgressBar, weightGoalInCaloriesLabel, weightProgressInCaloriesLabel); // add three objects to the hBox
+                sortWeightArray(hBoxWeight, goalCreationDate); // Making sure that the current goal in progress (bar) is always on the top of the list of other bars
             }
         });
-        weightBoxContainer.getChildren().addAll(weightGoalArrayList);// add everything to the container that is reserved a space in the fxml file
+        weightVBoxContainer.getChildren().addAll(weightGoalArrayList);// add everything to the container that is reserved a space in the fxml file
     }
 
     // the method is responsible for showing progress to the user in the progressBar
     public void viewRunGoalsInProgress() {
-        runBoxContainer.getChildren().clear(); // Clear all objects from the container
+        runVBoxContainer.getChildren().clear(); // Clear all objects from the container
         runGoalArrayList = new ArrayList<>();
         listOfRunKeys = new ArrayList<>();
 
@@ -152,32 +152,32 @@ public class GoalsController {
                 runGoalInMetersLabel.setPrefHeight(50);
                 runGoalInMetersLabel.setStyle("-fx-font-size: 15px;");
                 runGoalInMetersLabel.setPrefWidth(220);
-                runGoalInMetersLabel.setText("You ran: " + progressToGoal + " m");
+                runGoalInMetersLabel.setText("You ran: " + progressToGoal + " M");
 
                 //settings for the progressLabel
                 Label runProgressInMetersLabel = new Label();
                 runProgressInMetersLabel.setPrefHeight(50);
                 runProgressInMetersLabel.setPrefWidth(220);
                 runProgressInMetersLabel.setStyle("-fx-font-size: 15px;");
-                runProgressInMetersLabel.setText(" The goal is: " + goal + " Km");
+                runProgressInMetersLabel.setText(" The goal is: " + goal + " M");
                 // Setting foe the HBox that holds the progressbar and both Labels
-                HBox hBox = new HBox();
-                hBox.setPrefWidth(700);
-                hBox.setSpacing(10);
+                HBox hBoxRun = new HBox();
+                hBoxRun.setPrefWidth(700);
+                hBoxRun.setSpacing(10);
 
                 runProgressBar.setProgress(progressToGoal / goal); // set the value of the progressbar
-                hBox.getChildren().addAll(runProgressBar, runGoalInMetersLabel, runProgressInMetersLabel); // add three objects to the hBox
-                sortRunArray(hBox, goalCreationDate); // Making sure that the current goal in progress (bar) is always on the top of the list of other bars
+                hBoxRun.getChildren().addAll(runProgressBar, runGoalInMetersLabel, runProgressInMetersLabel); // add three objects to the hBox
+                sortRunArray(hBoxRun, goalCreationDate); // Making sure that the current goal in progress (bar) is always on the top of the list of other bars
             }
         });
-        runBoxContainer.getChildren().addAll(runGoalArrayList);// add everything to the container that is reserved a space in the fxml file
+        runVBoxContainer.getChildren().addAll(runGoalArrayList);// add everything to the container that is reserved a space in the fxml file
     }
 
     // This method is responsible for sorting HBox objects by date
-    private void sortWeightArray(HBox hBox, String goalCreationDate) {
+    private void sortWeightArray(HBox hBoxWeight, String goalCreationDate) {
         // If the list is empty, simply add the HBox and its key
         if (weightGoalArrayList.isEmpty()) {
-            weightGoalArrayList.add(hBox);
+            weightGoalArrayList.add(hBoxWeight);
             listOfWeightKeys.add(goalCreationDate);
         } else {
             int lastIndex = listOfWeightKeys.size() - 1;
@@ -188,7 +188,7 @@ public class GoalsController {
             // add the HBox and its key at the end
             if (newGoalKey > currentGoalKey) {
 
-                weightGoalArrayList.add(hBox);
+                weightGoalArrayList.add(hBoxWeight);
                 listOfWeightKeys.add(goalCreationDate);
             } else {
                 // Otherwise, find the correct position to insert the new key
@@ -199,17 +199,17 @@ public class GoalsController {
                 }
 
                 // Insert the HBox and its key at the correct position
-                weightGoalArrayList.add(indexToInsert, hBox);
+                weightGoalArrayList.add(indexToInsert, hBoxWeight);
                 listOfWeightKeys.add(indexToInsert, goalCreationDate);
             }
         }
     }
 
     // This method is responsible for sorting HBox objects by date
-    private void sortRunArray(HBox hBox, String goalCreationDate) {
+    private void sortRunArray(HBox hBoxRun, String goalCreationDate) {
         // If the list is empty, simply add the HBox and its key
         if (runGoalArrayList.isEmpty()) {
-            runGoalArrayList.add(hBox);
+            runGoalArrayList.add(hBoxRun);
             listOfRunKeys.add(goalCreationDate);
         } else {
             int lastIndex = listOfRunKeys.size() - 1;
@@ -220,7 +220,7 @@ public class GoalsController {
             // add the HBox and its key at the end
             if (newGoalKey > currentGoalKey) {
 
-                runGoalArrayList.add(hBox);
+                runGoalArrayList.add(hBoxRun);
                 listOfRunKeys.add(goalCreationDate);
             } else {
                 // Otherwise, find the correct position to insert the new key
@@ -231,7 +231,7 @@ public class GoalsController {
                 }
 
                 // Insert the HBox and its key at the correct position
-                runGoalArrayList.add(indexToInsert, hBox);
+                runGoalArrayList.add(indexToInsert, hBoxRun);
                 listOfWeightKeys.add(indexToInsert, goalCreationDate);
             }
         }

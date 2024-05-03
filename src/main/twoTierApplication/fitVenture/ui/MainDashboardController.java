@@ -388,6 +388,7 @@ public class MainDashboardController {
         Parent root = loader.load();
         GoalsController goalsController = loader.getController();
         goalsController.viewWeightGoalsInProgress();
+        goalsController.viewRunGoalsInProgress();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
