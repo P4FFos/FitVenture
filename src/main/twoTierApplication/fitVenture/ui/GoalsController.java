@@ -1,6 +1,7 @@
 package fitVenture.ui;
 
 import fitVenture.backend.FitVenture;
+import fitVenture.backend.goal.RunningGoal;
 import fitVenture.backend.goal.WeightGoal;
 import fitVenture.backend.utils.Current_Date;
 import fitVenture.backend.utils.FileHandler;
@@ -24,24 +25,29 @@ public class GoalsController {
     private Parent root;
     private Stage stage;
     private Scene scene;
-
     @FXML
-    private TextField userWeightGoalValue; // text field where user inputs Weight Goal in KG
-
+    private TextField userWeightGoalValue;// text field where user inputs Weight Goal in KG
     @FXML
-    private VBox vBoxContainer; // VBox with all existing running goals
+    private TextField userRunGoalValue;// text field where user inputs Run Goal in KM
+    @FXML
+    private VBox runVBoxContainer; // VBox with all existing running goals
+    @FXML
+    private VBox weightVBoxContainer;//VBox with all existing weight goals
 
     private ArrayList<HBox> weightGoalArrayList;
-    private ArrayList<String> listOfKeys;
+    private ArrayList<String> listOfWeightKeys;
+    private ArrayList<HBox> runGoalArrayList;
+    private ArrayList<String> listOfRunKeys;
 
     // to get the weight goals of the user
     private HashMap<String, WeightGoal> weightGoalHashMap = FitVentureStart.currentUser.getWeightGoal();
+    private HashMap<String, RunningGoal> runGoalHashMap = FitVentureStart.currentUser.getRunningGoal();
 
     // FitVenture object used for JSON serializer
     FitVenture fitVenture = FitVentureStart.fitVenture;
 
     // this method adds the created goal to the hashMap of the user
-    public void addGoal(ActionEvent event) throws Exception {
+    public void addWeightGoal(ActionEvent event) throws Exception {
         // gets date today to assign it to the new goal
         String goalCreationDate = Current_Date.getDateToday(new Date());
 
@@ -61,11 +67,30 @@ public class GoalsController {
         viewWeightGoalsInProgress();
     }
 
+    public void addRunGoal(ActionEvent event) throws Exception {
+        // gets date today to assign it to the new goal
+
+        String goalCreationDate = Current_Date.getDateToday(new Date());
+        // checks if the entered value is not null
+        // saves new goal into the HashMap
+        if (userRunGoalValue.getText() != null) {
+            try {
+                double runGoalInKM = Double.parseDouble(userRunGoalValue.getText());
+                RunningGoal runningGoal = new RunningGoal(runGoalInKM);
+                FitVentureStart.currentUser.addRunGoal(goalCreationDate, runningGoal);
+                FileHandler.jsonSerializer(FitVentureStart.jsonPath, fitVenture);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        viewRunGoalsInProgress();
+    }
+
     // the method is responsible for showing progress to the user in the progressBar
     public void viewWeightGoalsInProgress() {
-        vBoxContainer.getChildren().clear(); // Clear all objects from the container
+        weightVBoxContainer.getChildren().clear(); // Clear all objects from the container
         weightGoalArrayList = new ArrayList<>();
-        listOfKeys = new ArrayList<>();
+        listOfWeightKeys = new ArrayList<>();
 
         weightGoalHashMap.forEach((goalCreationDate, goalValue) -> { // for each Weight object do the fallowing
             double goal = goalValue.getGoalInCalories();
@@ -73,66 +98,141 @@ public class GoalsController {
 
             if (goal > progressToGoal) { // check if the goal was completed
                 // settings for progressBar for the user
-                ProgressBar progressBar = new ProgressBar();
-                progressBar.setPrefWidth(330);
-                progressBar.setPrefHeight(50);
-                progressBar.setStyle("-fx-accent: green;");
+                ProgressBar weightProgressBar = new ProgressBar();
+                weightProgressBar.setPrefWidth(330);
+                weightProgressBar.setPrefHeight(50);
+                weightProgressBar.setStyle("-fx-accent: green;");
 
                 //settings for the goalLabel
-                Label goalInCaloriesLabel = new Label();
-                goalInCaloriesLabel.setPrefHeight(50);
-                goalInCaloriesLabel.setStyle("-fx-font-size: 15px;");
-                goalInCaloriesLabel.setPrefWidth(220);
-                goalInCaloriesLabel.setText("You burned: " + progressToGoal + " Cal");
+                Label weightGoalInCaloriesLabel = new Label();
+                weightGoalInCaloriesLabel.setPrefHeight(50);
+                weightGoalInCaloriesLabel.setStyle("-fx-font-size: 15px;");
+                weightGoalInCaloriesLabel.setPrefWidth(220);
+                weightGoalInCaloriesLabel.setText("You burned: " + progressToGoal + " KCal");
 
                 //settings for the progressLabel
-                Label progressInCaloriesLabel = new Label();
-                progressInCaloriesLabel.setPrefHeight(50);
-                progressInCaloriesLabel.setPrefWidth(220);
-                progressInCaloriesLabel.setStyle("-fx-font-size: 15px;");
-                progressInCaloriesLabel.setText(" The goal is: " + goal + " Cal");
+                Label weightProgressInCaloriesLabel = new Label();
+                weightProgressInCaloriesLabel.setPrefHeight(50);
+                weightProgressInCaloriesLabel.setPrefWidth(220);
+                weightProgressInCaloriesLabel.setStyle("-fx-font-size: 15px;");
+                weightProgressInCaloriesLabel.setText(" The goal is: " + goal + " KCal");
 
                 // Setting foe the HBox that holds the progressbar and both Labels
-                HBox hBox = new HBox();
-                hBox.setPrefWidth(700);
-                hBox.setSpacing(10);
+                HBox hBoxWeight = new HBox();
+                hBoxWeight.setPrefWidth(700);
+                hBoxWeight.setSpacing(10);
 
-                progressBar.setProgress(progressToGoal / goal); // set the value of the progressbar
-                hBox.getChildren().addAll(progressBar, goalInCaloriesLabel, progressInCaloriesLabel); // add three objects to the hBox
-                sortArray(hBox, goalCreationDate); // Making sure that the current goal in progress (bar) is always on the top of the list of other bars
+                weightProgressBar.setProgress(progressToGoal / goal); // set the value of the progressbar
+                hBoxWeight.getChildren().addAll(weightProgressBar, weightGoalInCaloriesLabel, weightProgressInCaloriesLabel); // add three objects to the hBox
+                sortWeightArray(hBoxWeight, goalCreationDate); // Making sure that the current goal in progress (bar) is always on the top of the list of other bars
             }
         });
-        vBoxContainer.getChildren().addAll(weightGoalArrayList);// add everything to the container that is reserved a space in the fxml file
+        weightVBoxContainer.getChildren().addAll(weightGoalArrayList);// add everything to the container that is reserved a space in the fxml file
+    }
+
+    // the method is responsible for showing progress to the user in the progressBar
+    public void viewRunGoalsInProgress() {
+        runVBoxContainer.getChildren().clear(); // Clear all objects from the container
+        runGoalArrayList = new ArrayList<>();
+        listOfRunKeys = new ArrayList<>();
+
+        runGoalHashMap.forEach((goalCreationDate, goalValue) -> { // for each Run object do the following
+            double goal = goalValue.getRunGoalInM();
+            double progressToGoal = FitVentureStart.currentUser.getTotalRanDistance(goalCreationDate);
+
+            if (goal > progressToGoal) { // check if the goal was completed
+                // settings for progressBar for the user
+                ProgressBar runProgressBar = new ProgressBar();
+                runProgressBar.setPrefWidth(330);
+                runProgressBar.setPrefHeight(50);
+                runProgressBar.setStyle("-fx-accent: green;");
+
+                //settings for the runGoalLabel
+                Label runGoalInMetersLabel = new Label();
+                runGoalInMetersLabel.setPrefHeight(50);
+                runGoalInMetersLabel.setStyle("-fx-font-size: 15px;");
+                runGoalInMetersLabel.setPrefWidth(220);
+                runGoalInMetersLabel.setText("You ran: " + progressToGoal + " M");
+
+                //settings for the progressLabel
+                Label runProgressInMetersLabel = new Label();
+                runProgressInMetersLabel.setPrefHeight(50);
+                runProgressInMetersLabel.setPrefWidth(220);
+                runProgressInMetersLabel.setStyle("-fx-font-size: 15px;");
+                runProgressInMetersLabel.setText(" The goal is: " + goal + " M");
+                // Setting foe the HBox that holds the progressbar and both Labels
+                HBox hBoxRun = new HBox();
+                hBoxRun.setPrefWidth(700);
+                hBoxRun.setSpacing(10);
+
+                runProgressBar.setProgress(progressToGoal / goal); // set the value of the progressbar
+                hBoxRun.getChildren().addAll(runProgressBar, runGoalInMetersLabel, runProgressInMetersLabel); // add three objects to the hBox
+                sortRunArray(hBoxRun, goalCreationDate); // Making sure that the current goal in progress (bar) is always on the top of the list of other bars
+            }
+        });
+        runVBoxContainer.getChildren().addAll(runGoalArrayList);// add everything to the container that is reserved a space in the fxml file
     }
 
     // This method is responsible for sorting HBox objects by date
-    private void sortArray(HBox hBox, String goalCreationDate) {
+    private void sortWeightArray(HBox hBoxWeight, String goalCreationDate) {
         // If the list is empty, simply add the HBox and its key
         if (weightGoalArrayList.isEmpty()) {
-            weightGoalArrayList.add(hBox);
-            listOfKeys.add(goalCreationDate);
+            weightGoalArrayList.add(hBoxWeight);
+            listOfWeightKeys.add(goalCreationDate);
         } else {
-            int lastIndex = listOfKeys.size() - 1;
-            int currentGoalKey = Current_Date.getIntegerOfSpecificDate(listOfKeys.get(lastIndex));
+            int lastIndex = listOfWeightKeys.size() - 1;
+            int currentGoalKey = Current_Date.getIntegerOfSpecificDate(listOfWeightKeys.get(lastIndex));
             int newGoalKey = Current_Date.getIntegerOfSpecificDate(goalCreationDate);
 
             // If the new key is greater than the current last key,
             // add the HBox and its key at the end
             if (newGoalKey > currentGoalKey) {
 
-                weightGoalArrayList.add(hBox);
-                listOfKeys.add(goalCreationDate);
+                weightGoalArrayList.add(hBoxWeight);
+                listOfWeightKeys.add(goalCreationDate);
             } else {
                 // Otherwise, find the correct position to insert the new key
                 int indexToInsert = 0;
                 while (indexToInsert <= lastIndex &&
-                        Current_Date.getIntegerOfSpecificDate(listOfKeys.get(indexToInsert)) < newGoalKey) {
+                        Current_Date.getIntegerOfSpecificDate(listOfWeightKeys.get(indexToInsert)) < newGoalKey) {
                     indexToInsert++;
                 }
 
                 // Insert the HBox and its key at the correct position
-                weightGoalArrayList.add(indexToInsert, hBox);
-                listOfKeys.add(indexToInsert, goalCreationDate);
+                weightGoalArrayList.add(indexToInsert, hBoxWeight);
+                listOfWeightKeys.add(indexToInsert, goalCreationDate);
+            }
+        }
+    }
+
+    // This method is responsible for sorting HBox objects by date
+    private void sortRunArray(HBox hBoxRun, String goalCreationDate) {
+        // If the list is empty, simply add the HBox and its key
+        if (runGoalArrayList.isEmpty()) {
+            runGoalArrayList.add(hBoxRun);
+            listOfRunKeys.add(goalCreationDate);
+        } else {
+            int lastIndex = listOfRunKeys.size() - 1;
+            int currentGoalKey = Current_Date.getIntegerOfSpecificDate(listOfRunKeys.get(lastIndex));
+            int newGoalKey = Current_Date.getIntegerOfSpecificDate(goalCreationDate);
+
+            // If the new key is greater than the current last key,
+            // add the HBox and its key at the end
+            if (newGoalKey > currentGoalKey) {
+
+                runGoalArrayList.add(hBoxRun);
+                listOfRunKeys.add(goalCreationDate);
+            } else {
+                // Otherwise, find the correct position to insert the new key
+                int indexToInsert = 0;
+                while (indexToInsert <= lastIndex &&
+                        Current_Date.getIntegerOfSpecificDate(listOfRunKeys.get(indexToInsert)) < newGoalKey) {
+                    indexToInsert++;
+                }
+
+                // Insert the HBox and its key at the correct position
+                runGoalArrayList.add(indexToInsert, hBoxRun);
+                listOfWeightKeys.add(indexToInsert, goalCreationDate);
             }
         }
     }

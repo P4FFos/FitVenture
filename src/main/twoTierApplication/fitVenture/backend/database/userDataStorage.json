@@ -32,9 +32,31 @@
           "goalInCalories" : 161700.0,
           "goalWeightInKg" : 21.0
         },
+        "2024-05-02 21" : {
+          "goalInCalories" : 15400.0,
+          "goalWeightInKg" : 2.0
+        },
         "2024-04-30 09" : {
           "goalInCalories" : 23100.0,
           "goalWeightInKg" : 3.0
+        },
+        "2024-05-02 11" : {
+          "goalInCalories" : 7700.0,
+          "goalWeightInKg" : 1.0
+        }
+      },
+      "runningGoal" : {
+        "2024-05-02 12" : {
+          "runGoalInKM" : 12.0,
+          "runGoalInM" : 12000.0
+        },
+        "2024-05-02 21" : {
+          "runGoalInKM" : 3.0,
+          "runGoalInM" : 3000.0
+        },
+        "2024-05-03 12" : {
+          "runGoalInKM" : 7.0,
+          "runGoalInM" : 7000.0
         }
       },
       "stats" : {
