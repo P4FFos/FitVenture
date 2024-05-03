@@ -1,0 +1,23 @@
+# Credit to Nasit Vurgun for arduino cli workshop: https://git.chalmers.se/courses/dit113/2024/group-7/dit113-ci-workshop/-/blob/main/.gitlab-ci.yml?ref_type=heads
+
+image: ubuntu:latest
+
+before_script:
+  - ./arduinoEnv.sh
+
+
+stages:
+  - build
+  - deploy
+
+
+build_job:
+  stage: build
+  tags:
+    - docker
+  script:
+     - export PATH=$PATH:/root/bin             
+    - pwd                                     
+    - cd arduino_src     
+    - arduino-cli lib list
+    - arduino-cli board list
