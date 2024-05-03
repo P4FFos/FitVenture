@@ -3,7 +3,7 @@
 image: ubuntu:latest
 
 before_script:
-  - ./arduinoEnv.sh
+  - .arduinoCI/arduinoEnv.sh
 
 
 stages:
