@@ -41,7 +41,7 @@ const char* password = "12345678";
 const char* server = "broker.hivemq.com";
 const char* mainTopic = "fitVenture/sensor/accelerometer/data";
 const char* raceTopic = "fitVenture/sensor/accelerometer/raceData";
-const char* weightAndHeightTopic = "fitVenture/application/weight&height"
+const char* weightAndHeightTopic = "fitVenture/application/weight&height";
 const int port = 1883;
 
 MMA7660 accel;
@@ -217,7 +217,7 @@ void setUserWeightAndHeight() {
   userWeight = jsonDoc["userWeight"];
   userHeight = jsonDoc["userHeight"];
   
-  Serial.println("User weight and height has been updated!")
+  Serial.println("User weight and height has been updated!");
   
   // Calculate stride length based on user's height
   calculateStrideLength();
