@@ -19,6 +19,6 @@ build_job:
   script:
     - export PATH=$PATH:/root/bin             
     - pwd                                     
-    - cd arduino_src     
+    - cd src\main\twoTierApplication\fitVenture\Wio\sketch_demo.ino
     - arduino-cli lib list
     - arduino-cli board list
