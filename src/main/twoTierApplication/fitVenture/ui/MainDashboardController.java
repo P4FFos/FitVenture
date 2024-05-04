@@ -40,7 +40,7 @@ public class MainDashboardController {
     private ArrayList<Double> caloriesList; // a list to hold calorie values
     private ArrayList<Double> distanceList; // a list to hold distance values
 
-    public void updateChartButton(MouseEvent event){
+    public void updateChartButton(MouseEvent event) {
         showChart();
         System.out.println("Chart Updated");
     }
@@ -58,7 +58,8 @@ public class MainDashboardController {
         stage.setScene(scene); // adding scene to the stage
         stage.show(); // showing the stage
     }
-    public void openChallengesPage(ActionEvent event) throws IOException{
+
+    public void openChallengesPage(ActionEvent event) throws IOException {
         //loads ChallengesScene once user pressed the "Challenges" button
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ChallengesScene.fxml"));
         Parent root = loader.load(); // loading the ChallengesScene.fxml
@@ -144,7 +145,7 @@ public class MainDashboardController {
         borderPane.setCenter(barChart); // setting the barchart in the center of the borderPane
     }
 
-    public void showChart(){
+    public void showChart() {
 
         switch (choiceOfGraph) {
             case "daily":
@@ -320,7 +321,7 @@ public class MainDashboardController {
             int currentDay = Current_Date.getDay(anotherDate);
 
 
-            if ((dateToday - anotherDate) < (totalDays -1)) { // checking if the day is less than 31
+            if ((dateToday - anotherDate) < (totalDays - 1)) { // checking if the day is less than 31
                 int index = 0;
                 index = currentDay - 1; // making indexes correspond to the way arrays are indexed. from 0. not 1
 
@@ -386,9 +387,13 @@ public class MainDashboardController {
     public void displayGoals(ActionEvent event) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("GoalsScene.fxml"));
         Parent root = loader.load();
+
+        // loads progress bar for running and weight goals and shows the chart of completed goals
         GoalsController goalsController = loader.getController();
         goalsController.viewWeightGoalsInProgress();
         goalsController.viewRunGoalsInProgress();
+        goalsController.showChart();
+
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
