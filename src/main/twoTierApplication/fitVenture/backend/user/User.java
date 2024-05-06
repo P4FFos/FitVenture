@@ -1,5 +1,6 @@
 package fitVenture.backend.user;
 
+import fitVenture.backend.achievements.AchievementsList;
 import fitVenture.backend.goal.RunningGoal;
 import fitVenture.backend.goal.WeightGoal;
 import fitVenture.backend.stats.RaceStats;
@@ -19,7 +20,7 @@ public class User {
     private HashMap<String, RaceStats> raceStats;
     private HashMap<String, WeightGoal> weightGoal;
     private HashMap<String, RunningGoal> runningGoal;
-
+    private AchievementsList listOfachievements;
     // Empty constructor used by Jackson for Json deserializing
     public User() {
     }
@@ -32,6 +33,7 @@ public class User {
         this.height = height;
         this.name = name;
         this.statsMap = new HashMap<>();
+        this.listOfachievements = new AchievementsList();
     }
 
     // User class get methods
