@@ -4,8 +4,8 @@
 image: ubuntu:latest
 
 before_script:
-  - chmod +x arduinoEnv.sh
-  - ./arduinoEnv.sh
+  - chmod +x ./arduinoCI/arduinoEnv.sh
+  - ./arduinoCI/arduinoEnv.sh
 
 
 stages:
