@@ -38,4 +38,4 @@ release:
     - arduino-cli compile --fqbn Seeeduino:samd:seeed_wio_terminal
 
     - arduino-cli board list      
-    - arduino-cli upload -p $COM_PORT --fqbn Seeeduino:samd:seeed_wio_terminal ./Wio.ino        
+    - arduino-cli upload -p auto --fqbn Seeeduino:samd:seeed_wio_terminal ./Wio.ino        
