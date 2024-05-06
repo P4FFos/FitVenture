@@ -22,7 +22,6 @@ build_compile:
     - pwd                                     
     - cd ./src/main/twoTierApplication/fitVenture/Wio
     - arduino-cli lib list
-    - arduino-cli compile -b Seeeduino:samd:seeed_wio_terminal
     - arduino-cli board list
 
 release:
