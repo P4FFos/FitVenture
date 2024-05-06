@@ -1,6 +1,7 @@
 # Credit to Nasit Vurgun for arduino cli workshop: https://git.chalmers.se/courses/dit113/2024/group-7/dit113-ci-workshop/-/blob/main/.gitlab-ci.yml?ref_type=heads
 
 image: ubuntu:latest
+image: zoobab/arduino-cli:latest
 
 before_script:
   - chmod +x ./arduinoCI/arduinoEnv.sh

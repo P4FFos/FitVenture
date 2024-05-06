@@ -120,8 +120,6 @@ public class User {
         this.statsMap.put(date, stats);
     }
 
-    // Pipeline test comment
-
     public void setRaceStats(HashMap<String, RaceStats> raceStats) {
         this.raceStats = raceStats;
     }
