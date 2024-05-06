@@ -31,7 +31,7 @@ release:
   script:
     - export PATH=$PATH:/root/bin            
     - pwd                                     
-    - cd ./src/main/twoTierApplication/fitVenture/Wio                      
+    - cd ./src/main/twoTierApplication/fitVenture/Wio/Wio.ino                      
     #- echo "$SECRETS_H" > Secrets.h We have yet to implement secrets in gitlab        
     - arduino-cli lib list                   
     
