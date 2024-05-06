@@ -2,12 +2,11 @@
 apt-get update 
 cd ~
 
-
 # Arduino install for container
 apt-get install curl -y
 curl  -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh
 export PATH=$PATH:/root/bin
-arudino-cli -version
+arduino-cli -version
 
 # Wio terminal install
 printf "board_manager:\n  additional_urls:\n    - https://files.seeedstudio.com/arduino/package_seeeduino_boards_index.json\n" > .arduino-cli.yaml
