@@ -9,12 +9,12 @@ before_script:
 
 
 stages:
-  - build
+  - compile
   - deploy
 
 
-build_job:
-  stage: build
+build_compile:
+  stage: compile
   tags:
     - docker
   script:
