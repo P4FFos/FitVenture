@@ -46,6 +46,10 @@ byte buttonState = HIGH;
 
 const unsigned long MQTT_RETRY_INTERVAL = 5000;
 const unsigned long WIFI_RETRY_INTERVAL = 5000;
+unsigned long WEATHER_SUGGESTIONS_INTERVAL = 10; // Three hours. the 10 seconds value is to just give the user a lillte
+ //bit of time to look at the arduino. 3 hours are equivalent to 10800000 Millseconds. I did not assign the value here because
+ //it would require the method to be called in the setup.
+  float temperature, humidity;
 
 // WiFi and MQTT broker configuration
 char ssid[] = "ASUS_68";
@@ -154,14 +158,17 @@ void loop() {
   tft.setTextColor(TFT_GREEN); // Set text color
   tft.setTextSize(2); // Set text size */
 
-  float temperature, humidity;
+
   getTemperatureAndHumidity(&temperature, &humidity);
   displayTemperatureAndHumidity(temperature, humidity);
 
   // Suggest activity based on weather conditions
-  displayActivitySuggestion(temperature, humidity);
-  delay(500);
-  // give user enough time to see the message
+    if( millis()>=WEATHER_SUGGESTIONS_INTERVAL )
+    {
+       displayActivitySuggestion(temperature, humidity);
+       delay(500); // give the user time to see the message.
+       WEATHER_SUGGESTIONS_INTERVAL+=10800000;
+    }
 
   // Maintain MQTT connection
   if (!mqttClient.connected()) {
@@ -177,14 +184,10 @@ void loop() {
   publishSignal();
 
   // Non-blocking delay
-   /*
-    I commented out this line of code out because it intefering with Maintaining MQTT cinnection code. between line 166 and line 172.
-    this code is updating LastActionTime every 500 mills while mqtt connection is being checked every 5000 mills.
   if (currentTime - lastActionTime > 500) {
     delay(500);
     lastActionTime = currentTime;
   }
-  */
 }
 
 void initAccelerometer() {
@@ -272,11 +275,9 @@ void reconnectMQTT() {
   String clientId = "wio";
   if (mqttClient.connect(clientId.c_str())) {
     Serial.println("Connected to MQTT broker");
-    displayConnected();
   } else {
     Serial.print("Failed to connect to MQTT broker, rc=");
     Serial.println(mqttClient.state());
-    displayConnectionLost();
   }
 }
 
@@ -336,8 +337,14 @@ void publishRaceData() {
 }
 
 void getTemperatureAndHumidity(float* temperature, float* humidity) {
-  *temperature = dht.readTemperature(); // read temperature in Celsius
-  *humidity = dht.readHumidity(); // read humidity
+
+   float temp= dht.readTemperature();
+   float humi= dht.readHumidity();
+   if(!isnan(temp) && !isnan(humi))
+   {
+     *temperature = temp; // read temperature in Celsius
+     *humidity = humi; // read humidity
+   }
 }
 
 void displayTemperatureAndHumidity(float temperature, float humidity) {
@@ -346,6 +353,7 @@ void displayTemperatureAndHumidity(float temperature, float humidity) {
   tft.setTextColor(TFT_WHITE); // Set text color
   tft.setTextSize(2); // Set text size
   tft.printf("Temperature: %.2f C\nHumidity: %.2f%%", temperature, humidity);
+  delay(500); // give the user, time to see the message
 }
 
 void displayActivitySuggestion(float temperature, float humidity) {
@@ -364,24 +372,4 @@ void displayActivitySuggestion(float temperature, float humidity) {
   tft.setTextColor(TFT_YELLOW);
   tft.setTextSize(2);
   tft.printf("Hey you! \nLet's go: %s", activity.c_str());
-}
-
-void displayConnectionLost(){
-  tft.fillScreen(TFT_BLACK); // Clear Screen
-  tft.setCursor(90,90); // set location of the message on the screen
-  tft.setTextColor(TFT_WHITE); // Set text color
-  tft.setTextSize(2); // Set text size
-  tft.printf("ConectionLost");
-  delay(500); // give user time to view the message
-
-}
-
-void displayConnected(){
-  tft.fillScreen(TFT_BLACK); // Clear Screen
-  tft.setCursor(90,90); // // set location of the message on the screen
-  tft.setTextColor(TFT_WHITE); // Set text color
-  tft.setTextSize(2); // Set text size
-  tft.printf("connection established");
-  delay(500); // give user time to view the message
-
 }
