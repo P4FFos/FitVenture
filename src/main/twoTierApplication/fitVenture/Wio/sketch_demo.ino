@@ -160,6 +160,8 @@ void loop() {
 
 
   getTemperatureAndHumidity(&temperature, &humidity);
+  // after getting, we publish the temphumidity data to the app
+  publishTemperatureAndHumidity(temperature, humidity);
   displayTemperatureAndHumidity(temperature, humidity);
 
   // Suggest activity based on weather conditions
@@ -345,6 +347,14 @@ void getTemperatureAndHumidity(float* temperature, float* humidity) {
      *temperature = temp; // read temperature in Celsius
      *humidity = humi; // read humidity
    }
+}
+
+// publishing tempHumidity data
+void publishTempAndHumidity(float temperature, float humidity) {
+  char payload[100];
+  snprintf(payload, sizeof(payload), "{\"temperature\": %.2f, \"humidity\": %.2f}", temperature, humidity);
+  mqttClient.publish("fitVenture/sensor/tempHumidity", payload);
+  Serial.println("Temperature and humidity data published.");
 }
 
 void displayTemperatureAndHumidity(float temperature, float humidity) {
