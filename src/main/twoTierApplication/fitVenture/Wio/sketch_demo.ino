@@ -46,6 +46,10 @@ byte buttonState = HIGH;
 
 const unsigned long MQTT_RETRY_INTERVAL = 5000;
 const unsigned long WIFI_RETRY_INTERVAL = 5000;
+unsigned long WEATHER_SUGGESTIONS_INTERVAL = 10; // Three hours. the 10 seconds value is to just give the user a lillte
+ //bit of time to look at the arduino. 3 hours are equivalent to 10800000 Millseconds. I did not assign the value here because
+ //it would require the method to be called in the setup.
+  float temperature, humidity;
 
 // WiFi and MQTT broker configuration
 char ssid[] = "ASUS_68";
@@ -154,12 +158,17 @@ void loop() {
   tft.setTextColor(TFT_GREEN); // Set text color
   tft.setTextSize(2); // Set text size */
 
-  float temperature, humidity;
+
   getTemperatureAndHumidity(&temperature, &humidity);
   displayTemperatureAndHumidity(temperature, humidity);
 
   // Suggest activity based on weather conditions
-  displayActivitySuggestion(temperature, humidity);
+    if( millis()>=WEATHER_SUGGESTIONS_INTERVAL )
+    {
+       displayActivitySuggestion(temperature, humidity);
+       delay(500); // give the user time to see the message.
+       WEATHER_SUGGESTIONS_INTERVAL+=10800000;
+    }
 
   // Maintain MQTT connection
   if (!mqttClient.connected()) {
@@ -328,8 +337,14 @@ void publishRaceData() {
 }
 
 void getTemperatureAndHumidity(float* temperature, float* humidity) {
-  *temperature = dht.readTemperature(); // read temperature in Celsius
-  *humidity = dht.readHumidity(); // read humidity
+
+   float temp= dht.readTemperature();
+   float humi= dht.readHumidity();
+   if(!isnan(temp) && !isnan(humi))
+   {
+     *temperature = temp; // read temperature in Celsius
+     *humidity = humi; // read humidity
+   }
 }
 
 void displayTemperatureAndHumidity(float temperature, float humidity) {
@@ -338,6 +353,7 @@ void displayTemperatureAndHumidity(float temperature, float humidity) {
   tft.setTextColor(TFT_WHITE); // Set text color
   tft.setTextSize(2); // Set text size
   tft.printf("Temperature: %.2f C\nHumidity: %.2f%%", temperature, humidity);
+  delay(500); // give the user, time to see the message
 }
 
 void displayActivitySuggestion(float temperature, float humidity) {
