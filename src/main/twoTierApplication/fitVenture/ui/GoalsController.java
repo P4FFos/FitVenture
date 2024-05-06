@@ -5,26 +5,43 @@ import fitVenture.backend.goal.RunningGoal;
 import fitVenture.backend.goal.WeightGoal;
 import fitVenture.backend.utils.Current_Date;
 import fitVenture.backend.utils.FileHandler;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.*;
 
 public class GoalsController {
     private Parent root;
     private Stage stage;
     private Scene scene;
+
+    private CategoryAxis xAxis; // xAxis of the chart
+    private NumberAxis yAxis; // yAxis of the chart
+    private BarChart barChart; // Barchart initialisation
+    private ArrayList<Integer> runGoalList; // holds runGoals
+    private String choiceOfGraph = "";
+
+    @FXML
+    private BorderPane borderPane; // reference to the BorderPane in the fxml
+    @FXML
+    private ObservableList observableList; // Observable reference for observable object
     @FXML
     private TextField userWeightGoalValue;// text field where user inputs Weight Goal in KG
     @FXML
@@ -250,5 +267,241 @@ public class GoalsController {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    // the method shows completed goals during the week
+    public void weekChart() {
+        xAxis = new CategoryAxis(); // create object of CategoryAxis which is XAxis of the graph
+        xAxis.setLabel("Days"); // setting the label on the X side
+
+        yAxis = new NumberAxis();// create object of NumberAxis which is Yaxis of the graph
+        yAxis.setLabel("Goals");// setting the label on the Y side
+
+        // a list of values to be used for XAxis.
+        List numbersList = List.of(
+                "1", "2", "3", "4", "5", "6", "7"
+        );
+
+        observableList = FXCollections.observableList(numbersList); // create observable object
+        xAxis.setCategories(observableList); // set the observable to the XAxis
+
+        ArrayList weekList = getWeekData(); // get week data for completed goals
+        barChart = new BarChart(xAxis, yAxis); // create the barChart object
+        addData(weekList, 1); // add data to the chart
+
+        barChart.setMaxHeight(935); // set the value of maxHeight of barchart, since its in the borderPane
+        barChart.setMaxWidth(1867); // set the maxWidth of the barChart, since its in the borderPane
+        borderPane.setCenter(barChart); // set the barchart to the center of the borderPane
+    }
+
+    public void monthChart() {
+        xAxis = new CategoryAxis();// create object of CategoryAxis which is XAxis of the graph
+        xAxis.setLabel("Days"); // setting the label on the X side
+
+        yAxis = new NumberAxis(); //create object of NumberAxis which is Yaxis of the graph
+        yAxis.setLabel("Goals"); // setting the label on the Y side
+
+        List numbersList = List.of("1", "2", "3", "4", "5", "6", "7", "8", "9",
+                "10", "11", "12", "13", "14", "15", "16", "17", "18", "19",
+                "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"
+        ); // a list of values to be used for XAxis.
+
+        observableList = FXCollections.observableList(numbersList); // creat the observable object
+        xAxis.setCategories(observableList); // set the observable to the XAxis
+
+        ArrayList monthList = getMonthData(); // get data for the month period
+        barChart = new BarChart(xAxis, yAxis); // create barChart
+        addData(monthList, 1); // add data to the chart
+
+        barChart.setMaxHeight(935); // set the maxHeight of the barChart, since its in the borderPane
+        barChart.setMaxWidth(1867); // set the maxWidth of the barchart, since its in the borderPane
+        borderPane.setCenter(barChart); // set the barchart in the center of the borderPane
+    }
+
+    // calls different methods for charts based on the user choose
+    public void showChart() {
+        switch (choiceOfGraph) {
+            case "weekly":
+                weekChart();
+                break;
+            case "monthly":
+                monthChart();
+                break;
+            default:
+                weekChart();
+                break;
+        }
+    }
+
+    // method to add data to the chart
+    public void addData(ArrayList<Integer> list, int startDay) {
+        // creation of XYChart that is used by barChart to map x and y Axis of the graph
+        XYChart.Series<String, Number> weightGoal = new XYChart.Series<>();  // XYChart object for weightGoal
+        weightGoal.setName("WeightGoal/Time");
+
+        XYChart.Series<String, Number> runGoal = new XYChart.Series<>(); // XYChart object for runGoal
+        runGoal.setName("RunGoal/Time");
+
+        int sizeOfList = list.size(); // length of the list which contains data
+        int avoidNullPointer = 0; // this value helps in avoiding a nullPointerException that can be caused by some graphs starting from 0 and others from 1
+
+        if (startDay > 0) { // checking if the charts starts from 1 or zero
+            sizeOfList = startDay + sizeOfList; // making sure that the last value in the list is reached
+            avoidNullPointer = startDay; // setting the starting position of the chart
+        }
+        for (int i = startDay; i < sizeOfList; i++) { // a loop that goes from start to the length of the list the add x and y values to XYCharts.
+            weightGoal.getData().add(new XYChart.Data<>(String.valueOf(i), list.get(i - avoidNullPointer)));
+            runGoal.getData().add(new XYChart.Data<>(String.valueOf(i), runGoalList.get(i - avoidNullPointer)));
+        }
+
+        barChart.getData().addAll(weightGoal, runGoal); // adding the XYCharts values to the barchart
+    }
+
+    // method to display week data on the chart
+    public ArrayList getWeekData() {
+        // to store weight goals of the user
+        HashMap<String, WeightGoal> mapOfWeightGoals = FitVentureStart.currentUser.getWeightGoal();
+        // to store run goals of the user
+        HashMap<String, RunningGoal> mapOfRunGoals = FitVentureStart.currentUser.getRunningGoal();
+
+        // array of integers to store the progress of weight goals of the user
+        Integer[] weightArray = new Integer[7];
+        for (int i = 0; i < weightArray.length; i++) {
+            weightArray[i] = 0;
+        }
+
+        // array of integers to store the progress of run goals of the user
+        Integer[] runArray = new Integer[7];
+        for (int i = 0; i < runArray.length; i++) {
+            runArray[i] = 0;
+        }
+
+        int totalDays = 7;
+        int currentDate = Current_Date.getDateTodayAsInteger(); // getting today's date as an integer
+
+        // goes through each weight goal of the user and checks if its completed
+        mapOfWeightGoals.forEach((goalCreationDate, goalValue) -> {
+            double goal = goalValue.getGoalInCalories(); // get the goal value
+            // get total calories burned from a specific data to check later if goal is completed
+            double doneProgress = FitVentureStart.currentUser.getTotalBurnedCalories(goalCreationDate);
+
+            if (goal <= doneProgress) { // checks if the goal was completed
+                int daysFromCompletion = currentDate - Current_Date.getIntegerOfSpecificDate(goalCreationDate);
+                if (daysFromCompletion < totalDays) { // checks if the completion was within 7 days
+                    weightArray[daysFromCompletion] += 1; // add the progress to the array
+                }
+            }
+        });
+
+        // goes through each run goal of the user and checks if its completed
+        mapOfRunGoals.forEach((goalCreationDate, goalValue) -> {
+            double goal = goalValue.getRunGoalInM(); // get the goal value
+            // get total distance ran from a specific data to check later if goal is completed
+            double doneProgress = FitVentureStart.currentUser.getTotalRanDistance(goalCreationDate);
+
+            if (goal <= doneProgress) { // checks if the goal was completed
+                int daysFromCompletion = currentDate - Current_Date.getIntegerOfSpecificDate(goalCreationDate);
+                if (daysFromCompletion < totalDays) { // checks if the completion was in last 7 days
+                    runArray[daysFromCompletion] += 1; // add the progress to the array
+                }
+            }
+        });
+
+        // this is to remove a null value from the list.
+        ArrayList<Integer> emptyListForWeightArray = new ArrayList<>();
+        runGoalList = new ArrayList<>();
+
+        for (int i = 0; i < totalDays; i++) {
+            if (weightArray[i] != null) {
+                emptyListForWeightArray.add(weightArray[i]);
+                runGoalList.add(runArray[i]);
+            } else {
+                emptyListForWeightArray.add(0);
+                runGoalList.add(0);
+            }
+        }
+        return emptyListForWeightArray;
+    }
+
+    // method to display month data on the chart
+    public ArrayList getMonthData() {
+        // to store weight goals of the user
+        HashMap<String, WeightGoal> mapOfWeightGoals = FitVentureStart.currentUser.getWeightGoal();
+        // to store run goals of the user
+        HashMap<String, RunningGoal> mapOfRunGoals = FitVentureStart.currentUser.getRunningGoal();
+
+        // array of integers to store the progress of weight goals of the user
+        Integer[] weightArray = new Integer[31];
+        for (int i = 0; i < weightArray.length; i++) {
+            weightArray[i] = 0;
+        }
+
+        // array of integers to store the progress of run goals of the user
+        Integer[] runArray = new Integer[31];
+        for (int i = 0; i < runArray.length; i++) {
+            runArray[i] = 0;
+        }
+
+        int totalDays = 7;
+        int currentDate = Current_Date.getDateTodayAsInteger(); // getting today's date as an integer
+
+        // goes through each weight goal of the user and checks if its completed
+        mapOfWeightGoals.forEach((goalCreationDate, goalValue) -> {
+            double goal = goalValue.getGoalInCalories(); // get the goal value
+            // get total calories burned from a specific data to check later if goal is completed
+            double doneProgress = FitVentureStart.currentUser.getTotalBurnedCalories(goalCreationDate);
+
+            if (goal <= doneProgress) { // checks if the goal was completed
+                int daysFromCompletion = currentDate - Current_Date.getIntegerOfSpecificDate(goalCreationDate);
+                if (daysFromCompletion < totalDays) { // checks if the completion was within 31 days
+                    weightArray[daysFromCompletion] += 1; // add the progress to the array
+                }
+            }
+        });
+
+        // goes through each run goal of the user and checks if its completed
+        mapOfRunGoals.forEach((goalCreationDate, goalValue) -> {
+            double goal = goalValue.getRunGoalInM(); // get the goal value
+            // get total distance ran from a specific data to check later if goal is completed
+            double doneProgress = FitVentureStart.currentUser.getTotalRanDistance(goalCreationDate);
+
+            if (goal <= doneProgress) { // checks if the goal was completed
+                int daysFromCompletion = currentDate - Current_Date.getIntegerOfSpecificDate(goalCreationDate);
+                if (daysFromCompletion < totalDays) { // checks if the completion was within 31 days
+                    runArray[daysFromCompletion] += 1; // add the progress to the array
+                }
+            }
+        });
+
+        ArrayList<Integer> emptyListForWeightGoal = new ArrayList<>();
+        runGoalList = new ArrayList<>();
+
+        for (int i = 0; i < totalDays; i++) {
+            if (weightArray[i] != null) {
+                emptyListForWeightGoal.add(weightArray[i]);
+                runGoalList.add(runArray[i]);
+            } else {
+                emptyListForWeightGoal.add(0);
+                runGoalList.add(0);
+            }
+        }
+        return emptyListForWeightGoal;
+    }
+
+    // display week chart when user clicks on the Week Chart button
+    public void openWeekChart() throws Exception {
+        choiceOfGraph = "weekly";
+        showChart();
+    }
+
+    // display month chart when user clicks on the Month Chart button
+    public void openMonthChart() throws Exception {
+        choiceOfGraph = "monthly";
+        showChart();
+    }
+
+    // update the chart when user clicks on the Update Chart button
+    public void updateChart(MouseEvent event) {
+        showChart();
     }
 }
