@@ -3,6 +3,7 @@
 image: zoobab/arduino-cli:latest
 
 before_script:
+  image: ubuntu:latest
   - chmod +x ./arduinoCI/arduinoEnv.sh
   - ./arduinoCI/arduinoEnv.sh
 
@@ -14,7 +15,7 @@ stages:
 
 build_job:
   stage: build
-  #image: ubuntu:latest
+  image: zoobab/arduino-cli:latest
   tags:
     - docker
   script:
@@ -26,7 +27,7 @@ build_job:
 
 release:
   stage: deploy
-  #image: ubuntu:latest
+  image: zoobab/arduino-cli:latest
   tags:
     - docker
   script:
