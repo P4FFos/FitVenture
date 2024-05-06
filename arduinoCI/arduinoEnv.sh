@@ -15,7 +15,7 @@ arduino-cli core install Seeeduino:samd --config-file .arduino-cli.yaml
 
 # Necessary libraries for the embedded system
 arduino-cli lib install "Seeed Arduino rpcWiFi@1.0.6"
-arduino-cli lib install "PubSubClient@2.8"
+arduino-cli lib install "PubSubClient"
 arduino-cli lib install "Accelerometer_MMA7660"
 arduino-cli lib install "ArduinoJson"
 arduino-cli lib install "TFT_eSPI"
