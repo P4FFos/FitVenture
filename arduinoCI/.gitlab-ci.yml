@@ -3,10 +3,8 @@
 #image: zoobab/arduino-cli:latest
 
 before_script:
-  image: ubuntu:latest
-  script:
-    - chmod +x ./arduinoCI/arduinoEnv.sh
-    - ./arduinoCI/arduinoEnv.sh
+  - chmod +x ./arduinoCI/arduinoEnv.sh
+  - ./arduinoCI/arduinoEnv.sh
 
 
 stages:
