@@ -23,6 +23,8 @@ build_compile:
     - cd ./src/main/twoTierApplication/fitVenture/Wio
     - arduino-cli lib list
     - arduino-cli board list
+  except:
+    - tags
 
 release:
   stage: deploy
