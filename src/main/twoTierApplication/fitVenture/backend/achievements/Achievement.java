@@ -42,8 +42,8 @@ public class Achievement {
     //#endregion
 
     
-    public boolean checkIfRequirementsAreMet(double distance){ // If the requirements are met -> Set this achivement as complete
-        if (distance >= this.completionRequirement){
+    public boolean checkIfRequirementsAreMet(double stat){ // If the requirements are met -> Set this achievement as complete
+        if (stat >= this.completionRequirement){
             this.completionStatus = true;
             return true;
         }

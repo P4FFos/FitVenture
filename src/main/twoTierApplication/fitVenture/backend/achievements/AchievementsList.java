@@ -8,6 +8,7 @@ public class AchievementsList {
     //#region Constructor
     public AchievementsList(){
         listOfAchievements = new HashMap<>();
+        // Insert all achievements
     }
     //#endregion
 
@@ -39,7 +40,7 @@ public class AchievementsList {
     }
     //#endregion
 
-    public boolean checkIfRequirementsAreMet(String achievement, double distance){ // If the requirements are met -> Set this achivement as complete
-        return this.listOfAchievements.get(achievement).checkIfRequirementsAreMet(distance);
+    public boolean checkIfRequirementsAreMet(String achievement, double stat){ // If the requirements are met -> Set this achivement as complete
+        return this.listOfAchievements.get(achievement).checkIfRequirementsAreMet(stat);
     }
 }
