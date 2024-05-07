@@ -17,5 +17,6 @@ module com.example.demo {
     opens fitVenture.backend.stats to com.fasterxml.jackson.databind;
     exports fitVenture.backend.goal;
     opens fitVenture.backend.goal to com.fasterxml.jackson.databind;
-
+    exports fitVenture.backend.tempAndHum to com.fasterxml.jackson.databind;
+    opens fitVenture.backend.tempAndHum to com.fasterxml.jackson.databind;
 }

@@ -1,6 +1,7 @@
 package fitVenture.ui;
 
 import fitVenture.backend.stats.Stats;
+import fitVenture.backend.tempAndHum.TempHumidityData;
 import fitVenture.backend.utils.Current_Date;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,7 +15,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -35,7 +36,10 @@ public class MainDashboardController {
     private ObservableList observableList; // Observable reference for observable object
 
     @FXML
-    private Button updateCharButton;
+    private Label tempLabel; // reference to the temperature label in the fxml
+
+    @FXML
+    private Label humLabel; // reference to the humidity label in the fxml
 
     private ArrayList<Double> caloriesList; // a list to hold calorie values
     private ArrayList<Double> distanceList; // a list to hold distance values
@@ -43,6 +47,25 @@ public class MainDashboardController {
     public void updateChartButton(MouseEvent event) {
         showChart();
         System.out.println("Chart Updated");
+    }
+
+    // method to update the weather data by button click
+    public void updateWeather(ActionEvent event) {
+        updateTempAndHumLabels();
+    }
+
+    // method to update the temperature and humidity labels with values from the MQTT
+    public void updateTempAndHumLabels () {
+        // create instance of TempHumidityData
+        TempHumidityData tempHumidityData = TempHumidityData.getInstance();
+
+        // get the temperature and humidity values
+        double temperature = tempHumidityData.getTemperature();
+        double humidity = tempHumidityData.getHumidity();
+
+        // set the temperature and humidity labels
+        tempLabel.setText(String.valueOf(temperature));
+        humLabel.setText(String.valueOf(humidity));
     }
 
     public void openUserProfile(ActionEvent event) throws IOException { // method to be called if the user clicks on the userProfile button
