@@ -6,6 +6,7 @@ cd ~
 apt-get install curl -y
 curl  -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh
 export PATH=$PATH:/root/bin
+ls /root/bin
 arduino-cli version
 
 # Wio terminal install
