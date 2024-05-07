@@ -1,6 +1,7 @@
 package fitVenture.ui;
 
 import fitVenture.backend.stats.Stats;
+import fitVenture.backend.tempAndHum.TempHumidityData;
 import fitVenture.backend.utils.Current_Date;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,7 +15,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -35,14 +36,36 @@ public class MainDashboardController {
     private ObservableList observableList; // Observable reference for observable object
 
     @FXML
-    private Button updateCharButton;
+    private Label tempLabel; // reference to the temperature label in the fxml
+
+    @FXML
+    private Label humLabel; // reference to the humidity label in the fxml
 
     private ArrayList<Double> caloriesList; // a list to hold calorie values
     private ArrayList<Double> distanceList; // a list to hold distance values
 
-    public void updateChartButton(MouseEvent event){
+    public void updateChartButton(MouseEvent event) {
         showChart();
         System.out.println("Chart Updated");
+    }
+
+    // method to update the weather data by button click
+    public void updateWeather(ActionEvent event) {
+        updateTempAndHumLabels();
+    }
+
+    // method to update the temperature and humidity labels with values from the MQTT
+    public void updateTempAndHumLabels () {
+        // create instance of TempHumidityData
+        TempHumidityData tempHumidityData = TempHumidityData.getInstance();
+
+        // get the temperature and humidity values
+        double temperature = tempHumidityData.getTemperature();
+        double humidity = tempHumidityData.getHumidity();
+
+        // set the temperature and humidity labels
+        tempLabel.setText(String.valueOf(temperature));
+        humLabel.setText(String.valueOf(humidity));
     }
 
     public void openUserProfile(ActionEvent event) throws IOException { // method to be called if the user clicks on the userProfile button
@@ -58,7 +81,8 @@ public class MainDashboardController {
         stage.setScene(scene); // adding scene to the stage
         stage.show(); // showing the stage
     }
-    public void openChallengesPage(ActionEvent event) throws IOException{
+
+    public void openChallengesPage(ActionEvent event) throws IOException {
         //loads ChallengesScene once user pressed the "Challenges" button
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ChallengesScene.fxml"));
         Parent root = loader.load(); // loading the ChallengesScene.fxml
@@ -144,7 +168,7 @@ public class MainDashboardController {
         borderPane.setCenter(barChart); // setting the barchart in the center of the borderPane
     }
 
-    public void showChart(){
+    public void showChart() {
 
         switch (choiceOfGraph) {
             case "daily":
@@ -320,7 +344,7 @@ public class MainDashboardController {
             int currentDay = Current_Date.getDay(anotherDate);
 
 
-            if ((dateToday - anotherDate) < (totalDays -1)) { // checking if the day is less than 31
+            if ((dateToday - anotherDate) < (totalDays - 1)) { // checking if the day is less than 31
                 int index = 0;
                 index = currentDay - 1; // making indexes correspond to the way arrays are indexed. from 0. not 1
 
@@ -386,8 +410,13 @@ public class MainDashboardController {
     public void displayGoals(ActionEvent event) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("GoalsScene.fxml"));
         Parent root = loader.load();
+
+        // loads progress bar for running and weight goals and shows the chart of completed goals
         GoalsController goalsController = loader.getController();
         goalsController.viewWeightGoalsInProgress();
+        goalsController.viewRunGoalsInProgress();
+        goalsController.showChart();
+
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);

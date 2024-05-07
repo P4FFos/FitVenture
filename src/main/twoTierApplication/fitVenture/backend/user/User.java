@@ -1,11 +1,12 @@
 package fitVenture.backend.user;
 
+import fitVenture.backend.goal.RunningGoal;
 import fitVenture.backend.goal.WeightGoal;
 import fitVenture.backend.stats.RaceStats;
 import fitVenture.backend.stats.Stats;
 import fitVenture.backend.utils.Current_Date;
 import java.util.HashMap;
-import java.util.Map;
+
 
 public class User {
     // User class attributes and HashMap of stats to store Distance, Calories and Steps
@@ -17,6 +18,7 @@ public class User {
     private HashMap<String, Stats> statsMap;
     private HashMap<String, RaceStats> raceStats;
     private HashMap<String, WeightGoal> weightGoal;
+    private HashMap<String, RunningGoal> runningGoal;
 
     // Empty constructor used by Jackson for Json deserializing
     public User() {
@@ -65,6 +67,10 @@ public class User {
         return weightGoal;
     }
 
+    public HashMap<String, RunningGoal> getRunningGoal() {
+        return runningGoal;
+    }
+
     // User class set methods
     public void setUsername(String username) {
         this.username = username;
@@ -90,6 +96,18 @@ public class User {
         this.statsMap = stats;
     }
 
+    public void setRaceStats(HashMap<String, RaceStats> raceStats) {
+        this.raceStats = raceStats;
+    }
+
+    public void setWeightGoal(HashMap<String, WeightGoal> weightGoal) {
+        this.weightGoal = weightGoal;
+    }
+
+    public void setRunGoal(HashMap<String, RunningGoal> runGoal) {
+        this.runningGoal = runGoal;
+    }
+
     public void addStats(String newDate, Stats stats) {
         this.statsMap.put(newDate, stats);
     }
@@ -98,7 +116,15 @@ public class User {
         this.weightGoal.put(date, weightGoal);
     }
 
-    public boolean containsDateInStats(String date){
+    public void addRunGoal(String date, RunningGoal runningGoal) {
+        this.runningGoal.put(date, runningGoal);
+    }
+
+    public void addRaceStats(String raceDate, RaceStats raceStats) {
+        this.raceStats.put(raceDate, raceStats);
+    }
+
+    public boolean containsDateInStats(String date) {
         if (this.statsMap.containsKey(date)) return true;
         else return false;
     }
@@ -120,35 +146,45 @@ public class User {
         this.statsMap.put(date, stats);
     }
 
-    public void setRaceStats(HashMap<String, RaceStats> raceStats) {
-        this.raceStats = raceStats;
-    }
-
-    public void setWeightGoal(HashMap<String, WeightGoal> weightGoal) {
-        this.weightGoal = weightGoal;
-    }
-
-    public void addRaceStats(String raceDate, RaceStats raceStats) {
-        this.raceStats.put(raceDate, raceStats);
-    }
 
     // method to count total burned calories of a specific user for a specific period
     // used for weight goals calculation of the progress bar
     public double getTotalBurnedCalories(String goalDate) {
         // used to store the total burned calories for a specific period
-        double totalBurnedCalories = 0;
+        double totalBurnedCalories = 0.0;
 
         // for loop to iterate over each value of the stats HashMap
-        for (Map.Entry<String, Stats> valueOfTheStat : this.statsMap.entrySet()) {
-            int dateOfStat = Current_Date.getIntegerOfSpecificDate(valueOfTheStat.getKey());
+        for (String dateOfCreation : this.statsMap.keySet()) {
+            Stats valueOfTheStat = this.statsMap.get(dateOfCreation);
+            int dateOfStat = Current_Date.getIntegerOfSpecificDate(dateOfCreation);
             int goalStartDate = Current_Date.getIntegerOfSpecificDate(goalDate);
 
             // checks if date of the stat is bigger or equal to goal start date
             if (dateOfStat >= goalStartDate) {
-                double burnedCalories = Double.parseDouble(valueOfTheStat.getValue().getCalories());
+                double burnedCalories = Double.parseDouble(valueOfTheStat.getCalories());
                 totalBurnedCalories += burnedCalories;
             }
         }
         return totalBurnedCalories;
+    }
+
+    // method to count total ran distance of a specific user for a specific period
+    // used for running goals calculation of the progress bar
+    public double getTotalRanDistance(String goalDate) {
+        double totalRanDistance = 0.0;
+
+        // for loop to iterate over each value of the stats HashMap
+        for (String dateOfCreation : this.statsMap.keySet()) {
+            Stats valueOfTheStat = this.statsMap.get(dateOfCreation);
+            int dateOfStat = Current_Date.getIntegerOfSpecificDate(dateOfCreation);
+            int goalStartDate = Current_Date.getIntegerOfSpecificDate(goalDate);
+
+            // checks if date of the stat is bigger or equal to goal start date
+            if (dateOfStat >= goalStartDate) {
+                double ranDistance = Double.parseDouble(valueOfTheStat.getDistance());
+                totalRanDistance += ranDistance;
+            }
+        }
+        return totalRanDistance;
     }
 }

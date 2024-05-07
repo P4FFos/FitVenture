@@ -1,6 +1,7 @@
 package fitVenture.backend;
 
 import fitVenture.backend.stats.Stats;
+import fitVenture.backend.tempAndHum.TempHumidityData;
 import fitVenture.backend.stats.RaceStats;
 import fitVenture.backend.utils.FileHandler;
 import fitVenture.ui.FitVentureStart;
@@ -13,12 +14,17 @@ public class MQTTSubscriber {
     // Attributes to initialise MQTT broker, client id and topic
     private static final String broker = "tcp://broker.hivemq.com:1883";
     private static final String clientId = "ClientID1";
+    // Topic for usual accelerometer data
     private static final String mainTopic = "fitVenture/sensor/accelerometer/data";
+    // Topic for race data
     private static final String raceTopic = "fitVenture/sensor/accelerometer/raceData";
+    // Topic for temperature and humidity data
+    private static final String tempAndHumTopic = "fitVenture/sensor/tempHumidity";
 
-    // Variable to store the last received message
+    // Variables to store the last received message
     private Stats lastReceivedMessage;
     private RaceStats lastReceivedRaceMessage;
+    private TempHumidityData lastReceivedtempHumidityData;
 
     // Method to subscribe to a topic
     public MQTTSubscriber() {
@@ -30,7 +36,6 @@ public class MQTTSubscriber {
             System.out.println("Connected");
 
             // Defines what will happen when the connection is lost, message is arrived and delivery is completed
-            // This syntax is required by the library which we are using for the MQTT broker
             client.setCallback(new MqttCallback() {
                 // Method to show in case connection is lost
                 public void connectionLost(Throwable cause) {
@@ -41,16 +46,21 @@ public class MQTTSubscriber {
                 public void messageArrived(String topic, MqttMessage message) throws Exception {
                     System.out.println("Message is arrived");
                     ObjectMapper mapper = new ObjectMapper();
-                    lastReceivedMessage = mapper.readValue(message.toString(), Stats.class);
+                    // check from which topic the message is arrived
                     if (topic.equals(mainTopic)) {
+                        lastReceivedMessage = mapper.readValue(message.toString(), Stats.class);
+                        // save the data into the HashMap
                         FitVentureStart.fitVenture.saveStatsData(
                                 lastReceivedMessage.getDistance(), lastReceivedMessage.getSteps(),
                                 lastReceivedMessage.getCalories(),
                                 FitVentureStart.currentUser.getUsername()
                         );
+                        // save the data into the JSON file
                         FileHandler.jsonSerializer(FitVentureStart.jsonPath, FitVentureStart.fitVenture);
                         System.out.println("Data saved");
                     } else if (topic.equals(raceTopic)) {
+                        lastReceivedRaceMessage = mapper.readValue(message.toString(), RaceStats.class);
+                        // save the data into the HashMap
                         FitVentureStart.fitVenture.saveRaceStatsData(
                                 lastReceivedRaceMessage.getStartTime(), lastReceivedRaceMessage.getEndTime(),
                                 lastReceivedRaceMessage.getRaceDuration(),
@@ -58,8 +68,15 @@ public class MQTTSubscriber {
                                 lastReceivedRaceMessage.getSteps(), lastReceivedRaceMessage.getCalories(),
                                 FitVentureStart.currentUser.getUsername()
                         );
+                        // save the data into the JSON file
                         FileHandler.jsonSerializer(FitVentureStart.jsonPath, FitVentureStart.fitVenture);
                         System.out.println("Race data saved");
+                    } else if (topic.equals(tempAndHumTopic)) {
+                        lastReceivedtempHumidityData = mapper.readValue(message.toString(), TempHumidityData.class);
+                        // create an instance of TempHumidityData class and set the temperature and humidity values to the values from the message
+                        TempHumidityData tempHumidityData = TempHumidityData.getInstance();
+                        tempHumidityData.setTemperature(lastReceivedtempHumidityData.getTemperature());
+                        tempHumidityData.setHumidity(lastReceivedtempHumidityData.getHumidity());
                     }
                 }
 
@@ -68,8 +85,10 @@ public class MQTTSubscriber {
                     System.out.println("Complete");
                 }
             });
+            // Subscribe to different topics to receive message
             client.subscribe(mainTopic);
             client.subscribe(raceTopic);
+            client.subscribe(tempAndHumTopic);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Failed");
