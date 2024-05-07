@@ -191,6 +191,28 @@ public class User {
         }
         return totalRanDistance;
     }
+    
+    // Gets the total calories burnt since the creation of the user
+    public double getTotalCaloriesSinceStart(){
+        double totalCalories = 0.0;
+
+        // for loop to iterate over each value of the stats HashMap
+        for (Stats stat : this.statsMap.values()) {
+            totalCalories = totalCalories + Double.parseDouble(stat.getCalories());
+        }
+        return totalCalories;
+    }
+
+    // Gets the total distance traveled since the creation of the user
+    public double getTotalDistanceSinceStart(){
+        double totalDistance = 0.0;
+
+        // for loop to iterate over each value of the stats HashMap
+        for (Stats stat : this.statsMap.values()) {
+            totalDistance = totalDistance + Double.parseDouble(stat.getDistance());
+        }
+        return totalDistance;
+    }
 
     public void checkCompletedAchievements(){
         this.listOfachievements.checkCompletedAchievements(getTotalDistanceSinceStart(), getTotalCaloriesSinceStart());
