@@ -1,0 +1,43 @@
+# Credit to Nasit Vurgun for arduino cli workshop: https://git.chalmers.se/courses/dit113/2024/group-7/dit113-ci-workshop/-/blob/main/.gitlab-ci.yml?ref_type=heads
+
+#image: zoobab/arduino-cli:latest
+image: ubuntu:latest
+
+before_script:
+  - chmod +x ./arduinoCI/arduinoEnv.sh
+  - ./arduinoCI/arduinoEnv.sh
+
+
+stages:
+  - compile
+  - deploy
+
+
+build_compile:
+  stage: compile
+  tags:
+    - docker
+  script:
+    - export PATH=$PATH:/root/bin             
+    - pwd                                     
+    - cd ./src/main/twoTierApplication/fitVenture/Wio
+    - arduino-cli lib list
+    - arduino-cli board list
+  except:
+    - tags
+
+release:
+  stage: deploy
+  tags:
+    - docker
+  script:
+    - export PATH=$PATH:/root/bin            
+    - pwd                                     
+    - cd ./src/main/twoTierApplication/fitVenture/Wio                      
+    #- echo "$SECRETS_H" > Secrets.h We have yet to implement secrets in gitlab        
+    - arduino-cli lib list                   
+    
+    - arduino-cli compile -b Seeeduino:samd:seeed_wio_terminal
+
+    - arduino-cli board list      
+    - arduino-cli upload -p COM3 -b Seeeduino:samd:seeed_wio_terminal        

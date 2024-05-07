@@ -250,9 +250,9 @@ void setUserWeightAndHeight() {
   //Assign the global variables to the value assigned to the meta-data
   userWeight = jsonDoc["userWeight"];
   userHeight = jsonDoc["userHeight"];
-
-  Serial.println("User weight and height have been updated!");
-
+  
+  Serial.println("User weight and height has been updated!");
+  
   // Calculate stride length based on user's height
   calculateStrideLength();
 }
