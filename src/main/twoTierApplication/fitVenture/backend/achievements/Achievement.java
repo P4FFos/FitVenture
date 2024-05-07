@@ -35,8 +35,12 @@ public class Achievement {
         this.completionStatus = completionStatus;
     }
     
-    public void checkIfRequirementsAreMet(double steps){
-        if (steps >= this.completionRequirement) this.completionStatus = true; // If the requirements are met -> Set this achivement as complete
+    public boolean checkIfRequirementsAreMet(double steps){ // If the requirements are met -> Set this achivement as complete
+        if (steps >= this.completionRequirement){
+            this.completionStatus = true;
+            return true;
+        }
+        else return false;
     }
     
 }
