@@ -33,10 +33,9 @@ public class User {
         this.height = height;
         this.name = name;
         this.statsMap = new HashMap<>();
-        this.listOfachievements = new AchievementsList();
     }
 
-    // User class get methods
+    //#region User class get methods
     public String getUsername() {
         return username;
     }
@@ -72,8 +71,9 @@ public class User {
     public HashMap<String, RunningGoal> getRunningGoal() {
         return runningGoal;
     }
+    //#endregion User class get methods
 
-    // User class set methods
+    //#region User class set methods
     public void setUsername(String username) {
         this.username = username;
     }
@@ -130,6 +130,7 @@ public class User {
         if (this.statsMap.containsKey(date)) return true;
         else return false;
     }
+    //#endregion User class set methods
 
     public void updateStats(String steps, String distance, String calories, String date){ // Updates the stats of an already existing entry
         int newSteps = Integer.parseInt(steps);
@@ -147,7 +148,6 @@ public class User {
         Stats stats = new Stats(updatedSteps, updatedDistance, updatedCalories);
         this.statsMap.put(date, stats);
     }
-
 
     // method to count total burned calories of a specific user for a specific period
     // used for weight goals calculation of the progress bar
