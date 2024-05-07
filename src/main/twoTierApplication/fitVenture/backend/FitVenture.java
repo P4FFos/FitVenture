@@ -108,6 +108,7 @@ public class FitVenture {
                 Stats stats = new Stats(steps, distance, calories);
                 currentUser.addStats(currentTime, stats);
             }
+            currentUser.checkCompletedAchievements();
         }
     }
 

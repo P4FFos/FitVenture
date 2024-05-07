@@ -7,6 +7,7 @@ import fitVenture.backend.stats.RaceStats;
 import fitVenture.backend.stats.Stats;
 import fitVenture.backend.utils.Current_Date;
 import java.util.HashMap;
+import java.util.Map;
 
 
 public class User {
@@ -33,6 +34,7 @@ public class User {
         this.height = height;
         this.name = name;
         this.statsMap = new HashMap<>();
+        listOfachievements = new AchievementsList();
     }
 
     //#region User class get methods
@@ -188,5 +190,9 @@ public class User {
             }
         }
         return totalRanDistance;
+    }
+
+    public void checkCompletedAchievements(){
+        this.listOfachievements.checkCompletedAchievements(getTotalDistanceSinceStart(), getTotalCaloriesSinceStart());
     }
 }

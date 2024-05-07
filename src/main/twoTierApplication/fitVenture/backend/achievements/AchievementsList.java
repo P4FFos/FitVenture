@@ -8,15 +8,13 @@ public class AchievementsList {
     private HashMap<String, Achievement> completedAchievements;
     
     //#region Constructor
-    public AchievementsList(double distance, double calories){
+    public AchievementsList(){
         uncompletedAchievements = new HashMap<>();
         // Insert all achievements
         uncompletedAchievements.put("Burj Khalifa", new Achievement("""
         Congratulations, you have walked the distance equivalent to 
         the height of the Burj Khalifa. Initially the building was supposed 
         to be 705 meters tall, but the building plans were later changed to add more floors.""", 828, "Distance"));
-
-        checkCompletedAchievements(distance, calories);
     }
     //#endregion
     
@@ -71,22 +69,19 @@ public class AchievementsList {
     //#endregion
 
     public void checkCompletedAchievements(double distance, double calories){
-        for (Map.Entry<String, Achievement> entry : uncompletedAchievements.entrySet()){
-            Achievement achievement = entry.getValue();
-            String name = entry.getKey();
-            if (achievement.getTag().equals("Distance") && achievement.checkIfRequirementsAreMet(distance)){
-                this.completedAchievements.put(name, achievement);
-                this.uncompletedAchievements.remove(name);
-            }
-            else if (achievement.getTag().equals("Calories") && achievement.checkIfRequirementsAreMet(calories)){
-                this.completedAchievements.put(name, achievement);
-                this.uncompletedAchievements.remove(name);
+        if (!uncompletedAchievements.isEmpty()){
+            for (Map.Entry<String, Achievement> entry : uncompletedAchievements.entrySet()){
+                Achievement achievement = entry.getValue();
+                String name = entry.getKey();
+                if (achievement.getTag().equals("Distance") && achievement.checkIfRequirementsAreMet(distance)){
+                    this.completedAchievements.put(name, achievement);
+                    this.uncompletedAchievements.remove(name);
+                }
+                else if (achievement.getTag().equals("Calories") && achievement.checkIfRequirementsAreMet(calories)){
+                    this.completedAchievements.put(name, achievement);
+                    this.uncompletedAchievements.remove(name);
+                }
             }
         }
-    }
-
-    public boolean checkIfRequirementsAreMet(String achievement, double stat){ // If the requirements are met -> Set this achivement as complete
-        if (uncompletedAchievements.containsKey(achievement)) return this.uncompletedAchievements.get(achievement).checkIfRequirementsAreMet(stat);
-        else return this.completedAchievements.get(achievement).checkIfRequirementsAreMet(stat);
     }
 }
