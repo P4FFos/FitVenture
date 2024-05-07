@@ -50,6 +50,10 @@ public class GoalsController {
     private VBox runVBoxContainer; // VBox with all existing running goals
     @FXML
     private VBox weightVBoxContainer;//VBox with all existing weight goals
+    @FXML
+    private Label weightGoalCounter; // Label to display the number of completed weight goals
+    @FXML
+    private Label runGoalCounter; // Label to display the number of completed run goals
 
     private ArrayList<HBox> weightGoalArrayList;
     private ArrayList<String> listOfWeightKeys;
@@ -145,6 +149,7 @@ public class GoalsController {
             }
         });
         weightVBoxContainer.getChildren().addAll(weightGoalArrayList);// add everything to the container that is reserved a space in the fxml file
+        weightGoalCounter.setText("Weight Goals Completed: " + doneWeightGoalCounter()); //Displays the number of completed weight goals
     }
 
     // the method is responsible for showing progress to the user in the progressBar
@@ -188,6 +193,7 @@ public class GoalsController {
             }
         });
         runVBoxContainer.getChildren().addAll(runGoalArrayList);// add everything to the container that is reserved a space in the fxml file
+        runGoalCounter.setText("Run Goals Completed: " + doneRunGoalCounter()); //Displays the number of completed run goals
     }
 
     // This method is responsible for sorting HBox objects by date
@@ -254,6 +260,32 @@ public class GoalsController {
         }
     }
 
+    // method to count the number of completed weight goals
+    public int doneWeightGoalCounter() {
+        int weightGoalCounter = 0; //Initialises goal counter
+        for (Map.Entry<String, WeightGoal> entry : weightGoalHashMap.entrySet()) { //Iterates through the weight goals
+            double goal = entry.getValue().getGoalInCalories(); //Gets the goal value
+            double progressToGoal = FitVentureStart.currentUser.getTotalBurnedCalories(entry.getKey()); //Gets the progress to the goal
+            if (goal <= progressToGoal) { //Checks if the goal is completed
+                weightGoalCounter++;
+            }
+        }
+        return weightGoalCounter;
+    }
+
+    // method to count the number of completed run goals
+    public int doneRunGoalCounter() {
+        int runGoalCounter = 0; //Initialises goal counter
+        for (Map.Entry<String, RunningGoal> entry : runGoalHashMap.entrySet()) { //Iterates through the run goals
+            double goal = entry.getValue().getRunGoalInM(); //Gets the goal value
+            double progressToGoal = FitVentureStart.currentUser.getTotalRanDistance(entry.getKey()); //Gets the progress to the goal
+            if (goal <= progressToGoal) { //Checks if the goal is completed
+                runGoalCounter++;
+            }
+        }
+        return runGoalCounter;
+    }
+
     // button to return back to the MainDashboard
     public void returnBackToMain(ActionEvent event) throws IOException {
         // loads LoginRegistrationScene once user pressed the "return back" button
@@ -289,8 +321,8 @@ public class GoalsController {
         barChart = new BarChart(xAxis, yAxis); // create the barChart object
         addData(weekList, 1); // add data to the chart
 
-        barChart.setMaxHeight(935); // set the value of maxHeight of barchart, since its in the borderPane
-        barChart.setMaxWidth(1867); // set the maxWidth of the barChart, since its in the borderPane
+        barChart.setMaxHeight(935); // set the value of maxHeight of barchart, since it's in the borderPane
+        barChart.setMaxWidth(1867); // set the maxWidth of the barChart, since it's in the borderPane
         borderPane.setCenter(barChart); // set the barchart to the center of the borderPane
     }
 
@@ -306,15 +338,15 @@ public class GoalsController {
                 "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"
         ); // a list of values to be used for XAxis.
 
-        observableList = FXCollections.observableList(numbersList); // creat the observable object
+        observableList = FXCollections.observableList(numbersList); // create the observable object
         xAxis.setCategories(observableList); // set the observable to the XAxis
 
         ArrayList monthList = getMonthData(); // get data for the month period
         barChart = new BarChart(xAxis, yAxis); // create barChart
         addData(monthList, 1); // add data to the chart
 
-        barChart.setMaxHeight(935); // set the maxHeight of the barChart, since its in the borderPane
-        barChart.setMaxWidth(1867); // set the maxWidth of the barchart, since its in the borderPane
+        barChart.setMaxHeight(935); // set the maxHeight of the barChart, since it's in the borderPane
+        barChart.setMaxWidth(1867); // set the maxWidth of the barchart, since it's in the borderPane
         borderPane.setCenter(barChart); // set the barchart in the center of the borderPane
     }
 
