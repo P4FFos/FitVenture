@@ -35,6 +35,22 @@ public class AchievementsList {
         if (uncompletedAchievements.containsKey(achievement)) return this.uncompletedAchievements.get(achievement).getCompletionStatus();
         else return this.completedAchievements.get(achievement).getCompletionStatus();
     }
+
+    public HashMap<String, Achievement> getUncompletedAchievements(){
+        return uncompletedAchievements;
+    }
+
+    public HashMap<String, Achievement> getCompletedAchievements(){
+        return completedAchievements;
+    }
+
+    public HashMap<String, Achievement> getAllAchievements(){
+        HashMap<String, Achievement> allAchievements = new HashMap<>();
+        allAchievements.putAll(uncompletedAchievements);
+        allAchievements.putAll(completedAchievements);
+        return allAchievements;
+    }
+
     //#endregion
 
     //#region Setters
