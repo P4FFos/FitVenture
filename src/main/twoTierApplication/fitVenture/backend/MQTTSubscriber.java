@@ -57,6 +57,7 @@ public class MQTTSubscriber {
                         );
                         // save the data into the JSON file
                         FileHandler.jsonSerializer(FitVentureStart.jsonPath, FitVentureStart.fitVenture);
+
                         System.out.println("Data saved");
                     } else if (topic.equals(raceTopic)) {
                         lastReceivedRaceMessage = mapper.readValue(message.toString(), RaceStats.class);

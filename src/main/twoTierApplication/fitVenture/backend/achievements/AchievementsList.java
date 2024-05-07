@@ -10,6 +10,7 @@ public class AchievementsList {
     //#region Constructor
     public AchievementsList(){
         uncompletedAchievements = new HashMap<>();
+        completedAchievements = new HashMap<>();
         // Insert all achievements
         uncompletedAchievements.put("Burj Khalifa", new Achievement("""
         Congratulations, you have walked the distance equivalent to 

@@ -193,7 +193,7 @@ public class User {
     }
     
     // Gets the total calories burnt since the creation of the user
-    public double getTotalCaloriesSinceStart(){
+    public double totalCaloriesSinceStart(){
         double totalCalories = 0.0;
 
         // for loop to iterate over each value of the stats HashMap
@@ -204,7 +204,7 @@ public class User {
     }
 
     // Gets the total distance traveled since the creation of the user
-    public double getTotalDistanceSinceStart(){
+    public double totalDistanceSinceStart(){
         double totalDistance = 0.0;
 
         // for loop to iterate over each value of the stats HashMap
@@ -215,6 +215,9 @@ public class User {
     }
 
     public void checkCompletedAchievements(){
-        this.listOfachievements.checkCompletedAchievements(getTotalDistanceSinceStart(), getTotalCaloriesSinceStart());
+        if (this.listOfachievements == null){
+            this.listOfachievements = new AchievementsList();
+        }
+        this.listOfachievements.checkCompletedAchievements(totalDistanceSinceStart(), totalCaloriesSinceStart());
     }
 }
