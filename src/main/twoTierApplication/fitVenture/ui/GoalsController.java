@@ -149,7 +149,7 @@ public class GoalsController {
             }
         });
         weightVBoxContainer.getChildren().addAll(weightGoalArrayList);// add everything to the container that is reserved a space in the fxml file
-        weightGoalCounter.setText("Weight Goals Completed: " + doneWeightGoalCounter()); //Displays the number of completed weight goals
+        weightGoalCounter.setText("You have completed " + doneWeightGoalCounter() +" weightloss goals."); //Displays the number of completed weight goals
     }
 
     // the method is responsible for showing progress to the user in the progressBar
@@ -193,7 +193,7 @@ public class GoalsController {
             }
         });
         runVBoxContainer.getChildren().addAll(runGoalArrayList);// add everything to the container that is reserved a space in the fxml file
-        runGoalCounter.setText("Run Goals Completed: " + doneRunGoalCounter()); //Displays the number of completed run goals
+        runGoalCounter.setText("You have completed " + doneRunGoalCounter() +" running goals."); //Displays the number of completed run goals
     }
 
     // This method is responsible for sorting HBox objects by date
