@@ -5,12 +5,15 @@ public class Achievement {
     private double completionRequirement;
     private boolean completionStatus;
 
+    //#region Constructor
     public Achievement(String description, double completionRequirement){
         this.description = description;
         this.completionRequirement = completionRequirement;
         this.completionStatus = false; // The achievements will be false at default
     }
+    //#endregion
 
+    //#region getters
     public String getDescription(){
         return this.description;
     }
@@ -22,7 +25,9 @@ public class Achievement {
     public boolean getCompletionStatus(){
         return this.completionStatus;
     }
+    //#endregion
     
+    //#region setters
     public void setDescription(String description){
         this.description = description;
     }
@@ -34,9 +39,11 @@ public class Achievement {
     public void setCompletionStatus(boolean completionStatus){
         this.completionStatus = completionStatus;
     }
+    //#endregion
+
     
-    public boolean checkIfRequirementsAreMet(double steps){ // If the requirements are met -> Set this achivement as complete
-        if (steps >= this.completionRequirement){
+    public boolean checkIfRequirementsAreMet(double distance){ // If the requirements are met -> Set this achivement as complete
+        if (distance >= this.completionRequirement){
             this.completionStatus = true;
             return true;
         }

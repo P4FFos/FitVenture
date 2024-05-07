@@ -4,11 +4,14 @@ import java.util.HashMap;
 
 public class AchievementsList {
     private HashMap<String, Achievement> listOfAchievements;
-
+    
+    //#region Constructor
     public AchievementsList(){
         listOfAchievements = new HashMap<>();
     }
+    //#endregion
 
+    //#region Constructor
     public String getDescription(String achievement){
         return this.listOfAchievements.get(achievement).getDescription();
     }
@@ -20,7 +23,9 @@ public class AchievementsList {
     public boolean getCompletionStatus(String achievement){
         return this.listOfAchievements.get(achievement).getCompletionStatus();
     }
-    
+    //#endregion
+
+    //#region Constructor
     public void setDescription(String achievement, String description){
         this.listOfAchievements.get(achievement).setDescription(description);
     }
@@ -32,8 +37,9 @@ public class AchievementsList {
     public void setCompletionStatus(String achievement, boolean completionStatus){
         this.listOfAchievements.get(achievement).setCompletionStatus(completionStatus);
     }
-    
-    public boolean checkIfRequirementsAreMet(String achievement, double steps){ // If the requirements are met -> Set this achivement as complete
-        return this.listOfAchievements.get(achievement).checkIfRequirementsAreMet(steps);
+    //#endregion
+
+    public boolean checkIfRequirementsAreMet(String achievement, double distance){ // If the requirements are met -> Set this achivement as complete
+        return this.listOfAchievements.get(achievement).checkIfRequirementsAreMet(distance);
     }
 }
