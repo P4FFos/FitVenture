@@ -97,11 +97,11 @@ public class MainDashboardController {
     }
 
     public void openAchievementsPage(ActionEvent event) throws IOException {
-        //loads ChallengesScene once user pressed the "Challenges" button
+        //loads AchievementsScene once user pressed the "Achievements" button
         FXMLLoader loader = new FXMLLoader(getClass().getResource("AchievementsScene.fxml"));
-        Parent root = loader.load(); // loading the ChallengesScene.fxml
+        Parent root = loader.load(); // loading the AchievementsScene.fxml
 
-        AchievementsController achievementsController = loader.getController(); // getting challenges controller object
+        AchievementsController achievementsController = loader.getController(); // getting achievements controller object
         achievementsController.showAchievements();
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); // getting the stage

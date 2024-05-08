@@ -18,8 +18,33 @@ public class AchievementsList {
         to be 705 meters tall, but the building plans were later changed to add more floors.""", 828, "Distance"));
         uncompletedAchievements.put("Great Pyramid Of Giza", new Achievement(""" 
             Congratulations, you have walked the distance equivalent to the height of the Pyramid of Giza. 
-            Due to the removal of the limestone casing, the height of the pyramids has decreased from 146.6 to 138.5 meters! ”
-            """, 146.6, "Distance"));
+            Due to the removal of the limestone casing, the height of the pyramids has decreased 
+            from 146.6 to 138.5 meters! ”
+            """, 146000.6, "Distance"));
+        uncompletedAchievements.put("Mount Everest", new Achievement(""" 
+            Congratulations, you have walked the distance equivalent to the height of Mount Everest! 
+            As the largest mountain in the world, it has many visitors wanting to reach its peak.
+        """, 146000.6, "Distance"));
+        uncompletedAchievements.put("Twisting Torso", new Achievement(""" 
+            Congratulations, you have walked the distance equivalent to the height of the Turning Torso. 
+            The Turning Torso was based on a white marble sculpture by Calatrava that was based on 
+            the form of a twisting human being!
+        """, 190, "Distance"));
+        uncompletedAchievements.put("Small Dog", new Achievement(""" 
+            Congratulations, you have lost the same amount of calories a small dog consumes daily! 
+            Contrary to the rest of the animal kingdom, smaller dogs live longer than bigger ones!
+        """, 350, "Calories"));
+        uncompletedAchievements.put("Bald Eagle", new Achievement(""" 
+            Congratulations, you have lost the same amount of calories a bald eagle consumes daily! 
+            Contrary to its name, bald eagles are not actually bald!
+        """, 550, "Calories"));
+        uncompletedAchievements.put("Cheetah", new Achievement(""" 
+            Congratulations, you have lost the same amount of calories a cheetah consumes daily! 
+            Cheetahs are the fastest land animal in the world and can reach up to 104km/h when chasing
+            their prey!
+        """, 2200, "Calories"));
+
+
     }
     //#endregion
     
