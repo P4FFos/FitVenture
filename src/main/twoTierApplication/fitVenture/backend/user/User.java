@@ -58,6 +58,10 @@ public class User {
         return name;
     }
 
+    public AchievementsList getListOfAchievement() {
+        return listOfachievements;
+    }
+
     public HashMap<String, Stats> getStats() {
         return statsMap;
     }

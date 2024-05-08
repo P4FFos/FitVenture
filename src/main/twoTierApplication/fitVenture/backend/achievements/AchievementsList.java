@@ -16,6 +16,10 @@ public class AchievementsList {
         Congratulations, you have walked the distance equivalent to 
         the height of the Burj Khalifa. Initially the building was supposed 
         to be 705 meters tall, but the building plans were later changed to add more floors.""", 828, "Distance"));
+        uncompletedAchievements.put("Great Pyramid Of Giza", new Achievement(""" 
+            Congratulations, you have walked the distance equivalent to the height of the Pyramid of Giza. 
+            Due to the removal of the limestone casing, the height of the pyramids has decreased from 146.6 to 138.5 meters! ”
+            """, 146.6, "Distance"));
     }
     //#endregion
     
