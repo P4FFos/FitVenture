@@ -74,8 +74,10 @@ public class AchievementsList {
     //#endregion
 
     public void checkCompletedAchievements(double distance, double calories){
+        HashMap<String, Achievement> temporaryHashMap = new HashMap<>(); //Create a temporary Hashmap to prevent the for each loop from breaking if a modification is made to the uncompletedAchievements Hashmap 
+        temporaryHashMap.putAll(this.uncompletedAchievements);
         if (!uncompletedAchievements.isEmpty()){
-            for (Map.Entry<String, Achievement> entry : uncompletedAchievements.entrySet()){
+            for (Map.Entry<String, Achievement> entry : temporaryHashMap.entrySet()){
                 Achievement achievement = entry.getValue();
                 String name = entry.getKey();
                 if (achievement.getTag().equals("Distance") && achievement.checkIfRequirementsAreMet(distance)){
