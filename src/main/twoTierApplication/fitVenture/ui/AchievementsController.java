@@ -53,7 +53,7 @@ public class AchievementsController {
             achievementName.setTextFill(Color.BLACK);
             
             // Creating and setting up the progressbar for the achievements
-            Label progressBarText = new Label(FitVentureStart.currentUser.totalDistanceSinceStart() + " Out Of " + values.getCompletionRequirement());
+            Label progressBarText = new Label();
             ProgressBar progressBar = new ProgressBar();
             progressBar.setPrefWidth(400.0);
             progressBar.setPrefHeight(40.0);
@@ -70,21 +70,24 @@ public class AchievementsController {
             if (values.getTag().equals("Distance")) {
                 if (FitVentureStart.currentUser.totalDistanceSinceStart() < values.getCompletionRequirement()) {
                     progressBar.setProgress(FitVentureStart.currentUser.totalDistanceSinceStart() / values.getCompletionRequirement());
-                    backgroundFill = new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY);
+                    backgroundFill = new BackgroundFill(Color.GREY, CornerRadii.EMPTY, Insets.EMPTY);
+                    progressBarText.setText(FitVentureStart.currentUser.totalDistanceSinceStart() + " Out Of " + values.getCompletionRequirement() + "m");
                 } else {
                     progressBar.setProgress(1);
                     progressBarText.setText("Done!");
-                    backgroundFill = new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY);
+                    backgroundFill = new BackgroundFill(Color.DARKGRAY, CornerRadii.EMPTY, Insets.EMPTY);
                 }
                 
             } else if (values.getTag().equals("Calories")) {
                 if (FitVentureStart.currentUser.totalCaloriesSinceStart() < values.getCompletionRequirement()) {
                     progressBar.setProgress(FitVentureStart.currentUser.totalCaloriesSinceStart() / values.getCompletionRequirement());
-                    backgroundFill = new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY);
+                    backgroundFill = new BackgroundFill(Color.GREY, CornerRadii.EMPTY, Insets.EMPTY);
+                    progressBarText.setText(FitVentureStart.currentUser.totalDistanceSinceStart() + " Out Of " + values.getCompletionRequirement() + "KCal");
+
                 } else {
                     progressBar.setProgress(1);
                     progressBarText.setText("Done!");
-                    backgroundFill = new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY);
+                    backgroundFill = new BackgroundFill(Color.DARKGRAY, CornerRadii.EMPTY, Insets.EMPTY);
                 }
             }
             
