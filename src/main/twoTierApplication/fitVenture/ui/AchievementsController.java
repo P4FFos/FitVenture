@@ -71,7 +71,7 @@ public class AchievementsController {
                 if (FitVentureStart.currentUser.totalDistanceSinceStart() < values.getCompletionRequirement()) {
                     progressBar.setProgress(FitVentureStart.currentUser.totalDistanceSinceStart() / values.getCompletionRequirement());
                     backgroundFill = new BackgroundFill(Color.GREY, CornerRadii.EMPTY, Insets.EMPTY);
-                    progressBarText.setText(FitVentureStart.currentUser.totalDistanceSinceStart() + " Out Of " + values.getCompletionRequirement() + "m");
+                    progressBarText.setText(String.format("%.2f Out Of %.2fm", FitVentureStart.currentUser.totalDistanceSinceStart(), values.getCompletionRequirement()));
                 } else {
                     progressBar.setProgress(1);
                     progressBarText.setText("Done!");
@@ -82,8 +82,8 @@ public class AchievementsController {
                 if (FitVentureStart.currentUser.totalCaloriesSinceStart() < values.getCompletionRequirement()) {
                     progressBar.setProgress(FitVentureStart.currentUser.totalCaloriesSinceStart() / values.getCompletionRequirement());
                     backgroundFill = new BackgroundFill(Color.GREY, CornerRadii.EMPTY, Insets.EMPTY);
-                    progressBarText.setText(FitVentureStart.currentUser.totalDistanceSinceStart() + " Out Of " + values.getCompletionRequirement() + "KCal");
-
+                    progressBarText.setText(String.format("%.2f Out Of %.2fKCal", FitVentureStart.currentUser.totalDistanceSinceStart(), values.getCompletionRequirement()));
+                    
                 } else {
                     progressBar.setProgress(1);
                     progressBarText.setText("Done!");
