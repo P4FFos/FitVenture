@@ -43,17 +43,17 @@ public class AchievementsController {
         for (Map.Entry<String, Achievement> entry : achievements.entrySet()) {
             String keyValue = entry.getKey();
             Achievement values = entry.getValue();
-            
+            // Creating the labels for the achievement
             Label achievementTag = new Label(values.getTag());
             Label achievementDesc = new Label(values.getDescription());
-            Label key = new Label(keyValue);
+            Label achievementName = new Label(keyValue);
             
             achievementTag.setTextFill(Color.BLACK);
             achievementDesc.setTextFill(Color.BLACK);
-            key.setTextFill(Color.BLACK);
+            achievementName.setTextFill(Color.BLACK);
             
+            // Creating and setting up the progressbar for the achievements
             Label progressBarText = new Label(FitVentureStart.currentUser.totalDistanceSinceStart() + " Out Of " + values.getCompletionRequirement());
-            
             ProgressBar progressBar = new ProgressBar();
             progressBar.setPrefWidth(400.0);
             progressBar.setPrefHeight(40.0);
@@ -63,7 +63,7 @@ public class AchievementsController {
             progressBarText.setPrefWidth(200.0);
             progressBarText.setLabelFor(progressBar);
 
-            AnchorPane allAnchorPane = new AnchorPane(key, achievementTag, achievementDesc, progressBar, progressBarText);
+            AnchorPane allAnchorPane = new AnchorPane(achievementName, achievementTag, achievementDesc, progressBar, progressBarText);
             
             BackgroundFill backgroundFill = new BackgroundFill(null, null, null);  
             
@@ -91,7 +91,7 @@ public class AchievementsController {
             setMargins(allAnchorPane);
             Border newBorder = new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.FULL));
             allAnchorPane.setBorder(newBorder);  
-            key.setBorder(newBorder);
+            achievementName.setBorder(newBorder);
             Background anchorBackground = new Background(backgroundFill);
             allAnchorPane.setBackground(anchorBackground);
             //achievementTag.setLabelFor(anchorPane);
