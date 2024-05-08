@@ -96,6 +96,20 @@ public class MainDashboardController {
         stage.show(); // showing the stage
     }
 
+    public void openAchievementsPage(ActionEvent event) throws IOException {
+        //loads AchievementsScene once user pressed the "Achievements" button
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("AchievementsScene.fxml"));
+        Parent root = loader.load(); // loading the AchievementsScene.fxml
+
+        AchievementsController achievementsController = loader.getController(); // getting achievements controller object
+        achievementsController.showAchievements();
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); // getting the stage
+        Scene scene = new Scene(root); // adding the parent to the scene
+        stage.setScene(scene); // adding scene to the stage
+        stage.show(); // showing the stage
+    }
+
     public void dayChart() { // dayChart is responsible to display 24 hours chart
         xAxis = new CategoryAxis(); // create object of CategoryAxis which is XAxis of the graph
         xAxis.setLabel("Hours"); // setting label to 24 hours

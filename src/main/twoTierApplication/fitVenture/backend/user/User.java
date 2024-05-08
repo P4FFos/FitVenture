@@ -1,11 +1,13 @@
 package fitVenture.backend.user;
 
+import fitVenture.backend.achievements.AchievementsList;
 import fitVenture.backend.goal.RunningGoal;
 import fitVenture.backend.goal.WeightGoal;
 import fitVenture.backend.stats.RaceStats;
 import fitVenture.backend.stats.Stats;
 import fitVenture.backend.utils.Current_Date;
 import java.util.HashMap;
+import java.util.Map;
 
 
 public class User {
@@ -19,7 +21,7 @@ public class User {
     private HashMap<String, RaceStats> raceStats;
     private HashMap<String, WeightGoal> weightGoal;
     private HashMap<String, RunningGoal> runningGoal;
-
+    private AchievementsList listOfachievements;
     // Empty constructor used by Jackson for Json deserializing
     public User() {
     }
@@ -32,9 +34,10 @@ public class User {
         this.height = height;
         this.name = name;
         this.statsMap = new HashMap<>();
+        listOfachievements = new AchievementsList();
     }
 
-    // User class get methods
+    //#region User class get methods
     public String getUsername() {
         return username;
     }
@@ -55,6 +58,10 @@ public class User {
         return name;
     }
 
+    public AchievementsList getListOfAchievement() {
+        return listOfachievements;
+    }
+
     public HashMap<String, Stats> getStats() {
         return statsMap;
     }
@@ -70,8 +77,9 @@ public class User {
     public HashMap<String, RunningGoal> getRunningGoal() {
         return runningGoal;
     }
+    //#endregion User class get methods
 
-    // User class set methods
+    //#region User class set methods
     public void setUsername(String username) {
         this.username = username;
     }
@@ -128,6 +136,7 @@ public class User {
         if (this.statsMap.containsKey(date)) return true;
         else return false;
     }
+    //#endregion User class set methods
 
     public void updateStats(String steps, String distance, String calories, String date){ // Updates the stats of an already existing entry
         int newSteps = Integer.parseInt(steps);
@@ -145,7 +154,6 @@ public class User {
         Stats stats = new Stats(updatedSteps, updatedDistance, updatedCalories);
         this.statsMap.put(date, stats);
     }
-
 
     // method to count total burned calories of a specific user for a specific period
     // used for weight goals calculation of the progress bar
@@ -186,5 +194,34 @@ public class User {
             }
         }
         return totalRanDistance;
+    }
+    
+    // Gets the total calories burnt since the creation of the user
+    public double totalCaloriesSinceStart(){
+        double totalCalories = 0.0;
+
+        // for loop to iterate over each value of the stats HashMap
+        for (Stats stat : this.statsMap.values()) {
+            totalCalories = totalCalories + Double.parseDouble(stat.getCalories());
+        }
+        return totalCalories;
+    }
+
+    // Gets the total distance traveled since the creation of the user
+    public double totalDistanceSinceStart(){
+        double totalDistance = 0.0;
+
+        // for loop to iterate over each value of the stats HashMap
+        for (Stats stat : this.statsMap.values()) {
+            totalDistance = totalDistance + Double.parseDouble(stat.getDistance());
+        }
+        return totalDistance;
+    }
+
+    public void checkCompletedAchievements(){
+        if (this.listOfachievements == null){
+            this.listOfachievements = new AchievementsList();
+        }
+        this.listOfachievements.checkCompletedAchievements(totalDistanceSinceStart(), totalCaloriesSinceStart());
     }
 }

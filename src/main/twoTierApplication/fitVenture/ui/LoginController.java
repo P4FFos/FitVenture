@@ -2,6 +2,7 @@ package fitVenture.ui;
 
 import fitVenture.backend.FitVenture;
 import fitVenture.backend.MQTTSubscriber;
+import fitVenture.backend.achievements.AchievementsList;
 import fitVenture.backend.MQTTPublisher;
 import fitVenture.backend.exceptions.LoginException;
 import javafx.event.ActionEvent;
@@ -44,6 +45,7 @@ public class LoginController {
             if (fitVenture.verifyUser(usernameText, passwordText)) {
                 // Store user object data, once user is logged in
                 FitVentureStart.currentUser = fitVenture.getUser(usernameText);
+                FitVentureStart.currentUser.checkCompletedAchievements();
 
                 // Publish to the MQTT broker
                 new MQTTPublisher();
