@@ -2,7 +2,7 @@
   "users" : {
     "user1" : {
       "username" : "user1",
-      "password" : "password1",
+      "password" : "12",
       "weight" : "60",
       "height" : "170",
       "name" : "",
@@ -197,6 +197,98 @@
           "distance" : "3000",
           "steps" : "3500",
           "calories" : "170"
+        }
+      },
+      "listOfAchievement" : {
+        "uncompletedAchievements" : {
+          "Great Pyramid Of Giza" : {
+            "description" : "Congratulations, you have walked the distance equivalent to the height of the Pyramid of Giza.\nDue to the removal of the limestone casing, the height of the pyramids has decreased\nfrom 146.6 to 138.5 meters! ”\n",
+            "tag" : "Distance",
+            "completionRequirement" : 146000.6,
+            "completionStatus" : false
+          },
+          "Mount Everest" : {
+            "description" : "    Congratulations, you have walked the distance equivalent to the height of Mount Everest!\n    As the largest mountain in the world, it has many visitors wanting to reach its peak.\n",
+            "tag" : "Distance",
+            "completionRequirement" : 146000.6,
+            "completionStatus" : false
+          }
+        },
+        "completedAchievements" : {
+          "Burj Khalifa" : {
+            "description" : "Congratulations, you have walked the distance equivalent to\nthe height of the Burj Khalifa. Initially the building was supposed\nto be 705 meters tall, but the building plans were later changed to add more floors.",
+            "tag" : "Distance",
+            "completionRequirement" : 828.0,
+            "completionStatus" : true
+          },
+          "Small Dog" : {
+            "description" : "    Congratulations, you have lost the same amount of calories a small dog consumes daily!\n    Contrary to the rest of the animal kingdom, smaller dogs live longer than bigger ones!\n",
+            "tag" : "Calories",
+            "completionRequirement" : 350.0,
+            "completionStatus" : true
+          },
+          "Bald Eagle" : {
+            "description" : "    Congratulations, you have lost the same amount of calories a bald eagle consumes daily!\n    Contrary to its name, bald eagles are not actually bald!\n",
+            "tag" : "Calories",
+            "completionRequirement" : 550.0,
+            "completionStatus" : true
+          },
+          "Twisting Torso" : {
+            "description" : "    Congratulations, you have walked the distance equivalent to the height of the Turning Torso.\n    The Turning Torso was based on a white marble sculpture by Calatrava that was based on\n    the form of a twisting human being!\n",
+            "tag" : "Distance",
+            "completionRequirement" : 190.0,
+            "completionStatus" : true
+          },
+          "Cheetah" : {
+            "description" : "    Congratulations, you have lost the same amount of calories a cheetah consumes daily!\n    Cheetahs are the fastest land animal in the world and can reach up to 104km/h when chasing\n    their prey!\n",
+            "tag" : "Calories",
+            "completionRequirement" : 2200.0,
+            "completionStatus" : true
+          }
+        },
+        "allAchievements" : {
+          "Great Pyramid Of Giza" : {
+            "description" : "Congratulations, you have walked the distance equivalent to the height of the Pyramid of Giza.\nDue to the removal of the limestone casing, the height of the pyramids has decreased\nfrom 146.6 to 138.5 meters! ”\n",
+            "tag" : "Distance",
+            "completionRequirement" : 146000.6,
+            "completionStatus" : false
+          },
+          "Burj Khalifa" : {
+            "description" : "Congratulations, you have walked the distance equivalent to\nthe height of the Burj Khalifa. Initially the building was supposed\nto be 705 meters tall, but the building plans were later changed to add more floors.",
+            "tag" : "Distance",
+            "completionRequirement" : 828.0,
+            "completionStatus" : true
+          },
+          "Small Dog" : {
+            "description" : "    Congratulations, you have lost the same amount of calories a small dog consumes daily!\n    Contrary to the rest of the animal kingdom, smaller dogs live longer than bigger ones!\n",
+            "tag" : "Calories",
+            "completionRequirement" : 350.0,
+            "completionStatus" : true
+          },
+          "Mount Everest" : {
+            "description" : "    Congratulations, you have walked the distance equivalent to the height of Mount Everest!\n    As the largest mountain in the world, it has many visitors wanting to reach its peak.\n",
+            "tag" : "Distance",
+            "completionRequirement" : 146000.6,
+            "completionStatus" : false
+          },
+          "Bald Eagle" : {
+            "description" : "    Congratulations, you have lost the same amount of calories a bald eagle consumes daily!\n    Contrary to its name, bald eagles are not actually bald!\n",
+            "tag" : "Calories",
+            "completionRequirement" : 550.0,
+            "completionStatus" : true
+          },
+          "Twisting Torso" : {
+            "description" : "    Congratulations, you have walked the distance equivalent to the height of the Turning Torso.\n    The Turning Torso was based on a white marble sculpture by Calatrava that was based on\n    the form of a twisting human being!\n",
+            "tag" : "Distance",
+            "completionRequirement" : 190.0,
+            "completionStatus" : true
+          },
+          "Cheetah" : {
+            "description" : "    Congratulations, you have lost the same amount of calories a cheetah consumes daily!\n    Cheetahs are the fastest land animal in the world and can reach up to 104km/h when chasing\n    their prey!\n",
+            "tag" : "Calories",
+            "completionRequirement" : 2200.0,
+            "completionStatus" : true
+          }
         }
       }
     }
