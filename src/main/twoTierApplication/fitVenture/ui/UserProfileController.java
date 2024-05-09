@@ -42,11 +42,15 @@ public class UserProfileController {
     @FXML
     public Label errorLabel;
     @FXML
-    public Label passwordLabel;
+    public Label labelForUsernameAndPassword;
     @FXML
     public PasswordField newPasswordField;
     @FXML
     public Button changePassword;
+    @FXML
+    public Button changeUsername;
+    @FXML
+    public TextField newUsernameField;
 
     // method to show information of a logged user in the user profile
     public void showData() {
@@ -176,11 +180,38 @@ public class UserProfileController {
             // updates the password of the user
             FitVentureStart.currentUser.setPassword(newPassword);
             FileHandler.jsonSerializer(FitVentureStart.jsonPath, FitVentureStart.fitVenture);
-            passwordLabel.setText("Password changed successfully");
+            labelForUsernameAndPassword.setText("Password successfully changed");
         } else if (newPassword.equals(currentPassword)) {
-            passwordLabel.setText("Failed. You entered the same password");
+            labelForUsernameAndPassword.setText("Failed. You entered the same password");
         } else if (newPassword.isEmpty()) {
-            passwordLabel.setText("Failed. You did not enter a password");
+            labelForUsernameAndPassword.setText("Failed. You did not enter a password");
+        }
+    }
+
+    // method to change the username of the user
+    public void changeUsername(ActionEvent event) throws IOException {
+        // get new username from the text field
+        String newUsername = newUsernameField.getText();
+        String currentUsername = FitVentureStart.currentUser.getUsername();
+        // checks if the new username field is not empty and new username is not the same as an old one
+        if (!newUsername.isEmpty() && !newUsername.equals(currentUsername)) {
+            // check if the username already exists in the hashmap of users
+            if (FitVentureStart.fitVenture.getUsers().containsKey(newUsername)) {
+                labelForUsernameAndPassword.setText("Failed. Username already exists");
+            } else {
+                // updates the username of the user
+                FitVentureStart.currentUser.setUsername(newUsername);
+                // update the hashmap
+                FitVentureStart.fitVenture.getUsers().remove(currentUsername);
+                FitVentureStart.fitVenture.getUsers().put(newUsername, FitVentureStart.currentUser);
+                FileHandler.jsonSerializer(FitVentureStart.jsonPath, FitVentureStart.fitVenture);
+                welcomeUsername.setText(newUsername);
+                labelForUsernameAndPassword.setText("Username successfully changed");
+            }
+        } else if (newUsername.equals(currentUsername)) {
+            labelForUsernameAndPassword.setText("Failed. You entered the same username");
+        } else if (newUsername.isEmpty()) {
+            labelForUsernameAndPassword.setText("Failed. You did not enter a username");
         }
     }
 

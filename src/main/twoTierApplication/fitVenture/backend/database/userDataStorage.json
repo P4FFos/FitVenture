@@ -2,7 +2,7 @@
   "users" : {
     "user1" : {
       "username" : "user1",
-      "password" : "12",
+      "password" : "password1",
       "weight" : "60",
       "height" : "170",
       "name" : "",
