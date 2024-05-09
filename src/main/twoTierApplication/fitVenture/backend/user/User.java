@@ -1,5 +1,6 @@
 package fitVenture.backend.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import fitVenture.backend.achievements.AchievementsList;
 import fitVenture.backend.goal.RunningGoal;
 import fitVenture.backend.goal.WeightGoal;
@@ -7,9 +8,9 @@ import fitVenture.backend.stats.RaceStats;
 import fitVenture.backend.stats.Stats;
 import fitVenture.backend.utils.Current_Date;
 import java.util.HashMap;
-import java.util.Map;
 
-
+// any unknown properties in JSON will be ignored (used because of the achievementsList)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
     // User class attributes and HashMap of stats to store Distance, Calories and Steps
     private String username;

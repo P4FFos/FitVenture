@@ -5,6 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
+<?import javafx.scene.control.PasswordField?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fitVenture.ui.UserProfileController">
     <children>
         <Label layoutX="668.0" layoutY="375.0" text="WELCOME TO THE PROFILE " />
@@ -24,5 +25,8 @@
       <Label layoutX="620.0" layoutY="430.0" text="Full name:" AnchorPane.rightAnchor="1240.0" />
       <TextField fx:id="nameBox" layoutX="679.0" layoutY="425.0" prefHeight="25.0" prefWidth="65.0" promptText="name" visible="false" AnchorPane.rightAnchor="1166.0" />
       <Label fx:id="fullNameValue" layoutX="685.0" layoutY="430.0" prefHeight="17.0" prefWidth="109.0" AnchorPane.leftAnchor="690.0" />
+      <Button fx:id="changePassword" layoutX="605.0" layoutY="661.0" mnemonicParsing="false" onAction="#changePassword" prefHeight="30.0" prefWidth="133.0" text="Change password" />
+      <PasswordField fx:id="newPasswordField" layoutX="751.0" layoutY="663.0" promptText="password" />
+      <Label fx:id="passwordLabel" layoutX="603.0" layoutY="629.0" prefHeight="17.0" prefWidth="308.0" text="" />
     </children>
 </AnchorPane>

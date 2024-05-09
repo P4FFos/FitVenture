@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -40,6 +41,12 @@ public class UserProfileController {
     public TextField nameBox;
     @FXML
     public Label errorLabel;
+    @FXML
+    public Label passwordLabel;
+    @FXML
+    public PasswordField newPasswordField;
+    @FXML
+    public Button changePassword;
 
     // method to show information of a logged user in the user profile
     public void showData() {
@@ -157,6 +164,24 @@ public class UserProfileController {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    // method to change the password of the user
+    public void changePassword(ActionEvent event) throws IOException {
+        // get new password from the text field
+        String newPassword = newPasswordField.getText();
+        String currentPassword = FitVentureStart.currentUser.getPassword();
+        // checks if the new password field is not empty and new password is not the same as an old one
+        if (!newPassword.isEmpty() && !newPassword.equals(currentPassword)) {
+            // updates the password of the user
+            FitVentureStart.currentUser.setPassword(newPassword);
+            FileHandler.jsonSerializer(FitVentureStart.jsonPath, FitVentureStart.fitVenture);
+            passwordLabel.setText("Password changed successfully");
+        } else if (newPassword.equals(currentPassword)) {
+            passwordLabel.setText("Failed. You entered the same password");
+        } else if (newPassword.isEmpty()) {
+            passwordLabel.setText("Failed. You did not enter a password");
+        }
     }
 
     // button to return back to the MainDashboard
