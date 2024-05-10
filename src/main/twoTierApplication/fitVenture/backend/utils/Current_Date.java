@@ -26,6 +26,9 @@ public class Current_Date {
             }
         }
         */
+        if (date.length() != 13) {
+            throw new IllegalArgumentException("A complete date format has to be provided.");
+        }
         for (int i = 0; i < date.length(); i++) {
             char chr = date.charAt(i);
             if (allowedCharacters.contains(chr)) {
@@ -35,9 +38,6 @@ public class Current_Date {
             }
         }
 
-        if (newDate.length() != 10) {
-            throw new IllegalArgumentException("A complete date format has to be provided.");
-        }
 
         int dateInInt = Integer.parseInt(newDate);
         return dateInInt;
