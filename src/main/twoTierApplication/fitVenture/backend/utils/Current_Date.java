@@ -26,16 +26,21 @@ public class Current_Date {
             }
         }
         */
+        
         if (date.length() != 13) {
             throw new StringIndexOutOfBoundsException("A complete date format has to be provided.");
         }
-        for (int i = 0; i < date.length(); i++) {
-            char chr = date.charAt(i);
-            if (allowedCharacters.contains(chr)) {
-                newDate += chr;
-            } else {
-                throw new IllegalArgumentException("The method should not allow any symbols or characters that are not integers(1, 2, 3, ...) and dashes (-).");
+
+        try {
+            for (int i = 0; i < date.length(); i++) {
+                char chr = date.charAt(i);
+                if (allowedCharacters.contains(chr)) {
+                    newDate += chr;
+                } 
             }
+            
+        } catch (Exception e) {
+            throw new IllegalArgumentException("The method should not allow any symbols or characters that are not integers(1, 2, 3, ...) and dashes (-).");
         }
 
 
