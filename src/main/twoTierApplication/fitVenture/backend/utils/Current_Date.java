@@ -35,7 +35,9 @@ public class Current_Date {
             for (int i = 0; i < date.length(); i++) {
                 char chr = date.charAt(i);
                 if (allowedCharacters.contains(chr)) {
-                    newDate += chr;
+                    if (chr != '-') {
+                        newDate += chr;
+                    }
                 } 
             }
             
