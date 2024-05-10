@@ -15,8 +15,8 @@ cache:
     - .m2/repository
     - target
 
-build_job:
-  stage: build
+compile_job:
+  stage: compile
   tags:
     - docker 
 
@@ -34,21 +34,3 @@ test_job:
   script: 
     - echo "Maven test started"
     - "mvn test"
-
-package_job:
-  stage: package
-  tags:
-    - docker 
-
-  script: 
-    - echo "Maven packaging started"
-    - "mvn package"
-
-
-Deploy_job:
-  stage: deploy
-  tags:
-    - docker 
-    
-  script: 
-    - echo "Maven deploy started"
