@@ -21,7 +21,6 @@ compile_job:
     - docker 
 
   script: 
-    - echo "Potaot"
     - echo "Maven compile started"
     - "mvn compile"
 
