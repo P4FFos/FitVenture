@@ -18,9 +18,6 @@ public class CurrentDateTest {
         //Expecting failure
         Throwable exceptionIntSpecDate = assertThrows(IllegalArgumentException.class, ()-> Current_Date.getIntegerOfSpecificDate("This should not be allowed"));
         assertEquals("The method should not allow any symbols or characters that are not integers(1, 2, 3, ...) and dashes (-).", exceptionIntSpecDate.getMessage());
-
-        assertEquals(-1, Current_Date.getIntegerOfSpecificDate("This should not be allowed"), 
-        "The method should not allow any symbols or characters that are not integers(1, 2, 3, ...) and dashes (-).");
         
         Throwable exceptionNonCompleteFormat = assertThrows(StringIndexOutOfBoundsException.class, ()-> Current_Date.getIntegerOfSpecificDate("2004"));
         assertEquals("A complete date format has to be provided.", exceptionNonCompleteFormat.getMessage());
