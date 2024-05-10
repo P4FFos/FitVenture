@@ -37,7 +37,9 @@ public class Current_Date {
                 if (!allowedCharacters.contains(chr)) {
                     throw new IllegalArgumentException("The method should not allow any symbols or characters that are not integers(1, 2, 3, ...) and dashes (-).");
                 } 
-                    
+                if (chr == ' '){
+                    continue;
+                }    
                 if (chr != '-') {
                     newDate += chr;
                 }
