@@ -1,7 +1,7 @@
 variables:
   MAVEN_OPTS: -Dmaven.repo.local=.m2/repository
 
-image: maven:latest
+#image: maven:latest
 
 stages:
     - compile
@@ -20,6 +20,7 @@ compile_job:
     - docker 
 
   script: 
+    - docker pull jelastic/maven:3.9.6-openjdk-22.0.1-almalinux-9
     - echo "Maven compile started"
     - "mvn compile"
 
@@ -30,5 +31,6 @@ test_job:
     - docker 
 
   script: 
+    - docker pull jelastic/maven:3.9.6-openjdk-22.0.1-almalinux-9
     - echo "Maven test started"
     - "mvn test"
