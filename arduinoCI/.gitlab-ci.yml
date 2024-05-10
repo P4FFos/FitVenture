@@ -10,7 +10,7 @@ before_script:
 
 stages:
   - compile
-
+  - deploy
 
 
 build_compile:
@@ -22,8 +22,7 @@ build_compile:
     - pwd                                     
     - cd ./src/main/twoTierApplication/fitVenture/Wio
     - arduino-cli lib list
-    - arduino-cli board list
+    - arduino-cli compile -b Seeeduino:samd:seeed_wio_terminal
   except:
     - tags
 
-       
