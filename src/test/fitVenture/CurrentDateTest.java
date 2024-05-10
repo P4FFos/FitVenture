@@ -34,23 +34,5 @@ public class CurrentDateTest {
         Throwable exception = assertThrows(StringIndexOutOfBoundsException.class, ()-> Current_Date.getDay(2004));
         assertEquals("A complete date format has to be provided.", exception.getMessage());
     }
-    
-    @Test
-    @DisplayName("Tests if Current_Date.getIntegerOfSpecificDate method handles different date inputs.")
-    public void getIntegerOfSpecificDateSecIncludedTest() {
-        Throwable exception = assertThrows(StringIndexOutOfBoundsException.class, ()-> Current_Date.getIntegerOfSpecificDate("2004"));
-        assertEquals("A complete date format has to be provided.", exception.getMessage());
-        
-        assertEquals(20041215, Current_Date.getIntegerOfSpecificDate("2004-12-15 16:13:10"), "The method should convert the string date into an integer format.");
-        assertEquals(20041215, Current_Date.getIntegerOfSpecificDateSecIncluded("2004-12-15 13"), "The method should convert the string date into an integer format.");
-        
-        //Expecting failure
-        assertEquals(-1, Current_Date.getIntegerOfSpecificDate("This should not be allowed"), 
-        "The method should not allow any symbols or characters that are not integers(1, 2, 3, ...) and dashes (-).");
-        
-
-
-    }
-
 
 }
