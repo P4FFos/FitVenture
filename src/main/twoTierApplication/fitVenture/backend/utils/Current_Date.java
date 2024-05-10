@@ -38,7 +38,7 @@ public class Current_Date {
                     throw new IllegalArgumentException("The method should not allow any symbols or characters that are not integers(1, 2, 3, ...) and dashes (-).");
                 } 
                 // Skip over spaces and dashes so that newDate can be parsed into an integer later
-                if (chr != ' ' || chr != '-'){ 
+                if (chr != ' ' && chr != '-'){ 
                     newDate += chr;
                 }
             }
