@@ -19,5 +19,5 @@ arduino-cli lib install "PubSubClient"
 arduino-cli lib install "Accelerometer_MMA7660"
 arduino-cli lib install "ArduinoJson"
 arduino-cli lib install "TFT_eSPI"
-
+arduino-cli lib install "Grove Temperature And Humidity Sensor"
 cd -

@@ -161,7 +161,7 @@ void loop() {
 
   getTemperatureAndHumidity(&temperature, &humidity);
   // after getting, we publish the temphumidity data to the app
-  publishTemperatureAndHumidity(temperature, humidity);
+  publishTempAndHumidity(temperature, humidity);
   displayTemperatureAndHumidity(temperature, humidity);
 
   // Suggest activity based on weather conditions
