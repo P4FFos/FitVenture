@@ -20,7 +20,7 @@ public class RunningGoal {
         this.runGoalInM = runGoalInKM * KM_TO_METERS_MULTIPLIER;
     }
 
-    // get methods for runGoal
+    //#region RunningGoal Class Get Methods
     public double getRunGoalInKM() {
         return this.runGoalInKM;
     }
@@ -28,8 +28,9 @@ public class RunningGoal {
     public double getRunGoalInM() {
         return this.runGoalInM;
     }
+    //#endregion
 
-    // set methods for runGoal
+    //#region RunningGoal Class Set Methods
     public void setRunGoalInKm(double runGoalInKM) {
         this.runGoalInKM = runGoalInKM;
     }
@@ -37,4 +38,5 @@ public class RunningGoal {
     public void setRunGoalInM(double runGoalInM) {
         this.runGoalInM = runGoalInM;
     }
+    //#endregion
 }

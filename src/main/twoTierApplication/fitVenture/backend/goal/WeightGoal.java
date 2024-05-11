@@ -20,7 +20,7 @@ public class WeightGoal {
         this.goalInCalories = weightGoalInKg * CALORIES_PER_KG;
     }
 
-    // get methods for weightGoal
+    //#region WeightGoal Class Get Methods
     public double getGoalWeightInKg() {
         return this.weightGoalInKg;
     }
@@ -28,8 +28,9 @@ public class WeightGoal {
     public double getGoalInCalories() {
         return this.goalInCalories;
     }
+    //#endregion
 
-    // set methods for weightGoal
+    //#region WeightGoal Class Set Methods
     public void setGoalWeightInKg(double weightGoalInKg) {
         this.weightGoalInKg = weightGoalInKg;
     }
@@ -37,4 +38,5 @@ public class WeightGoal {
     public void setGoalInCalories(double goalInCalories) {
         this.goalInCalories = goalInCalories;
     }
+    //#endregion
 }
