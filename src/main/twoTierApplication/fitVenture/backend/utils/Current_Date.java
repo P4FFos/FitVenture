@@ -66,4 +66,20 @@ public class Current_Date {
         int day = Integer.parseInt(days);
         return day;
     }
+
+    public static int getWeek(int date){ // This method gets the week of the year from provided date
+        if (!String.valueOf(date).equals("10")) {
+            throw new StringIndexOutOfBoundsException("A complete date format has to be provided.");
+        }
+
+        Calendar calendar = Calendar.getInstance();
+        String stringDate = String.valueOf(date);
+
+        int year = Integer.parseInt(stringDate.substring(0, 4));
+        int month = Integer.parseInt(stringDate.substring(4,6)) - 1; // We subtract 1 because the month field is zero-based in the Calendar class.
+        int day = Integer.parseInt(stringDate.substring(6, 8));
+        
+        calendar.set(year, month, day);
+        return calendar.get(Calendar.WEEK_OF_YEAR);
+    }
 }
