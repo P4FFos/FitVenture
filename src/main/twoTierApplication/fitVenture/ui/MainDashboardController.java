@@ -31,6 +31,7 @@ public class MainDashboardController {
 
     private String choiceOfGraph = "";
 
+    //#region FXML variables
     @FXML
     private BorderPane borderPane; // reference to the BorderPane in the fxml
     private ObservableList observableList; // Observable reference for observable object
@@ -40,6 +41,7 @@ public class MainDashboardController {
 
     @FXML
     private Label humLabel; // reference to the humidity label in the fxml
+    //#endregion
 
     private ArrayList<Double> caloriesList; // a list to hold calorie values
     private ArrayList<Double> distanceList; // a list to hold distance values
@@ -110,6 +112,7 @@ public class MainDashboardController {
         stage.show(); // showing the stage
     }
 
+    //#region Chart methods
     public void dayChart() { // dayChart is responsible to display 24 hours chart
         xAxis = new CategoryAxis(); // create object of CategoryAxis which is XAxis of the graph
         xAxis.setLabel("Hours"); // setting label to 24 hours
@@ -202,6 +205,7 @@ public class MainDashboardController {
                 break;
         }
     }
+    //#endregion
 
     public void addData(ArrayList<Integer> list, int startDay) { // methods that is responsible for adding data
         // creation of XYChart that is used by barChart to map x and y Axis of the graph
