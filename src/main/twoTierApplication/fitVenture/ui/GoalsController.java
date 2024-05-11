@@ -3,7 +3,7 @@ package fitVenture.ui;
 import fitVenture.backend.FitVenture;
 import fitVenture.backend.goal.RunningGoal;
 import fitVenture.backend.goal.WeightGoal;
-import fitVenture.backend.utils.Current_Date;
+import fitVenture.backend.utils.DateUtil;
 import fitVenture.backend.utils.FileHandler;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -38,6 +38,7 @@ public class GoalsController {
     private ArrayList<Integer> runGoalList; // holds runGoals
     private String choiceOfGraph = "";
 
+    //#region FXML variables
     @FXML
     private BorderPane borderPane; // reference to the BorderPane in the fxml
     @FXML
@@ -54,6 +55,7 @@ public class GoalsController {
     private Label weightGoalCounter; // Label to display the number of completed weight goals
     @FXML
     private Label runGoalCounter; // Label to display the number of completed run goals
+    //#endregion
 
     private ArrayList<HBox> weightGoalArrayList;
     private ArrayList<String> listOfWeightKeys;
@@ -67,10 +69,11 @@ public class GoalsController {
     // FitVenture object used for JSON serializer
     FitVenture fitVenture = FitVentureStart.fitVenture;
 
+    //#region Add goals
     // this method adds the created goal to the hashMap of the user
     public void addWeightGoal(ActionEvent event) throws Exception {
         // gets date today to assign it to the new goal
-        String goalCreationDate = Current_Date.getDateToday(new Date());
+        String goalCreationDate = DateUtil.getDateToday(new Date());
 
         // checks if the entered value is not null
         // saves new goal into the HashMap
@@ -91,7 +94,7 @@ public class GoalsController {
     public void addRunGoal(ActionEvent event) throws Exception {
         // gets date today to assign it to the new goal
 
-        String goalCreationDate = Current_Date.getDateToday(new Date());
+        String goalCreationDate = DateUtil.getDateToday(new Date());
         // checks if the entered value is not null
         // saves new goal into the HashMap
         if (userRunGoalValue.getText() != null) {
@@ -106,6 +109,7 @@ public class GoalsController {
         }
         viewRunGoalsInProgress();
     }
+    //#endregion
 
     // the method is responsible for showing progress to the user in the progressBar
     public void viewWeightGoalsInProgress() {
@@ -195,7 +199,7 @@ public class GoalsController {
         runVBoxContainer.getChildren().addAll(runGoalArrayList);// add everything to the container that is reserved a space in the fxml file
         runGoalCounter.setText("You have completed " + doneRunGoalCounter() +" running goals."); //Displays the number of completed run goals
     }
-
+    //#region Sorting value arrays
     // This method is responsible for sorting HBox objects by date
     private void sortWeightArray(HBox hBoxWeight, String goalCreationDate) {
         // If the list is empty, simply add the HBox and its key
@@ -204,8 +208,8 @@ public class GoalsController {
             listOfWeightKeys.add(goalCreationDate);
         } else {
             int lastIndex = listOfWeightKeys.size() - 1;
-            int currentGoalKey = Current_Date.getIntegerOfSpecificDate(listOfWeightKeys.get(lastIndex));
-            int newGoalKey = Current_Date.getIntegerOfSpecificDate(goalCreationDate);
+            int currentGoalKey = DateUtil.getIntegerOfSpecificDate(listOfWeightKeys.get(lastIndex));
+            int newGoalKey = DateUtil.getIntegerOfSpecificDate(goalCreationDate);
 
             // If the new key is greater than the current last key,
             // add the HBox and its key at the end
@@ -217,7 +221,7 @@ public class GoalsController {
                 // Otherwise, find the correct position to insert the new key
                 int indexToInsert = 0;
                 while (indexToInsert <= lastIndex &&
-                        Current_Date.getIntegerOfSpecificDate(listOfWeightKeys.get(indexToInsert)) < newGoalKey) {
+                        DateUtil.getIntegerOfSpecificDate(listOfWeightKeys.get(indexToInsert)) < newGoalKey) {
                     indexToInsert++;
                 }
 
@@ -236,8 +240,8 @@ public class GoalsController {
             listOfRunKeys.add(goalCreationDate);
         } else {
             int lastIndex = listOfRunKeys.size() - 1;
-            int currentGoalKey = Current_Date.getIntegerOfSpecificDate(listOfRunKeys.get(lastIndex));
-            int newGoalKey = Current_Date.getIntegerOfSpecificDate(goalCreationDate);
+            int currentGoalKey = DateUtil.getIntegerOfSpecificDate(listOfRunKeys.get(lastIndex));
+            int newGoalKey = DateUtil.getIntegerOfSpecificDate(goalCreationDate);
 
             // If the new key is greater than the current last key,
             // add the HBox and its key at the end
@@ -249,7 +253,7 @@ public class GoalsController {
                 // Otherwise, find the correct position to insert the new key
                 int indexToInsert = 0;
                 while (indexToInsert <= lastIndex &&
-                        Current_Date.getIntegerOfSpecificDate(listOfRunKeys.get(indexToInsert)) < newGoalKey) {
+                        DateUtil.getIntegerOfSpecificDate(listOfRunKeys.get(indexToInsert)) < newGoalKey) {
                     indexToInsert++;
                 }
 
@@ -259,7 +263,9 @@ public class GoalsController {
             }
         }
     }
+    //#endregion
 
+    //#region Counters
     // method to count the number of completed weight goals
     public int doneWeightGoalCounter() {
         int weightGoalCounter = 0; //Initialises goal counter
@@ -285,6 +291,7 @@ public class GoalsController {
         }
         return runGoalCounter;
     }
+    //#endregion
 
     // button to return back to the MainDashboard
     public void returnBackToMain(ActionEvent event) throws IOException {
@@ -301,6 +308,7 @@ public class GoalsController {
         stage.show();
     }
 
+    //#region Charts
     // the method shows completed goals during the week
     public void weekChart() {
         xAxis = new CategoryAxis(); // create object of CategoryAxis which is XAxis of the graph
@@ -313,41 +321,57 @@ public class GoalsController {
         List numbersList = List.of(
                 "1", "2", "3", "4", "5", "6", "7"
         );
-
+        
         observableList = FXCollections.observableList(numbersList); // create observable object
         xAxis.setCategories(observableList); // set the observable to the XAxis
-
+        
         ArrayList weekList = getWeekData(); // get week data for completed goals
         barChart = new BarChart(xAxis, yAxis); // create the barChart object
         addData(weekList, 1); // add data to the chart
-
+        
         barChart.setMaxHeight(935); // set the value of maxHeight of barchart, since it's in the borderPane
         barChart.setMaxWidth(1867); // set the maxWidth of the barChart, since it's in the borderPane
         borderPane.setCenter(barChart); // set the barchart to the center of the borderPane
     }
-
+    
     public void monthChart() {
         xAxis = new CategoryAxis();// create object of CategoryAxis which is XAxis of the graph
         xAxis.setLabel("Days"); // setting the label on the X side
-
+        
         yAxis = new NumberAxis(); //create object of NumberAxis which is Yaxis of the graph
         yAxis.setLabel("Goals"); // setting the label on the Y side
-
+        
         List numbersList = List.of("1", "2", "3", "4", "5", "6", "7", "8", "9",
-                "10", "11", "12", "13", "14", "15", "16", "17", "18", "19",
-                "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"
+        "10", "11", "12", "13", "14", "15", "16", "17", "18", "19",
+        "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"
         ); // a list of values to be used for XAxis.
-
+        
         observableList = FXCollections.observableList(numbersList); // create the observable object
         xAxis.setCategories(observableList); // set the observable to the XAxis
-
+        
         ArrayList monthList = getMonthData(); // get data for the month period
         barChart = new BarChart(xAxis, yAxis); // create barChart
         addData(monthList, 1); // add data to the chart
-
+        
         barChart.setMaxHeight(935); // set the maxHeight of the barChart, since it's in the borderPane
         barChart.setMaxWidth(1867); // set the maxWidth of the barchart, since it's in the borderPane
         borderPane.setCenter(barChart); // set the barchart in the center of the borderPane
+    }
+    // display week chart when user clicks on the Week Chart button
+    public void openWeekChart() throws Exception {
+        choiceOfGraph = "weekly";
+        showChart();
+    }
+
+    // display month chart when user clicks on the Month Chart button
+    public void openMonthChart() throws Exception {
+        choiceOfGraph = "monthly";
+        showChart();
+    }
+
+    // update the chart when user clicks on the Update Chart button
+    public void updateChart(MouseEvent event) {
+        showChart();
     }
 
     // calls different methods for charts based on the user choose
@@ -364,7 +388,9 @@ public class GoalsController {
                 break;
         }
     }
+    //#endregion
 
+    
     // method to add data to the chart
     public void addData(ArrayList<Integer> list, int startDay) {
         // creation of XYChart that is used by barChart to map x and y Axis of the graph
@@ -409,7 +435,7 @@ public class GoalsController {
         }
 
         int totalDays = 7;
-        int currentDate = Current_Date.getDateTodayAsInteger(); // getting today's date as an integer
+        int currentDate = DateUtil.getDateTodayAsInteger(); // getting today's date as an integer
 
         // goes through each weight goal of the user and checks if its completed
         mapOfWeightGoals.forEach((goalCreationDate, goalValue) -> {
@@ -418,7 +444,7 @@ public class GoalsController {
             double doneProgress = FitVentureStart.currentUser.getTotalBurnedCalories(goalCreationDate);
 
             if (goal <= doneProgress) { // checks if the goal was completed
-                int daysFromCompletion = currentDate - Current_Date.getIntegerOfSpecificDate(goalCreationDate);
+                int daysFromCompletion = currentDate - DateUtil.getIntegerOfSpecificDate(goalCreationDate);
                 if (daysFromCompletion < totalDays) { // checks if the completion was within 7 days
                     weightArray[daysFromCompletion] += 1; // add the progress to the array
                 }
@@ -432,7 +458,7 @@ public class GoalsController {
             double doneProgress = FitVentureStart.currentUser.getTotalRanDistance(goalCreationDate);
 
             if (goal <= doneProgress) { // checks if the goal was completed
-                int daysFromCompletion = currentDate - Current_Date.getIntegerOfSpecificDate(goalCreationDate);
+                int daysFromCompletion = currentDate - DateUtil.getIntegerOfSpecificDate(goalCreationDate);
                 if (daysFromCompletion < totalDays) { // checks if the completion was in last 7 days
                     runArray[daysFromCompletion] += 1; // add the progress to the array
                 }
@@ -475,7 +501,7 @@ public class GoalsController {
         }
 
         int totalDays = 7;
-        int currentDate = Current_Date.getDateTodayAsInteger(); // getting today's date as an integer
+        int currentDate = DateUtil.getDateTodayAsInteger(); // getting today's date as an integer
 
         // goes through each weight goal of the user and checks if its completed
         mapOfWeightGoals.forEach((goalCreationDate, goalValue) -> {
@@ -484,7 +510,7 @@ public class GoalsController {
             double doneProgress = FitVentureStart.currentUser.getTotalBurnedCalories(goalCreationDate);
 
             if (goal <= doneProgress) { // checks if the goal was completed
-                int daysFromCompletion = currentDate - Current_Date.getIntegerOfSpecificDate(goalCreationDate);
+                int daysFromCompletion = currentDate - DateUtil.getIntegerOfSpecificDate(goalCreationDate);
                 if (daysFromCompletion < totalDays) { // checks if the completion was within 31 days
                     weightArray[daysFromCompletion] += 1; // add the progress to the array
                 }
@@ -498,7 +524,7 @@ public class GoalsController {
             double doneProgress = FitVentureStart.currentUser.getTotalRanDistance(goalCreationDate);
 
             if (goal <= doneProgress) { // checks if the goal was completed
-                int daysFromCompletion = currentDate - Current_Date.getIntegerOfSpecificDate(goalCreationDate);
+                int daysFromCompletion = currentDate - DateUtil.getIntegerOfSpecificDate(goalCreationDate);
                 if (daysFromCompletion < totalDays) { // checks if the completion was within 31 days
                     runArray[daysFromCompletion] += 1; // add the progress to the array
                 }
@@ -520,20 +546,4 @@ public class GoalsController {
         return emptyListForWeightGoal;
     }
 
-    // display week chart when user clicks on the Week Chart button
-    public void openWeekChart() throws Exception {
-        choiceOfGraph = "weekly";
-        showChart();
-    }
-
-    // display month chart when user clicks on the Month Chart button
-    public void openMonthChart() throws Exception {
-        choiceOfGraph = "monthly";
-        showChart();
-    }
-
-    // update the chart when user clicks on the Update Chart button
-    public void updateChart(MouseEvent event) {
-        showChart();
-    }
 }

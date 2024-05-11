@@ -1,11 +1,13 @@
 package fitVenture.backend.stats;
 
 public class Stats {
+    // stats class attributes
     private String distance;
     private String steps;
     private String calories;
 
-    // Empty constructor used by Jackson for Json deserializing
+    // Empty constructor used by Jackson for Json deserializing,
+    // every time we run the application, the user object is created with the empty constructor
     public Stats() {
     }
 
@@ -16,7 +18,7 @@ public class Stats {
         this.calories = calories;
     }
 
-    // Get methods for stats attributes
+    //#region Get Methods
     public String getSteps(){
         return this.steps;
     }
@@ -28,8 +30,9 @@ public class Stats {
     public String getCalories(){
         return this.calories;
     }
+    //#endregion
 
-    // Set methods for stats attributes
+    //#region Set Methods
     public void setSteps(String steps){
         this.steps = steps;
     }
@@ -41,5 +44,5 @@ public class Stats {
     public void setCalories(String calories){
         this.calories = calories;
     }
-
+    //#endregion
 }

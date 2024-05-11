@@ -1,7 +1,7 @@
 package fitVenture.ui;
 
 import fitVenture.backend.stats.Stats;
-import fitVenture.backend.utils.Current_Date;
+import fitVenture.backend.utils.DateUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,6 +21,8 @@ public class ChallengesController {
     private Parent root;
     private Stage stage;
     private Scene scene;
+    
+    //#region FXML variables
     @FXML
     public Label welcomeUsername;
     @FXML
@@ -41,7 +43,9 @@ public class ChallengesController {
     private Label kcalProgLabel;
     @FXML
     private Label distProgLabel;
+    //#endregion
 
+    //#region Constants
     private final int LOW_BMI_STEPS = 3000;
     private final int NORMAL_BMI_STEPS = 4000;
     private final int HIGH_BMI_STEPS = 5000;
@@ -72,6 +76,7 @@ public class ChallengesController {
     private final String NORMAL_BMI_DIST_CHALLENGE = "Your daily challenge is: Walk " + NORMAL_BMI_DIST + " km today!";
     private final String HIGH_BMI_DIST_CHALLENGE = "Your daily challenge is: Walk " + HIGH_BMI_DIST + " km today!";
     private final String VERY_HIGH_BMI_DIST_CHALLENGE = "Your daily challenge is: Walk " + VERY_HIGH_BMI_DIST + " km today!";
+    //#endregion
 
     public void showChallenges() {
 
@@ -97,7 +102,7 @@ public class ChallengesController {
         double totalDistToday = 0.0;
 
         // Get today's date
-        String todayDate = Current_Date.getDateToday(new Date()).substring(0, 10);
+        String todayDate = DateUtil.getDateToday(new Date()).substring(0, 10);
 
         // Iterate over the entries in the stats HashMap
         for (Map.Entry<String, Stats> valueFromHashmap : statsHashMap.entrySet()) {

@@ -7,7 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test; 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class CurrentDateTest { 
+public class DateUtilTest { 
 
     @Test
     @DisplayName("Tests if Current_Date.getIntegerOfSpecificDate method handles different date inputs.")

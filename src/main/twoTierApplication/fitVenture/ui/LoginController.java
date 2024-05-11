@@ -56,6 +56,7 @@ public class LoginController {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("MainDashboardScene.fxml"));
                 root = loader.load();
 
+                // Loads the chart in the main dashboard once user login
                 MainDashboardController mainDashboardController = loader.getController();
                 mainDashboardController.showChart();
 
