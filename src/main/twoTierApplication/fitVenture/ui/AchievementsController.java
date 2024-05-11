@@ -159,9 +159,9 @@ public class AchievementsController {
 
     @FXML
     public void returnBackToMain(ActionEvent event) throws IOException {
-        // loads LoginRegistrationScene once user pressed the "return back" button
+        // loads MainDashboardScene once user pressed the "return back" button
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MainDashboardScene.fxml"));
-        Parent root = loader.load(); // loading the AchievementsScene.fxml
+        Parent root = loader.load(); // loading the MainDashboardScene.fxml
 
         MainDashboardController mainDashboardController = loader.getController();
         mainDashboardController.showChart();
