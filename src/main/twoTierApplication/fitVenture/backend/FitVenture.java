@@ -10,13 +10,13 @@ import fitVenture.backend.user.User;
 import java.util.Date;
 import java.util.HashMap;
 
-import static fitVenture.backend.utils.Current_Date.getDateToday;
+import static fitVenture.backend.utils.DateUtil.getDateToday;
 
 public class FitVenture {
-    // A HashMap to store all the users
+    // HashMap to store all the users
     private HashMap<String, User> users;
 
-    // Constructor
+    // FitVenture class constructor
     public FitVenture() {
         users = new HashMap<>();
     }
@@ -26,7 +26,7 @@ public class FitVenture {
         return users;
     }
 
-    // Set new HashMap of users (used by Jackson for Json deserializing)
+    // Set new HashMap of users
     public void setUsers(HashMap<String, User> users) {
         this.users = users;
     }
@@ -36,7 +36,7 @@ public class FitVenture {
         users.put(user.getUsername(), user);
     }
 
-    // Method to get user
+    // Method to get specific user from the HashMap by username
     public User getUser(String username) {
         return users.get(username);
     }
@@ -66,7 +66,7 @@ public class FitVenture {
     }
 
     // Verifies the user
-    // if user is verified - return true
+    // if user is verified - return boolean value - "true"
     // if user is not verified - return an error message based on the condition of the input
     public boolean verifyUser(String username, String password) throws LoginException {
         boolean correctUsername = false;
@@ -118,7 +118,8 @@ public class FitVenture {
             throw new SaveDataException("Failed, nothing to save");
         } else {
             User currentUser = getUser(userUsername);
-            RaceStats raceStats = new RaceStats(steps, distance, calories, startTime, endTime, raceDuration);
+            // creates new object of the race stats and adds it to the user, with a current date as a key
+            RaceStats raceStats = new RaceStats(startTime, endTime, raceDuration, distance, steps, calories);
             currentUser.addRaceStats(getDateToday(new Date()), raceStats);
         }
     }

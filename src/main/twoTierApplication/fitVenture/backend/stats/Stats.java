@@ -1,11 +1,13 @@
 package fitVenture.backend.stats;
 
 public class Stats {
+    // stats class attributes
     private String distance;
     private String steps;
     private String calories;
 
-    // Empty constructor used by Jackson for Json deserializing
+    // Empty constructor used by Jackson for Json deserializing,
+    // every time we run the application, the user object is created with the empty constructor
     public Stats() {
     }
 

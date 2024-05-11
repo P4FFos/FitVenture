@@ -2,7 +2,7 @@ package fitVenture.ui;
 
 import fitVenture.backend.stats.Stats;
 import fitVenture.backend.tempAndHum.TempHumidityData;
-import fitVenture.backend.utils.Current_Date;
+import fitVenture.backend.utils.DateUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -238,7 +238,7 @@ public class MainDashboardController {
         Double[] distanceArray = new Double[24];
 
         mapOfStats.forEach((key, value) -> { // looping through all stats
-            if (key.substring(0, 10).toLowerCase().equals(Current_Date.getDateToday(new Date()).substring(0, 10))) { // check if the dateKeyValue is equal to today's date.
+            if (key.substring(0, 10).toLowerCase().equals(DateUtil.getDateToday(new Date()).substring(0, 10))) { // check if the dateKeyValue is equal to today's date.
                 int currentHour = Integer.parseInt(key.substring(11, 13)); // take the hour of that day as integer
                 Integer steps = Integer.parseInt(value.getSteps());
                 double calories = Double.parseDouble(value.getCalories());
@@ -290,10 +290,10 @@ public class MainDashboardController {
         double[] distanceArray = new double[7];
 
         int totalDays = 7;
-        int currentDate = Current_Date.getDateTodayAsInteger(); // getting today's date as an integer
+        int currentDate = DateUtil.getDateTodayAsInteger(); // getting today's date as an integer
 
         mapOfStats.forEach((key, value) -> { // looping though evert stat in the map
-            int anotherDate = Current_Date.getIntegerOfSpecificDate(key); // getting the dateKey for the map as an integer
+            int anotherDate = DateUtil.getIntegerOfSpecificDate(key); // getting the dateKey for the map as an integer
             int difference = currentDate - anotherDate; // the difference between today and when the date was created
 
             // referencing values of current stat in the loop
@@ -351,11 +351,11 @@ public class MainDashboardController {
         double[] distanceArray = new double[31];
 
         int totalDays = 31; // total days of a month
-        int dateToday = Current_Date.getDateTodayAsInteger();
+        int dateToday = DateUtil.getDateTodayAsInteger();
 
         mapOfStats.forEach((key, value) -> { // looping though the map of stats
-            int anotherDate = Current_Date.getIntegerOfSpecificDate(key);
-            int currentDay = Current_Date.getDay(anotherDate);
+            int anotherDate = DateUtil.getIntegerOfSpecificDate(key);
+            int currentDay = DateUtil.getDay(anotherDate);
 
 
             if ((dateToday - anotherDate) < (totalDays - 1)) { // checking if the day is less than 31

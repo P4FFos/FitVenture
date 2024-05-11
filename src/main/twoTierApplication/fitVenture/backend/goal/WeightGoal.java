@@ -9,7 +9,8 @@ public class WeightGoal {
     // constant to calculate the goal from KG to calories
     private static final double CALORIES_PER_KG = 7700;
 
-    // Empty constructor used for Json deserializing
+    // Empty constructor used by Jackson for Json deserializing,
+    // every time we run the application, the user object is created with the empty constructor
     public WeightGoal() {
     }
 

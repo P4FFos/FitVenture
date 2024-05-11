@@ -3,7 +3,7 @@ package fitVenture.ui;
 import fitVenture.backend.FitVenture;
 import fitVenture.backend.goal.RunningGoal;
 import fitVenture.backend.goal.WeightGoal;
-import fitVenture.backend.utils.Current_Date;
+import fitVenture.backend.utils.DateUtil;
 import fitVenture.backend.utils.FileHandler;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -70,7 +70,7 @@ public class GoalsController {
     // this method adds the created goal to the hashMap of the user
     public void addWeightGoal(ActionEvent event) throws Exception {
         // gets date today to assign it to the new goal
-        String goalCreationDate = Current_Date.getDateToday(new Date());
+        String goalCreationDate = DateUtil.getDateToday(new Date());
 
         // checks if the entered value is not null
         // saves new goal into the HashMap
@@ -91,7 +91,7 @@ public class GoalsController {
     public void addRunGoal(ActionEvent event) throws Exception {
         // gets date today to assign it to the new goal
 
-        String goalCreationDate = Current_Date.getDateToday(new Date());
+        String goalCreationDate = DateUtil.getDateToday(new Date());
         // checks if the entered value is not null
         // saves new goal into the HashMap
         if (userRunGoalValue.getText() != null) {
@@ -204,8 +204,8 @@ public class GoalsController {
             listOfWeightKeys.add(goalCreationDate);
         } else {
             int lastIndex = listOfWeightKeys.size() - 1;
-            int currentGoalKey = Current_Date.getIntegerOfSpecificDate(listOfWeightKeys.get(lastIndex));
-            int newGoalKey = Current_Date.getIntegerOfSpecificDate(goalCreationDate);
+            int currentGoalKey = DateUtil.getIntegerOfSpecificDate(listOfWeightKeys.get(lastIndex));
+            int newGoalKey = DateUtil.getIntegerOfSpecificDate(goalCreationDate);
 
             // If the new key is greater than the current last key,
             // add the HBox and its key at the end
@@ -217,7 +217,7 @@ public class GoalsController {
                 // Otherwise, find the correct position to insert the new key
                 int indexToInsert = 0;
                 while (indexToInsert <= lastIndex &&
-                        Current_Date.getIntegerOfSpecificDate(listOfWeightKeys.get(indexToInsert)) < newGoalKey) {
+                        DateUtil.getIntegerOfSpecificDate(listOfWeightKeys.get(indexToInsert)) < newGoalKey) {
                     indexToInsert++;
                 }
 
@@ -236,8 +236,8 @@ public class GoalsController {
             listOfRunKeys.add(goalCreationDate);
         } else {
             int lastIndex = listOfRunKeys.size() - 1;
-            int currentGoalKey = Current_Date.getIntegerOfSpecificDate(listOfRunKeys.get(lastIndex));
-            int newGoalKey = Current_Date.getIntegerOfSpecificDate(goalCreationDate);
+            int currentGoalKey = DateUtil.getIntegerOfSpecificDate(listOfRunKeys.get(lastIndex));
+            int newGoalKey = DateUtil.getIntegerOfSpecificDate(goalCreationDate);
 
             // If the new key is greater than the current last key,
             // add the HBox and its key at the end
@@ -249,7 +249,7 @@ public class GoalsController {
                 // Otherwise, find the correct position to insert the new key
                 int indexToInsert = 0;
                 while (indexToInsert <= lastIndex &&
-                        Current_Date.getIntegerOfSpecificDate(listOfRunKeys.get(indexToInsert)) < newGoalKey) {
+                        DateUtil.getIntegerOfSpecificDate(listOfRunKeys.get(indexToInsert)) < newGoalKey) {
                     indexToInsert++;
                 }
 
@@ -409,7 +409,7 @@ public class GoalsController {
         }
 
         int totalDays = 7;
-        int currentDate = Current_Date.getDateTodayAsInteger(); // getting today's date as an integer
+        int currentDate = DateUtil.getDateTodayAsInteger(); // getting today's date as an integer
 
         // goes through each weight goal of the user and checks if its completed
         mapOfWeightGoals.forEach((goalCreationDate, goalValue) -> {
@@ -418,7 +418,7 @@ public class GoalsController {
             double doneProgress = FitVentureStart.currentUser.getTotalBurnedCalories(goalCreationDate);
 
             if (goal <= doneProgress) { // checks if the goal was completed
-                int daysFromCompletion = currentDate - Current_Date.getIntegerOfSpecificDate(goalCreationDate);
+                int daysFromCompletion = currentDate - DateUtil.getIntegerOfSpecificDate(goalCreationDate);
                 if (daysFromCompletion < totalDays) { // checks if the completion was within 7 days
                     weightArray[daysFromCompletion] += 1; // add the progress to the array
                 }
@@ -432,7 +432,7 @@ public class GoalsController {
             double doneProgress = FitVentureStart.currentUser.getTotalRanDistance(goalCreationDate);
 
             if (goal <= doneProgress) { // checks if the goal was completed
-                int daysFromCompletion = currentDate - Current_Date.getIntegerOfSpecificDate(goalCreationDate);
+                int daysFromCompletion = currentDate - DateUtil.getIntegerOfSpecificDate(goalCreationDate);
                 if (daysFromCompletion < totalDays) { // checks if the completion was in last 7 days
                     runArray[daysFromCompletion] += 1; // add the progress to the array
                 }
@@ -475,7 +475,7 @@ public class GoalsController {
         }
 
         int totalDays = 7;
-        int currentDate = Current_Date.getDateTodayAsInteger(); // getting today's date as an integer
+        int currentDate = DateUtil.getDateTodayAsInteger(); // getting today's date as an integer
 
         // goes through each weight goal of the user and checks if its completed
         mapOfWeightGoals.forEach((goalCreationDate, goalValue) -> {
@@ -484,7 +484,7 @@ public class GoalsController {
             double doneProgress = FitVentureStart.currentUser.getTotalBurnedCalories(goalCreationDate);
 
             if (goal <= doneProgress) { // checks if the goal was completed
-                int daysFromCompletion = currentDate - Current_Date.getIntegerOfSpecificDate(goalCreationDate);
+                int daysFromCompletion = currentDate - DateUtil.getIntegerOfSpecificDate(goalCreationDate);
                 if (daysFromCompletion < totalDays) { // checks if the completion was within 31 days
                     weightArray[daysFromCompletion] += 1; // add the progress to the array
                 }
@@ -498,7 +498,7 @@ public class GoalsController {
             double doneProgress = FitVentureStart.currentUser.getTotalRanDistance(goalCreationDate);
 
             if (goal <= doneProgress) { // checks if the goal was completed
-                int daysFromCompletion = currentDate - Current_Date.getIntegerOfSpecificDate(goalCreationDate);
+                int daysFromCompletion = currentDate - DateUtil.getIntegerOfSpecificDate(goalCreationDate);
                 if (daysFromCompletion < totalDays) { // checks if the completion was within 31 days
                     runArray[daysFromCompletion] += 1; // add the progress to the array
                 }

@@ -1,7 +1,7 @@
 package fitVenture.ui;
 
 import fitVenture.backend.stats.Stats;
-import fitVenture.backend.utils.Current_Date;
+import fitVenture.backend.utils.DateUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -97,7 +97,7 @@ public class ChallengesController {
         double totalDistToday = 0.0;
 
         // Get today's date
-        String todayDate = Current_Date.getDateToday(new Date()).substring(0, 10);
+        String todayDate = DateUtil.getDateToday(new Date()).substring(0, 10);
 
         // Iterate over the entries in the stats HashMap
         for (Map.Entry<String, Stats> valueFromHashmap : statsHashMap.entrySet()) {
