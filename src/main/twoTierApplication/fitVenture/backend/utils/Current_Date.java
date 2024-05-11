@@ -76,7 +76,7 @@ public class Current_Date {
         String stringDate = String.valueOf(date);
 
         int year = Integer.parseInt(stringDate.substring(0, 4));
-        int month = Integer.parseInt(stringDate.substring(4,6)) - 1; // We subtract 1 because the month field is zero-based in the Calendar class.
+        int month = Integer.parseInt(stringDate.substring(4,6)) - 1; // We subtract with one because the month field is zero-based in the Calendar class.
         int day = Integer.parseInt(stringDate.substring(6, 8));
         
         calendar.set(year, month, day);
