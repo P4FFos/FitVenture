@@ -54,6 +54,17 @@ public class DateUtil {
         return day;
     }
 
+    // Returns year from a specific integer date
+    public static int getYear(int date) {
+        String stringDate = String.valueOf(date); // Turn the date to String
+        if (stringDate.length() != 10) {
+            throw new StringIndexOutOfBoundsException("A complete date format has to be provided.");
+        }
+        String years = stringDate.substring(0, 4); // Gets the days (only works with the format that starts with "yyyy-MM-dd" in Integer format)
+        int year = Integer.parseInt(years);
+        return year;
+    }
+
     public static int getWeek(int date){ // This method gets the week of the year from provided date
         if (!String.valueOf(date).equals("10")) {
             throw new StringIndexOutOfBoundsException("A complete date format has to be provided.");
