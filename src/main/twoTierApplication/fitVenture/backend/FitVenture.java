@@ -21,6 +21,7 @@ public class FitVenture {
         users = new HashMap<>();
     }
 
+    //#region User HashMap Operators
     // Get the HashMap of users
     public HashMap<String, User> getUsers() {
         return users;
@@ -40,6 +41,7 @@ public class FitVenture {
     public User getUser(String username) {
         return users.get(username);
     }
+    //#endregion
 
     // Checks if a user is in the HashMap
     // if no - register the user

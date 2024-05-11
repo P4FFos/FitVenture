@@ -45,7 +45,7 @@ public class User {
         listOfAchievements = new AchievementsList();
     }
 
-    //#region User class get methods
+    //#region User Class Get Methods
     public String getUsername() {
         return username;
     }
@@ -85,9 +85,9 @@ public class User {
     public HashMap<String, RunningGoal> getRunningGoal() {
         return runningGoal;
     }
-    //#endregion User class get methods
+    //#endregion
 
-    //#region User class set methods
+    //#region User Class Set Methods
     public void setUsername(String username) {
         this.username = username;
     }

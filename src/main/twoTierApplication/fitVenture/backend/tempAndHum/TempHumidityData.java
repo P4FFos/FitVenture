@@ -26,23 +26,23 @@ public class TempHumidityData {
         return instanceOfTempAndHumData;
     }
 
-    // get method for temperature
+    //#region TempHumidityData Class Get Methods
     public double getTemperature() {
         return temperature;
     }
 
-    // set method for temperature
+    public double getHumidity() {
+        return humidity;
+    }
+    //#endregion
+
+    //#region TempHumidityData Class Set Methods
     public void setTemperature(double temperature) {
         this.temperature = temperature;
     }
 
-    // get method for humidity
-    public double getHumidity() {
-        return humidity;
-    }
-
-    // set method for humidity
     public void setHumidity(double humidity) {
         this.humidity = humidity;
     }
+    //#endregion
 }

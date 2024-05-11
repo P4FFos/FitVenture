@@ -19,7 +19,7 @@ public class RaceStats extends Stats{
         this.raceDuration = raceDuration;
     }
 
-    // get methods for raceStats
+    //#region RaceStats Class Get Methods
     public String getStartTime(){
         return this.startTime;
     }
@@ -31,8 +31,9 @@ public class RaceStats extends Stats{
     public String getRaceDuration(){
         return this.raceDuration;
     }
+    //#endregion
 
-    // set methods for raceStats
+    //#region RaceStats Class Set Methods
     public void setStartTime(String startTime){
         this.startTime = startTime;
     }
@@ -44,5 +45,5 @@ public class RaceStats extends Stats{
     public void setRaceDuration(String raceDuration){
         this.raceDuration = raceDuration;
     }
-
+    //#endregion
 }
