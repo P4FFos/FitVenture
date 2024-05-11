@@ -115,7 +115,7 @@ public class MainDashboardController {
         xAxis.setLabel("Hours"); // setting label to 24 hours
 
         yAxis = new NumberAxis(); // create object of NumberAxis which is Yaxis of the graph
-        yAxis.setLabel("Steps"); // setting the label
+        yAxis.setLabel("Steps/Calories/Meters"); // setting the label
 
         List numbersList = List.of(
                 "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
@@ -140,10 +140,10 @@ public class MainDashboardController {
         xAxis.setLabel("Days"); //setting the label
 
         yAxis = new NumberAxis();//create object of NumberAxis which is Yaxis of the graph
-        yAxis.setLabel("Steps");//setting the label
+        yAxis.setLabel("Steps/Calories/Meters");//setting the label
 
         List numbersList = List.of(
-                "1", "2", "3", "4", "5", "6", "7"
+                "Monday", "Thuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
         ); // a list of values to be used for XAxis.
 
         observableList = FXCollections.observableList(numbersList); // creating observable object
@@ -160,10 +160,10 @@ public class MainDashboardController {
 
     public void monthChart() {
         xAxis = new CategoryAxis();// create object of CategoryAxis which is XAxis of the graph
-        xAxis.setLabel("Weeks"); //setting the label
+        xAxis.setLabel("Days"); //setting the label
 
         yAxis = new NumberAxis(); //create object of NumberAxis which is Yaxis of the graph
-        yAxis.setLabel("Steps");// setting the label
+        yAxis.setLabel("Steps/Calories/Meters");// setting the label
 
         List numbersList = List.of("1", "2", "3", "4", "5", "6", "7", "8", "9",
                 "10", "11", "12", "13", "14", "15", "16", "17", "18", "19",
