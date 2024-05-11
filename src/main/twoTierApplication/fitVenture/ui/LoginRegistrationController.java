@@ -18,10 +18,10 @@ public class LoginRegistrationController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("RegistrationScene.fxml"));
         root = loader.load();
 
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); // Getting the stage
+        scene = new Scene(root); // Adding the parent to the scene
+        stage.setScene(scene); // Adding scene to the stage
+        stage.show(); // Showing the stage
     }
 
     public void login(ActionEvent event) throws IOException {
@@ -29,9 +29,9 @@ public class LoginRegistrationController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginScene.fxml"));
         root = loader.load();
 
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); // Getting the stage
+        scene = new Scene(root); // Adding the parent to the scene
+        stage.setScene(scene); // Adding scene to the stage
+        stage.show(); // Showing the stage
     }
 }
