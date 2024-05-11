@@ -80,4 +80,20 @@ public class DateUtil {
         calendar.set(year, month, day);
         return calendar.get(Calendar.WEEK_OF_YEAR);
     }
+
+    public static int getWeekday(int date){ // This method gets the week of the year from provided date
+        if (!String.valueOf(date).equals("10")) {
+            throw new StringIndexOutOfBoundsException("A complete date format has to be provided.");
+        }
+
+        Calendar calendar = Calendar.getInstance();
+        String stringDate = String.valueOf(date);
+
+        int year = Integer.parseInt(stringDate.substring(0, 4));
+        int month = Integer.parseInt(stringDate.substring(4,6)) - 1; // We subtract with one because the month field is zero-based in the Calendar class.
+        int day = Integer.parseInt(stringDate.substring(6, 8));
+
+        calendar.set(year, month, day);
+        return calendar.get(Calendar.DAY_OF_WEEK); // Returns an integer from 1-7 (Monday to Sunday)
+    }
 }
