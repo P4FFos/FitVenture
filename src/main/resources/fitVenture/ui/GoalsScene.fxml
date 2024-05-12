@@ -5,7 +5,11 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
+<?import java.net.URL?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fitVenture.ui.GoalsController">
+   <stylesheets>
+      <URL value="@PagesStyles.css" />
+   </stylesheets>
    <children>
       <Text layoutX="184.0" layoutY="610.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Running Goals">
          <font>

@@ -1,8 +1,6 @@
 package fitVenture.ui;
-
 import fitVenture.backend.FitVenture;
 import fitVenture.backend.MQTTSubscriber;
-import fitVenture.backend.achievements.AchievementsList;
 import fitVenture.backend.MQTTPublisher;
 import fitVenture.backend.exceptions.LoginException;
 import javafx.event.ActionEvent;
@@ -11,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -25,12 +24,14 @@ public class LoginController {
 
     @FXML
     public TextField username;
-
     @FXML
     public PasswordField password;
-
     @FXML
     public Label errorLabel;
+    @FXML
+    public Button loginButton;
+    @FXML
+    public Button returnButton;
 
     public void login(ActionEvent event) throws IOException {
         // Attributes used to store data from the fields that user entered

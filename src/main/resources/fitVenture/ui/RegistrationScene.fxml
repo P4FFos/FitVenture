@@ -1,34 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fitVenture.ui.RegistrationController">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fitVenture.ui.RegistrationController">
    <stylesheets>
-      <URL value="@Registrationstyles.css"/>
+      <URL value="@PagesStyles.css" />
    </stylesheets>
    <children>
-      <TextField fx:id="username" layoutX="857.0" layoutY="306.0" promptText="username" />
-      <PasswordField fx:id="password" layoutX="857.0" layoutY="336.0" promptText="password" />
-      <Button layoutX="785.0" layoutY="573.0" mnemonicParsing="false" onAction="#register" prefHeight="45.0" prefWidth="233.0" text="Register" />
-      <Label layoutX="785.0" layoutY="311.0" prefHeight="17.0" prefWidth="69.0" text="Username:" />
-      <Label layoutX="785.0" layoutY="342.0" prefHeight="17.0" prefWidth="69.0" text="Password:" />
+      <TextField fx:id="username" layoutX="785.0" layoutY="346.0" prefHeight="45.0" prefWidth="175.0" promptText="username" />
+      <PasswordField fx:id="password" layoutX="785.0" layoutY="406.0" prefHeight="45.0" prefWidth="175.0" promptText="password" />
+      <Button layoutX="665.0" layoutY="490.0" mnemonicParsing="false" onAction="#register" prefHeight="75.0" prefWidth="300.0" text="Register" />
+      <Label layoutX="665.0" layoutY="346.0" prefHeight="45.0" prefWidth="115.0" text="Username:" />
+      <Label layoutX="665.0" layoutY="406.0" prefHeight="45.0" prefWidth="115.0" text="Password:" />
       <Label fx:id="errorLabel" layoutX="1062.0" layoutY="311.0" prefHeight="17.0" prefWidth="198.0" text="" visible="false" />
-      <Button fx:id="backButton" layoutX="929.0" layoutY="256.0" mnemonicParsing="false" onAction="#backToRegLoginPage" prefHeight="26.0" prefWidth="92.0" text="Return back" />
-      <Button layoutX="785.0" layoutY="371.0" mnemonicParsing="false" onMouseClicked="#optionalInput" text="Additional Information" />
-      <Pane fx:id="optionalPane" layoutX="775.0" layoutY="405.0" prefHeight="140.0" prefWidth="200.0" visible="false">
+      <Button fx:id="backButton" layoutX="942.0" layoutY="602.0" mnemonicParsing="false" onAction="#backToRegLoginPage" prefHeight="55.0" prefWidth="130.0" text="RETURN" />
+      <Button layoutX="1008.0" layoutY="344.0" mnemonicParsing="false" onMouseClicked="#optionalInput" prefHeight="45.0" prefWidth="368.0" text="Additional information" />
+      <Pane fx:id="optionalPane" layoutX="1009.0" layoutY="395.0" prefHeight="178.0" prefWidth="368.0" visible="false">
          <children>
-            <Label layoutX="12.0" layoutY="10.0" prefHeight="17.0" prefWidth="54.0" text="Height:" />
-            <TextField fx:id="height" layoutX="80.0" layoutY="6.0" prefHeight="25.0" prefWidth="86.0" promptText="Height" />
-            <Label layoutX="12.0" layoutY="45.0" prefHeight="17.0" prefWidth="54.0" text="Weight:" />
-            <TextField fx:id="weight" layoutX="80.0" layoutY="41.0" prefHeight="25.0" prefWidth="86.0" promptText="Weight" />
-            <Label layoutX="12.0" layoutY="80.0" prefHeight="17.0" prefWidth="61.0" text="Full Name:" />
-            <TextField fx:id="name" layoutX="80.0" layoutY="76.0" prefHeight="25.0" prefWidth="86.0" promptText="Full Name" />
+            <Label layoutX="1.0" layoutY="10.0" prefHeight="45.0" prefWidth="115.0" text="Height:" />
+            <TextField fx:id="height" layoutX="130.0" layoutY="10.0" prefHeight="45.0" prefWidth="240.0" promptText="height" />
+            <Label layoutX="1.0" layoutY="55.0" prefHeight="45.0" prefWidth="115.0" text="Weight:" />
+            <TextField fx:id="weight" layoutX="130.0" layoutY="55.0" prefHeight="45.0" prefWidth="240.0" promptText="weight" />
          </children>
       </Pane>
-      <Label fx:id="optionalErrorLabel" layoutX="1000.0" layoutY="415.0" prefHeight="17.0" prefWidth="306.0" text="Incorrect input, height and weight should be a number." visible="false" />
-      <Label fx:id="nameErrorLabel" layoutX="1000.0" layoutY="488.0" prefHeight="17.0" prefWidth="215.0" text="Name should not contain any numbers." visible="false" />
-      <Label fx:id="nameOptionalErrorLabel" layoutX="785.0" layoutY="502.0" prefHeight="26.0" prefWidth="540.0" text="Incorrect, Full name should not have numbers. Weight and height should not have letters or symbols" visible="false" />
+      <Label fx:id="optionalErrorLabel" layoutX="1000.0" layoutY="546.0" prefHeight="21.0" prefWidth="368.0" text="Incorrect input, height and weight should be a number." visible="false" />
+      <Label fx:id="nameErrorLabel" layoutX="1000.0" layoutY="537.0" prefHeight="26.0" prefWidth="368.0" text="Name should not contain any numbers." visible="false" />
+      <Label fx:id="nameOptionalErrorLabel" layoutX="1007.0" layoutY="541.0" prefHeight="26.0" prefWidth="368.0" text="Incorrect, Full name should not have numbers. Weight and height should not have letters or symbols" visible="false" />
+      <ImageView fitHeight="365.0" fitWidth="1360.0" layoutX="320.0" layoutY="41.0">
+         <image>
+            <Image url="@images/fitVentureLogoNoBgr.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

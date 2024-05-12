@@ -9,7 +9,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
+<?import java.net.URL?>
 <AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fitVenture.ui.MainDashboardController">
+   <stylesheets>
+      <URL value="@PagesStyles.css" />
+   </stylesheets>
    <children>
       <BorderPane fx:id="borderPane" layoutX="40.0" layoutY="184.0" maxHeight="935.0" maxWidth="1867.0" prefHeight="853.0" prefWidth="1838.0" AnchorPane.bottomAnchor="43.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="42.0" AnchorPane.topAnchor="184.0" />
       <HBox alignment="TOP_CENTER" layoutX="609.0" layoutY="23.0" maxHeight="60" maxWidth="1890.0" prefHeight="51.0" prefWidth="701.0" AnchorPane.leftAnchor="609.0" AnchorPane.rightAnchor="610.0" AnchorPane.topAnchor="23.0">

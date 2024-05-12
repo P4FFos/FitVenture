@@ -1,0 +1,23 @@
+.root {
+    -fx-background-color: rgb(212, 245, 245); /* light blue background */
+    -fx-font-family:"Lucida Console";
+    -fx-font-size: 20;
+}
+
+.button {
+    -fx-background-color: rgb(153, 153, 255); /* dark blue button background */
+    -fx-text-fill: "white"; /* white text */
+    -fx-font-family:"Lucida Console";
+    -fx-font-size: 25;
+    -fx-font-weight: 600;
+
+}
+
+.button:hover {
+    -fx-background-color: rgb(145, 145, 245); /* darker blue on hover */
+}
+.label{
+ -fx-text-family:"Lucida Console";
+ -fx-text-color:#080464;
+ -fx-font-size: 20;
+}
