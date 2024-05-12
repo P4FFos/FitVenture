@@ -3,8 +3,11 @@ package fitVenture.ui;
 import fitVenture.backend.FitVenture;
 import fitVenture.backend.goal.RunningGoal;
 import fitVenture.backend.goal.WeightGoal;
+import fitVenture.backend.stats.Stats;
 import fitVenture.backend.utils.Current_Date;
 import fitVenture.backend.utils.FileHandler;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,11 +21,13 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.*;
@@ -59,6 +64,8 @@ public class GoalsController {
     private ArrayList<String> listOfWeightKeys;
     private ArrayList<HBox> runGoalArrayList;
     private ArrayList<String> listOfRunKeys;
+
+    private  String keyForFirstRunningtGoalTobeRemoved;
 
     // to get the weight goals of the user
     private HashMap<String, WeightGoal> weightGoalHashMap = FitVentureStart.currentUser.getWeightGoal();
@@ -143,9 +150,12 @@ public class GoalsController {
                 hBoxWeight.setPrefWidth(700);
                 hBoxWeight.setSpacing(10);
 
-                weightProgressBar.setProgress(progressToGoal / goal); // set the value of the progressbar
+                double ratio = progressToGoal / goal;
+                weightProgressBar.setProgress(ratio); // set the value of the progressbar
                 hBoxWeight.getChildren().addAll(weightProgressBar, weightGoalInCaloriesLabel, weightProgressInCaloriesLabel); // add three objects to the hBox
                 sortWeightArray(hBoxWeight, goalCreationDate); // Making sure that the current goal in progress (bar) is always on the top of the list of other bars
+
+
             }
         });
         weightVBoxContainer.getChildren().addAll(weightGoalArrayList);// add everything to the container that is reserved a space in the fxml file
@@ -190,10 +200,13 @@ public class GoalsController {
                 runProgressBar.setProgress(progressToGoal / goal); // set the value of the progressbar
                 hBoxRun.getChildren().addAll(runProgressBar, runGoalInMetersLabel, runProgressInMetersLabel); // add three objects to the hBox
                 sortRunArray(hBoxRun, goalCreationDate); // Making sure that the current goal in progress (bar) is always on the top of the list of other bars
+                KeyForFirstrunningGoalToFinish(goalCreationDate);
             }
         });
         runVBoxContainer.getChildren().addAll(runGoalArrayList);// add everything to the container that is reserved a space in the fxml file
         runGoalCounter.setText("You have completed " + doneRunGoalCounter() +" running goals."); //Displays the number of completed run goals
+
+
     }
 
     // This method is responsible for sorting HBox objects by date
@@ -532,8 +545,90 @@ public class GoalsController {
         showChart();
     }
 
+
+
+
+
     // update the chart when user clicks on the Update Chart button
-    public void updateChart(MouseEvent event) {
-        showChart();
+    public void updateChart() {
+
+        // This shall be removed (It adds a stats to see how the code behaves)
+        Random random = new Random();// this is just to mimic what would happen if more stats are added
+        double calories = random.nextDouble(7700,184900); // this is just to mimic what would happen if more stats are added
+        FitVentureStart.currentUser.addStats(Current_Date.getDateToday(new Date()),new Stats("1000",String.valueOf(calories),String.valueOf(calories))); // this is just to mimic what would happen if more stats are added
+        // to here
+
+
+
+        viewRunGoalsInProgress(); // this method removes a key in the runningkeyList if added stats finishes the goal
+        runningGoalCheckForPopUp(); // check if a running key is removed for pop up
+        showChart(); // show chart for changes in the chart from new stats.
     }
+
+
+
+
+    // this method is called for every running goal and checkes if the goal will be finished first
+    public void KeyForFirstrunningGoalToFinish(String key){
+
+        if(keyForFirstRunningtGoalTobeRemoved == null && key != null){
+            keyForFirstRunningtGoalTobeRemoved = key;
+        } else if(keyForFirstRunningtGoalTobeRemoved != null && key != null){
+            double currentGoal = runGoalHashMap.get(keyForFirstRunningtGoalTobeRemoved).getRunGoalInM();
+            double currentProgressToGoal = FitVentureStart.currentUser.getTotalRanDistance(keyForFirstRunningtGoalTobeRemoved);
+            double currentDifference= currentGoal - currentProgressToGoal;
+
+            double anotherGoal = runGoalHashMap.get(key).getRunGoalInM();
+            double anotherProgressToGoal= FitVentureStart.currentUser.getTotalRanDistance(key);
+            double anotherDifference= anotherGoal - anotherProgressToGoal;
+
+            if(anotherDifference < currentDifference){
+               keyForFirstRunningtGoalTobeRemoved = key;
+            }
+        }
+    }
+
+
+    // this method checkes if the running goal is finished for the pop up to be shown
+    public void runningGoalCheckForPopUp() {
+
+        if(keyForFirstRunningtGoalTobeRemoved!= null){
+            if(!listOfRunKeys.contains(keyForFirstRunningtGoalTobeRemoved)){
+                runningGoalIsFinishedPopUp(keyForFirstRunningtGoalTobeRemoved);
+            }
+        }
+    }
+
+
+    // this method shown the running pop up if the running goal is finished
+    public void runningGoalIsFinishedPopUp(String key){
+
+        double goal = runGoalHashMap.get(key).getRunGoalInM();
+
+        if(runVBoxContainer!=null ){
+
+            runVBoxContainer.getChildren().clear();
+            Label popup = new Label("Congratulations You just \nfinished the running goal with : "+ goal + " Of metters ");
+            popup.isCenterShape();
+            popup.setPrefHeight(170);
+            popup.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 23));
+            popup.setStyle("-fx-background-color: #000000; -fx-text-fill: #ffffff; -fx-padding: 10px; -fx-background-radius: 10;");
+
+            runVBoxContainer.getChildren().add(popup);
+            // Close the popup after 3 seconds
+            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> {
+                keyForFirstRunningtGoalTobeRemoved = null; // after popup remove value for the poped key
+                viewRunGoalsInProgress();
+            }));
+            timeline.play();
+
+        }
+
+
+
+    }
+
+
+
+
 }
