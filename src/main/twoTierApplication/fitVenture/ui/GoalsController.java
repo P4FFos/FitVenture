@@ -66,6 +66,7 @@ public class GoalsController {
     private ArrayList<String> listOfRunKeys;
 
     private  String keyForFirstRunningtGoalTobeRemoved;
+    private String keyForFirstWeightGoalTobeRemoved;
 
     // to get the weight goals of the user
     private HashMap<String, WeightGoal> weightGoalHashMap = FitVentureStart.currentUser.getWeightGoal();
@@ -154,7 +155,7 @@ public class GoalsController {
                 weightProgressBar.setProgress(ratio); // set the value of the progressbar
                 hBoxWeight.getChildren().addAll(weightProgressBar, weightGoalInCaloriesLabel, weightProgressInCaloriesLabel); // add three objects to the hBox
                 sortWeightArray(hBoxWeight, goalCreationDate); // Making sure that the current goal in progress (bar) is always on the top of the list of other bars
-
+                KeyForFirstWeightGoalToFinish(goalCreationDate); // check if the current goal will be finished first.
 
             }
         });
@@ -561,6 +562,8 @@ public class GoalsController {
 
 
         viewRunGoalsInProgress(); // this method removes a key in the runningkeyList if added stats finishes the goal
+        viewWeightGoalsInProgress(); // this method removes a key in the weightkeyList if the added stats finishes the goal
+        weightGoalCheckForPopUp(); // check if a weight key is removed for a pop up
         runningGoalCheckForPopUp(); // check if a running key is removed for pop up
         showChart(); // show chart for changes in the chart from new stats.
     }
@@ -619,6 +622,66 @@ public class GoalsController {
             Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> {
                 keyForFirstRunningtGoalTobeRemoved = null; // after popup remove value for the poped key
                 viewRunGoalsInProgress();
+            }));
+            timeline.play();
+
+        }
+
+
+
+    }
+
+
+
+    // this method check for every weight goal if it will be finished first
+    public void KeyForFirstWeightGoalToFinish(String key){
+        if(keyForFirstWeightGoalTobeRemoved == null && key != null){
+            keyForFirstWeightGoalTobeRemoved = key;
+        } else if(keyForFirstWeightGoalTobeRemoved != null && key != null){
+            double currentGoal = weightGoalHashMap.get(keyForFirstWeightGoalTobeRemoved).getGoalInCalories();
+            double currentProgressToGoal = FitVentureStart.currentUser.getTotalBurnedCalories(keyForFirstWeightGoalTobeRemoved);
+            double currentDifference= currentGoal - currentProgressToGoal;
+
+            double anotherGoal = weightGoalHashMap.get(key).getGoalInCalories();
+            double anotherProgressToGoal= FitVentureStart.currentUser.getTotalBurnedCalories(key);
+            double anotherDifference= anotherGoal - anotherProgressToGoal;
+
+            if(anotherDifference < currentDifference){
+                keyForFirstWeightGoalTobeRemoved = key;
+            }
+        }
+    }
+
+
+    // this method check if the first weight goal to be finished is finished
+    public void weightGoalCheckForPopUp() {
+
+        if(keyForFirstWeightGoalTobeRemoved!= null){
+            if(!listOfWeightKeys.contains(keyForFirstWeightGoalTobeRemoved)){
+                weightGoalIsFinishedPopUp(keyForFirstWeightGoalTobeRemoved);
+            }
+        }
+    }
+
+    // this method shows the pop up to the user if the weight goal is finshed
+    public void weightGoalIsFinishedPopUp(String key){
+
+        double goal = weightGoalHashMap.get(key).getGoalInCalories();
+
+        if(weightVBoxContainer!=null ){ //
+
+            weightVBoxContainer.getChildren().clear();
+            Label popup = new Label("Congratulations You just \nfinished the weight goal with goal of: " + goal +" Of calories ");
+            popup.isCenterShape();
+            popup.setPrefHeight(170);
+            popup.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 23));
+            popup.setStyle("-fx-background-color: #000000; -fx-text-fill: #ffffff; -fx-background-radius: 10;");
+
+            weightVBoxContainer.getChildren().add(popup);
+            // Close the popup after 3 seconds
+            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> {
+                keyForFirstWeightGoalTobeRemoved = null; // after popup remove value for the poped key
+                viewWeightGoalsInProgress();
             }));
             timeline.play();
 
