@@ -26,7 +26,14 @@ public class Current_Date {
             }
         }
         */
-        
+        try {
+            if (date.length() != 10) {
+                throw new StringIndexOutOfBoundsException("A complete date format has to be provided.");
+            }
+            
+        } catch (Exception e) {
+            throw new StringIndexOutOfBoundsException(e.getMessage());
+        }
 
         try {
             for (int i = 0; i < 10; i++) {
