@@ -8,11 +8,11 @@
       "name" : "",
       "raceStats" : null,
       "weightGoal" : {
-        "2024-05-01 07" : {
+        "2024-05-12 17" : {
           "goalInCalories" : 10.0,
           "goalWeightInKg" : 12.0
         },
-        "2024-05-01 15" : {
+        "2024-05-06 05" : {
           "goalInCalories" : 10.0,
           "goalWeightInKg" : 1.0
         },
@@ -188,12 +188,12 @@
           "steps" : "3900",
           "calories" : "190"
         },
-        "2024-04-13 08" : {
+        "2024-05-06 08" : {
           "distance" : "3200",
           "steps" : "3700",
           "calories" : "180"
         },
-        "2024-04-11 08" : {
+        "2024-05-12 20" : {
           "distance" : "3000",
           "steps" : "3500",
           "calories" : "170"
