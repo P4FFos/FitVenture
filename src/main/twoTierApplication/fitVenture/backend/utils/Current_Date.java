@@ -27,7 +27,7 @@ public class Current_Date {
         }
         */
         try {
-            if (date.length() != 10) {
+            if (date.length() < 10) {
                 throw new StringIndexOutOfBoundsException("A complete date format has to be provided.");
             }
             
