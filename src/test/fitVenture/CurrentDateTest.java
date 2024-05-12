@@ -1,5 +1,4 @@
 
-
 import fitVenture.backend.utils.Current_Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -12,8 +11,8 @@ public class CurrentDateTest {
     @Test
     @DisplayName("Tests if Current_Date.getIntegerOfSpecificDate method handles different date inputs.")
     public void getIntegerOfSpecificDateTest() {
-        assertEquals(2004121515, Current_Date.getIntegerOfSpecificDate("2004-12-15 15"), "The method should convert the string date into an integer format.");
-        assertEquals(2004121212, Current_Date.getIntegerOfSpecificDate("2004-12-12 12"), "The method should convert the string date into an integer format.");
+        assertEquals(20041215, Current_Date.getIntegerOfSpecificDate("2004-12-15 15"), "The method should convert the string date into an integer format.");
+        assertEquals(20041212, Current_Date.getIntegerOfSpecificDate("2004-12-12 12"), "The method should convert the string date into an integer format.");
 
         //Expecting failure
         Throwable exceptionIntSpecDate = assertThrows(IllegalArgumentException.class, ()-> Current_Date.getIntegerOfSpecificDate("RandomInputtt"));

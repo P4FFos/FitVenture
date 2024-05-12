@@ -58,7 +58,7 @@ public class Current_Date {
 
     // Returns day from a specific integer date
     public static int getDay(int date) {
-        if (!String.valueOf(date).equals("10")) {
+        if (String.valueOf(date).length() != 8) {
             throw new StringIndexOutOfBoundsException("A complete date format has to be provided.");
         }
         String stringDate = String.valueOf(date); // Turn the date to String
