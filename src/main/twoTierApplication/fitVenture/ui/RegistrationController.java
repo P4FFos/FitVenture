@@ -22,6 +22,7 @@ public class RegistrationController {
     private Stage stage;
     private Scene scene;
 
+    //#region FXML variables
     @FXML
     public TextField username;
     @FXML
@@ -42,6 +43,7 @@ public class RegistrationController {
     public TextField name;
     @FXML
     public Label errorLabel;
+    //#endregion
 
     public void register(ActionEvent event) throws IOException {
         // attributes used to store data from the fields that user entered
