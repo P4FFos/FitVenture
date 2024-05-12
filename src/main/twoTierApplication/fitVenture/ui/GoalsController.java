@@ -553,14 +553,6 @@ public class GoalsController {
     // update the chart when user clicks on the Update Chart button
     public void updateChart() {
 
-        // This shall be removed (It adds a stats to see how the code behaves)
-        Random random = new Random();// this is just to mimic what would happen if more stats are added
-        double calories = random.nextDouble(7700,184900); // this is just to mimic what would happen if more stats are added
-        FitVentureStart.currentUser.addStats(Current_Date.getDateToday(new Date()),new Stats("1000",String.valueOf(calories),String.valueOf(calories))); // this is just to mimic what would happen if more stats are added
-        // to here
-
-
-
         viewRunGoalsInProgress(); // this method removes a key in the runningkeyList if added stats finishes the goal
         viewWeightGoalsInProgress(); // this method removes a key in the weightkeyList if the added stats finishes the goal
         weightGoalCheckForPopUp(); // check if a weight key is removed for a pop up
