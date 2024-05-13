@@ -237,9 +237,10 @@ public class MainDashboardController {
     public ArrayList getDayData() { // getting dayData
         // getting the object user who signed in
         HashMap<String, Stats> mapOfStats = FitVentureStart.currentUser.getStats(); // retrieving their stats
-        Integer[] stepsArray = new Integer[24];
-        Double[] caloriesArray = new Double[24];
-        Double[] distanceArray = new Double[24];
+        int totalHours = 24;
+        Integer[] stepsArray = new Integer[totalHours];
+        Double[] caloriesArray = new Double[totalHours];
+        Double[] distanceArray = new Double[totalHours];
 
         mapOfStats.forEach((key, value) -> { // looping through all stats
             if (key.substring(0, 10).toLowerCase().equals(DateUtil.getDateToday(new Date()).substring(0, 10))) { // check if the dateKeyValue is equal to today's date.
@@ -271,7 +272,7 @@ public class MainDashboardController {
         caloriesList = new ArrayList<>();
         distanceList = new ArrayList<>();
 
-        for (int i = 0; i < 24; i++) {
+        for (int i = 0; i < totalHours; i++) {
             if (stepsArray[i] != null) {
                 emptyList.add(stepsArray[i]);
                 caloriesList.add(caloriesArray[i]);
@@ -289,16 +290,15 @@ public class MainDashboardController {
     public ArrayList getWeekData() { // this method is responsible for getting weekData
         // getting stats of the current user
         HashMap<String, Stats> mapOfStats = FitVentureStart.currentUser.getStats();
-        Integer[] stepsArray = new Integer[7];
-        double[] caloriesArray = new double[7];
-        double[] distanceArray = new double[7];
-
         int totalDays = 7;
+        Integer[] stepsArray = new Integer[totalDays];
+        double[] caloriesArray = new double[totalDays];
+        double[] distanceArray = new double[totalDays];
+
         int currentDate = DateUtil.getDateTodayAsInteger(); // getting today's date as an integer
 
         mapOfStats.forEach((key, value) -> { // looping though evert stat in the map
             int anotherDate = DateUtil.getIntegerOfSpecificDate(key); // getting the dateKey for the map as an integer
-            int difference = currentDate - anotherDate; // the difference between today and when the date was created
 
             // referencing values of current stat in the loop
             Integer steps = Integer.parseInt(value.getSteps());
@@ -306,8 +306,8 @@ public class MainDashboardController {
             double distance = Double.parseDouble(value.getDistance());
 
             // checking if there has been less than a week since the stat object was created
-            if (difference < totalDays) {
-                int index = Math.abs(difference - 6);
+            if ((currentDate - anotherDate)< totalDays - 1) {
+                int index = DateUtil.getWeekday(anotherDate);
                 if (stepsArray[index] != null) { // checking if there were saved data on that day to update
                     // updating data if they exist
                     int updatedSteps = stepsArray[index] + steps;
@@ -350,11 +350,11 @@ public class MainDashboardController {
     public ArrayList getMonthData() { // this method is responsible for getting monthData
         // getting the map of stats for the current user
         HashMap<String, Stats> mapOfStats = FitVentureStart.currentUser.getStats();
-        Integer[] stepsArray = new Integer[31];
-        double[] caloriesArray = new double[31];
-        double[] distanceArray = new double[31];
-
         int totalDays = 31; // total days of a month
+        Integer[] stepsArray = new Integer[totalDays];
+        double[] caloriesArray = new double[totalDays];
+        double[] distanceArray = new double[totalDays];
+
         int dateToday = DateUtil.getDateTodayAsInteger();
 
         mapOfStats.forEach((key, value) -> { // looping though the map of stats
