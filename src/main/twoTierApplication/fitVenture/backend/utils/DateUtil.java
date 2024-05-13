@@ -75,7 +75,7 @@ public class DateUtil {
 
         int year = Integer.parseInt(stringDate.substring(0, 4));
         int month = Integer.parseInt(stringDate.substring(4,6)) - 1; // We subtract with one because the month field is zero-based in the Calendar class.
-        int day = Integer.parseInt(stringDate.substring(6, 8));
+        int day = Integer.parseInt(stringDate.substring(6, 8)) - 1; // We subtract with one because for some reason the Calendar-week starts with a Sunday (Sunday = 1)
 
         calendar.set(year, month, day);
         return calendar.get(Calendar.DAY_OF_WEEK); // Returns an integer from 1-7 (Monday to Sunday)

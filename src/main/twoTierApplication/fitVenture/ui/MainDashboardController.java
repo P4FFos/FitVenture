@@ -146,7 +146,7 @@ public class MainDashboardController {
         yAxis.setLabel("Steps/Calories/Meters");//setting the label
 
         List numbersList = List.of(
-                "Monday", "Thuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+                "1", "2", "3", "4", "5", "6", "7"
         ); // a list of values to be used for XAxis.
 
         observableList = FXCollections.observableList(numbersList); // creating observable object
@@ -306,8 +306,8 @@ public class MainDashboardController {
             double distance = Double.parseDouble(value.getDistance());
 
             // checking if there has been less than a week since the stat object was created
-            if ((currentDate - anotherDate)< totalDays - 1) {
-                int index = DateUtil.getWeekday(anotherDate);
+            if (DateUtil.getWeek(currentDate) == DateUtil.getWeek(anotherDate) && DateUtil.getYear(currentDate) == DateUtil.getYear(anotherDate)) {
+                int index = DateUtil.getWeekday(anotherDate) - 1; // The arrays are 0-based, therefore "-1"
                 if (stepsArray[index] != null) { // checking if there were saved data on that day to update
                     // updating data if they exist
                     int updatedSteps = stepsArray[index] + steps;
