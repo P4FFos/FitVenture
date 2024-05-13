@@ -1,5 +1,6 @@
 package fitVenture.backend.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import fitVenture.backend.achievements.AchievementsList;
 import fitVenture.backend.goal.RunningGoal;
@@ -12,7 +13,7 @@ import java.util.HashMap;
 // any unknown properties in JSON will be ignored (used because of the achievementsList)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
-    // User class attributes and HashMap of stats to store Distance, Calories and Steps
+    // User class attributes and HashMaps to store different types of stats
     private String username;
     private String password;
     private String weight;
@@ -22,8 +23,14 @@ public class User {
     private HashMap<String, RaceStats> raceStats;
     private HashMap<String, WeightGoal> weightGoal;
     private HashMap<String, RunningGoal> runningGoal;
-    private AchievementsList listOfachievements;
-    // Empty constructor used by Jackson for Json deserializing
+
+    // json ignore used to ignore the list of achievements when serializing to the JSON file
+    // since it is not needed to be stored in the JSON file
+    @JsonIgnore
+    private AchievementsList listOfAchievements;
+
+    // Empty constructor used by Jackson for Json deserializing,
+    // every time we run the application, the user object is created with the empty constructor
     public User() {
     }
 
@@ -35,10 +42,10 @@ public class User {
         this.height = height;
         this.name = name;
         this.statsMap = new HashMap<>();
-        listOfachievements = new AchievementsList();
+        listOfAchievements = new AchievementsList();
     }
 
-    //#region User class get methods
+    //#region User Class Get Methods
     public String getUsername() {
         return username;
     }
@@ -60,7 +67,7 @@ public class User {
     }
 
     public AchievementsList getListOfAchievement() {
-        return listOfachievements;
+        return listOfAchievements;
     }
 
     public HashMap<String, Stats> getStats() {
@@ -78,9 +85,9 @@ public class User {
     public HashMap<String, RunningGoal> getRunningGoal() {
         return runningGoal;
     }
-    //#endregion User class get methods
+    //#endregion
 
-    //#region User class set methods
+    //#region User Class Set Methods
     public void setUsername(String username) {
         this.username = username;
     }
@@ -220,9 +227,9 @@ public class User {
     }
 
     public void checkCompletedAchievements(){
-        if (this.listOfachievements == null){
-            this.listOfachievements = new AchievementsList();
+        if (this.listOfAchievements == null){
+            this.listOfAchievements = new AchievementsList();
         }
-        this.listOfachievements.checkCompletedAchievements(totalDistanceSinceStart(), totalCaloriesSinceStart());
+        this.listOfAchievements.checkCompletedAchievements(totalDistanceSinceStart(), totalCaloriesSinceStart());
     }
 }

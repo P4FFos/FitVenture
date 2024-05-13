@@ -16,7 +16,7 @@ public class FitVentureStart extends Application {
     public static FitVenture fitVenture;
     public static User currentUser;
     public static String jsonPath = "src/main/twoTierApplication/fitVenture/backend/database/userDataStorage.json";
-    // test of the CI 
+
     @Override
     public void start(Stage stage) throws IOException {
         // initialise json path to save user data

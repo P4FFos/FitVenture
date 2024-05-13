@@ -61,14 +61,18 @@ public class MQTTSubscriber {
                         System.out.println("Data saved");
                     } else if (topic.equals(raceTopic)) {
                         lastReceivedRaceMessage = mapper.readValue(message.toString(), RaceStats.class);
+                        // Calculate race duration
+                        int raceDuration = Integer.parseInt(lastReceivedRaceMessage.getEndTime()) - Integer.parseInt(lastReceivedRaceMessage.getStartTime());
+                        String raceDurationString = Integer.toString(raceDuration);
                         // save the data into the HashMap
-                        FitVentureStart.fitVenture.saveRaceStatsData(
-                                lastReceivedRaceMessage.getStartTime(), lastReceivedRaceMessage.getEndTime(),
-                                lastReceivedRaceMessage.getRaceDuration(),
-                                lastReceivedMessage.getDistance(),
-                                lastReceivedRaceMessage.getSteps(), lastReceivedRaceMessage.getCalories(),
-                                FitVentureStart.currentUser.getUsername()
-                        );
+                        if (lastReceivedMessage != null) {
+                            FitVentureStart.fitVenture.saveRaceStatsData(
+                                    lastReceivedRaceMessage.getStartTime(), lastReceivedRaceMessage.getEndTime(),
+                                    raceDurationString,
+                                    lastReceivedMessage.getDistance(),
+                                    lastReceivedRaceMessage.getSteps(), lastReceivedRaceMessage.getCalories(), FitVentureStart.currentUser.getUsername()
+                            );
+                        }
                         // save the data into the JSON file
                         FileHandler.jsonSerializer(FitVentureStart.jsonPath, FitVentureStart.fitVenture);
                         System.out.println("Race data saved");
