@@ -14,9 +14,28 @@ public class DateUtil {
     public static int getIntegerOfSpecificDate(String date) {
         Set<Character> allowedCharacters = new HashSet<>(Arrays.asList(' ','-', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'));
         String newDate = "";
+        /*Set<Integer> setOfLine = new HashSet<Integer>();
+        setOfLine.add(4);
+        setOfLine.add(7);
+        setOfLine.add(10);
+
+        for (int i = 0; i < 10; i++) {
+            if (!setOfLine.contains(i)) {
+                char chr = date.charAt(i);
+                newDate = newDate + chr;
+            }
+        }
+        */
+        try {
+            if (date.length() < 10) {
+                throw new StringIndexOutOfBoundsException("A complete date format has to be provided.");
+            }
+            
+        } catch (Exception e) {
+            throw new StringIndexOutOfBoundsException(e.getMessage());
+        }
 
         try {
-            // 10 represents the amount of characters in the date format "yyyy-MM-dd"
             for (int i = 0; i < 10; i++) {
                 char chr = date.charAt(i);
                 if (!allowedCharacters.contains(chr)) {
@@ -42,6 +61,9 @@ public class DateUtil {
 
     // Returns day from a specific integer date
     public static int getDay(int date) {
+        if (String.valueOf(date).length() != 8) {
+            throw new StringIndexOutOfBoundsException("A complete date format has to be provided.");
+        }
         String stringDate = String.valueOf(date); // Turn the date to String
         String days = stringDate.substring(6, 8); // Gets the days (only works with the format that starts with "yyyy-MM-dd" in Integer format)
         int day = Integer.parseInt(days);
