@@ -11,10 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
+import javafx.scene.chart.*;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -118,7 +115,7 @@ public class MainDashboardController {
         xAxis.setLabel("Hours"); // setting label to 24 hours
 
         yAxis = new NumberAxis(); // create object of NumberAxis which is Yaxis of the graph
-        yAxis.setLabel("Steps"); // setting the label
+        yAxis.setLabel("Steps/Calories/Meters"); // setting the label
 
         List numbersList = List.of(
                 "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
@@ -131,7 +128,7 @@ public class MainDashboardController {
 
         ArrayList dayList = getDayData(); // getting data for 24 hours
         barChart = new BarChart(xAxis, yAxis); // creation of barChart object
-        addData(dayList, 0); // addition of the 24 hours data to the chart
+        addData(dayList, new ArrayList<>(numbersList)); // addition of the 24 hours data to the chart
 
         barChart.setMaxHeight(800); // setting the maxHeight of the chart
         barChart.setMaxWidth(1200); // setting the maxWidth of the chart
@@ -143,10 +140,10 @@ public class MainDashboardController {
         xAxis.setLabel("Days"); //setting the label
 
         yAxis = new NumberAxis();//create object of NumberAxis which is Yaxis of the graph
-        yAxis.setLabel("Steps");//setting the label
+        yAxis.setLabel("Steps/Calories/Meters");//setting the label
 
         List numbersList = List.of(
-                "1", "2", "3", "4", "5", "6", "7"
+                "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
         ); // a list of values to be used for XAxis.
 
         observableList = FXCollections.observableList(numbersList); // creating observable object
@@ -154,7 +151,7 @@ public class MainDashboardController {
 
         ArrayList weekList = getWeekData(); // getting data for 7 days
         barChart = new BarChart(xAxis, yAxis); // creating the barChart object
-        addData(weekList, 1); // adding data to the chart. 1 int value that is being parsed, is the indicator to show that the chart will count from 1 not zero.
+        addData(weekList, new ArrayList<>(numbersList)); // adding data to the chart. 1 int value that is being parsed, is the indicator to show that the chart will count from 1 not zero.
 
         barChart.setMaxHeight(800); // setting the value of maxHeight of barchart
         barChart.setMaxWidth(1200); // setting the maxWidth of the barChart
@@ -163,10 +160,10 @@ public class MainDashboardController {
 
     public void monthChart() {
         xAxis = new CategoryAxis();// create object of CategoryAxis which is XAxis of the graph
-        xAxis.setLabel("Weeks"); //setting the label
+        xAxis.setLabel("Days"); //setting the label
 
         yAxis = new NumberAxis(); //create object of NumberAxis which is Yaxis of the graph
-        yAxis.setLabel("Steps");// setting the label
+        yAxis.setLabel("Steps/Calories/Meters");// setting the label
 
         List numbersList = List.of("1", "2", "3", "4", "5", "6", "7", "8", "9",
                 "10", "11", "12", "13", "14", "15", "16", "17", "18", "19",
@@ -178,7 +175,7 @@ public class MainDashboardController {
 
         ArrayList monthList = getMonthData(); // getting data for 31 days
         barChart = new BarChart(xAxis, yAxis); // creation of chart object
-        addData(monthList, 1); // adding data to the chart. 1 int value that is being parsed, is the indicator to show that the chart will count from 1 not zero.
+        addData(monthList, new ArrayList<>(numbersList)); // adding data to the chart. 1 int value that is being parsed, is the indicator to show that the chart will count from 1 not zero.
 
         barChart.setMaxHeight(800); // setting the maxHeight of the barChart
         barChart.setMaxWidth(1200); // setting the maxWidth of the barchart
@@ -207,7 +204,7 @@ public class MainDashboardController {
     }
     //#endregion
 
-    public void addData(ArrayList<Integer> list, int startDay) { // methods that is responsible for adding data
+    public void addData(ArrayList<Integer> list, ArrayList<String> xAxis) { // methods that is responsible for adding data
         // creation of XYChart that is used by barChart to map x and y Axis of the graph
         XYChart.Series<String, Number> steps = new XYChart.Series<>();  // XYChart object for steps
         steps.setName("Steps/Time");
@@ -219,16 +216,11 @@ public class MainDashboardController {
         calories.setName("Calories/Time");
 
         int sizeOfList = list.size(); // length of the list containing data. the list is parsed
-        int avoidNullPointer = 0; // this value helps in avoiding a nullPointerException that can be caused by some graphs starting from 0 and others from 1
 
-        if (startDay > 0) { // checking if the charts starts from 1 or zero
-            sizeOfList = startDay + sizeOfList; // making sure that the last value in the list is reached
-            avoidNullPointer = startDay; // setting the starting position of the chart
-        }
-        for (int i = startDay; i < sizeOfList; i++) { // a loop that goes from start to the length of the list the add x and y values to XYCharts.
-            steps.getData().add(new XYChart.Data<>(String.valueOf(i), list.get(i - avoidNullPointer)));
-            calories.getData().add(new XYChart.Data<>(String.valueOf(i), caloriesList.get(i - avoidNullPointer)));
-            distance.getData().add(new XYChart.Data<>(String.valueOf(i), distanceList.get(i - avoidNullPointer)));
+        for (int i = 0; i < sizeOfList; i++) { // a loop that goes from start to the length of the list the add x and y values to XYCharts.
+            steps.getData().add(new XYChart.Data<>(xAxis.get(i), list.get(i )));
+            calories.getData().add(new XYChart.Data<>(xAxis.get(i), caloriesList.get(i)));
+            distance.getData().add(new XYChart.Data<>(xAxis.get(i), distanceList.get(i)));
         }
 
         barChart.getData().addAll(steps, calories, distance); // adding the XYCharts values to the barchart
@@ -237,9 +229,10 @@ public class MainDashboardController {
     public ArrayList getDayData() { // getting dayData
         // getting the object user who signed in
         HashMap<String, Stats> mapOfStats = FitVentureStart.currentUser.getStats(); // retrieving their stats
-        Integer[] stepsArray = new Integer[24];
-        Double[] caloriesArray = new Double[24];
-        Double[] distanceArray = new Double[24];
+        int totalHours = 24;
+        Integer[] stepsArray = new Integer[totalHours];
+        Double[] caloriesArray = new Double[totalHours];
+        Double[] distanceArray = new Double[totalHours];
 
         mapOfStats.forEach((key, value) -> { // looping through all stats
             if (key.substring(0, 10).toLowerCase().equals(DateUtil.getDateToday(new Date()).substring(0, 10))) { // check if the dateKeyValue is equal to today's date.
@@ -271,7 +264,7 @@ public class MainDashboardController {
         caloriesList = new ArrayList<>();
         distanceList = new ArrayList<>();
 
-        for (int i = 0; i < 24; i++) {
+        for (int i = 0; i < totalHours; i++) {
             if (stepsArray[i] != null) {
                 emptyList.add(stepsArray[i]);
                 caloriesList.add(caloriesArray[i]);
@@ -289,16 +282,15 @@ public class MainDashboardController {
     public ArrayList getWeekData() { // this method is responsible for getting weekData
         // getting stats of the current user
         HashMap<String, Stats> mapOfStats = FitVentureStart.currentUser.getStats();
-        Integer[] stepsArray = new Integer[7];
-        double[] caloriesArray = new double[7];
-        double[] distanceArray = new double[7];
-
         int totalDays = 7;
+        Integer[] stepsArray = new Integer[totalDays];
+        double[] caloriesArray = new double[totalDays];
+        double[] distanceArray = new double[totalDays];
+
         int currentDate = DateUtil.getDateTodayAsInteger(); // getting today's date as an integer
 
         mapOfStats.forEach((key, value) -> { // looping though evert stat in the map
             int anotherDate = DateUtil.getIntegerOfSpecificDate(key); // getting the dateKey for the map as an integer
-            int difference = currentDate - anotherDate; // the difference between today and when the date was created
 
             // referencing values of current stat in the loop
             Integer steps = Integer.parseInt(value.getSteps());
@@ -306,8 +298,8 @@ public class MainDashboardController {
             double distance = Double.parseDouble(value.getDistance());
 
             // checking if there has been less than a week since the stat object was created
-            if (difference < totalDays) {
-                int index = Math.abs(difference - 6);
+            if (DateUtil.getWeek(currentDate) == DateUtil.getWeek(anotherDate) && DateUtil.getYear(currentDate) == DateUtil.getYear(anotherDate)) {
+                int index = DateUtil.getWeekday(anotherDate) - 1; // The arrays are 0-based, therefore "-1"
                 if (stepsArray[index] != null) { // checking if there were saved data on that day to update
                     // updating data if they exist
                     int updatedSteps = stepsArray[index] + steps;
@@ -350,11 +342,11 @@ public class MainDashboardController {
     public ArrayList getMonthData() { // this method is responsible for getting monthData
         // getting the map of stats for the current user
         HashMap<String, Stats> mapOfStats = FitVentureStart.currentUser.getStats();
-        Integer[] stepsArray = new Integer[31];
-        double[] caloriesArray = new double[31];
-        double[] distanceArray = new double[31];
-
         int totalDays = 31; // total days of a month
+        Integer[] stepsArray = new Integer[totalDays];
+        double[] caloriesArray = new double[totalDays];
+        double[] distanceArray = new double[totalDays];
+
         int dateToday = DateUtil.getDateTodayAsInteger();
 
         mapOfStats.forEach((key, value) -> { // looping though the map of stats

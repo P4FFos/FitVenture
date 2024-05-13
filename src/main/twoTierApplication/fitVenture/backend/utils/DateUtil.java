@@ -26,8 +26,10 @@ public class DateUtil {
             }
         }
         */
+
+        int upToDays = 10; // Substring up to days
         try {
-            if (date.length() < 10) {
+            if (date.length() < upToDays) {
                 throw new StringIndexOutOfBoundsException("A complete date format has to be provided.");
             }
             
@@ -36,7 +38,7 @@ public class DateUtil {
         }
 
         try {
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < upToDays; i++) {
                 char chr = date.charAt(i);
                 if (!allowedCharacters.contains(chr)) {
                     throw new IllegalArgumentException("The method should not allow any symbols or characters that are not integers(1, 2, 3, ...) and dashes (-).");
@@ -61,12 +63,46 @@ public class DateUtil {
 
     // Returns day from a specific integer date
     public static int getDay(int date) {
-        if (String.valueOf(date).length() != 8) {
+        int upToDays = 8; // Length up to days (in Integer form)
+        if (String.valueOf(date).length() != upToDays) {
             throw new StringIndexOutOfBoundsException("A complete date format has to be provided.");
         }
         String stringDate = String.valueOf(date); // Turn the date to String
         String days = stringDate.substring(6, 8); // Gets the days (only works with the format that starts with "yyyy-MM-dd" in Integer format)
         int day = Integer.parseInt(days);
         return day;
+    }
+
+    // Returns year from a specific integer date
+    public static int getYear(int date) {
+        String stringDate = String.valueOf(date); // Turn the date to String
+        String years = stringDate.substring(0, 4); // Gets the year (only works with the format that starts with "yyyy" in Integer format)
+        int year = Integer.parseInt(years);
+        return year;
+    }
+
+    public static int getWeek(int date){ // This method gets the week of the year from provided date
+        Calendar calendar = Calendar.getInstance();
+        String stringDate = String.valueOf(date);
+
+        int year = Integer.parseInt(stringDate.substring(0, 4));
+        int month = Integer.parseInt(stringDate.substring(4,6)) - 1; // We subtract with one because the month field is zero-based in the Calendar class.
+        int day = Integer.parseInt(stringDate.substring(6, 8));
+        
+        calendar.set(year, month, day);
+        return calendar.get(Calendar.WEEK_OF_YEAR);
+    }
+
+    public static int getWeekday(int date){ // This method gets the week of the year from provided date
+
+        Calendar calendar = Calendar.getInstance();
+        String stringDate = String.valueOf(date);
+
+        int year = Integer.parseInt(stringDate.substring(0, 4));
+        int month = Integer.parseInt(stringDate.substring(4,6)) - 1; // We subtract with one because the month field is zero-based in the Calendar class.
+        int day = Integer.parseInt(stringDate.substring(6, 8)) - 1; // We subtract with one because for some reason the Calendar-week starts with a Sunday (Sunday = 1)
+
+        calendar.set(year, month, day);
+        return calendar.get(Calendar.DAY_OF_WEEK); // Returns an integer from 1-7 (Monday to Sunday)
     }
 }
