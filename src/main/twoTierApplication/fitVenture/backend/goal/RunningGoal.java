@@ -9,7 +9,8 @@ public class RunningGoal {
     // constant to calculate the goal from KG to calories
     private static final double KM_TO_METERS_MULTIPLIER = 1000;
 
-    // Empty constructor used for Json deserializing
+    // Empty constructor used by Jackson for Json deserializing,
+    // every time we run the application, the user object is created with the empty constructor
     public RunningGoal() {
     }
 
@@ -19,7 +20,7 @@ public class RunningGoal {
         this.runGoalInM = runGoalInKM * KM_TO_METERS_MULTIPLIER;
     }
 
-    // get methods for runGoal
+    //#region RunningGoal Class Get Methods
     public double getRunGoalInKM() {
         return this.runGoalInKM;
     }
@@ -27,8 +28,9 @@ public class RunningGoal {
     public double getRunGoalInM() {
         return this.runGoalInM;
     }
+    //#endregion
 
-    // set methods for runGoal
+    //#region RunningGoal Class Set Methods
     public void setRunGoalInKm(double runGoalInKM) {
         this.runGoalInKM = runGoalInKM;
     }
@@ -36,4 +38,5 @@ public class RunningGoal {
     public void setRunGoalInM(double runGoalInM) {
         this.runGoalInM = runGoalInM;
     }
+    //#endregion
 }
