@@ -11,10 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
+import javafx.scene.chart.*;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -131,7 +128,7 @@ public class MainDashboardController {
 
         ArrayList dayList = getDayData(); // getting data for 24 hours
         barChart = new BarChart(xAxis, yAxis); // creation of barChart object
-        addData(dayList, 0); // addition of the 24 hours data to the chart
+        addData(dayList, new ArrayList<>(numbersList)); // addition of the 24 hours data to the chart
 
         barChart.setMaxHeight(800); // setting the maxHeight of the chart
         barChart.setMaxWidth(1200); // setting the maxWidth of the chart
@@ -146,7 +143,7 @@ public class MainDashboardController {
         yAxis.setLabel("Steps/Calories/Meters");//setting the label
 
         List numbersList = List.of(
-                "1", "2", "3", "4", "5", "6", "7"
+                "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
         ); // a list of values to be used for XAxis.
 
         observableList = FXCollections.observableList(numbersList); // creating observable object
@@ -154,7 +151,7 @@ public class MainDashboardController {
 
         ArrayList weekList = getWeekData(); // getting data for 7 days
         barChart = new BarChart(xAxis, yAxis); // creating the barChart object
-        addData(weekList, 1); // adding data to the chart. 1 int value that is being parsed, is the indicator to show that the chart will count from 1 not zero.
+        addData(weekList, new ArrayList<>(numbersList)); // adding data to the chart. 1 int value that is being parsed, is the indicator to show that the chart will count from 1 not zero.
 
         barChart.setMaxHeight(800); // setting the value of maxHeight of barchart
         barChart.setMaxWidth(1200); // setting the maxWidth of the barChart
@@ -178,7 +175,7 @@ public class MainDashboardController {
 
         ArrayList monthList = getMonthData(); // getting data for 31 days
         barChart = new BarChart(xAxis, yAxis); // creation of chart object
-        addData(monthList, 1); // adding data to the chart. 1 int value that is being parsed, is the indicator to show that the chart will count from 1 not zero.
+        addData(monthList, new ArrayList<>(numbersList)); // adding data to the chart. 1 int value that is being parsed, is the indicator to show that the chart will count from 1 not zero.
 
         barChart.setMaxHeight(800); // setting the maxHeight of the barChart
         barChart.setMaxWidth(1200); // setting the maxWidth of the barchart
@@ -207,7 +204,7 @@ public class MainDashboardController {
     }
     //#endregion
 
-    public void addData(ArrayList<Integer> list, int startDay) { // methods that is responsible for adding data
+    public void addData(ArrayList<Integer> list, ArrayList<String> xAxis) { // methods that is responsible for adding data
         // creation of XYChart that is used by barChart to map x and y Axis of the graph
         XYChart.Series<String, Number> steps = new XYChart.Series<>();  // XYChart object for steps
         steps.setName("Steps/Time");
@@ -219,16 +216,11 @@ public class MainDashboardController {
         calories.setName("Calories/Time");
 
         int sizeOfList = list.size(); // length of the list containing data. the list is parsed
-        int avoidNullPointer = 0; // this value helps in avoiding a nullPointerException that can be caused by some graphs starting from 0 and others from 1
 
-        if (startDay > 0) { // checking if the charts starts from 1 or zero
-            sizeOfList = startDay + sizeOfList; // making sure that the last value in the list is reached
-            avoidNullPointer = startDay; // setting the starting position of the chart
-        }
-        for (int i = startDay; i < sizeOfList; i++) { // a loop that goes from start to the length of the list the add x and y values to XYCharts.
-            steps.getData().add(new XYChart.Data<>(String.valueOf(i), list.get(i - avoidNullPointer)));
-            calories.getData().add(new XYChart.Data<>(String.valueOf(i), caloriesList.get(i - avoidNullPointer)));
-            distance.getData().add(new XYChart.Data<>(String.valueOf(i), distanceList.get(i - avoidNullPointer)));
+        for (int i = 0; i < sizeOfList; i++) { // a loop that goes from start to the length of the list the add x and y values to XYCharts.
+            steps.getData().add(new XYChart.Data<>(xAxis.get(i), list.get(i )));
+            calories.getData().add(new XYChart.Data<>(xAxis.get(i), caloriesList.get(i)));
+            distance.getData().add(new XYChart.Data<>(xAxis.get(i), distanceList.get(i)));
         }
 
         barChart.getData().addAll(steps, calories, distance); // adding the XYCharts values to the barchart
