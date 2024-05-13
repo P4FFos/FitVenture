@@ -26,8 +26,10 @@ public class DateUtil {
             }
         }
         */
+
+        int upToDays = 10; // Substring up to days
         try {
-            if (date.length() < 10) {
+            if (date.length() < upToDays) {
                 throw new StringIndexOutOfBoundsException("A complete date format has to be provided.");
             }
             
@@ -36,7 +38,7 @@ public class DateUtil {
         }
 
         try {
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < upToDays; i++) {
                 char chr = date.charAt(i);
                 if (!allowedCharacters.contains(chr)) {
                     throw new IllegalArgumentException("The method should not allow any symbols or characters that are not integers(1, 2, 3, ...) and dashes (-).");
@@ -61,7 +63,8 @@ public class DateUtil {
 
     // Returns day from a specific integer date
     public static int getDay(int date) {
-        if (String.valueOf(date).length() != 8) {
+        int upToDays = 8; // Length up to days (in Integer form)
+        if (String.valueOf(date).length() != upToDays) {
             throw new StringIndexOutOfBoundsException("A complete date format has to be provided.");
         }
         String stringDate = String.valueOf(date); // Turn the date to String
