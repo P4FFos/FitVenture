@@ -6,7 +6,7 @@ import fitVenture.backend.goal.RunningGoal;
 import fitVenture.backend.goal.WeightGoal;
 import fitVenture.backend.stats.RaceStats;
 import fitVenture.backend.stats.Stats;
-import fitVenture.backend.utils.Current_Date;
+import fitVenture.backend.utils.DateUtil;
 import java.util.HashMap;
 
 // any unknown properties in JSON will be ignored (used because of the achievementsList)
@@ -165,8 +165,8 @@ public class User {
         // for loop to iterate over each value of the stats HashMap
         for (String dateOfCreation : this.statsMap.keySet()) {
             Stats valueOfTheStat = this.statsMap.get(dateOfCreation);
-            int dateOfStat = Current_Date.getIntegerOfSpecificDate(dateOfCreation);
-            int goalStartDate = Current_Date.getIntegerOfSpecificDate(goalDate);
+            int dateOfStat = DateUtil.getIntegerOfSpecificDate(dateOfCreation);
+            int goalStartDate = DateUtil.getIntegerOfSpecificDate(goalDate);
 
             // checks if date of the stat is bigger or equal to goal start date
             if (dateOfStat >= goalStartDate) {
@@ -185,8 +185,8 @@ public class User {
         // for loop to iterate over each value of the stats HashMap
         for (String dateOfCreation : this.statsMap.keySet()) {
             Stats valueOfTheStat = this.statsMap.get(dateOfCreation);
-            int dateOfStat = Current_Date.getIntegerOfSpecificDate(dateOfCreation);
-            int goalStartDate = Current_Date.getIntegerOfSpecificDate(goalDate);
+            int dateOfStat = DateUtil.getIntegerOfSpecificDate(dateOfCreation);
+            int goalStartDate = DateUtil.getIntegerOfSpecificDate(goalDate);
 
             // checks if date of the stat is bigger or equal to goal start date
             if (dateOfStat >= goalStartDate) {

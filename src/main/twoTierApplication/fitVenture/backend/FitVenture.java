@@ -10,7 +10,7 @@ import fitVenture.backend.user.User;
 import java.util.Date;
 import java.util.HashMap;
 
-import static fitVenture.backend.utils.Current_Date.getDateToday;
+import static fitVenture.backend.utils.DateUtil.getDateToday;
 
 public class FitVenture {
     // A HashMap to store all the users
