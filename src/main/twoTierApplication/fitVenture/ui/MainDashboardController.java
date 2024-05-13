@@ -18,6 +18,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -111,6 +112,7 @@ public class MainDashboardController {
     }
 
     public void dayChart() { // dayChart is responsible to display 24 hours chart
+        
         xAxis = new CategoryAxis(); // create object of CategoryAxis which is XAxis of the graph
         xAxis.setLabel("Hours"); // setting label to 24 hours
 
@@ -133,6 +135,7 @@ public class MainDashboardController {
         barChart.setMaxHeight(800); // setting the maxHeight of the chart
         barChart.setMaxWidth(1200); // setting the maxWidth of the chart
         borderPane.setCenter(barChart); // setting the barchart to the center of the borderPane
+       
     }
 
     public void weekChart() { // a method that is responsible for weekChart

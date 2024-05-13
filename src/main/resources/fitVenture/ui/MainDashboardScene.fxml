@@ -40,27 +40,27 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <Button layoutX="219.0" layoutY="49.0" mnemonicParsing="false" onAction="#updateWeather" prefHeight="60.0" prefWidth="216.0" style="-fx-border-color: #d4f5f5; -fx-border-radius: 12;" text="Update Weather">
+            <Button layoutX="211.0" layoutY="52.0" mnemonicParsing="false" onAction="#updateWeather" prefHeight="60.0" prefWidth="224.0" style="-fx-border-color: #d4f5f5; -fx-border-radius: 12; -fx-text-fill: rgb(212, 245, 245);" text="Update Weather">
                <font>
                   <Font size="24.0" />
                </font>
             </Button>
-            <Button fx:id="ChallengesButton" layoutX="86.0" layoutY="159.0" mnemonicParsing="false" onAction="#openChallengesPage" prefHeight="80.0" prefWidth="278.0" style="-fx-border-radius: 12;" styleClass="buttonForMainDashboard" text="Challenges">
+            <Button fx:id="ChallengesButton" layoutX="86.0" layoutY="159.0" mnemonicParsing="false" onAction="#openChallengesPage" prefHeight="80.0" prefWidth="278.0" style="-fx-border-radius: 12; -fx-border-color: #d4f5f5;" styleClass="buttonForMainDashboard" text="Challenges">
                <font>
                   <Font size="24.0" />
                </font>
             </Button>
-            <Button layoutX="86.0" layoutY="266.0" mnemonicParsing="false" onAction="#displayGoals" prefHeight="80.0" prefWidth="278.0" style="-fx-border-radius: 12;" styleClass="buttonForMainDashboard" text="Goals">
+            <Button layoutX="86.0" layoutY="266.0" mnemonicParsing="false" onAction="#displayGoals" prefHeight="80.0" prefWidth="278.0" style="-fx-border-radius: 12; -fx-border-color: #d4f5f5;" styleClass="buttonForMainDashboard" text="Goals">
                <font>
                   <Font size="24.0" />
                </font>
             </Button>
-            <Button layoutX="86.0" layoutY="373.0" mnemonicParsing="false" onAction="#openAchievementsPage" prefHeight="80.0" prefWidth="278.0" style="-fx-border-radius: 12;" styleClass="buttonForMainDashboard" text="Achievements">
+            <Button layoutX="86.0" layoutY="373.0" mnemonicParsing="false" onAction="#openAchievementsPage" prefHeight="80.0" prefWidth="278.0" style="-fx-border-radius: 12; -fx-border-color: #d4f5f5;" styleClass="buttonForMainDashboard" text="Achievements">
                <font>
                   <Font size="24.0" />
                </font>
             </Button>
-            <Button layoutX="91.0" layoutY="611.0" onAction="#monthChoice" prefHeight="80.0" prefWidth="278.0" style="-fx-border-radius: 12;" styleClass="buttonForMainDashboard" text="Month Chart">
+            <Button layoutX="91.0" layoutY="611.0" onAction="#monthChoice" prefHeight="80.0" prefWidth="278.0" style="-fx-border-radius: 12; -fx-border-color: #d4f5f5;" styleClass="buttonForMainDashboard" text="Month Chart">
                <font>
                   <Font size="24" />
                </font>
@@ -68,7 +68,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button contentDisplay="CENTER" layoutX="91.0" layoutY="718.0" onAction="#weekChoice" prefHeight="80.0" prefWidth="278.0" style="-fx-border-radius: 12;" styleClass="buttonForMainDashboard" text="Week Chart">
+            <Button contentDisplay="CENTER" layoutX="91.0" layoutY="718.0" onAction="#weekChoice" prefHeight="80.0" prefWidth="278.0" style="-fx-border-radius: 12; -fx-border-color: #d4f5f5;" styleClass="buttonForMainDashboard" text="Week Chart">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -76,7 +76,7 @@
                   <Font size="24" />
                </font>
             </Button>
-            <Button contentDisplay="CENTER" layoutX="91.0" layoutY="504.0" onAction="#dayChoice" prefHeight="80.0" prefWidth="278.0" style="-fx-border-radius: 12;" styleClass="buttonForMainDashboard" text="Day Chart">
+            <Button contentDisplay="CENTER" layoutX="91.0" layoutY="504.0" onAction="#dayChoice" prefHeight="80.0" prefWidth="278.0" style="-fx-border-radius: 12; -fx-border-color: #d4f5f5;" styleClass="buttonForMainDashboard" text="Day Chart">
                <font>
                   <Font size="24" />
                </font>
@@ -85,12 +85,12 @@
                </cursor>
             </Button>
             <Line endX="441.5883483886719" endY="160.35211181640625" layoutX="-6.0" layoutY="320.0" startX="26.144792556762695" startY="160.35211181640625" stroke="#d4f5f5" strokeWidth="3.0" />
-            <Button fx:id="updateChartButton" layoutX="91.0" layoutY="825.0" mnemonicParsing="false" onMouseClicked="#updateChartButton" prefHeight="80.0" prefWidth="278.0" style="-fx-border-radius: 12;" styleClass="buttonForMainDashboard" text="Update Chart" visible="true">
+            <Button fx:id="updateChartButton" layoutX="91.0" layoutY="825.0" mnemonicParsing="false" onMouseClicked="#updateChartButton" prefHeight="80.0" prefWidth="278.0" style="-fx-border-radius: 12; -fx-border-color: #d4f5f5;" styleClass="buttonForMainDashboard" text="Update Chart" visible="true">
                <font>
                   <Font size="24.0" />
                </font>
             </Button>
-            <Button fx:id="UserProfileButton1" layoutX="90.0" layoutY="948.0" mnemonicParsing="false" onAction="#openUserProfile" prefHeight="80.0" prefWidth="278.0" style="-fx-border-radius: 12;" styleClass="buttonForMainDashboard" text="User Profile">
+            <Button fx:id="UserProfileButton1" layoutX="90.0" layoutY="948.0" mnemonicParsing="false" onAction="#openUserProfile" prefHeight="80.0" prefWidth="278.0" style="-fx-border-radius: 12; -fx-border-color: #d4f5f5;" styleClass="buttonForMainDashboard" text="User Profile">
                <font>
                   <Font size="24.0" />
                </font>
@@ -99,9 +99,9 @@
             <Line endX="441.5883483886719" endY="160.35211181640625" layoutX="-3.0" layoutY="767.0" startX="26.144792556762695" startY="160.35211181640625" stroke="#d4f5f5" strokeWidth="3.0" />
          </children>
       </Pane>
-      <ImageView fitHeight="365.0" fitWidth="1360.0" layoutX="511.0" layoutY="-72.0">
+      <ImageView fitHeight="365.0" fitWidth="1360.0" layoutX="515.0" layoutY="-59.0">
          <image>
-            <Image url="@../../../../../../../Downloads/fitVentureLogoNoBgr.png" />
+            <Image url="@images/fitVentureLogoNoBgr.png" />
          </image>
       </ImageView>
    </children>

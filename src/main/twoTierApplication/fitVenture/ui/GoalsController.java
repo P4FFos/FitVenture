@@ -27,6 +27,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.*;
 
+import static javafx.scene.paint.Color.rgb;
+
 public class GoalsController {
     private Parent root;
     private Stage stage;
@@ -122,7 +124,7 @@ public class GoalsController {
                 ProgressBar weightProgressBar = new ProgressBar();
                 weightProgressBar.setPrefWidth(330);
                 weightProgressBar.setPrefHeight(50);
-                weightProgressBar.setStyle("-fx-accent: green;");
+                weightProgressBar.setStyle("-fx-accent: #a9a9df;");
 
                 //settings for the goalLabel
                 Label weightGoalInCaloriesLabel = new Label();
@@ -167,7 +169,7 @@ public class GoalsController {
                 ProgressBar runProgressBar = new ProgressBar();
                 runProgressBar.setPrefWidth(330);
                 runProgressBar.setPrefHeight(50);
-                runProgressBar.setStyle("-fx-accent: green;");
+                runProgressBar.setStyle("-fx-accent: #a9a9df;");
 
                 //settings for the runGoalLabel
                 Label runGoalInMetersLabel = new Label();

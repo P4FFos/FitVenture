@@ -52,6 +52,7 @@ public class UserProfileController {
     @FXML
     public TextField newUsernameField;
 
+
     // method to show information of a logged user in the user profile
     public void showData() {
         // get information of the logged user from the database
@@ -95,11 +96,6 @@ public class UserProfileController {
         heightBox.setVisible(true);
         weightBox.setVisible(true);
         nameBox.setVisible(true);
-
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
     }
 
     public void changeData() {
@@ -162,12 +158,7 @@ public class UserProfileController {
         heightBox.setVisible(false);
         weightBox.setVisible(false);
         nameBox.setVisible(false);
-
         changeData();
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
     }
 
     // method to change the password of the user
@@ -180,11 +171,14 @@ public class UserProfileController {
             // updates the password of the user
             FitVentureStart.currentUser.setPassword(newPassword);
             FileHandler.jsonSerializer(FitVentureStart.jsonPath, FitVentureStart.fitVenture);
-            labelForUsernameAndPassword.setText("Password successfully changed");
+            errorLabel.setVisible(true);
+            errorLabel.setText("Password successfully changed");
         } else if (newPassword.equals(currentPassword)) {
-            labelForUsernameAndPassword.setText("Failed. You entered the same password");
+            errorLabel.setVisible(true);
+            errorLabel.setText("Failed. You entered the same password");
         } else if (newPassword.isEmpty()) {
-            labelForUsernameAndPassword.setText("Failed. You did not enter a password");
+            errorLabel.setVisible(true);
+            errorLabel.setText("Failed. You did not enter a password");
         }
     }
 
@@ -197,7 +191,8 @@ public class UserProfileController {
         if (!newUsername.isEmpty() && !newUsername.equals(currentUsername)) {
             // check if the username already exists in the hashmap of users
             if (FitVentureStart.fitVenture.getUsers().containsKey(newUsername)) {
-                labelForUsernameAndPassword.setText("Failed. Username already exists");
+                errorLabel.setVisible(true);
+                errorLabel.setText("Failed. Username already exists");
             } else {
                 // updates the username of the user
                 FitVentureStart.currentUser.setUsername(newUsername);
@@ -206,12 +201,15 @@ public class UserProfileController {
                 FitVentureStart.fitVenture.getUsers().put(newUsername, FitVentureStart.currentUser);
                 FileHandler.jsonSerializer(FitVentureStart.jsonPath, FitVentureStart.fitVenture);
                 welcomeUsername.setText(newUsername);
-                labelForUsernameAndPassword.setText("Username successfully changed");
+                errorLabel.setVisible(true);
+                errorLabel.setText("Username successfully changed");
             }
         } else if (newUsername.equals(currentUsername)) {
-            labelForUsernameAndPassword.setText("Failed. You entered the same username");
+            errorLabel.setVisible(true);
+            errorLabel.setText("Failed. You entered the same username");
         } else if (newUsername.isEmpty()) {
-            labelForUsernameAndPassword.setText("Failed. You did not enter a username");
+            errorLabel.setVisible(true);
+            errorLabel.setText("Failed. You did not enter a username");
         }
     }
 
