@@ -81,7 +81,7 @@ public class UserProfileController {
         } else {
             // shows an error if the user weight and height fields are empty
             errorLabel.setVisible(true);
-            errorLabel.setText("Failed. Input your personal data");
+            errorLabel.setText("Failed, Input your personal data");
         }
     }
 
@@ -131,7 +131,7 @@ public class UserProfileController {
             } catch (Exception e) {
                 // shows error label if user input wrong height and weight
                 errorLabel.setVisible(true);
-                errorLabel.setText("Failed. You entered wrong data type");
+                errorLabel.setText("Failed, You entered wrong data type");
                 heightIndexValue.setText(null);
                 weightIndexValue.setText(null);
                 bodyIndexValue.setText(null);
@@ -139,7 +139,7 @@ public class UserProfileController {
             }
         } else {
             // shows error label if user didn't input weight and height
-            errorLabel.setText("Failed. Input your personal data");
+            errorLabel.setText("Failed, Input your personal data");
             errorLabel.setVisible(true);
             heightIndexValue.setText(null);
             weightIndexValue.setText(null);
@@ -175,10 +175,10 @@ public class UserProfileController {
             errorLabel.setText("Password successfully changed");
         } else if (newPassword.equals(currentPassword)) {
             errorLabel.setVisible(true);
-            errorLabel.setText("Failed. You entered the same password");
+            errorLabel.setText("Failed, You entered the same password");
         } else if (newPassword.isEmpty()) {
             errorLabel.setVisible(true);
-            errorLabel.setText("Failed. You did not enter a password");
+            errorLabel.setText("Failed, You did not enter a password");
         }
     }
 
@@ -192,7 +192,7 @@ public class UserProfileController {
             // check if the username already exists in the hashmap of users
             if (FitVentureStart.fitVenture.getUsers().containsKey(newUsername)) {
                 errorLabel.setVisible(true);
-                errorLabel.setText("Failed. Username already exists");
+                errorLabel.setText("Failed, Username already exists");
             } else {
                 // updates the username of the user
                 FitVentureStart.currentUser.setUsername(newUsername);
@@ -206,10 +206,10 @@ public class UserProfileController {
             }
         } else if (newUsername.equals(currentUsername)) {
             errorLabel.setVisible(true);
-            errorLabel.setText("Failed. You entered the same username");
+            errorLabel.setText("Failed, You entered the same username");
         } else if (newUsername.isEmpty()) {
             errorLabel.setVisible(true);
-            errorLabel.setText("Failed. You did not enter a username");
+            errorLabel.setText("Failed, You did not enter a username");
         }
     }
 

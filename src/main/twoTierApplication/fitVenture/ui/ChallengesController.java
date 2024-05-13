@@ -74,6 +74,9 @@ public class ChallengesController {
     private final String VERY_HIGH_BMI_DIST_CHALLENGE = "Your daily challenge is: Walk " + VERY_HIGH_BMI_DIST + " km today!";
 
     public void showChallenges() {
+        stepProgressBar.setStyle("-fx-accent: #a9a9df;");
+        distProgressBar.setStyle("-fx-accent: #a9a9df;");
+        kcalProgressBar.setStyle("-fx-accent: #a9a9df;");
 
         // get information of the logged user from the database
         String userUsername = FitVentureStart.currentUser.getUsername();

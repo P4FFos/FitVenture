@@ -47,16 +47,16 @@ public class FitVenture {
     public boolean register(String username, String password, String weight, String height, String name) throws RegistrationException {
         boolean isRegistered = false;
         if (username.isEmpty() && password.isEmpty()) {
-            throw new RegistrationException("Input the username and password");
+            throw new RegistrationException("Failed, Input the username and password");
         }
         if (username.isEmpty()) {
-            throw new RegistrationException("Input the username");
+            throw new RegistrationException("Failed, Input the username");
         }
         if (password.isEmpty()) {
-            throw new RegistrationException("Input the password");
+            throw new RegistrationException("Failed, Input the password");
         }
         if (users.containsKey(username)) {
-            throw new RegistrationException("Such user already exists. Try again");
+            throw new RegistrationException("Failed, Such user already exists. Try again");
         } else {
             User user = new User(username, password, weight, height, name);
             addUser(user);
@@ -72,21 +72,21 @@ public class FitVenture {
         boolean correctUsername = false;
         boolean correctPassword = false;
         if (password.isEmpty() && username.isEmpty()) {
-            throw new LoginException("Input the username and password");
+            throw new LoginException("Failed, Input the username and password");
         }
         if (password.isEmpty()) {
-            throw new LoginException("Failed. Input the password");
+            throw new LoginException("Failed, Input the password");
         }
         if (username.isEmpty()) {
-            throw new LoginException("Failed. Input the username");
+            throw new LoginException("Failed, Input the username");
         }
         if (!users.containsKey(username)) {
-            throw new LoginException("Failed. Invalid username ");
+            throw new LoginException("Failed, Invalid username ");
         } else {
             correctUsername = true;
             User user = users.get(username);
             if (!user.getPassword().equals(password)) {
-                throw new LoginException("Failed. Invalid password");
+                throw new LoginException("Failed, Invalid password");
             } else {
                 correctPassword = true;
             }
