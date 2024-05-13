@@ -92,6 +92,3 @@ public class DateUtil {
         return calendar.get(Calendar.DAY_OF_WEEK); // Returns an integer from 1-7 (Monday to Sunday)
     }
 }
-=======
-}
->>>>>>> 863a58cf484a77abb893bc7b1f390253350902c3
