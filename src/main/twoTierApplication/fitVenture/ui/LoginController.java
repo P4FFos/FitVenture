@@ -23,6 +23,7 @@ public class LoginController {
     private Stage stage;
     private Scene scene;
 
+    //#region FXML variables
     @FXML
     public TextField username;
 
@@ -31,6 +32,7 @@ public class LoginController {
 
     @FXML
     public Label errorLabel;
+    //#endregion
 
     public void login(ActionEvent event) throws IOException {
         // Attributes used to store data from the fields that user entered
@@ -50,7 +52,7 @@ public class LoginController {
                 // Publish to the MQTT broker
                 new MQTTPublisher();
                 // Subscribe to the MQTT broker
-                new MQTTSubscriber();
+                new MQTTSubscriber(); 
 
                 // Loads MainDashboardScene one user pressed login button
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("MainDashboardScene.fxml"));

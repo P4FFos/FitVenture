@@ -277,7 +277,7 @@ public class MainDashboardController {
                 caloriesList.add(caloriesArray[i]);
                 distanceList.add(distanceArray[i]);
             } else {
-                // adding o to the index that holds null values
+                // adding 0 to the index that holds null values
                 emptyList.add(0);
                 caloriesList.add(0.0);
                 distanceList.add(0.0);
