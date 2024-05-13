@@ -1,6 +1,8 @@
 package fitVenture.ui;
+
 import fitVenture.backend.FitVenture;
 import fitVenture.backend.MQTTSubscriber;
+import fitVenture.backend.achievements.AchievementsList;
 import fitVenture.backend.MQTTPublisher;
 import fitVenture.backend.exceptions.LoginException;
 import javafx.event.ActionEvent;
@@ -9,7 +11,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -22,16 +23,16 @@ public class LoginController {
     private Stage stage;
     private Scene scene;
 
+    //#region FXML variables
     @FXML
     public TextField username;
+
     @FXML
     public PasswordField password;
+
     @FXML
     public Label errorLabel;
-    @FXML
-    public Button loginButton;
-    @FXML
-    public Button returnButton;
+    //#endregion
 
     public void login(ActionEvent event) throws IOException {
         // Attributes used to store data from the fields that user entered
@@ -51,12 +52,13 @@ public class LoginController {
                 // Publish to the MQTT broker
                 new MQTTPublisher();
                 // Subscribe to the MQTT broker
-                new MQTTSubscriber();
+                new MQTTSubscriber(); 
 
                 // Loads MainDashboardScene one user pressed login button
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("MainDashboardScene.fxml"));
                 root = loader.load();
 
+                // Loads the chart in the main dashboard once user login
                 MainDashboardController mainDashboardController = loader.getController();
                 mainDashboardController.showChart();
 

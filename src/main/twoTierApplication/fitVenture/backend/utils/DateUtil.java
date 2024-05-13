@@ -3,7 +3,7 @@ package fitVenture.backend.utils;
 import java.util.*;
 import java.text.SimpleDateFormat;
 
-public class Current_Date {
+public class DateUtil {
     public static String getDateToday(Date date) {
         // Returns the current date in the format "1999-01-11 12" -> "Year-Month-Day Hour"
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH");
@@ -12,21 +12,27 @@ public class Current_Date {
 
     // Returns specific date as an integer
     public static int getIntegerOfSpecificDate(String date) {
+        Set<Character> allowedCharacters = new HashSet<>(Arrays.asList(' ','-', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'));
         String newDate = "";
-        Set<Integer> setOfLine = new HashSet<Integer>();
-        setOfLine.add(4);
-        setOfLine.add(7);
-        setOfLine.add(10);
 
-        for (int i = 0; i < 10; i++) {
-            if (!setOfLine.contains(i)) {
+        try {
+            // 10 represents the amount of characters in the date format "yyyy-MM-dd"
+            for (int i = 0; i < 10; i++) {
                 char chr = date.charAt(i);
-                newDate = newDate + chr;
+                if (!allowedCharacters.contains(chr)) {
+                    throw new IllegalArgumentException("The method should not allow any symbols or characters that are not integers(1, 2, 3, ...) and dashes (-).");
+                }
+                // Skip over spaces and dashes so that newDate can be parsed into an integer later
+                if (chr != ' ' && chr != '-'){
+                    newDate += chr;
+                }
             }
+        } catch (Exception e) {
+            throw new IllegalArgumentException(e.getMessage());
         }
 
-        int number = Integer.parseInt(newDate);
-        return number;
+        int dateInInt = Integer.parseInt(newDate);
+        return dateInInt;
     }
 
     // Returns today's date as an integer

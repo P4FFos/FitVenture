@@ -19,6 +19,7 @@ public class UserProfileController {
     private Parent root;
     private Stage stage;
     private Scene scene;
+    //#region FXML variables
     @FXML
     public Label heightIndexValue;
     @FXML
@@ -51,6 +52,7 @@ public class UserProfileController {
     public Button changeUsername;
     @FXML
     public TextField newUsernameField;
+    //#endregion
 
 
     // method to show information of a logged user in the user profile

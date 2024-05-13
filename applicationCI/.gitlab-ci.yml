@@ -4,10 +4,9 @@ variables:
 image: maven:latest
 
 stages:
-    - build
+    - compile
     - test
-    - package
-    - deploy
+
 
 
 cache:
@@ -15,13 +14,12 @@ cache:
     - .m2/repository
     - target
 
-build_job:
-  stage: build
+compile_job:
+  stage: compile
   tags:
     - docker 
 
   script: 
-    - echo "Potaot"
     - echo "Maven compile started"
     - "mvn compile"
 
@@ -34,21 +32,3 @@ test_job:
   script: 
     - echo "Maven test started"
     - "mvn test"
-
-package_job:
-  stage: package
-  tags:
-    - docker 
-
-  script: 
-    - echo "Maven packaging started"
-    - "mvn package"
-
-
-Deploy_job:
-  stage: deploy
-  tags:
-    - docker 
-    
-  script: 
-    - echo "Maven deploy started"

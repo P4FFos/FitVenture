@@ -161,7 +161,7 @@ void loop() {
 
   getTemperatureAndHumidity(&temperature, &humidity);
   // after getting, we publish the temphumidity data to the app
-  publishTemperatureAndHumidity(temperature, humidity);
+  publishTempAndHumidity(temperature, humidity);
   displayTemperatureAndHumidity(temperature, humidity);
 
   // Suggest activity based on weather conditions
@@ -332,7 +332,7 @@ void publishRaceData() {
 
   // Publish step count, distance, and calorie data to MQTT topics
   char payload[200];
-  snprintf(payload, sizeof(payload), "{\"StartTime\": %lu, \"EndTime\": %lu, \"Distance\": %.2f, \"Steps\": %d, \"Calories\": %.2f}", raceStartTime, raceEndTime, distance, stepCount, caloriesBurned);
+  snprintf(payload, sizeof(payload), "{\"startTime\": %lu, \"endTime\": %lu, \"distance\": %.2f, \"steps\": %d, \"calories\": %.2f}", raceStartTime, raceEndTime, distance, stepCount, caloriesBurned);
   mqttClient.publish(raceTopic, payload);
   tft.printf("Race finished!");
   Serial.println("Race data published to the MQTT topic.");

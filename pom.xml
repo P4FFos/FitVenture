@@ -53,7 +53,7 @@
             src/main/twoTierApplication
         </sourceDirectory>
         <testSourceDirectory>
-            src/test
+            src/test/fitVenture
         </testSourceDirectory>
         <plugins>
             <plugin>
@@ -61,8 +61,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
                 <configuration>
-                    <source>22</source>
-                    <target>22</target>
+                    <source>21</source>
+                    <target>21</target>
                     <compilerArgs>--enable-preview</compilerArgs>
                 </configuration>
             </plugin>
