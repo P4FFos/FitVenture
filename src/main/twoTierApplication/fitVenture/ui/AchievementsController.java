@@ -100,34 +100,30 @@ public class AchievementsController {
             if (values.getTag().equals("Distance")) {   // Gets the tag and checks if it equals to "Distance"
                 if (FitVentureStart.currentUser.totalDistanceSinceStart() < values.getCompletionRequirement()) {    // If the total distance traveled since the start of the account is less than the completion requirement:
                     progressBar.setProgress(FitVentureStart.currentUser.totalDistanceSinceStart() / values.getCompletionRequirement());     // Set the progress of the bar to the total distance traveled since start of account divided by the completion requirement of the achievement
-                    backgroundFill = new BackgroundFill(Color.rgb(169, 169, 223), CornerRadii.EMPTY, Insets.EMPTY);     // Color the background of the achievement grey
+                    backgroundFill = new BackgroundFill(Color.rgb(169, 169, 223), CornerRadii.EMPTY, Insets.EMPTY);     // Color the background of the achievement to lavender color
                     progressBarText.setText(String.format("%.2f Out Of %.2fm", FitVentureStart.currentUser.totalDistanceSinceStart(), values.getCompletionRequirement())); // Set the achievement text to tell the user how much distance is left in meters
                 } else {
                     progressBar.setProgress(PROGRESSBAR_COMPLETE);        // If the total distance is greater than the completion requirement for the achievement, set it at 100%
                     progressBarText.setText("Done!");     // Set the text of the label to "Done!"
                     progressBarText.setPadding(new Insets(0,0,0,50)); // aligns the text label to the centre of the bar
-                    backgroundFill = new BackgroundFill(Color.rgb(145, 145, 245), CornerRadii.EMPTY, Insets.EMPTY);    // Set the background color of the achievement to dark-purple
+                    backgroundFill = new BackgroundFill(Color.rgb(145, 145, 245), CornerRadii.EMPTY, Insets.EMPTY);    // Set the background color of the achievement to dark-lavender color
                 }
 
             } else if (values.getTag().equals("Calories")) {        // Gets the tag and checks if it equals to "Calories"
                 if (FitVentureStart.currentUser.totalCaloriesSinceStart() < values.getCompletionRequirement()) {        // If the total calories burned since the start of the account is less than the completion requirement:
                     progressBar.setProgress(FitVentureStart.currentUser.totalCaloriesSinceStart() / values.getCompletionRequirement()); // Set the progress of the bar to the total calories burned since start of account divided by the completion requirement of the achievement
-                    backgroundFill = new BackgroundFill(Color.rgb(169, 169, 223), CornerRadii.EMPTY, Insets.EMPTY);   // Color the background of the achievement grey
+                    backgroundFill = new BackgroundFill(Color.rgb(169, 169, 223), CornerRadii.EMPTY, Insets.EMPTY);   // Color the background of the achievement to lavender color
                     progressBarText.setText(String.format("%.2f Out Of %.2fKCal", FitVentureStart.currentUser.totalDistanceSinceStart(), values.getCompletionRequirement())); // Set the achievement text to tell the user how many calories are left im KCal
 
                 } else {
                     progressBar.setProgress(PROGRESSBAR_COMPLETE);        // If the total calories is greater than the completion requirement for the achievement, set it at 100%
                     progressBarText.setText("Done!");   // Set the text of the label to "Done!"
                     progressBarText.setPadding(new Insets(0,0,0,50));
-                    backgroundFill = new BackgroundFill(Color.rgb(145, 145, 245), CornerRadii.EMPTY, Insets.EMPTY);  // Set the background color of the achievement to darkgrey
+                    backgroundFill = new BackgroundFill(Color.rgb(145, 145, 245), CornerRadii.EMPTY, Insets.EMPTY);  // Set the background color of the achievement to dark-lavender color
                 }
             }
             // Sets the margins for all the children in the anchorpane, aswell as the anchorpane itself
             setMargins(allAnchorPane);
-            // Creates a border and sets it to the anchorpane and the achievements name
-            Border newBorder = new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.FULL));
-            allAnchorPane.setBorder(newBorder);
-            achievementName.setBorder(newBorder);
             // Creates and sets the background for the anchorpane
             Background anchorBackground = new Background(backgroundFill);
             allAnchorPane.setBackground(anchorBackground);

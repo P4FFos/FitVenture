@@ -121,7 +121,7 @@ public class GoalsController {
         weightGoalArrayList = new ArrayList<>();
         listOfWeightKeys = new ArrayList<>();
 
-        weightGoalHashMap.forEach((goalCreationDate, goalValue) -> { // for each Weight object do the fallowing
+        weightGoalHashMap.forEach((goalCreationDate, goalValue) -> { // for each Weight object do the following
             double goal = goalValue.getGoalInCalories();
             double progressToGoal = FitVentureStart.currentUser.getTotalBurnedCalories(goalCreationDate);
 
