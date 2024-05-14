@@ -19,48 +19,48 @@
       <URL value="@PagesStyles.css" />
    </stylesheets>
    <children>
-      <Text fill="#090b3f" layoutX="72.0" layoutY="665.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-fill: white;" text="Running Goals">
+      <Text fill="#090b3f" layoutX="67.0" layoutY="679.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-fill: white;" text="Running Goals">
          <font>
             <Font size="40.0" />
          </font>
       </Text>
-      <Text fill="#090b3f" layoutX="72.0" layoutY="260.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-fill: #090b3f;" text="Weight Goals">
-         <font>
-            <Font size="40.0" />
-         </font>
-      </Text>
-      <Line endX="977.1968994140625" endY="205.0" layoutX="-77.0" layoutY="22.0" startX="977.1968994140625" startY="1043.0" stroke="#090b3f" strokeWidth="2.0" />
+      <Line endX="977.1968994140625" endY="239.0" layoutX="-77.0" layoutY="22.0" startX="977.1968994140625" startY="1043.0" stroke="#090b3f" strokeWidth="2.0" />
       <AnchorPane layoutX="46.0" layoutY="246.0" prefHeight="360.0" prefWidth="782.0">
          <children>
-            <TextField fx:id="userWeightGoalValue" focusTraversable="false" layoutX="14.0" layoutY="33.0" prefHeight="60.0" prefWidth="475.0" promptText="Enter you goal value to burn in KG">
+            <TextField fx:id="userWeightGoalValue" focusTraversable="false" layoutX="13.0" layoutY="66.0" prefHeight="60.0" prefWidth="475.0" promptText="Enter you goal value to burn in KG">
                <font>
                   <Font size="17.0" />
                </font></TextField>
-            <Button focusTraversable="false" layoutX="503.0" layoutY="33.0" mnemonicParsing="false" onAction="#addWeightGoal" prefHeight="60.0" prefWidth="265.0" text="Create Weight Goal">
+            <Button focusTraversable="false" layoutX="504.0" layoutY="66.0" mnemonicParsing="false" onAction="#addWeightGoal" prefHeight="60.0" prefWidth="265.0" text="Create Weight Goal">
                <font>
                   <Font size="20.0" />
                </font></Button>
-            <Label alignment="CENTER" layoutY="93.0" prefHeight="53.0" prefWidth="782.0" style="-fx-text-fill: #090b3f;" text="List of Goals " textFill="#090b3f">
+            <Label alignment="CENTER" layoutY="126.0" prefHeight="46.0" prefWidth="782.0" style="-fx-text-fill: #090b3f;" text="List of Goals " textFill="#090b3f">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label fx:id="weightGoalCounter" alignment="CENTER_RIGHT" layoutX="311.0" layoutY="-29.0" prefHeight="58.0" prefWidth="459.0" style="-fx-text-fill: #090b3f;">
+            <Label fx:id="weightGoalCounter" alignment="CENTER_RIGHT" layoutX="309.0" layoutY="-1.0" prefHeight="58.0" prefWidth="459.0" style="-fx-text-fill: #090b3f;">
                <font>
                   <Font size="11.0" />
                </font>
             </Label>
-            <VBox fx:id="weightVBoxContainer" layoutX="14.0" layoutY="167.0" prefHeight="205.0" prefWidth="756.0" />
+            <VBox fx:id="weightVBoxContainer" layoutX="13.0" layoutY="184.0" prefHeight="200.0" prefWidth="756.0" />
+            <Text fill="#090b3f" layoutX="14.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-fill: #090b3f;" text="Weight Goals">
+               <font>
+                  <Font size="40.0" />
+               </font>
+            </Text>
          </children>
       </AnchorPane>
       <AnchorPane layoutX="50.0" layoutY="675.0" prefHeight="391.0" prefWidth="782.0">
          <children>
-            <TextField fx:id="userRunGoalValue" focusTraversable="false" layoutX="14.0" layoutY="14.0" prefHeight="60.0" prefWidth="475.0" promptText="Enter you goal value to run in KM">
+            <TextField fx:id="userRunGoalValue" focusTraversable="false" layoutX="14.0" layoutY="21.0" prefHeight="60.0" prefWidth="475.0" promptText="Enter you goal value to run in KM">
                <font>
                   <Font size="17.0" />
                </font>
             </TextField>
-            <Button focusTraversable="false" layoutX="503.0" layoutY="14.0" mnemonicParsing="false" onAction="#addRunGoal" prefHeight="60.0" prefWidth="265.0" text="Create Running Goal">
+            <Button focusTraversable="false" layoutX="505.0" layoutY="21.0" mnemonicParsing="false" onAction="#addRunGoal" prefHeight="60.0" prefWidth="265.0" text="Create Running Goal">
                <font>
                   <Font size="20.0" />
                </font>
@@ -73,48 +73,48 @@
             </Label>
          </children>
       </AnchorPane>
-      <Line endX="98.65386199951172" endY="446.3081359863281" layoutX="-73.0" layoutY="166.0" startX="937.2699584960938" startY="446.3081359863281" stroke="#090b3f" strokeWidth="2.0" />
-      <Text fill="#090b3f" layoutX="1282.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-fill: #090b3f;" text="Goal progress" wrappingWidth="260.7178955078125">
+      <Line endX="98.65386199951172" endY="446.3081359863281" layoutX="-73.0" layoutY="187.0" startX="937.2699584960938" startY="446.3081359863281" stroke="#090b3f" strokeWidth="2.0" />
+      <Text fill="#090b3f" layoutX="1282.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-fill: #090b3f;" text="Goal progress" wrappingWidth="260.7178955078125">
          <font>
             <Font size="40.0" />
          </font>
       </Text>
-      <Button fx:id="buttonForWeekChart" focusTraversable="false" layoutX="960.0" layoutY="281.0" mnemonicParsing="false" onAction="#openWeekChart" prefHeight="57.0" prefWidth="173.0" text="Week Chart">
+      <Button fx:id="buttonForWeekChart" focusTraversable="false" layoutX="960.0" layoutY="311.0" mnemonicParsing="false" onAction="#openWeekChart" prefHeight="57.0" prefWidth="173.0" text="Week Chart">
          <font>
             <Font size="20.0" />
          </font>
       </Button>
-      <Button fx:id="buttonForMonthChart" focusTraversable="false" layoutX="1320.0" layoutY="279.0" mnemonicParsing="false" onAction="#openMonthChart" prefHeight="60.0" prefWidth="184.0" text="Month Chart">
+      <Button fx:id="buttonForMonthChart" focusTraversable="false" layoutX="1320.0" layoutY="309.0" mnemonicParsing="false" onAction="#openMonthChart" prefHeight="60.0" prefWidth="184.0" text="Month Chart">
          <font>
             <Font size="20.0" />
          </font>
       </Button>
-      <BorderPane fx:id="borderPane" layoutX="923.0" layoutY="387.0" maxHeight="935.0" maxWidth="1867.0" prefHeight="686.0" prefWidth="954.0" />
-      <Button fx:id="updateChart" focusTraversable="false" layoutX="1693.0" layoutY="279.0" mnemonicParsing="false" onAction="#updateChart" prefHeight="60.0" prefWidth="184.0" text="Update Chart">
+      <BorderPane fx:id="borderPane" layoutX="923.0" layoutY="396.0" maxHeight="935.0" maxWidth="1867.0" prefHeight="677.0" prefWidth="954.0" />
+      <Button fx:id="updateChart" focusTraversable="false" layoutX="1693.0" layoutY="310.0" mnemonicParsing="false" onAction="#updateChart" prefHeight="60.0" prefWidth="184.0" text="Update Chart">
          <font>
             <Font size="20.0" />
          </font>
       </Button>
-      <Label fx:id="runGoalCounter" alignment="CENTER_RIGHT" layoutX="474.0" layoutY="619.0" prefHeight="58.0" prefWidth="343.0" style="-fx-text-fill: #090b3f;">
+      <Label fx:id="runGoalCounter" alignment="CENTER_RIGHT" layoutX="477.0" layoutY="634.0" prefHeight="58.0" prefWidth="343.0" style="-fx-text-fill: #090b3f;">
          <font>
             <Font size="11.0" />
          </font>
       </Label>
-      <Pane layoutY="55.0" prefHeight="160.0" prefWidth="1920.0" style="-fx-background-color: rgb(100, 151, 177);">
+      <Pane layoutY="55.0" prefHeight="200.0" prefWidth="1920.0" style="-fx-background-color: rgb(100, 151, 177);">
          <children>
-            <Button fx:id="returnBackButton" focusTraversable="false" layoutX="33.0" layoutY="54.0" mnemonicParsing="false" onAction="#returnBackToMain" prefHeight="52.0" prefWidth="161.0" text="Return ">
+            <Button fx:id="returnBackButton" focusTraversable="false" layoutX="56.0" layoutY="74.0" mnemonicParsing="false" onAction="#returnBackToMain" prefHeight="52.0" prefWidth="161.0" text="Return ">
                <font>
                   <Font size="20.0" />
                </font>
             </Button>
-            <ImageView fitHeight="255.0" fitWidth="944.0" layoutX="427.0" layoutY="-58.0">
+            <ImageView fitHeight="292.0" fitWidth="1081.0" layoutX="358.0" layoutY="-46.0">
                <image>
                   <Image url="@images/fitVentureLogoNoBgr.png" />
                </image>
             </ImageView>
-            <Label layoutX="837.0" layoutY="106.0" style="-fx-text-fill: rgb(212, 245, 245); -fx-font-size: 40;" text="GOALS" />
+            <Label layoutX="837.0" layoutY="142.0" style="-fx-text-fill: rgb(212, 245, 245); -fx-font-size: 40;" text="GOALS" />
          </children>
       </Pane>
-      <Line endX="98.65386199951172" endY="446.3081359863281" layoutX="824.0" layoutY="-84.0" startX="1077.0" startY="446.3081359863281" stroke="#090b3f" strokeWidth="2.0" />
+      <Line endX="112.0" endY="446.3081359863281" layoutX="812.0" layoutY="-61.0" startX="1077.0" startY="446.3081359863281" stroke="#090b3f" strokeWidth="2.0" />
    </children>
 </AnchorPane>

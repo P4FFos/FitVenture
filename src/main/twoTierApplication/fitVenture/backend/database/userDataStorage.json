@@ -3,9 +3,9 @@
     "user1" : {
       "username" : "user1",
       "password" : "password1",
-      "weight" : "20",
-      "height" : "190",
-      "name" : "asd",
+      "weight" : "15",
+      "height" : "156",
+      "name" : "asdasdas",
       "raceStats" : null,
       "weightGoal" : {
         "2024-05-12 17" : {

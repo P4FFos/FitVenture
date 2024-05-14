@@ -19,7 +19,7 @@
         <Label layoutX="864.0" layoutY="418.0" prefHeight="45.0" prefWidth="100.0" style="-fx-text-fill: #090b3f; -fx-font-size: 30;" text="Height:" AnchorPane.rightAnchor="956.0" />
         <Label layoutX="859.0" layoutY="485.0" prefHeight="45.0" prefWidth="109.0" style="-fx-text-fill: #090b3f; -fx-font-size: 30;" text="Weight:" AnchorPane.rightAnchor="952.0" />
         <Label layoutX="899.0" layoutY="554.0" prefHeight="45.0" prefWidth="65.0" style="-fx-text-fill: #090b3f; -fx-font-size: 30;" text="BMI:" AnchorPane.leftAnchor="899.0" />
-        <Label fx:id="fullNameValue" layoutX="992.0" layoutY="353.0" prefHeight="45.0" prefWidth="200.0" style="-fx-text-fill: #090b3f; -fx-font-size: 30;" text="" />
+        <Label fx:id="fullNameValue" layoutX="992.0" layoutY="353.0" prefHeight="45.0" prefWidth="200.0" style="-fx-font-size: 30;" text="" />
         <Label fx:id="heightIndexValue" layoutX="992.0" layoutY="418.0" prefHeight="45.0" prefWidth="200.0" style="-fx-text-fill: #090b3f; -fx-font-size: 30;" AnchorPane.leftAnchor="992.0" />
         <Label fx:id="weightIndexValue" layoutX="994.0" layoutY="485.0" prefHeight="45.0" prefWidth="200.0" style="-fx-text-fill: #090b3f; -fx-font-size: 30;" AnchorPane.leftAnchor="994.0" />
         <Label fx:id="bodyIndexValue" layoutX="992.0" layoutY="554.0" prefHeight="45.0" prefWidth="200.0" style="-fx-text-fill: #090b3f; -fx-font-size: 30;" AnchorPane.leftAnchor="992.0" />
@@ -42,7 +42,6 @@
                </image>
             </ImageView>
             <Label layoutX="719.0" layoutY="170.0" style="-fx-font-size: 40; -fx-text-fill: rgb(212, 245, 245);" text="Welcome to the profile:" />
-              <Label fx:id="fullNameValue" layoutX="1134.0" layoutY="176.0" prefHeight="45.0" prefWidth="200.0" style="-fx-text-fill: rgb(100, 151, 177);" />
             <Label fx:id="welcomeUsername" layoutX="1134.0" layoutY="170.0" prefHeight="58.0" prefWidth="211.0" style="-fx-text-fill: rgb(212, 245, 245); -fx-font-size: 40;" />
          </children>
       </Pane>

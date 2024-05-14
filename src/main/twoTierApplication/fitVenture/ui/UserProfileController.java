@@ -62,6 +62,7 @@ public class UserProfileController {
         String userWeight = FitVentureStart.currentUser.getWeight();
         String userHeight = FitVentureStart.currentUser.getHeight();
         String userName = FitVentureStart.currentUser.getName();
+        fullNameValue.setVisible(true);
 
         // set user information from the database into labels
         welcomeUsername.setText(userUsername);
@@ -111,6 +112,7 @@ public class UserProfileController {
             weightIndexValue.setText(newWeight);
             heightIndexValue.setText(newHeight);
             fullNameValue.setText(newName);
+            fullNameValue.setVisible(true);
             try {
                 // parse new string values into double values to calculate new BMI
                 double height = Double.parseDouble(newHeight);

@@ -13,15 +13,17 @@
     -fx-background-color: rgb(169,169,223); /* lavender button background */
     -fx-text-fill: rgb(212, 245, 245); /* white text */
     -fx-font-size: 32;
+
 }
 .buttonForMainDashboard:hover {
-    -fx-background-color: rgb(145, 145, 245); /* lavender button background */
+    -fx-background-color: rgb(145, 145, 245);
+    -fx-border-color: rgb(212, 245, 245); /* lavender button background */
 }
 
 .button:hover {
     -fx-background-color: rgb(145, 145, 245); /* darker blue on hover */
     -fx-border-color: rgb(9, 11, 63);
-    -fx-border-radius: 10;
+    -fx-border-radius: 12;
 }
 
 .label {

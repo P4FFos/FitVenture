@@ -90,7 +90,7 @@
                   <Font size="24.0" />
                </font>
             </Button>
-            <Button fx:id="UserProfileButton1" layoutX="90.0" layoutY="948.0" mnemonicParsing="false" onAction="#openUserProfile" prefHeight="80.0" prefWidth="278.0" style="-fx-border-radius: 12; -fx-border-color: #d4f5f5;" styleClass="buttonForMainDashboard" text="User Profile">
+            <Button fx:id="UserProfileButton1" layoutX="86.0" layoutY="969.0" mnemonicParsing="false" onAction="#openUserProfile" prefHeight="80.0" prefWidth="278.0" style="-fx-border-radius: 12; -fx-border-color: #d4f5f5;" styleClass="buttonForMainDashboard" text="User Profile">
                <font>
                   <Font size="24.0" />
                </font>

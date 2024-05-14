@@ -48,7 +48,7 @@
                 <Font size="24.0" />
             </font>
         </Label>
-      <Pane layoutY="42.0" prefHeight="250.0" prefWidth="1920.0" style="-fx-background-color: rgb(100, 151, 177);;">
+      <Pane layoutY="40.0" prefHeight="250.0" prefWidth="1920.0" style="-fx-background-color: rgb(100, 151, 177);;">
          <children>
             <ImageView fitHeight="365.0" fitWidth="1360.0" layoutX="291.0" layoutY="-81.0">
                <image>
