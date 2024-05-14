@@ -1,4 +1,4 @@
-
+package fitVenture;
 
 import fitVenture.backend.utils.DateUtil;
 
@@ -12,8 +12,8 @@ public class DateUtilTest {
     @Test
     @DisplayName("Tests if Current_Date.getIntegerOfSpecificDate method handles different date inputs.")
     public void getIntegerOfSpecificDateTest() {
-        assertEquals(2004121515, DateUtil.getIntegerOfSpecificDate("2004-12-15 15"), "The method should convert the string date into an integer format.");
-        assertEquals(2004121212, DateUtil.getIntegerOfSpecificDate("2004-12-12 12"), "The method should convert the string date into an integer format.");
+        assertEquals(20041215, DateUtil.getIntegerOfSpecificDate("2004-12-15 15"), "The method should convert the string date into an integer format.");
+        assertEquals(20041212, DateUtil.getIntegerOfSpecificDate("2004-12-12 12"), "The method should convert the string date into an integer format.");
 
         //Expecting failure
         Throwable exceptionIntSpecDate = assertThrows(IllegalArgumentException.class, ()-> DateUtil.getIntegerOfSpecificDate("RandomInputtt"));
