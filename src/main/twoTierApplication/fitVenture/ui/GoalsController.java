@@ -552,7 +552,6 @@ public class GoalsController {
 
     // update the chart when user clicks on the Update Chart button
     public void updateChart() {
-
         viewRunGoalsInProgress(); // this method removes a key in the runningkeyList if added stats finishes the goal
         viewWeightGoalsInProgress(); // this method removes a key in the weightkeyList if the added stats finishes the goal
         weightGoalCheckForPopUp(); // check if a weight key is removed for a pop up
