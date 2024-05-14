@@ -30,6 +30,8 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.util.*;
 
+import static javafx.scene.paint.Color.rgb;
+
 public class GoalsController {
     private Parent root;
     private Stage stage;
@@ -119,7 +121,7 @@ public class GoalsController {
         weightGoalArrayList = new ArrayList<>();
         listOfWeightKeys = new ArrayList<>();
 
-        weightGoalHashMap.forEach((goalCreationDate, goalValue) -> { // for each Weight object do the fallowing
+        weightGoalHashMap.forEach((goalCreationDate, goalValue) -> { // for each Weight object do the following
             double goal = goalValue.getGoalInCalories();
             double progressToGoal = FitVentureStart.currentUser.getTotalBurnedCalories(goalCreationDate);
 
@@ -128,7 +130,7 @@ public class GoalsController {
                 ProgressBar weightProgressBar = new ProgressBar();
                 weightProgressBar.setPrefWidth(330);
                 weightProgressBar.setPrefHeight(50);
-                weightProgressBar.setStyle("-fx-accent: green;");
+                weightProgressBar.setStyle("-fx-accent: #a9a9df;");
 
                 //settings for the goalLabel
                 Label weightGoalInCaloriesLabel = new Label();
@@ -176,7 +178,7 @@ public class GoalsController {
                 ProgressBar runProgressBar = new ProgressBar();
                 runProgressBar.setPrefWidth(330);
                 runProgressBar.setPrefHeight(50);
-                runProgressBar.setStyle("-fx-accent: green;");
+                runProgressBar.setStyle("-fx-accent: #a9a9df;");
 
                 //settings for the runGoalLabel
                 Label runGoalInMetersLabel = new Label();
@@ -550,7 +552,6 @@ public class GoalsController {
 
     // update the chart when user clicks on the Update Chart button
     public void updateChart() {
-
         viewRunGoalsInProgress(); // this method removes a key in the runningkeyList if added stats finishes the goal
         viewWeightGoalsInProgress(); // this method removes a key in the weightkeyList if the added stats finishes the goal
         weightGoalCheckForPopUp(); // check if a weight key is removed for a pop up

@@ -62,9 +62,7 @@ public class User {
         return height;
     }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
 
     public AchievementsList getListOfAchievement() {
         return listOfAchievements;

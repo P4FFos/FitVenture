@@ -79,6 +79,9 @@ public class ChallengesController {
     //#endregion
 
     public void showChallenges() {
+        stepProgressBar.setStyle("-fx-accent: #a9a9df;");
+        distProgressBar.setStyle("-fx-accent: #a9a9df;");
+        kcalProgressBar.setStyle("-fx-accent: #a9a9df;");
 
         // get information of the logged user from the database
         String userUsername = FitVentureStart.currentUser.getUsername();

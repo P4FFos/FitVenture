@@ -54,6 +54,7 @@ public class UserProfileController {
     public TextField newUsernameField;
     //#endregion
 
+
     // method to show information of a logged user in the user profile
     public void showData() {
         // get information of the logged user from the database
@@ -61,6 +62,7 @@ public class UserProfileController {
         String userWeight = FitVentureStart.currentUser.getWeight();
         String userHeight = FitVentureStart.currentUser.getHeight();
         String userName = FitVentureStart.currentUser.getName();
+        fullNameValue.setVisible(true);
 
         // set user information from the database into labels
         welcomeUsername.setText(userUsername);
@@ -82,7 +84,7 @@ public class UserProfileController {
         } else {
             // shows an error if the user weight and height fields are empty
             errorLabel.setVisible(true);
-            errorLabel.setText("Failed. Input your personal data");
+            errorLabel.setText("Failed, Input your personal data");
         }
     }
 
@@ -97,11 +99,6 @@ public class UserProfileController {
         heightBox.setVisible(true);
         weightBox.setVisible(true);
         nameBox.setVisible(true);
-
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
     }
 
     public void changeData() {
@@ -115,6 +112,7 @@ public class UserProfileController {
             weightIndexValue.setText(newWeight);
             heightIndexValue.setText(newHeight);
             fullNameValue.setText(newName);
+            fullNameValue.setVisible(true);
             try {
                 // parse new string values into double values to calculate new BMI
                 double height = Double.parseDouble(newHeight);
@@ -137,7 +135,7 @@ public class UserProfileController {
             } catch (Exception e) {
                 // shows error label if user input wrong height and weight
                 errorLabel.setVisible(true);
-                errorLabel.setText("Failed. You entered wrong data type");
+                errorLabel.setText("Failed, You entered wrong data type");
                 heightIndexValue.setText(null);
                 weightIndexValue.setText(null);
                 bodyIndexValue.setText(null);
@@ -145,7 +143,7 @@ public class UserProfileController {
             }
         } else {
             // shows error label if user didn't input weight and height
-            errorLabel.setText("Failed. Input your personal data");
+            errorLabel.setText("Failed, Input your personal data");
             errorLabel.setVisible(true);
             heightIndexValue.setText(null);
             weightIndexValue.setText(null);
@@ -164,12 +162,7 @@ public class UserProfileController {
         heightBox.setVisible(false);
         weightBox.setVisible(false);
         nameBox.setVisible(false);
-
         changeData();
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
     }
 
     // method to change the password of the user
@@ -182,11 +175,14 @@ public class UserProfileController {
             // updates the password of the user
             FitVentureStart.currentUser.setPassword(newPassword);
             FileHandler.jsonSerializer(FitVentureStart.jsonPath, FitVentureStart.fitVenture);
-            labelForUsernameAndPassword.setText("Password successfully changed");
+            errorLabel.setVisible(true);
+            errorLabel.setText("Password successfully changed");
         } else if (newPassword.equals(currentPassword)) {
-            labelForUsernameAndPassword.setText("Failed. You entered the same password");
+            errorLabel.setVisible(true);
+            errorLabel.setText("Failed, You entered the same password");
         } else if (newPassword.isEmpty()) {
-            labelForUsernameAndPassword.setText("Failed. You did not enter a password");
+            errorLabel.setVisible(true);
+            errorLabel.setText("Failed, You did not enter a password");
         }
     }
 
@@ -199,7 +195,8 @@ public class UserProfileController {
         if (!newUsername.isEmpty() && !newUsername.equals(currentUsername)) {
             // check if the username already exists in the hashmap of users
             if (FitVentureStart.fitVenture.getUsers().containsKey(newUsername)) {
-                labelForUsernameAndPassword.setText("Failed. Username already exists");
+                errorLabel.setVisible(true);
+                errorLabel.setText("Failed, Username already exists");
             } else {
                 // updates the username of the user
                 FitVentureStart.currentUser.setUsername(newUsername);
@@ -208,12 +205,15 @@ public class UserProfileController {
                 FitVentureStart.fitVenture.getUsers().put(newUsername, FitVentureStart.currentUser);
                 FileHandler.jsonSerializer(FitVentureStart.jsonPath, FitVentureStart.fitVenture);
                 welcomeUsername.setText(newUsername);
-                labelForUsernameAndPassword.setText("Username successfully changed");
+                errorLabel.setVisible(true);
+                errorLabel.setText("Username successfully changed");
             }
         } else if (newUsername.equals(currentUsername)) {
-            labelForUsernameAndPassword.setText("Failed. You entered the same username");
+            errorLabel.setVisible(true);
+            errorLabel.setText("Failed, You entered the same username");
         } else if (newUsername.isEmpty()) {
-            labelForUsernameAndPassword.setText("Failed. You did not enter a username");
+            errorLabel.setVisible(true);
+            errorLabel.setText("Failed, You did not enter a username");
         }
     }
 

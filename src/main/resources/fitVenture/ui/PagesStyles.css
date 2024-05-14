@@ -1,0 +1,36 @@
+.root {
+    -fx-background-color: rgb(212, 245, 245); /* light blue background */
+    -fx-font-size: 20;
+}
+
+.button {
+    -fx-background-color: rgb(169,169,223); /* lavender button background */
+    -fx-text-fill: "white"; /* white text */
+    -fx-font-size: 25;
+}
+
+.buttonForMainDashboard {
+    -fx-background-color: rgb(169,169,223); /* lavender button background */
+    -fx-text-fill: rgb(212, 245, 245); /* white text */
+    -fx-font-size: 32;
+
+}
+.buttonForMainDashboard:hover {
+    -fx-background-color: rgb(145, 145, 245);
+    -fx-border-color: rgb(212, 245, 245); /* lavender button background */
+}
+
+.button:hover {
+    -fx-background-color: rgb(145, 145, 245); /* darker blue on hover */
+    -fx-border-color: rgb(9, 11, 63);
+    -fx-border-radius: 12;
+}
+
+.label {
+    -fx-text-color: #080464;
+    -fx-font-size: 20;
+}
+
+.pane {
+    -fx-background-color: rgb(100, 151, 177);
+}

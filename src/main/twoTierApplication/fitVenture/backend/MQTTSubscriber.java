@@ -44,7 +44,6 @@ public class MQTTSubscriber {
 
                 // Method to save message from the MQTT broker into the JSON file
                 public void messageArrived(String topic, MqttMessage message) throws Exception {
-                    System.out.println("Message is arrived");
                     ObjectMapper mapper = new ObjectMapper();
                     // check from which topic the message is arrived
                     if (topic.equals(mainTopic)) {
