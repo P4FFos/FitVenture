@@ -46,14 +46,16 @@ byte buttonState = HIGH;
 
 const unsigned long MQTT_RETRY_INTERVAL = 5000;
 const unsigned long WIFI_RETRY_INTERVAL = 5000;
-unsigned long WEATHER_SUGGESTIONS_INTERVAL = 10; // Three hours. the 10 seconds value is to just give the user a lillte
- //bit of time to look at the arduino. 3 hours are equivalent to 10800000 Millseconds. I did not assign the value here because
- //it would require the method to be called in the setup.
-  float temperature, humidity;
+unsigned long WEATHER_SUGGESTIONS_INTERVAL = 5000;
+ /* Three hours. the 5 seconds value is to just give the user a little bit of time
+to look at the arduino. 3 hours are equivalent to 10800000 Milliseconds. I did not
+assign the value here because it would require the method to be called in the setup.*/
+
+float temperature, humidity;
 
 // WiFi and MQTT broker configuration
-char ssid[] = "ASUS_68";
-const char* password = "Guricusub1007";
+char ssid[] = "";
+const char* password = "";
 const char* server = "broker.hivemq.com";
 const char* mainTopic = "fitVenture/sensor/accelerometer/data";
 const char* raceTopic = "fitVenture/sensor/accelerometer/raceData";
@@ -68,7 +70,7 @@ DHT dht(DHTPIN, DHTTYPE);
 
 void setup() {
 
-  tft.begin(); // Initialize the TFT display
+  tft.begin();
   tft.setRotation(3);
   Serial.begin(9600);
 
@@ -153,12 +155,6 @@ void loop() {
     Serial.println("Failed to read accelerometer data.");
   }
 
-  /*tft.fillScreen(TFT_BLACK); // Clear the screen
-  tft.setCursor(0, 150); // Set the cursor position
-  tft.setTextColor(TFT_GREEN); // Set text color
-  tft.setTextSize(2); // Set text size */
-
-
   getTemperatureAndHumidity(&temperature, &humidity);
   // after getting, we publish the temphumidity data to the app
   publishTempAndHumidity(temperature, humidity);
@@ -168,7 +164,6 @@ void loop() {
     if( millis()>=WEATHER_SUGGESTIONS_INTERVAL )
     {
        displayActivitySuggestion(temperature, humidity);
-       delay(500); // give the user time to see the message.
        WEATHER_SUGGESTIONS_INTERVAL+=10800000;
     }
 
@@ -250,9 +245,7 @@ void setUserWeightAndHeight() {
   //Assign the global variables to the value assigned to the meta-data
   userWeight = jsonDoc["userWeight"];
   userHeight = jsonDoc["userHeight"];
-  
-  Serial.println("User weight and height has been updated!");
-  
+
   // Calculate stride length based on user's height
   calculateStrideLength();
 }
@@ -314,10 +307,8 @@ void publishData() {
   // Publish step count, distance, and calorie data to MQTT topics
   char payload[100];
   snprintf(payload, sizeof(payload), "{\"distance\": %.2f, \"steps\": %d, \"calories\": %.2f}", distance, stepCount, caloriesBurned);
-  tft.printf("Distance: %.2f\nStep Count: %d\nCalories Burned: %.2f", distance, stepCount, caloriesBurned);
   delay(500);
   mqttClient.publish(mainTopic, payload);
-  Serial.println("Data published to MQTT topics.");
 }
 
 void publishRaceData() {
@@ -334,12 +325,9 @@ void publishRaceData() {
   char payload[200];
   snprintf(payload, sizeof(payload), "{\"startTime\": %lu, \"endTime\": %lu, \"distance\": %.2f, \"steps\": %d, \"calories\": %.2f}", raceStartTime, raceEndTime, distance, stepCount, caloriesBurned);
   mqttClient.publish(raceTopic, payload);
-  tft.printf("Race finished!");
-  Serial.println("Race data published to the MQTT topic.");
 }
 
 void getTemperatureAndHumidity(float* temperature, float* humidity) {
-
    float temp= dht.readTemperature();
    float humi= dht.readHumidity();
    if(!isnan(temp) && !isnan(humi))
@@ -354,32 +342,51 @@ void publishTempAndHumidity(float temperature, float humidity) {
   char payload[100];
   snprintf(payload, sizeof(payload), "{\"temperature\": %.2f, \"humidity\": %.2f}", temperature, humidity);
   mqttClient.publish("fitVenture/sensor/tempHumidity", payload);
-  Serial.println("Temperature and humidity data published.");
 }
 
 void displayTemperatureAndHumidity(float temperature, float humidity) {
-  tft.fillScreen(TFT_BLACK); // Clear the screen
-  tft.setCursor(0, 0); // Set the cursor position
-  tft.setTextColor(TFT_WHITE); // Set text color
-  tft.setTextSize(2); // Set text size
-  tft.printf("Temperature: %.2f C\nHumidity: %.2f%%", temperature, humidity);
-  delay(500); // give the user, time to see the message
+  tft.fillScreen(TFT_BLACK);
+  // Display Temperature and icon
+  tft.fillCircle(30, 30, 20, TFT_RED);
+  tft.fillCircle(30, 30, 15, TFT_BLACK);
+  tft.fillRect(25, 30, 10, 40, TFT_RED);
+  tft.fillRect(20, 65, 20, 10, TFT_RED);
+  tft.setCursor(70, 60);
+  tft.setFreeFont(&FreeMonoBold18pt7b);
+  tft.setTextColor(TFT_RED, TFT_BLACK);
+  tft.printf("%.2f C", temperature);
+
+  // Display humidity and icon
+  tft.fillTriangle(30, 140, 20, 180, 40, 180, TFT_CYAN);
+  tft.fillEllipse(30, 180, 20, 30, TFT_CYAN);
+  tft.setCursor(70, 190);
+  tft.setFreeFont(&FreeMonoBold18pt7b);
+  tft.setTextColor(TFT_CYAN, TFT_BLACK);
+  tft.printf("%.2f % %", humidity);
 }
 
 void displayActivitySuggestion(float temperature, float humidity) {
   String activity;
+  uint16_t suggestionColor = TFT_BLACK;
   // Check if it's hot and humid
   if (temperature >= 20 && humidity > 35) {
     activity = HOT_SUGGESTIONS[random(0, NUM_SUGGESTIONS)];
+    suggestionColor = TFT_RED;
     // Check if it's sunny and not too humid
   } else if (temperature < 20 && temperature >= 10 && humidity < 35) {
     activity = SUNNY_SUGGESTIONS[random(0, NUM_SUGGESTIONS)];
+    suggestionColor = TFT_YELLOW;
     //if none, it's cold
   } else {
     activity = COLD_SUGGESTIONS[random(0, NUM_SUGGESTIONS)];
+    suggestionColor = TFT_CYAN;
   }
-  tft.setCursor(0, 50);
-  tft.setTextColor(TFT_YELLOW);
-  tft.setTextSize(2);
-  tft.printf("Hey you! \nLet's go: %s", activity.c_str());
+  tft.fillScreen(TFT_BLACK);
+  tft.setCursor(0, 0);
+  tft.setFreeFont(&FreeMonoBold24pt7b);
+  tft.setTextColor(0xA9A9DF);
+  tft.printf("\nHey!\n\nLet's go:");
+  tft.setTextColor(suggestionColor);
+  tft.printf("\n%s", activity.c_str());
+  delay(5000);
 }
