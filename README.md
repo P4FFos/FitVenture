@@ -50,7 +50,7 @@ _PS: Every group member wrote his personal opinion about the main contribution_
 > Worked on the additional optional information in the registration page, the continuous integration pipelines for both the java application aswell as the arduino.  Worked on the achievements feature aswell. Fixed sourceDirectory issue aswell as created the content to .gitignore file aswell as creating a publish subcsribe connection from the application to the embedded system to send the user weight and height to the arduino.
 
 #### Abdullahi Mahamed:
-> 
+> Focused mostly on ensuring the sensor functionality by integrating the accelerometer, temperature and humidity sensors and successfully publishing their readings to our desktop application. Have established the MQTT connection between the Wio Terminal and the desktop app and also developed the UI on the Wio Terminal to display the temperature and humidity data and suggested activity in real-time.
 
 #### Jackson Niyomugabo:
 > Ardunino's connection notification to the user, Progress visualization of data (Creation of Bar chart for day, week and month). Setting of weight goals and saving of the goals to the json file. Goals completion notification for both weight goal and running goals 
