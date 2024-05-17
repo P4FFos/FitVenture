@@ -32,7 +32,7 @@ The Hardware part of the system, Arduino Wio terminal is connected to the comput
 
 ### Hardware architecture
 
-- [Arduino Wio Terminal](https://wiki.seeedstudio.com/Wio-Terminal-Getting-Started/) is equiped with [three components](https://git.chalmers.se/courses/dit113/2024/group-7/fitventure/-/wikis/Components) which are connected via the 4-pin cabels 
+- [Arduino Wio Terminal](https://wiki.seeedstudio.com/Wio-Terminal-Getting-Started/) is equipped with [three components](https://git.chalmers.se/courses/dit113/2024/group-7/fitventure/-/wikis/Components) which are connected via the 4-pin cabels 
 - Temperature & humidity values are visible on the [Arduino Wio Terminal](https://wiki.seeedstudio.com/Wio-Terminal-Getting-Started/) screen 
 - XYZ Coordinate Data from the [Accelerometer Sensor](https://wiki.seeedstudio.com/Grove-3-Axis_Digital_Accelerometer-1.5g/) is converted to the distance measured in meters, which is used to calculate steps and calories burned.
 - [Button component](https://wiki.seeedstudio.com/Grove-Button/) is used to start/finish an exercise session.
