@@ -22,6 +22,7 @@
 
 # How it works ?
 ![ ](https://git.chalmers.se/courses/dit113/2024/group-7/fitventure/-/raw/47-readme-update/src/main/resources/fitVenture/ui/images/SystemDiagram.png?ref_type=heads)
+The Hardware part of the system, Arduino Wio terminal is connected to the computer via the USB Type-c cable. Wio terminal and client side of the application share information between each other via the MQTT Broker topics, utilizing publish-subscribe pattern. Wio terminal is equiped with 3 sensors, and the desctop application has a Back-End and UI sides connected between each other through controllers.
 
 ### Software architecture
 - The user registers, and can optionally fill in personal information, which the system saves into the JSON file. 
@@ -31,7 +32,7 @@
 
 ### Hardware architecture
 
-- [Arduino Wio Terminal](https://wiki.seeedstudio.com/Wio-Terminal-Getting-Started/) is connected to [three components](https://git.chalmers.se/courses/dit113/2024/group-7/fitventure/-/wikis/Components) via the 4-pin cabels 
+- [Arduino Wio Terminal](https://wiki.seeedstudio.com/Wio-Terminal-Getting-Started/) is equiped with [three components](https://git.chalmers.se/courses/dit113/2024/group-7/fitventure/-/wikis/Components) which are connected via the 4-pin cabels 
 - Temperature & humidity values are visible on the [Arduino Wio Terminal](https://wiki.seeedstudio.com/Wio-Terminal-Getting-Started/) screen 
 - XYZ Coordinate Data from the [Accelerometer Sensor](https://wiki.seeedstudio.com/Grove-3-Axis_Digital_Accelerometer-1.5g/) is converted to the distance measured in meters, which is used to calculate steps and calories burned.
 - [Button component](https://wiki.seeedstudio.com/Grove-Button/) is used to start/finish an exercise session.
