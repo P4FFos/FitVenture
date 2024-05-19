@@ -23,7 +23,7 @@ FitVenture - https://youtu.be/ntruZjtUkDI
 - Functionality to change personal data  
 
 # How it works ?
-![ ](https://git.chalmers.se/courses/dit113/2024/group-7/fitventure/-/raw/47-readme-update/src/main/resources/fitVenture/ui/images/SystemDiagram.png?ref_type=heads)
+![ ](https://git.chalmers.se/courses/dit113/2024/group-7/fitventure/-/raw/main/src/main/resources/fitVenture/ui/images/SystemDiagram.png?ref_type=heads)
 The Hardware part of the system, Arduino Wio terminal is connected to the computer via the USB Type-c cable. Wio terminal and client side of the application share information between each other via the MQTT Broker topics, utilizing publish-subscribe pattern. Wio terminal is equipped with 3 sensors through 4 pin cables, and the desktop application has a Back-End and UI sides connected between each other through controllers.
 
 ### Software architecture
@@ -70,35 +70,35 @@ _PS: Every group member wrote their personal opinion about the main contribution
 # User manual 
 1. Once the user opens the application they go to the registration-login page. If they don't have an account and have not used our application they can go the the registration page **(Red Box 1)**. In case they already used our application they can go to the login page **(Red Box 2)**
 
-![ ](https://git.chalmers.se/courses/dit113/2024/group-7/fitventure/-/raw/47-readme-update/src/main/resources/fitVenture/ui/images/UserManualPages/LoginRegistrationPage.jpg?ref_type=heads)
+![ ](https://git.chalmers.se/courses/dit113/2024/group-7/fitventure/-/raw/main/src/main/resources/fitVenture/ui/images/UserManualPages/LoginRegistrationPage.jpg?ref_type=heads)
 
 2. Once the user opens the registration page they can register by filling in the username and password fields **(Red Box 1)**. If the user wants to add additional information they can press on the "additional information button" and fill in the fields **(Red Box 2)**
 
-![ ](https://git.chalmers.se/courses/dit113/2024/group-7/fitventure/-/raw/47-readme-update/src/main/resources/fitVenture/ui/images/UserManualPages/RegistrationPage.png?ref_type=heads)
+![ ](https://git.chalmers.se/courses/dit113/2024/group-7/fitventure/-/raw/main/src/main/resources/fitVenture/ui/images/UserManualPages/RegistrationPage.png?ref_type=heads)
 
 3. If the user went to the login page they can fill in their username and password in the fields, then press the login button, to get into the application.
 
-![](https://git.chalmers.se/courses/dit113/2024/group-7/fitventure/-/raw/47-readme-update/src/main/resources/fitVenture/ui/images/UserManualPages/LoginPage.png?ref_type=heads)
+![](https://git.chalmers.se/courses/dit113/2024/group-7/fitventure/-/raw/main/src/main/resources/fitVenture/ui/images/UserManualPages/LoginPage.png?ref_type=heads)
 
 4. Once the user logs in or registers to the application they go to the main dashboard, where they can see the chart showing Steps, Calories and Distance over a time interval. They can open achievements, goals, or challenges by pressing the button on the left page of the screen **(Red Box 1)**. They can also choose  from what time interval the chart should show **(Red Box 2)**. The user profile can be accessed by pressing the user profile button **(Red Box 3)**.
 
-![](https://git.chalmers.se/courses/dit113/2024/group-7/fitventure/-/raw/47-readme-update/src/main/resources/fitVenture/ui/images/UserManualPages/MainDashboardPage.png?ref_type=heads)
+![](https://git.chalmers.se/courses/dit113/2024/group-7/fitventure/-/raw/main/src/main/resources/fitVenture/ui/images/UserManualPages/MainDashboardPage.png?ref_type=heads)
 
 5. If the user goes to the user profile page they can change their password and username **(Red Box 2)**. The users weight, height and full name can be also be edited by pressing the "Edit data" button **(Red Box 1)**
 
-![](https://git.chalmers.se/courses/dit113/2024/group-7/fitventure/-/raw/47-readme-update/src/main/resources/fitVenture/ui/images/UserManualPages/UserProfilePage.png?ref_type=heads)
+![](https://git.chalmers.se/courses/dit113/2024/group-7/fitventure/-/raw/main/src/main/resources/fitVenture/ui/images/UserManualPages/UserProfilePage.png?ref_type=heads)
 
 6. If the user opened the goals page they can see their completed goals for the past week or month period **(Red Box 3)**. They are also able to create and see either weight goals **(Red Box 1)** or running goals **(Red Box 2)**
 
-![](https://git.chalmers.se/courses/dit113/2024/group-7/fitventure/-/raw/47-readme-update/src/main/resources/fitVenture/ui/images/UserManualPages/GoalsPage.png?ref_type=heads)
+![](https://git.chalmers.se/courses/dit113/2024/group-7/fitventure/-/raw/main/src/main/resources/fitVenture/ui/images/UserManualPages/GoalsPage.png?ref_type=heads)
 
 7. If the user goes to the daily challenges page they can see their steps, distance and calorie challenges for the day. **(img below)**
 
-![](https://git.chalmers.se/courses/dit113/2024/group-7/fitventure/-/raw/47-readme-update/src/main/resources/fitVenture/ui/images/UserManualPages/ChallendgesPage.png?ref_type=heads)
+![](https://git.chalmers.se/courses/dit113/2024/group-7/fitventure/-/raw/main/src/main/resources/fitVenture/ui/images/UserManualPages/ChallendgesPage.png?ref_type=heads)
 
 8. If the user goes to the achievements page, they can see how close they are to completion. Light purple colour shows that achievement is not done yet and that the user has more work to do. When the achievement turns dark purple, the user has completed an achievement. 
 
-![](https://git.chalmers.se/courses/dit113/2024/group-7/fitventure/-/raw/47-readme-update/src/main/resources/fitVenture/ui/images/UserManualPages/AchievementPage.png?ref_type=heads)
+![](https://git.chalmers.se/courses/dit113/2024/group-7/fitventure/-/raw/main/src/main/resources/fitVenture/ui/images/UserManualPages/AchievementPage.png?ref_type=heads)
 
 
 
